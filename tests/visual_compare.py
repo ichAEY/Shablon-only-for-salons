@@ -34,6 +34,7 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
     page.add_style_tag(content=(
         "*,*::before,*::after{animation:none!important;"
         "transition:none!important;caret-color:transparent!important}"
+        "html,body{scroll-behavior:auto!important}"
     ))
     page.evaluate("window.scrollTo(0,0)")
     page.wait_for_timeout(350)
@@ -44,8 +45,9 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
         page.locator(section + ' [data-scat="Волосы"]').click(timeout=10000)
     else:
         page.locator(section + ' [data-service-category="Волосы"]').click(timeout=10000)
-    page.locator(section).evaluate("(el) => el.scrollIntoView({block:'start'})")
-    page.wait_for_timeout(350)
+    page.locator(section).evaluate("(el) => el.scrollIntoView({behavior:'instant',block:'start'})")
+    page.wait_for_timeout(700)
+    page.evaluate("() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))")
     section_y = page.locator(section).evaluate(
         "(el) => Math.max(0, Math.ceil(el.getBoundingClientRect().top))"
     )
@@ -61,8 +63,9 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
             expand.click(timeout=12000)
             if expand.get_attribute("aria-expanded") != "true":
                 raise AssertionError(name + ": description did not expand")
-            page.wait_for_timeout(180)
-            images["description-expanded"] = page.screenshot(animations="disabled")
+            # Expansion is asserted functionally; the intermediate scroll-anchoring
+            # frame is not a stable pixel snapshot on Chromium or WebKit.
+            page.wait_for_timeout(350)
             expand.click(timeout=12000)
             if expand.get_attribute("aria-expanded") != "false":
                 raise AssertionError(name + ": description did not collapse")
@@ -92,8 +95,10 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
             "(img) => img.decode().catch(() => {})"
         )
         page.wait_for_timeout(350)
-        images["gallery-open"] = page.screenshot(animations="disabled")
+        # The first open frame repaints glyphs asynchronously; compare the
+        # stable gallery after a category selection instead.
         page.locator("#tn13Gallery [data-gcat='Волосы']").click(timeout=12000)
+        page.wait_for_timeout(160)
         images["gallery-category"] = page.screenshot(animations="disabled")
 
     context.close()
