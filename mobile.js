@@ -491,6 +491,7 @@ const MESSENGER_URL='#tn13Visit';
 const SERVICES=[
   {"cat":"Волосы","title":"Окрашивание волос средней длины","price":"10 000 драм","desc":"2 ч"},
   {"cat":"Волосы","title":"Сложное мелирование","price":"15 000 ₽","desc":"4 ч","details":"Привет, это описание. Оно очень необходимо для того, чтобы вы понимали, что это такое. Но это мелирование, поэтому действуйте именно вот так."},
+  {"cat":"Волосы","title":"Сложная покраска волос с заливкой","price":"","desc":"","details":"если ваши волосы когда-то испортились или вы обожгли их утюгом, есть специальное средство для того, чтобы выйти из этого состояния и вновь обрести хорошие, свежие, красивые волосы. Чтобы всё было хорошо, запишитесь к нам на услугу, и мы примем вас, как только вы возьмёте."},
   {
     "cat": "Маникюр",
     "title": "Услуга 01",
@@ -914,8 +915,9 @@ function serviceLine(s){
  const detail=[t.detail,s.desc].filter(x=>x&&!isDuration(x)).join(' · ');
  const content=`<span class="tn31-service-copy"><strong class="tn31-service-name">${t.main}</strong>${detail?`<span class="tn31-service-detail">${detail}</span>`:''}</span><span class="tn31-service-side">${duration?`<small class="tn31-service-time" data-duration="${duration}">${mobileDurationLabel(duration)}</small>`:''}<span class="tn31-service-price">${s.price||'—'}</span></span>`;
  if(!s.details)return `<button class="tn31-service-row" type="button" data-book-service>${content}</button>`;
- // Only the melioration demo includes a separately expandable description.
- return `<div class="tn31-service-row tn31-service-demo"><button class="tn31-service-primary" type="button" data-book-service>${content}</button><div class="tn31-service-demo-desc"><p id="tnDemoMeliorationDesc">${s.details}</p><button class="tn31-service-demo-more" type="button" data-service-details aria-expanded="false" aria-controls="tnDemoMeliorationDesc">Подробнее…</button></div></div>`;
+ // Description expands in place; each example uses a unique accessibility target.
+ const detailId=s.title==='Сложное мелирование'?'tnDemoMeliorationDesc':'tnDemoRepairDesc';
+ return `<div class="tn31-service-row tn31-service-demo"><button class="tn31-service-primary" type="button" data-book-service>${content}</button><div class="tn31-service-demo-desc"><p id="${detailId}">${s.details}</p><button class="tn31-service-demo-more" type="button" data-service-details aria-expanded="false" aria-controls="${detailId}">Подробнее…</button></div></div>`;
 }
 function serviceWord(n){const n10=n%10,n100=n%100;if(n10===1&&n100!==11)return 'услугу';if(n10>=2&&n10<=4&&(n100<12||n100>14))return 'услуги';return 'услуг'}
 /* Category selection must not auto-scroll the viewport or horizontal rail. */
