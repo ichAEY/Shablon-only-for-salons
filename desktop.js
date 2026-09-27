@@ -4,8 +4,6 @@
   const desktopDevice=window.__BR_DESKTOP_DEVICE__===true || (!('__BR_DESKTOP_DEVICE__' in window) && !!window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches);
   if(!desktopDevice) return;
 
-  const PHONE='';
-  const ADDRESS='Город, Адрес салона';
   const MAP_URL='#salonDesktopContacts';
   const ROUTE=MAP_URL;
   const MESSENGER_URL='#salonDesktopContacts';
@@ -18,7 +16,6 @@
     'Волосы':Array.from({length:7},()=>({src:'media-placeholder.svg',alt:'Работа салона'})),
     'Макияж':Array.from({length:3},()=>({src:'media-placeholder.svg',alt:'Работа салона'}))
   };
-  const DESKTOP_GALLERY=Object.values(DESKTOP_GALLERY_GROUPS).flat().map(x=>x.src);
   const SERVICE_DATA={
   "Маникюр": [
     [
