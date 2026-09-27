@@ -1445,8 +1445,6 @@ font-size:19px!important;
 --br-soft:#746c66;
 --br-line:rgba(62,51,44,.12);
 --br-taupe:#8f7167;
-background:var(--br-bg)!important;
-color:var(--br-ink)!important;
 }
 .std-meta{grid-template-columns:1fr 1px 1.18fr!important;margin-top:2px!important;margin-bottom:34px!important}
 .std-hero-copy:before{
@@ -2656,7 +2654,6 @@ overflow:visible!important;
 position:relative!important;
 z-index:4!important;
 margin:clamp(72px,10.5vh,120px) 0 0!important;
-transform:none!important;
 }
 .std-hero-kicker{
 margin:0 0 28px!important;
@@ -2813,9 +2810,6 @@ left:-355px!important;
 top:88px!important;
 border-color:rgba(146,106,85,.12)!important;
 box-shadow:0 0 80px rgba(108,77,61,.035)!important;
-}
-.std-copy-inner{
-text-align:center!important;
 }
 .std-hero-kicker,
 .std-logo,
@@ -4986,9 +4980,6 @@ padding-top:58px!important;background:#242424!important;
 }
 #salonDesktopServices .dct-service-sticky-card{
 padding:34px 28px 34px!important;
-background:radial-gradient(330px 230px at 100% 0%,rgba(255,255,255,.78),transparent 72%),linear-gradient(145deg,#f7f2eb 0%,#eaded4 100%)!important;
-border-color:rgba(66,55,49,.14)!important;
-box-shadow:0 28px 70px rgba(9,7,6,.25),0 0 46px rgba(190,145,121,.11)!important;
 }
 #salonDesktopServices .dct-service-sticky-card>strong{margin:0!important}
 #salonDesktopServices .dct-service-sticky-lead{
@@ -5012,8 +5003,7 @@ white-space:normal!important;overflow:visible!important;text-overflow:clip!impor
 color:#342e2a!important;
 }
 #salonDesktopServices .dct-service-sticky-book{width:100%!important;height:64px!important;
-margin-top:20px!important;border:0!important;border-radius:8px!important;
-background:#715b53!important;background-image:none!important;color:#fff!important;
+margin-top:20px!important;border:0!important;border-radius:8px!important;background-image:none!important;
 box-shadow:0 13px 30px rgba(74,53,45,.22)!important;animation:none!important;
 transition:transform .16s ease,background .16s ease,box-shadow .16s ease!important;
 }
@@ -5306,7 +5296,7 @@ inset 0 1px 0 rgba(255,255,255,.72)!important;
 height:385px!important;min-height:385px!important;overflow:hidden!important;
 }
 #salonDesktopAbout .mct-about-portrait img{
-width:100%!important;height:100%!important;
+width:100%!important;
 object-fit:cover!important;object-position:center 44%!important;
 transform:none!important;
 }
@@ -5454,7 +5444,6 @@ transform:skewX(-20deg)!important;animation:brStickyBookGlint 3.8s cubic-bezier(
 #salonDesktopAbout .dct-about-amenities-grid article{
 min-height:102px!important;padding:15px!important;
 background:#f3f4f5!important;
-border-color:rgba(86,64,53,.10)!important;
 box-shadow:0 10px 24px rgba(70,50,41,.075),inset 0 1px 0 rgba(255,255,255,.42)!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid strong{font-size:16.5px!important}
@@ -5592,15 +5581,15 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
 #salon-desktop-v1 .std-status-main.open{color:#2f7d46!important}#salon-desktop-v1 .std-status-main.closed{color:#c54b55!important}
 #salonDesktopPortfolio{background:#fafaf9!important;color:#181818!important}
 #salon-desktop-v1 .std-gallery-browser,#salon-desktop-v1 .std-gallery-browser-shell{background:#f2f2f0!important;color:#181818!important}
-#salon-desktop-v1 .std-gallery-browser-tab.active{background:#181818!important;border-color:#181818!important;color:#fff!important}
+#salon-desktop-v1 .std-gallery-browser-tab.active{background:#181818!important;border-color:#181818!important}
 #salonDesktopReviews{background:#f2f2f0!important;color:#181818!important}
 #salonDesktopReviews .std-review-card{background:#fafafa!important;border-color:rgba(24,24,24,.12)!important}
-#salonDesktopReviews .std-review-avatar{background:#dededc!important;color:#404040!important}
+#salonDesktopReviews .std-review-avatar{background:#dededc!important}
 #salonDesktopReviews .std-reviews-stars,#salonDesktopReviews .std-review-stars{color:#E4AD35!important;-webkit-text-stroke:.2px #D99D1E!important}
 #salonDesktopServices.mct-prices,#salonDesktopContacts.std-contact{background:#242424!important;color:#f7f7f6!important}
 #salonDesktopServices .mct-tab.is-active{background:#EDE1D6!important;border-color:#CDB8A5!important;color:#49362D!important}
-#salonDesktopServices .dct-service-sticky-card{background:#EEE4DA!important;border-color:#D6C3B2!important;color:#49362D!important}
-#salonDesktopServices .dct-service-sticky-work{border-color:rgba(113,91,83,.38)!important;background:#efe7e1!important;color:#2f2926!important}
+#salonDesktopServices .dct-service-sticky-card{background:#EEE4DA!important;border-color:#D6C3B2!important}
+#salonDesktopServices .dct-service-sticky-work{border-color:rgba(113,91,83,.38)!important;background:#efe7e1!important}
 #salonDesktopContacts .std-contact-card{background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.13)!important}
 #salonDesktopContacts .std-contact-status.open{background:#203b2a!important;border-color:#315b40!important;color:#8fd0a1!important}
 #salonDesktopContacts .std-contact-status.closed{background:#46292e!important;border-color:#63383f!important;color:#ef9ea7!important}
@@ -5632,7 +5621,7 @@ body[data-br-lang="en"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!importa
 #salonDesktopTeam.br-team-panel,#salonDesktopTeam.std-team{background:#242424!important}
 #salonDesktopTeam .std-team-inner{background:transparent!important}
 #salonDesktopTop .std-btn-primary:active{transform:translateY(1px) scale(.992)!important;background:#654f48!important}
-#salonDesktopTop .std-btn:not(.std-btn-primary):active,#salonDesktopPortfolio .std-portfolio-more:active{transform:translateY(2px) scale(.988)!important;background:#715b53!important;color:#fff!important;border-color:#715b53!important}
+#salonDesktopTop .std-btn:not(.std-btn-primary):active,#salonDesktopPortfolio .std-portfolio-more:active{transform:translateY(2px) scale(.988)!important;background:#715b53!important;border-color:#715b53!important}
 #salonDesktopAbout .mct-about-card{background:#eee7df!important;border-color:rgba(66,55,49,.14)!important}
 #salonDesktopAbout .br-about-column{background:#eee7df!important}
 #salonDesktopAbout .dct-about-amenities-grid article{background:linear-gradient(145deg,#e4d6cb 0%,#eadfd6 100%)!important;border-color:rgba(86,64,53,.10)!important}

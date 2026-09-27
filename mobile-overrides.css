@@ -45,7 +45,6 @@ body[data-br-lang="en"] #salon-mobile .tn22-navpop a{min-height:44px!important;h
 #salon-mobile #tn13Reviews .br-review-card p{color:#393939!important}
 #salon-mobile #tn13Reviews .br-review-avatar{background:#d7cec6!important;color:#514943!important;border-color:rgba(66,55,49,.10)!important}
 #salon-mobile #tn13Reviews .br-review-date{display:block;margin-top:4px;color:#737373;font:500 10px/1.2 Manrope,Arial,sans-serif}
-#salon-mobile #tn13Services .tn31-service-row{padding:10px 19px!important}
 #salon-mobile #tn13Services .tn31-service-row:active{transform:translateY(1px)}
 #salon-mobile #tn13Services .tn31-service-name{font:500 16.5px/1.15 'Cormorant Garamond',Georgia,serif!important}
 #salon-mobile #tn13Services .tn31-service-detail{color:#bdbdbd!important;font:400 9px/1.3 Manrope,Arial,sans-serif!important}
@@ -73,7 +72,7 @@ body[data-br-lang="en"] #salon-mobile .tn22-navpop a{min-height:44px!important;h
 #salon-mobile #tn13Gallery .tn22-gallery-title strong{color:#f7f3f0!important}
 #salon-mobile #tn13Gallery .tn22-gallery-title span{color:#b9ada7!important}
 #salon-mobile #tn13Gallery .tn22-gallery-tabs-wrap{position:sticky!important;top:0!important;z-index:45!important;margin:26px -18px 0!important;padding:8px 18px!important;background:rgba(47,41,38,.97)!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important;box-shadow:0 9px 24px rgba(0,0,0,.12)!important}
-#salon-mobile #tn13Gallery .tn22-gallery-tabs{display:flex!important;gap:0!important;margin:0!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:14px!important;overflow-x:auto!important}
+#salon-mobile #tn13Gallery .tn22-gallery-tabs{display:flex!important;margin:0!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:14px!important;overflow-x:auto!important}
 #salon-mobile #tn13Gallery .tn22-gallery-tab{height:43px!important;padding:0 18px!important;border:0!important;background:transparent!important;color:#cbc1bc!important;font:500 11px/1 Manrope,Arial,sans-serif!important;box-shadow:none!important}
 #salon-mobile #tn13Gallery .tn22-gallery-tile{background:#3a322e!important;border-radius:11px!important}
 #salon-mobile #tn13Gallery .tn22-gallery-grid{grid-template-columns:1fr 1fr!important;gap:7px!important;margin-top:18px!important}
@@ -94,7 +93,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
 #salon-mobile #tn13Portfolio{position:relative!important;margin-top:-1px!important;border-top:0!important;box-shadow:none!important;background:#f7f2eb!important;overflow:visible!important;isolation:isolate!important}
 #salon-mobile #tn13Portfolio:before{content:''!important;position:absolute!important;z-index:0!important;left:-10px!important;right:-10px!important;top:-42px!important;height:122px!important;pointer-events:none!important;background:linear-gradient(180deg,rgba(250,248,244,.98) 0%,rgba(250,248,244,.90) 26%,rgba(250,248,244,.64) 52%,rgba(250,248,244,.30) 74%,rgba(250,248,244,0) 100%)!important;filter:blur(7px)!important;transform:translateZ(0)!important}
 #salon-mobile #tn13Portfolio .tn22-port{position:relative!important;z-index:1!important}
-#salon-mobile #tn13Sticky button{height:46px!important;min-width:142px!important;padding:0 24px!important;background:#171513!important;color:#fff!important;font-size:12px!important}
+#salon-mobile #tn13Sticky button{height:46px!important;padding:0 24px!important;background:#171513!important;color:#fff!important;font-size:12px!important}
 #salon-mobile #tn13Sticky button:active{transform:translateY(1px) scale(.992)!important;background:#332b27!important}
 #salon-mobile #tn13Top .tn22-cta{background:#715b53!important;border-color:#715b53!important;color:#fff!important}
 #salon-mobile #tn13Top .tn22-cta:active{transform:translateY(1px) scale(.992)!important;background:#654f48!important}
@@ -110,7 +109,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
 @media(hover:hover){#salon-mobile #tn13Top .tn22-worklink:hover{background:#715b53!important;color:#fff!important;border-color:#715b53!important}}
 #salon-mobile #tn13Services .tn31-services{padding:32px 25px 40px!important}
 #salon-mobile #tn13Services .tn31-service-list{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:9px!important;width:calc(100% + 30px)!important;margin:18px -15px 0!important;border:0!important;padding:0!important;box-sizing:border-box!important}
-#salon-mobile #tn13Services .tn31-service-row{grid-template-columns:minmax(0,1fr) auto!important;min-height:60px!important;gap:11px!important;padding:12px 16px!important;border:1px solid rgba(255,255,255,.11)!important;border-radius:11px!important;background:rgba(255,255,255,.055)!important;color:#f7f7f6!important;text-align:left!important;box-shadow:none!important;transition:background .18s ease,transform .18s ease!important}
+#salon-mobile #tn13Services .tn31-service-row{grid-template-columns:minmax(0,1fr) auto!important;gap:11px!important;border:1px solid rgba(255,255,255,.11)!important;border-radius:11px!important;background:rgba(255,255,255,.055)!important;color:#f7f7f6!important;text-align:left!important;box-shadow:none!important;transition:background .18s ease,transform .18s ease!important}
 #salon-mobile #tn13Services .tn31-service-row:active{background:rgba(255,255,255,.12)!important;transform:translateY(1px)!important}
 #salon-mobile #tn13Services .tn31-service-side{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:7px!important;min-width:0!important;max-width:170px!important;margin:0!important;padding:0!important;text-align:right!important;flex-wrap:wrap!important}
 #salon-mobile #tn13Services .tn31-service-time{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:24px!important;padding:2px 7px!important;border:1px solid rgba(255,255,255,.13)!important;border-radius:999px!important;background:rgba(255,255,255,.10)!important;color:#dedede!important;font:600 9.5px/1 Manrope,Arial,sans-serif!important;white-space:nowrap!important}
@@ -141,7 +140,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
 #salon-mobile #tn13Visit .tn22-contact-icon svg{stroke:#d5c3b4!important;color:#d5c3b4!important}
 #salon-mobile #tn13Visit .tn22-route{background:#f7f2eb!important;color:#2f2926!important}
 #salon-mobile #tn13Sticky{grid-template-columns:minmax(0,1fr) minmax(154px,44%)!important}
-#salon-mobile #tn13Sticky button{width:100%!important;min-width:154px!important;max-width:none!important;padding-inline:20px!important}
+#salon-mobile #tn13Sticky button{padding-inline:20px!important}
 @media(max-width:360px){#salon-mobile #tn13Sticky{grid-template-columns:minmax(0,1fr) minmax(142px,43%)!important}#salon-mobile #tn13Sticky button{min-width:142px!important;padding-inline:12px!important}}
 
 
@@ -151,7 +150,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
 @media(max-width:1023px){
  #salon-mobile #tn13Sticky{box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(0,1fr) max-content!important;align-items:center!important;gap:8px!important;padding:7px 7px 7px 12px!important;overflow:hidden!important}
  #salon-mobile #tn13Sticky>span{min-width:0!important;overflow-wrap:anywhere!important}
- #salon-mobile #tn13Sticky button{min-width:0!important;max-width:100%!important;padding-inline:clamp(11px,3.5vw,18px)!important;white-space:nowrap!important}
+ #salon-mobile #tn13Sticky button{padding-inline:clamp(11px,3.5vw,18px)!important;white-space:nowrap!important}
  body[data-br-lang="hy"] #salon-mobile :is(h1,h2,h3,p,a,button,span,strong,small){font-weight:400!important}
  body[data-br-lang="hy"] #salon-mobile #tn13Services .tn31-service-name{font-weight:400!important}
  body[data-br-lang="hy"] #salon-mobile #tn13Sticky strong{font-size:clamp(10px,2.5vw,12px)!important;line-height:1.25!important;letter-spacing:-.03em!important;white-space:normal!important}

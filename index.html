@@ -24,7 +24,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
 #brLoadError a{display:inline-block;margin-top:22px;color:#181818}
 @media(prefers-reduced-motion:reduce){#brBootIntro{transition:none!important}}
 </style>
-<link rel="stylesheet" href="desktop.css?v=deep-clean-20260928-v1" media="(hover:hover) and (pointer:fine)">
+<link rel="stylesheet" href="desktop.css?v=deep-clean-20260928-v3" media="(hover:hover) and (pointer:fine)">
 <script>
 (()=>{
  const desktop=!!(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches);
@@ -33,12 +33,12 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
  if(!desktop){
   const css=document.createElement('link');
   css.rel='stylesheet';
-  css.href='mobile.css?v=deep-clean-20260928-v2';
+  css.href='mobile.css?v=deep-clean-20260928-v3';
   document.head.appendChild(css);
   const preload=document.createElement('link');
   preload.rel='preload';
   preload.as='style';
-  preload.href='mobile-overrides.css?v=deep-clean-20260928-v2';
+  preload.href='mobile-overrides.css?v=deep-clean-20260928-v3';
   document.head.appendChild(preload);
  }
 })()
@@ -85,7 +85,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
    }else ready();
  }
  const script=document.createElement('script');
- script.src=desktop?'desktop.js?v=deep-clean-20260928-v2':'mobile.js?v=deep-clean-20260928-v2';
+ script.src=desktop?'desktop.js?v=deep-clean-20260928-v3':'mobile.js?v=deep-clean-20260928-v3';
  script.async=false;script.onload=loaded;
  script.onerror=()=>{if(closed)error.classList.add('is-visible')};
  document.body.appendChild(script);

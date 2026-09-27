@@ -1735,7 +1735,7 @@ services.insertAdjacentElement('afterend',about);
 
 /* salon-template-cold-neutral-20260924 */
 (function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const style=document.createElement('style');style.id='salon-template-cold-neutral-20260924';style.textContent='';document.head.appendChild(style);
-const lateCss=document.createElement('link');lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=deep-clean-20260928-v2';document.head.appendChild(lateCss);})();
+const lateCss=document.createElement('link');lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=deep-clean-20260928-v3';document.head.appendChild(lateCss);})();
 
 /* Mobile finish: preserve approved rails and restore the approved gallery/hero details. */
 (function(){
