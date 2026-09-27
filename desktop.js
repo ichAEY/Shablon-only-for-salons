@@ -7736,6 +7736,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
       activeServiceCategory=btn.dataset.serviceCategory;
       desktopServicesExpanded=false;
       desktopMoreWrap=null;
+      unlockServiceScrollAnchor();
       renderDesktopServices();
       if(rail)rail.scrollLeft=previousScroll;
     });
@@ -7820,6 +7821,17 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
 
   /* Append extra cards below the existing eight; never re-render the visible cards or force page scroll. */
   let desktopMoreWrap=null;
+  let desktopSavedScrollAnchor=null;
+  function lockServiceScrollAnchor(){
+    if(desktopSavedScrollAnchor!==null)return;
+    desktopSavedScrollAnchor=document.documentElement.style.overflowAnchor||'';
+    document.documentElement.style.overflowAnchor='none';
+  }
+  function unlockServiceScrollAnchor(){
+    if(desktopSavedScrollAnchor===null)return;
+    document.documentElement.style.overflowAnchor=desktopSavedScrollAnchor;
+    desktopSavedScrollAnchor=null;
+  }
   function makeDesktopExtraServices(){
     const groups=activeServiceCategory==='Все'
       ? SERVICE_CATEGORIES.map(cat=>({id:cat,label:cat,services:SERVICE_DATA[cat]||[]}))
@@ -7855,6 +7867,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
     translateDesktopTree(serviceMore,currentDesktopLang);
   }
   serviceMore.onclick=()=>{
+    lockServiceScrollAnchor();
     const duration=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:400;
     desktopServicesExpanded=!desktopServicesExpanded;
     paintDesktopMoreButton();
@@ -7878,6 +7891,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
       const expandedHeight=wrap.scrollHeight;
       if(!duration){
         wrap.style.height='auto';
+        unlockServiceScrollAnchor();
       }else{
         wrap.style.height=wrap.getBoundingClientRect().height+'px';
         wrap.offsetHeight;
@@ -7888,6 +7902,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
           if(e.target===wrap&&e.propertyName==='height'&&desktopServicesExpanded){
             wrap.style.height='auto';
             wrap.ontransitionend=null;
+            unlockServiceScrollAnchor();
           }
         };
       }
@@ -7899,6 +7914,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
       if(!duration){
         wrap.remove();
         desktopMoreWrap=null;
+        unlockServiceScrollAnchor();
       }else{
         wrap.style.height=wrap.getBoundingClientRect().height+'px';
         wrap.offsetHeight;
@@ -7909,6 +7925,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
           if(e.target===wrap&&e.propertyName==='height'&&!desktopServicesExpanded){
             wrap.remove();
             desktopMoreWrap=null;
+            unlockServiceScrollAnchor();
           }
         };
       }
