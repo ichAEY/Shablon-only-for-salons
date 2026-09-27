@@ -8182,6 +8182,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
     ['Комфортная атмосфера','Հարմարավետ մթնոլորտ','Comfortable atmosphere'],['Индивидуальный подход','Անհատական մոտեցում','Personal approach'],
     ['Наша команда','Մեր թիմը','Our Team'],['Наша команда','Մեր թիմը','Our Team'],
     ['Нажмите на мастера, чтобы открыть отдельную страницу специалиста.','Ընտրեք մասնագետին՝ նրա էջը բացելու համար։','Select a specialist to open their profile.'],
+    ['Нажмите на мастера, чтобы открыть страницу специалиста.','Ընտրեք մասնագետին՝ նրա էջը բացելու համար։','Choose a specialist to open their profile.'],
     ['Nail-мастер','Մատնահարդարման վարպետ','Nail specialist'],['Парикмахер','Վարսահարդար','Hair stylist'],['Косметолог','Կոսմետոլոգ','Cosmetologist'],
     ['Brow & Lash-мастер','Հոնքերի և թարթիչների վարպետ','Brow & lash specialist'],
     ['Маникюр · педикюр','Մատնահարդարում · ոտնահարդարում','Manicure · pedicure'],['Волосы · укладки','Մազեր · հարդարում','Hair · styling'],
@@ -8285,6 +8286,11 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
     });
   }
   function applyDesktopLanguage(){
+    // Recreate canonical Russian nodes after the Armenian team-role exception.
+    root.querySelectorAll('#salonDesktopTeam [data-team-ru-source]').forEach(el=>{
+      el.textContent=el.dataset.teamRuSource;
+      delete el.dataset.teamRuSource;
+    });
     translateDesktopTree(root,currentDesktopLang);
     root.querySelectorAll('[data-demo-title]').forEach(btn=>btn.setAttribute('aria-label',desktopTrText('Записаться',currentDesktopLang)+': '+desktopTrText(btn.dataset.demoTitle,currentDesktopLang)));
     updateDesktopLangSwitcher();
@@ -8294,11 +8300,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
     window.dispatchEvent(new CustomEvent('salon-template:languagechange',{detail:{lang:currentDesktopLang}}));
 
     if(currentDesktopLang==='hy'){
-      const team=root.querySelector('#salonDesktopTeam');
-      const teamKicker=team?.querySelector('.std-team-kicker');
-      const teamSubtitle=team?.querySelector('.std-team-subtitle');
-      if(teamKicker)teamKicker.textContent='Մեր թիմը';
-      if(teamSubtitle)teamSubtitle.textContent='Choose a specialist to open their profile.';
+      // Headings and explanatory text use their ordinary HY translation; only specialties remain in English.
       const teamEnglish={
         nails:{name:'Nail Master',role:'Manicure · Pedicure',cat:'Nails'},
         hair:{name:'Hairdresser',role:'Hair · Styling',cat:'Hair'},
@@ -8309,9 +8311,11 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
         const data=teamEnglish[card.dataset.desktopMaster];
         if(!data)return;
         const name=card.querySelector('.std-master-name'),role=card.querySelector('.std-master-role'),cat=card.querySelector('.std-master-cat');
-        if(name)name.textContent=data.name;
-        if(role)role.textContent=data.role;
-        if(cat)cat.textContent=data.cat;
+        [[name,data.name],[role,data.role],[cat,data.cat]].forEach(([el,translated])=>{
+          if(!el)return;
+          el.dataset.teamRuSource=el.firstChild?.__desktopI18nCanonical||el.textContent;
+          el.textContent=translated;
+        });
       });
     }
 
