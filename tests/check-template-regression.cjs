@@ -43,7 +43,8 @@ function verifyTemplate(){
     const oldCSS=styles(original);
     const extractedPath=name==="desktop.js"?"desktop.css":"mobile.css";
     const external=fs.existsSync(extractedPath)?fs.readFileSync(extractedPath,"utf8"):null;
-    const newCSS=external?[external]:styles(current);
+    const mobileFinal=name==="mobile.js"&&fs.existsSync("mobile-overrides.css")?fs.readFileSync("mobile-overrides.css","utf8"):null;
+    const newCSS=external?(mobileFinal?[external,mobileFinal]:[external]):styles(current);
     assert(newCSS.length>0,name+": no stylesheets found");
     // Compare the final cascade over *all* stylesheets. Earlier duplicate declarations may
     // be removed when a later stylesheet guarantees precisely the same final property.
