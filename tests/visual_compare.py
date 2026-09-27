@@ -46,7 +46,13 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
         page.locator(section + ' [data-service-category="Волосы"]').click(timeout=10000)
     page.locator(section).evaluate("(el) => el.scrollIntoView({block:'start'})")
     page.wait_for_timeout(350)
-    images["services"] = page.screenshot(animations="disabled")
+    section_y = page.locator(section).evaluate(
+        "(el) => Math.max(0, Math.ceil(el.getBoundingClientRect().top))"
+    )
+    images["services"] = page.screenshot(
+        clip={"x": 0, "y": section_y, "width": width, "height": height - section_y},
+        animations="disabled",
+    )
     if not mobile and width == 1366:
         page.locator("#stdStickyGalleryOpen").hover(timeout=10000)
         page.wait_for_timeout(150)
@@ -85,6 +91,7 @@ def main():
     args = parser.parse_args()
     cases = [(1366, 900, False), (1440, 900, False),
              (390, 844, True), (360, 740, True)]
+    errors = []
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         try:
@@ -93,9 +100,14 @@ def main():
                 baseline = capture(browser, args.baseline, key+"-approved", w, h, mobile)
                 candidate = capture(browser, args.candidate, key+"-cleaned", w, h, mobile)
                 for item in baseline:
-                    compare(baseline[item], candidate[item], key+"-"+item)
+                    try:
+                        compare(baseline[item], candidate[item], key+"-"+item)
+                    except AssertionError as exc:
+                        errors.append(str(exc))
         finally:
             browser.close()
+    if errors:
+        raise AssertionError("Visual regressions: " + "; ".join(errors))
     print("PASS: All visual regression snapshots match the approved template.")
 
 
