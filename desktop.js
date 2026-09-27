@@ -7725,6 +7725,14 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
     return {groups:visible,total,hidden:Math.max(total-SERVICE_PREVIEW_LIMIT,0)};
   }
 
+  // Anchor the time column to the first range-priced service (2 h), preserving price alignment.
+  function syncDesktopDurationRail(){
+    const firstRange=serviceList.querySelector('.dct-service-card.is-price-range .dct-service-card-meta>b.is-price');
+    if(!firstRange)return;
+    const priceWidth=firstRange.getBoundingClientRect().width;
+    if(priceWidth>0)serviceList.style.setProperty('--desktop-aligned-rail-width',Math.ceil(priceWidth+58+12)+'px');
+  }
+
   function renderDesktopServices(){
     serviceTabs.innerHTML=DESKTOP_SERVICE_TABS.map(cat=>
       '<button class="mct-tab'+(cat==='Все'?' mct-tab-all':'')+(cat===activeServiceCategory?' is-active':'')+'" type="button" role="tab" aria-selected="'+(cat===activeServiceCategory?'true':'false')+'" data-service-category="'+cat+'">'+cat+'</button>'
@@ -7769,7 +7777,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
       translateDesktopTree(serviceMore,currentDesktopLang);
       serviceList.querySelectorAll('[data-demo-title]').forEach(btn=>btn.setAttribute('aria-label',desktopTrText('Записаться',currentDesktopLang)+': '+desktopTrText(btn.dataset.demoTitle,currentDesktopLang)));
     }
-    requestAnimationFrame(refreshDesktopServiceLayout);
+    requestAnimationFrame(()=>{syncDesktopDurationRail();refreshDesktopServiceLayout()});
   }
 
   function bindDesktopServiceControls(scope){
@@ -7816,9 +7824,9 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
       if(expanded)card.classList.add('is-expanded');
     });
   }
-  window.addEventListener('resize',()=>requestAnimationFrame(refreshDesktopServiceLayout),{passive:true});
+  window.addEventListener('resize',()=>requestAnimationFrame(()=>{syncDesktopDurationRail();refreshDesktopServiceLayout()}),{passive:true});
   window.addEventListener('salon-template:languagechange',()=>requestAnimationFrame(refreshDesktopServiceLayout));
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>requestAnimationFrame(refreshDesktopServiceLayout));
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>requestAnimationFrame(()=>{syncDesktopDurationRail();refreshDesktopServiceLayout()}));
 
   /* Append extra cards below the existing eight; never re-render the visible cards or force page scroll. */
   let desktopMoreWrap=null;
@@ -7923,7 +7931,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
           }
         };
       }
-      requestAnimationFrame(refreshDesktopServiceLayout);
+      requestAnimationFrame(()=>{syncDesktopDurationRail();refreshDesktopServiceLayout()});
     }else if(desktopMoreWrap){
       const wrap=desktopMoreWrap;
       wrap.ontransitionend=null;
@@ -8480,6 +8488,39 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
     max-width:142px!important;
     margin:0!important;
     transform:none!important;
+  }
+}
+`;
+  document.head.appendChild(style);
+})();
+
+/* Laptop service-duration alignment and gallery hover: 2026-09-28 */
+(function(){
+  if(document.getElementById('salon-template-laptop-time-hover-20260928'))return;
+  const style=document.createElement('style');
+  style.id='salon-template-laptop-time-hover-20260928';
+  style.textContent=`
+@media(min-width:1024px) and (max-width:1699px){
+  #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-side-rail{
+    width:var(--desktop-aligned-rail-width,238px)!important;
+    max-width:calc(100% - 36px)!important;
+    justify-content:space-between!important;
+    gap:0!important;
+  }
+  #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-side-rail .dct-service-duration{
+    transform:translateX(-2mm)!important;
+  }
+}
+@media(min-width:1024px){
+  #salonDesktopServices .dct-service-sticky-work:hover>span,
+  #salonDesktopServices .dct-service-sticky-work:focus-visible>span,
+  #salonDesktopServices .dct-service-sticky-work:hover>span svg,
+  #salonDesktopServices .dct-service-sticky-work:focus-visible>span svg{
+    color:#fff!important;
+  }
+  #salonDesktopServices .dct-service-sticky-work:hover>span svg *,
+  #salonDesktopServices .dct-service-sticky-work:focus-visible>span svg *{
+    stroke:currentColor!important;
   }
 }
 `;
