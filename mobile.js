@@ -909,7 +909,7 @@ function mobileDurationLabel(raw,lang=mobileServiceLang()){let v=serviceDuration
 function updateServiceDurationLabels(lang=mobileServiceLang()){slist?.querySelectorAll('.tn31-service-time[data-duration]').forEach(el=>{el.textContent=mobileDurationLabel(el.dataset.duration,lang)})}
 function serviceLine(s){
  const t=splitServiceTitle(s.title);
- const isDuration=x=>/^\\s*\\d+(?:[.,]\\d+)?\\s*(?:ч(?:ас(?:а|ов)?)?|мин(?:ут(?:ы)?)?|h|hr|min)\\s*$/i.test(String(x||''));
+ const isDuration=x=>/^\s*\d+(?:[.,]\d+)?\s*(?:ч(?:ас(?:а|ов)?)?|мин(?:ут(?:ы)?)?|h|hr|min)\s*$/i.test(String(x||''));
  const duration=isDuration(s.desc)?s.desc:(isDuration(t.detail)?t.detail:'');
  const detail=[t.detail,s.desc].filter(x=>x&&!isDuration(x)).join(' · ');
  const content=`<span class="tn31-service-copy"><strong class="tn31-service-name">${t.main}</strong>${detail?`<span class="tn31-service-detail">${detail}</span>`:''}</span><span class="tn31-service-side">${duration?`<small class="tn31-service-time" data-duration="${duration}">${mobileDurationLabel(duration)}</small>`:''}<span class="tn31-service-price">${s.price||'—'}</span></span>`;
