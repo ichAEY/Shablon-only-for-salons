@@ -1,0 +1,27 @@
+name: Verify salon cleanup against approved baseline
+
+on:
+  push:
+    branches:
+      - 'refactor/**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  compare-to-approved-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out full repository history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify syntax, service contract, and unchanged effective CSS
+        run: node tests/check-template-regression.cjs
