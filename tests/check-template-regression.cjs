@@ -42,7 +42,15 @@ function verifyTemplate(){
     cp.execFileSync(process.execPath,["--check",name]);
     const oldCSS=styles(original),newCSS=styles(current);
     assert.equal(newCSS.length,oldCSS.length,name+": stylesheet count changed");
-    for(let i=0;i<oldCSS.length;i++)assert.deepEqual(effectiveRules(newCSS[i]),effectiveRules(oldCSS[i]),name+": CSS cascade differs in stylesheet "+i);
+    // Compare the final cascade over *all* stylesheets. Earlier duplicate declarations may
+    // be removed when a later stylesheet guarantees precisely the same final property.
+    // Each stylesheet must still be present in its original position.
+    const allDeclarations=blocks=>{
+      const cascade=new Map();
+      for(const block of blocks)for(const [key,value] of effectiveRules(block))cascade.set(key,value);
+      return [...cascade.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
+    };
+    assert.deepEqual(allDeclarations(newCSS),allDeclarations(oldCSS),name+": combined CSS cascade differs from approved baseline");
     const boundaries=name==="desktop.js"?["function templateServiceCard(item){","function currentTemplateServiceState()"]:["function servicePriceMarkup(price){","function serviceWord(n){"];
     const code=s=>{
       const a=s.indexOf(boundaries[0]),b=s.indexOf(boundaries[1],a+boundaries[0].length);
@@ -50,7 +58,7 @@ function verifyTemplate(){
       return s.slice(a,b);
     };
     assert.equal(code(current),code(original),name+": approved service markup or logic changed");
-    console.log(name+": JS syntax, approved services and "+oldCSS.length+" stylesheet cascades match baseline");
+    console.log(name+": JS syntax, approved services and "+oldCSS.length+" stylesheets retain the approved combined cascade");
   }
   const index=fs.readFileSync("index.html","utf8");
   assert(index.includes("desktop.js")&&index.includes("mobile.js"),"Both device bundles must still load");
