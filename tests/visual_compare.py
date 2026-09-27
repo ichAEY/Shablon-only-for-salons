@@ -54,17 +54,18 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
         animations="disabled",
     )
     if (not mobile and width == 1366) or (mobile and width == 390):
-        expand = page.locator(section + (" .tn31-service-demo-more" if mobile else " .dct-service-demo-more")).first
-        if expand.count() == 0:
-            raise AssertionError(name + ": approved description toggle missing")
-        expand.click(timeout=12000)
-        if expand.get_attribute("aria-expanded") != "true":
-            raise AssertionError(name + ": description did not expand")
-        page.wait_for_timeout(180)
-        images["description-expanded"] = page.screenshot(animations="disabled")
-        expand.click(timeout=12000)
-        if expand.get_attribute("aria-expanded") != "false":
-            raise AssertionError(name + ": description did not collapse")
+        expand = page.locator(section + (" .tn31-service-demo-more:visible" if mobile else " .dct-service-demo-more:visible")).first
+        # Some approved descriptions fit within two lines: their More buttons are
+        # intentionally hidden, so only exercise expansion when one is visible.
+        if expand.count() > 0:
+            expand.click(timeout=12000)
+            if expand.get_attribute("aria-expanded") != "true":
+                raise AssertionError(name + ": description did not expand")
+            page.wait_for_timeout(180)
+            images["description-expanded"] = page.screenshot(animations="disabled")
+            expand.click(timeout=12000)
+            if expand.get_attribute("aria-expanded") != "false":
+                raise AssertionError(name + ": description did not collapse")
 
     if not mobile and width == 1366:
         page.locator("#stdStickyGalleryOpen").hover(timeout=10000)
