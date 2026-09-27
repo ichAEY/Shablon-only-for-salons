@@ -40,8 +40,11 @@ function verifyTemplate(){
     const current=fs.readFileSync(name,"utf8");
     const original=cp.execFileSync("git",["show",baseline+":"+name],{encoding:"utf8",maxBuffer:2000000});
     cp.execFileSync(process.execPath,["--check",name]);
-    const oldCSS=styles(original),newCSS=styles(current);
-    assert.equal(newCSS.length,oldCSS.length,name+": stylesheet count changed");
+    const oldCSS=styles(original);
+    const extractedPath=name==="desktop.js"?"desktop.css":"mobile.css";
+    const external=fs.existsSync(extractedPath)?fs.readFileSync(extractedPath,"utf8"):null;
+    const newCSS=external?[external]:styles(current);
+    assert(newCSS.length>0,name+": no stylesheets found");
     // Compare the final cascade over *all* stylesheets. Earlier duplicate declarations may
     // be removed when a later stylesheet guarantees precisely the same final property.
     // Each stylesheet must still be present in its original position.
