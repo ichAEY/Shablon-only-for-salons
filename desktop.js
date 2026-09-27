@@ -8522,6 +8522,13 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
   #salonDesktopServices .dct-service-sticky-work:focus-visible>span svg *{
     stroke:currentColor!important;
   }
+  /* Make the exact gallery button label legible against its existing hover background. */
+  #salon-desktop-v1 #salonDesktopServices #stdStickyGalleryOpen:hover > span:first-child,
+  #salon-desktop-v1 #salonDesktopServices #stdStickyGalleryOpen:focus-visible > span:first-child{
+    color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+    opacity:1!important;
+  }
 }
 `;
   document.head.appendChild(style);
