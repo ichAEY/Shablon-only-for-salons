@@ -4,8 +4,6 @@
   const desktopDevice=window.__BR_DESKTOP_DEVICE__===true || (!('__BR_DESKTOP_DEVICE__' in window) && !!window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches);
   if(!desktopDevice) return;
 
-  const PHONE='';
-  const ADDRESS='Город, Адрес салона';
   const MAP_URL='#salonDesktopContacts';
   const ROUTE=MAP_URL;
   const MESSENGER_URL='#salonDesktopContacts';
@@ -18,7 +16,6 @@
     'Волосы':Array.from({length:7},()=>({src:'media-placeholder.svg',alt:'Работа салона'})),
     'Макияж':Array.from({length:3},()=>({src:'media-placeholder.svg',alt:'Работа салона'}))
   };
-  const DESKTOP_GALLERY=Object.values(DESKTOP_GALLERY_GROUPS).flat().map(x=>x.src);
   const SERVICE_DATA={
   "Маникюр": [
     [
@@ -341,7 +338,6 @@ position:relative;
 z-index:20;
 padding:0 100px;
 border-bottom:0;
-background:#fff!important;
 }
 .std-header-brand{
 display:flex;
@@ -380,7 +376,6 @@ white-space:nowrap;
 font-size:14px;
 font-weight:500;
 line-height:1;
-color:#211d1a!important;
 text-shadow:none;
 transition:opacity .18s ease;
 }
@@ -432,7 +427,6 @@ grid-template-columns:48.5% 51.5%;
 height:calc(100svh - 80px);
 min-height:760px;
 margin:0;
-background:#fff!important;
 overflow:hidden;
 }
 .std-hero-copy{
@@ -928,7 +922,6 @@ padding:0 24px;
 border:1px solid rgba(255,255,255,.16);
 border-radius:999px;
 background:transparent;
-color:#ded8e2!important;
 font:500 14px/1 "Manrope",Arial,sans-serif;
 white-space:nowrap;
 transition:background .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease;
@@ -936,7 +929,6 @@ transition:background .18s ease,border-color .18s ease,color .18s ease,box-shado
 .std-service-tab.active{
 border-color:#715b53;
 background:#715b53;
-color:#fff!important;
 box-shadow:0 5px 20px rgba(111,61,130,.20);
 }
 .std-service-list{
@@ -1395,7 +1387,6 @@ background:rgba(255,255,255,.045);
 display:grid;
 grid-template-columns:78px minmax(0,1fr);
 align-items:center;
-color:#f8f5fa!important;
 text-decoration:none!important;
 box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
 transition:border-color .18s ease,background .18s ease;
@@ -1505,7 +1496,6 @@ display:flex;
 flex-direction:column;
 align-items:center;
 gap:7px;
-color:#eee8f0!important;
 text-decoration:none!important;
 }
 .std-contact-brand-mark{
@@ -1649,7 +1639,6 @@ width:46px;
 height:46px;
 border:0;
 background:transparent;
-color:#f7f3f8!important;
 font:300 34px/1 Arial,sans-serif!important;
 }
 .std-gallery-browser-title{text-align:center}
@@ -1682,13 +1671,11 @@ padding:0 17px;
 border:1px solid rgba(255,255,255,.11);
 border-radius:999px;
 background:rgba(255,255,255,.025);
-color:#c6bec9!important;
 font:500 11px/1 "Manrope",Arial,sans-serif!important;
 }
 .std-gallery-browser-tab.active{
 background:#715b53;
 border-color:#715b53;
-color:#fff!important;
 }
 .std-gallery-browser-grid{
 display:grid;
@@ -1715,24 +1702,6 @@ user-select:none;
 @media(max-width:1100px){
 .std-gallery-browser-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-#salonDesktopTeam.std-team{
-min-height:0!important;
-padding:46px 70px 38px!important;
-}
-#salonDesktopTeam .std-team-inner{
-width:min(100%,1120px)!important;
-}
-#salonDesktopTeam .std-team-kicker{
-font-size:10px!important;
-}
-#salonDesktopTeam .std-team-title{
-margin-top:12px!important;
-font-size:46px!important;
-}
-#salonDesktopTeam .std-team-subtitle{
-margin-top:13px!important;
-font-size:13px!important;
-}
 #salonDesktopTeam .std-team-window{
 margin-top:26px!important;
 }
@@ -1745,22 +1714,6 @@ overflow-x:auto!important;
 }
 #salonDesktopTeam .std-master{
 flex:0 0 210px!important;
-}
-#salonDesktopTeam .std-master-avatar{
-width:200px!important;
-height:200px!important;
-}
-#salonDesktopTeam .std-master-avatar svg{
-width:58px!important;
-height:58px!important;
-}
-#salonDesktopTeam .std-master-name{
-margin-top:14px!important;
-font-size:25px!important;
-}
-#salonDesktopTeam .std-master-role{
-margin-top:7px!important;
-font-size:11px!important;
 }
 #salonDesktopTeam .std-team-hint{
 margin-top:18px!important;
@@ -1804,19 +1757,7 @@ font-size:19px!important;
 background:var(--br-bg)!important;
 color:var(--br-ink)!important;
 }
-.std-copy-inner{width:min(100%,560px)!important}
-.std-logo{max-width:100%!important;font-size:clamp(54px,4.15vw,70px)!important;letter-spacing:.055em!important;white-space:nowrap!important}
-.std-hero-kicker{font-size:14px!important;letter-spacing:.40em!important;margin-bottom:31px!important}
-.std-logo-sub{font-size:14px!important;letter-spacing:.40em!important;margin-top:20px!important}
-.std-tagline{font-size:26px!important;max-width:510px!important}
-.std-meta{width:100%!important;grid-template-columns:1fr 1px 1.18fr!important;margin-top:2px!important;margin-bottom:34px!important}
-.std-meta-icon{width:68px!important;height:68px!important;flex-basis:68px!important}
-.std-meta-icon svg{width:29px!important;height:29px!important}
-.std-meta-text{font-size:17px!important;line-height:1.42!important}
-.std-actions{width:100%!important;gap:15px!important}
-.std-btn{height:74px!important;font-size:18px!important;border-radius:10px!important}
-.std-phone{font-size:19px!important}
-.std-header-book{width:174px!important;min-width:174px!important;height:50px!important;font-size:17px!important}
+.std-meta{grid-template-columns:1fr 1px 1.18fr!important;margin-top:2px!important;margin-bottom:34px!important}
 .std-hero-copy:before{
 left:0!important;
 bottom:0!important;
@@ -1834,49 +1775,27 @@ mask-image:linear-gradient(90deg,#000 0%,#000 58%,transparent 100%)!important;
 pointer-events:none!important;
 }
 .std-portfolio{padding-top:82px!important;background:linear-gradient(180deg,#f0e8e1 0%,#f4ede7 24%,#f7f2eb 100%)!important}
-.std-portfolio-kicker{color:#746c66!important}
-.std-portfolio-title{color:#171513!important}
-.std-portfolio-copy{color:#746c66!important}
-.std-gallery-browser{background:#f7f2eb!important;color:#171513!important}
-.std-gallery-browser-shell{background:#f7f2eb!important}
-.std-gallery-browser-title strong{font-size:31px!important;color:#171513!important}
-.std-gallery-browser-title span{color:#746c66!important}
-.std-gallery-browser-back{color:#171513!important;border-color:rgba(62,51,44,.16)!important;background:rgba(255,255,255,.34)!important}
+.std-gallery-browser-back{border-color:rgba(62,51,44,.16)!important}
 .std-gallery-browser-tab{
-height:44px!important;
-padding:0 20px!important;
 border-color:rgba(62,51,44,.16)!important;
 background:rgba(255,255,255,.20)!important;
-color:#655d57!important;
 font-size:12.7px!important;
 }
-.std-gallery-browser-tab.active{background:#171513!important;border-color:#171513!important;color:#fff!important}
 .std-services{
-min-height:0!important;
-padding:96px 0 104px!important;
 background:
 radial-gradient(circle at 9% 4%,rgba(204,171,158,.15),transparent 29%),
 radial-gradient(circle at 92% 83%,rgba(218,195,184,.12),transparent 31%),
 #f8f4ef!important;
-color:#171513!important;
 }
-.std-services-inner{width:min(calc(100% - 96px),1400px)!important;margin:0 auto!important;display:block!important}
-.std-services-head-ref{display:grid!important;grid-template-columns:minmax(360px,.95fr) minmax(360px,1.05fr)!important;align-items:end!important;column-gap:clamp(54px,7vw,110px)!important}
-.std-services-kicker{margin:0!important;color:#9b7d72!important;font-size:12px!important;font-weight:600!important;letter-spacing:.24em!important;text-transform:uppercase!important}
-.std-services-title{margin:12px 0 0!important;color:#171513!important;font:500 clamp(64px,5.6vw,82px)/.90 "Cormorant Garamond",Georgia,serif!important;letter-spacing:-.045em!important}
-.std-services-intro{max-width:540px!important;margin:0 0 7px!important;color:#625b57!important;font-size:14px!important;line-height:1.7!important}
-.std-price-hidden{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important}
+.std-services-head-ref{grid-template-columns:minmax(360px,.95fr) minmax(360px,1.05fr)!important;column-gap:clamp(54px,7vw,110px)!important}
+.std-services-kicker{margin:0!important;font-size:12px!important;font-weight:600!important;letter-spacing:.24em!important;text-transform:uppercase!important}
+.std-services-title{margin:12px 0 0!important;font:500 clamp(64px,5.6vw,82px)/.90 "Cormorant Garamond",Georgia,serif!important;letter-spacing:-.045em!important}
+.std-price-hidden{clip:rect(0 0 0 0)!important}
 .std-services-right{width:100%!important}
 .std-service-tabs{
-width:100%!important;
 max-width:none!important;
 margin-top:38px!important;
-padding:5px!important;
-display:flex!important;
-gap:5px!important;
-overflow-x:auto!important;
 border:1px solid rgba(83,63,55,.09)!important;
-border-radius:17px!important;
 background:rgba(229,216,208,.58)!important;
 box-shadow:inset 0 1px 0 rgba(255,255,255,.62)!important;
 scrollbar-width:none!important;
@@ -1884,111 +1803,64 @@ scrollbar-width:none!important;
 .std-service-tabs::-webkit-scrollbar{display:none!important}
 .std-service-tab{
 flex:1 0 auto!important;
-min-height:50px!important;
-padding:0 18px!important;
 border:1px solid transparent!important;
-border-radius:13px!important;
-background:transparent!important;
-color:#655d57!important;
-font-size:12px!important;
-font-weight:600!important;
 transition:transform 180ms ease,border-color 180ms ease,box-shadow 180ms ease,background 180ms ease!important;
 }
-.std-service-tab:hover{background:rgba(237,226,219,.76)!important;transform:translateY(-2px)!important}
-.std-service-tab.active{background:#171513!important;color:#fff!important;border-color:#171513!important;box-shadow:0 12px 24px rgba(50,39,33,.12)!important}
-.std-service-list{display:block!important;width:100%!important;margin-top:30px!important;border:0!important}
+.std-service-tab:hover{background:rgba(237,226,219,.76)!important}
+.std-service-tab.active{background:#171513!important;border-color:#171513!important;box-shadow:0 12px 24px rgba(50,39,33,.12)!important}
 .std-service-category-ref + .std-service-category-ref{margin-top:38px!important}
 .std-service-category-heading-ref{display:flex!important;min-height:34px!important;align-items:center!important;gap:12px!important;margin:0 0 14px!important;color:#705a52!important;font-size:13px!important;font-weight:600!important;letter-spacing:.12em!important;text-transform:uppercase!important}
 .std-service-category-heading-ref:before{width:34px!important;height:1px!important;flex:0 0 34px!important;background:rgba(104,79,70,.28)!important;content:""!important}
 .std-service-category-heading-ref i{height:1px!important;flex:1 1 auto!important;background:linear-gradient(90deg,rgba(104,79,70,.18),transparent)!important}
-.std-service-grid-ref{position:relative!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px 38px!important}
+.std-service-grid-ref{position:relative!important}
 .std-service-grid-ref:after{position:absolute!important;top:0!important;bottom:0!important;left:50%!important;width:1px!important;background:linear-gradient(180deg,transparent,rgba(100,77,68,.14) 8%,rgba(100,77,68,.14) 92%,transparent)!important;content:""!important;transform:translateX(-.5px)!important;pointer-events:none!important}
 .std-service-card-ref{
-position:relative!important;
-display:flex!important;
 width:100%!important;
-min-height:154px!important;
-flex-direction:column!important;
 align-items:stretch!important;
-padding:24px 76px 22px 24px!important;
 overflow:hidden!important;
 border:1px solid rgba(79,60,53,.105)!important;
-border-radius:22px!important;
 background:rgba(255,253,250,.80)!important;
 box-shadow:0 10px 26px rgba(68,50,43,.05)!important;
-color:#171513!important;
-text-align:left!important;
 transition:transform 200ms ease,border-color 200ms ease,box-shadow 200ms ease,background 200ms ease!important;
 }
 .std-service-card-ref:after{position:absolute!important;top:22px!important;right:20px!important;display:grid!important;width:42px!important;height:42px!important;place-items:center!important;border:1px solid rgba(112,81,71,.16)!important;border-radius:50%!important;background:#eee3dd!important;color:#6d514a!important;content:"↗"!important;font:500 16px/1 "Manrope",Arial,sans-serif!important}
-.std-service-card-ref:hover{border-color:rgba(117,82,72,.22)!important;background:#fffdf9!important;box-shadow:0 16px 35px rgba(68,50,43,.085)!important;transform:translateY(-3px)!important}
+.std-service-card-ref:hover{border-color:rgba(117,82,72,.22)!important;background:#fffdf9!important;box-shadow:0 16px 35px rgba(68,50,43,.085)!important}
 .std-service-card-ref:hover:after{background:#171513!important;color:#fff!important}
-.std-service-card-title-ref{max-width:100%!important;color:#2d2825!important;font:500 clamp(23px,1.65vw,28px)/1.08 "Cormorant Garamond",Georgia,serif!important}
-.std-service-card-detail-ref{margin-top:10px!important;color:#716964!important;font-size:11.5px!important;line-height:1.5!important}
+.std-service-card-title-ref{max-width:100%!important;font:500 clamp(23px,1.65vw,28px)/1.08 "Cormorant Garamond",Georgia,serif!important}
 .std-service-card-bottom-ref{display:flex!important;align-items:end!important;justify-content:space-between!important;gap:14px!important;margin-top:auto!important;padding-top:22px!important}
-.std-service-card-bottom-ref span{display:inline-flex!important;min-height:27px!important;align-items:center!important;padding:0 10px!important;border-radius:999px!important;background:#f0e7e1!important;color:#81736b!important;font-size:9.5px!important;font-weight:600!important}
-.std-service-card-bottom-ref b{color:#332d2a!important;font:600 18px/1 "Cormorant Garamond",Georgia,serif!important}
-.std-service-more{width:min(100%,390px)!important;height:56px!important;margin:32px auto 0!important;border:1px solid #bbaea5!important;border-radius:10px!important;background:rgba(255,255,255,.26)!important;color:#342f2b!important}
-.std-services-count{text-align:center!important;color:#8a7f78!important;font-size:10px!important;margin-top:14px!important}
-.std-about{padding:96px 70px 104px!important;background:#f8f4ee!important;color:#171513!important}
-.std-about-inner{width:min(100%,1360px)!important;margin:0 auto!important}
-.std-about-kicker{color:#9b7d72!important;font-size:12px!important;letter-spacing:.24em!important}
-.std-about-grid{display:grid!important;grid-template-columns:1.05fr .95fr!important;gap:70px!important;align-items:center!important;margin-top:28px!important}
+.std-service-card-bottom-ref span{background:#f0e7e1!important;font-weight:600!important}
+.std-service-card-bottom-ref b{font:600 18px/1 "Cormorant Garamond",Georgia,serif!important}
+.std-service-more{border:1px solid #bbaea5!important;background:rgba(255,255,255,.26)!important}
+.std-about{background:#f8f4ee!important}
+.std-about-kicker{font-size:12px!important;letter-spacing:.24em!important}
+.std-about-grid{grid-template-columns:1.05fr .95fr!important}
 .std-about-copy{padding:20px 0!important}
-.std-about-lead{max-width:720px!important;font-size:clamp(55px,4.6vw,72px)!important;line-height:.98!important;color:#171513!important}
-.std-about-text{max-width:690px!important;margin-top:30px!important;color:#625b57!important;font-size:17px!important;line-height:1.65!important}
-.std-about-facts{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;margin-top:36px!important}
+.std-about-lead{font-size:clamp(55px,4.6vw,72px)!important;line-height:.98!important}
+.std-about-text{margin-top:30px!important}
+.std-about-facts{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 .std-about-fact{min-height:92px!important;padding:18px!important;border:1px solid rgba(63,50,44,.10)!important;border-radius:15px!important;background:rgba(255,255,255,.28)!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;text-align:left!important;color:#171513!important}
 .std-about-fact strong{font:500 18px/1.05 "Cormorant Garamond",Georgia,serif!important}
 .std-about-fact span{margin-top:7px!important;color:#81766f!important;font-size:10px!important}
-.std-about-visual{min-height:520px!important;border-radius:28px!important;overflow:hidden!important;box-shadow:0 24px 60px rgba(67,50,43,.10)!important}
-.std-about-visual img{width:100%!important;height:100%!important;object-fit:cover!important}
-.std-about-rating{left:24px!important;bottom:24px!important;background:rgba(248,244,238,.92)!important;color:#171513!important}
-#salonDesktopTeam.std-team{min-height:0!important;padding:88px 70px 92px!important;background:#f6f1e9!important;color:#171513!important}
-#salonDesktopTeam .std-team-inner{width:min(100%,1360px)!important}
-#salonDesktopTeam .std-team-kicker{color:#9b7d72!important;font-size:12px!important}
-#salonDesktopTeam .std-team-title{margin-top:14px!important;color:#171513!important;font-size:64px!important;line-height:.93!important}
-#salonDesktopTeam .std-team-subtitle{margin-top:14px!important;color:#746c66!important;font-size:14px!important}
-#salonDesktopTeam .std-team-track{display:grid!important;width:100%!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:30px!important;margin-top:46px!important;overflow:visible!important;padding:0!important}
-#salonDesktopTeam .std-master{position:relative!important;display:block!important;width:100%!important;min-width:0!important;padding:0 8px 18px!important;border:0!important;background:none!important;color:#171513!important;text-align:center!important;cursor:pointer!important}
-#salonDesktopTeam .std-master-arrow{position:absolute!important;top:7px!important;right:12px!important;z-index:2!important;width:36px!important;height:36px!important;border:1px solid rgba(62,51,44,.12)!important;border-radius:50%!important;background:rgba(255,255,255,.48)!important;display:grid!important;place-items:center!important;color:#75675f!important;font-size:14px!important}
-#salonDesktopTeam .std-master-avatar{width:min(100%,190px)!important;height:auto!important;aspect-ratio:1/1!important;margin:0 auto!important;border:0!important;border-radius:50%!important;background:linear-gradient(145deg,#e9e3dc,#d7cec6)!important;color:#9b9088!important;box-shadow:none!important;transition:transform .22s ease!important}
-#salonDesktopTeam .std-master:hover .std-master-avatar{transform:translateY(-4px)!important}
-#salonDesktopTeam .std-master-avatar svg{width:64px!important;height:64px!important}
-#salonDesktopTeam .std-master-name{margin-top:18px!important;color:#171513!important;font-size:29px!important}
-#salonDesktopTeam .std-master-role{margin-top:7px!important;color:#827871!important;font-size:11px!important}
-#salonDesktopReviews.std-reviews{
-height:auto!important;
-min-height:760px!important;
-padding:78px 0 62px!important;
-background:#fff!important;
-color:#171513!important;
-}
-#salonDesktopReviews .std-reviews-kicker{color:#746c66!important}
-#salonDesktopReviews .std-reviews-title{color:#171513!important}
-#salonDesktopReviews .std-reviews-score>strong{color:#171513!important}
-#salonDesktopReviews .std-reviews-count{color:#716862!important}
-#salonDesktopReviews .std-review-card{border-color:rgba(66,55,49,.15)!important;border-radius:14px!important;background:#f6f7f8!important}
-#salonDesktopReviews .std-review-avatar{background:#e4e6e8!important;border-color:rgba(66,55,49,.10)!important;color:#514943!important}
-#salonDesktopReviews .std-review-name{color:#2a2522!important}
-#salonDesktopReviews .std-review-text{color:#4f4843!important}
+.std-about-visual{box-shadow:0 24px 60px rgba(67,50,43,.10)!important}
+.std-about-visual img{width:100%!important;height:100%!important}
+.std-about-rating{background:rgba(248,244,238,.92)!important}
+#salonDesktopTeam.std-team{background:#f6f1e9!important}
+#salonDesktopTeam .std-team-kicker{font-size:12px!important}
+#salonDesktopTeam .std-team-title{margin-top:14px!important;font-size:64px!important;line-height:.93!important}
+#salonDesktopTeam .std-master{background:none!important;cursor:pointer!important}
+#salonDesktopTeam .std-master-arrow{z-index:2!important;border:1px solid rgba(62,51,44,.12)!important;background:rgba(255,255,255,.48)!important;font-size:14px!important}
+#salonDesktopTeam .std-master-avatar{aspect-ratio:1/1!important;border:0!important;background:linear-gradient(145deg,#e9e3dc,#d7cec6)!important;transition:transform .22s ease!important}
+#salonDesktopReviews .std-review-avatar{border-color:rgba(66,55,49,.10)!important}
 #salonDesktopReviews .std-reviews-all{border-color:rgba(66,55,49,.18)!important;background:#f3f4f5!important;color:#2f2a26!important}
-.std-contact{padding:74px 70px 54px!important;background:#f7f2eb!important;color:#171513!important}
-.std-contact-inner{width:min(100%,1360px)!important;grid-template-columns:520px minmax(0,1fr)!important;gap:42px!important}
-.std-contact-kicker{color:#9b7d72!important}
-.std-contact-title{color:#171513!important}
-.std-contact-card{border-color:rgba(63,50,44,.12)!important;background:rgba(255,255,255,.55)!important;color:#1e1a17!important}
+.std-contact{background:#f7f2eb!important}
+.std-contact-inner{grid-template-columns:520px minmax(0,1fr)!important}
+.std-contact-card{border-color:rgba(63,50,44,.12)!important;background:rgba(255,255,255,.55)!important}
 .std-contact-card:hover{border-color:rgba(63,50,44,.22)!important;background:rgba(255,255,255,.76)!important}
-.std-contact-card-title{color:#171513!important}
-.std-contact-card-sub{color:#81766f!important}
-.std-contact-card-icon{color:#8d7e74!important}
-.std-contact-map{border:1px solid rgba(63,50,44,.12)!important;border-radius:24px!important;overflow:hidden!important;background:#eee!important}
-.std-contact-status{border-color:#b8b0aa!important;background:#fff0df!important;color:#a46020!important}
-.std-contact-status.open{background:#e7f4e6!important;color:#3a7440!important}
-.std-contact-bottom{margin-top:34px!important;display:flex!important;justify-content:center!important}
+.std-contact-map{border:1px solid rgba(63,50,44,.12)!important;background:#eee!important}
+.std-contact-status{border-color:#b8b0aa!important;background:#fff0df!important}
+.std-contact-status.open{background:#e7f4e6!important}
 .std-contact-brand{min-width:280px!important;min-height:58px!important;padding:0 22px!important;border-radius:16px!important;background:#171513!important;color:#fff!important;box-shadow:0 14px 34px rgba(23,21,19,.16)!important}
 .std-contact-brand-mark{background:#8f7167!important;color:#fff!important}
-.std-contact-brand-text{color:#f4eee8!important}
 .std-master-overlay{position:fixed!important;z-index:390!important;inset:0!important;display:block!important;overflow:auto!important;background:#f8f4ee!important;color:#171513!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;transition:opacity .34s ease,visibility 0s linear .42s!important}
 .std-master-overlay.open{visibility:visible!important;opacity:1!important;pointer-events:auto!important;transition-delay:0s!important}
 .std-master-page-panel{width:min(100%,1120px)!important;min-height:100vh!important;margin:0 auto!important;padding:24px 48px 120px!important;transform:translateY(28px)!important;transition:transform .46s cubic-bezier(.16,1,.3,1)!important}
@@ -1996,7 +1868,7 @@ color:#171513!important;
 .std-master-page-top{display:grid!important;grid-template-columns:48px 1fr 48px!important;align-items:center!important;text-align:center!important}
 .std-master-page-top span{font-size:14px!important;font-weight:600!important;letter-spacing:.28em!important}
 .std-master-page-top i{width:48px!important;height:48px!important}
-.std-master-page-close{width:48px!important;height:48px!important;border:1px solid rgba(63,50,44,.12)!important;border-radius:50%!important;background:rgba(255,255,255,.45)!important;font-size:27px!important}
+.std-master-page-close{width:48px!important;height:48px!important;border:1px solid rgba(63,50,44,.12)!important;background:rgba(255,255,255,.45)!important;font-size:27px!important}
 .std-master-profile{text-align:center!important;margin-top:28px!important}
 .std-master-profile .std-master-avatar{width:158px!important;height:158px!important;margin:0 auto!important;border-radius:50%!important;display:grid!important;place-items:center!important;background:linear-gradient(145deg,#e9e3dc,#d7cec6)!important;color:#9b9088!important}
 .std-master-profile .std-master-avatar svg{width:72px!important;height:72px!important}
@@ -2008,7 +1880,7 @@ color:#171513!important;
 .std-master-page-block h3{margin:0 0 16px!important;font:500 31px/1 "Cormorant Garamond",Georgia,serif!important}
 .std-master-page-service{display:flex!important;justify-content:space-between!important;gap:18px!important;padding:14px 0!important;border-bottom:1px solid rgba(63,50,44,.10)!important}
 .std-master-page-service:last-child{border-bottom:0!important}.std-master-page-service strong{font-size:13px!important}.std-master-page-service span{color:#81766f!important;font-size:11px!important}
-.std-master-page-works{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.std-master-page-works img{width:100%!important;aspect-ratio:1.25/1!important;object-fit:cover!important;border-radius:12px!important}
+.std-master-page-works{grid-template-columns:repeat(2,minmax(0,1fr))!important}.std-master-page-works img{width:100%!important;aspect-ratio:1.25/1!important;object-fit:cover!important;border-radius:12px!important}
 .std-master-page-empty{color:#81766f!important;font-size:12px!important;line-height:1.55!important}
 .std-master-page-book{position:fixed!important;z-index:395!important;left:50%!important;bottom:22px!important;width:min(620px,calc(100% - 64px))!important;height:58px!important;transform:translateX(-50%)!important;border:0!important;border-radius:14px!important;background:#171513!important;color:#fff!important;font-size:14px!important;font-weight:600!important;box-shadow:0 16px 38px rgba(23,21,19,.18)!important}
 }
@@ -2027,20 +1899,15 @@ letter-spacing:-.035em!important
 #salonDesktopReviews .std-reviews-kicker,.std-contact-kicker{
 font:600 12px/1 "Manrope",Arial,sans-serif!important;letter-spacing:.26em!important;text-transform:uppercase!important
 }
-.std-header{background:#fff!important;border-bottom:1px solid rgba(62,51,44,.06)!important}
-.std-header-right{gap:17px!important}
+.std-header{border-bottom:1px solid rgba(62,51,44,.06)!important}
 .std-lang-switch{height:42px;display:flex;align-items:center;gap:4px;padding:0 4px}
 .std-lang-switch button{min-width:28px;height:34px;padding:0 3px;border:0;background:transparent;color:#8b817b;
 font:600 11px/1 "Manrope",Arial,sans-serif!important;letter-spacing:.04em}
 .std-lang-switch button.active{color:#171513!important}.std-lang-switch .sep{color:#c7bbb3;font-size:10px;pointer-events:none}
-.std-copy-inner{width:min(100%,560px)!important;transform:translateY(38px)!important}
-.std-hero-kicker{font-size:14px!important;letter-spacing:.40em!important;margin-bottom:31px!important}
-.std-logo{max-width:100%!important;font-size:clamp(54px,4.15vw,70px)!important;letter-spacing:.055em!important;white-space:nowrap!important}
-.std-logo-sub{font-size:14px!important;letter-spacing:.40em!important;margin-top:20px!important}
-.std-tagline{font-size:25px!important;line-height:1.38!important;max-width:500px!important}
-.std-meta-text{font-size:16px!important;line-height:1.42!important}
-.std-actions{gap:12px!important}.std-btn{height:66px!important;font-size:16px!important;border-radius:8px!important}
-.std-scroll-hint{right:-88px!important;color:#fff!important;background:rgba(50,42,38,.78)!important;
+.std-copy-inner{transform:translateY(38px)!important}
+.std-hero-kicker{margin-bottom:31px!important}
+.std-logo-sub{margin-top:20px!important}
+.std-scroll-hint{background:rgba(50,42,38,.78)!important;
 border:1px solid rgba(255,255,255,.13)!important;box-shadow:0 12px 34px rgba(36,29,26,.20)!important;backdrop-filter:blur(7px)!important}
 .std-scroll-hint span{color:#fff!important}
 .std-portfolio{padding:82px 42px 78px!important;background:#f7f2eb!important;color:#171513!important}
@@ -2053,12 +1920,12 @@ box-shadow:none!important;font:500 14px/1 "Manrope",Arial,sans-serif!important;g
 .std-portfolio-more:hover{background:rgba(255,255,255,.32)!important;box-shadow:none!important;transform:translateY(-1px)!important}
 .std-gallery-browser{background:#f7f2eb!important;color:#171513!important}
 .std-gallery-browser-shell{width:min(100%,1320px)!important;padding:32px 42px 60px!important;background:#f7f2eb!important}
-.std-gallery-browser-back{width:46px!important;height:46px!important;border:0!important;border-radius:0!important;background:transparent!important;
+.std-gallery-browser-back{border:0!important;background:transparent!important;
 box-shadow:none!important;color:#171513!important;font:300 36px/1 Arial,sans-serif!important}
 .std-gallery-browser-title strong{font:500 clamp(54px,4vw,64px)/.9 "Cormorant Garamond",Georgia,serif!important;color:#171513!important}
-.std-gallery-browser-title span{margin-top:9px!important;color:#746c66!important;font-size:11px!important}
-.std-gallery-browser-tab{height:43px!important;padding:0 18px!important;border-color:rgba(55,44,39,.12)!important;background:transparent!important;color:#6f655f!important}
-.std-gallery-browser-tab.active{background:#171513!important;border-color:#171513!important;color:#fff!important}
+.std-gallery-browser-title span{color:#746c66!important}
+.std-gallery-browser-tab{border-color:rgba(55,44,39,.12)!important;background:transparent!important}
+.std-gallery-browser-tab.active{background:#171513!important;border-color:#171513!important}
 .std-gallery-browser-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:9px!important;margin-top:20px!important}
 .std-gallery-browser-tile{aspect-ratio:1/1!important;border-radius:11px!important}
 .std-gallery{z-index:450!important;padding:22px!important;background:rgba(27,20,20,.90)!important;backdrop-filter:blur(9px)!important}
@@ -2129,27 +1996,17 @@ box-shadow:0 14px 34px rgba(47,37,31,.08)!important}
 display:flex!important;align-items:center!important;justify-content:flex-start!important;text-align:left!important}
 .std-about-fact strong{color:#2b2724!important;font:500 16px/1.2 "Manrope",Arial,sans-serif!important;white-space:nowrap!important}
 #salonDesktopTeam.std-team{min-height:0!important;padding:84px 70px 88px!important;background:#2f2926!important;color:#f7f3f0!important}
-#salonDesktopTeam .std-team-inner{width:min(100%,1360px)!important}#salonDesktopTeam .std-team-kicker{color:#b8ada7!important}
-#salonDesktopTeam .std-team-title{color:#f7f3f0!important}#salonDesktopTeam .std-team-subtitle{margin-top:14px!important;color:#b9ada7!important;font-size:14px!important}
-#salonDesktopTeam .std-team-track{display:grid!important;width:100%!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:28px!important;margin-top:42px!important;overflow:visible!important;padding:0!important}
-#salonDesktopTeam .std-master{position:relative!important;display:block!important;width:100%!important;min-width:0!important;padding:20px 12px 22px!important;
-border:1px solid rgba(255,255,255,.10)!important;border-radius:18px!important;background:rgba(255,255,255,.035)!important;color:#f7f3f0!important;text-align:center!important}
+#salonDesktopTeam .std-team-inner{width:min(100%,1360px)!important}#salonDesktopTeam .std-team-subtitle{margin-top:14px!important}
+#salonDesktopTeam .std-team-track{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+#salonDesktopTeam .std-master{
+border:1px solid rgba(255,255,255,.10)!important}
 #salonDesktopTeam .std-master-arrow{position:absolute!important;top:13px!important;right:13px!important;width:34px!important;height:34px!important;border:1px solid rgba(255,255,255,.14)!important;
 border-radius:50%!important;background:rgba(255,255,255,.05)!important;color:#d8b7aa!important;display:grid!important;place-items:center!important}
-#salonDesktopTeam .std-master-avatar{width:min(100%,176px)!important;height:auto!important;aspect-ratio:1!important;margin:0 auto!important;border-radius:50%!important;
-background:linear-gradient(145deg,#806b61,#5b4a43)!important;color:#e6d8d0!important;border:1px solid rgba(255,255,255,.10)!important}
-#salonDesktopTeam .std-master-name{margin-top:17px!important;color:#f7f3f0!important;font-size:27px!important}
-#salonDesktopTeam .std-master-role{margin-top:6px!important;color:#c5b9b2!important;font-size:11px!important}
 .std-master-cats{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:13px}
-.std-master-cat{display:inline-flex;min-height:25px;align-items:center;padding:0 9px;border:1px solid rgba(255,255,255,.11);border-radius:999px;color:#d8cdc6;font:500 9px/1 "Manrope",Arial,sans-serif}
-#salonDesktopReviews.std-reviews{height:auto!important;min-height:0!important;padding:82px 0 70px!important;background:#fff!important;color:#171513!important}
-#salonDesktopReviews .std-reviews-head{width:min(calc(100% - 96px),1360px)!important;margin:0 auto!important;text-align:center!important}
-#salonDesktopReviews .std-reviews-kicker{color:#746c66!important}#salonDesktopReviews .std-reviews-title{color:#171513!important}
-#salonDesktopReviews .std-reviews-score{margin-top:34px!important}#salonDesktopReviews .std-reviews-score>strong{font:500 78px/.82 "Cormorant Garamond",Georgia,serif!important;color:#171513!important}
-#salonDesktopReviews .std-reviews-stars{margin-top:17px!important;font-size:27px!important;color:#b78d4f!important}
-#salonDesktopReviews .std-reviews-count{margin-top:13px!important;color:#716862!important;font-size:13px!important}
-#salonDesktopReviews .std-review-card{height:270px!important;min-height:270px!important;padding:25px!important;border-color:rgba(66,55,49,.15)!important;border-radius:13px!important;background:#f6f7f8!important}
-#salonDesktopReviews .std-review-text{margin-top:22px!important;color:#4f4843!important;font-size:14px!important;line-height:1.5!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:5!important;overflow:hidden!important}
+.std-master-cat{display:inline-flex;min-height:25px;align-items:center;padding:0 9px;border:1px solid rgba(255,255,255,.11);border-radius:999px;color:#d8cdc6;font:500 9px/1 "Manrope",Arial,sans-serif}#salonDesktopReviews .std-reviews-score>strong{font:500 78px/.82 "Cormorant Garamond",Georgia,serif!important}
+#salonDesktopReviews .std-reviews-count{font-size:13px!important}
+#salonDesktopReviews .std-review-card{border-color:rgba(66,55,49,.15)!important}
+#salonDesktopReviews .std-review-text{margin-top:22px!important;font-size:14px!important;line-height:1.5!important;-webkit-line-clamp:5!important}
 .std-contact{min-height:0!important;padding:82px 70px 46px!important;background:#2f2926!important;color:#f7f3f0!important}
 .std-contact-inner{width:min(100%,1360px)!important;grid-template-columns:500px minmax(0,1fr)!important;gap:42px!important}
 .std-contact-kicker{color:#b8ada7!important}.std-contact-title{color:#f7f3f0!important;margin-bottom:32px!important}.std-contact-right{padding-top:94px!important}
@@ -2200,11 +2057,6 @@ html,body{
 scroll-behavior:smooth!important;
 overscroll-behavior-y:auto!important;
 }
-.std-hero{
-height:calc(100dvh - 80px)!important;
-min-height:700px!important;
-background:#fff!important;
-}
 .std-hero-copy{
 position:relative!important;
 align-items:stretch!important;
@@ -2239,11 +2091,7 @@ background:linear-gradient(180deg,rgba(240,232,22—) 0%,rgba(240,232,225,.60) 4
 pointer-events:none!important;
 }
 .std-copy-inner{
-position:relative!important;
-z-index:5!important;
-width:min(100% - 64px,560px)!important;
 margin-top:116px!important;
-transform:none!important;
 }
 .std-scroll-hint{
 position:absolute!important;
@@ -2296,27 +2144,14 @@ animation:stdScrollCircleFloat 2.5s ease-in-out infinite!important;
 .std-scroll-circle{animation:none!important}
 }
 #salonDesktopServices.mct-prices{
-overflow:hidden!important;
-padding:96px 0 104px!important;
 background:#2f2926!important;
 color:#f7f3f0!important;
 }
 #salonDesktopServices.mct-prices>.mct-shell{
 position:relative!important;
-display:grid!important;
-width:min(calc(100% - 96px),1360px)!important;
-margin:0 auto!important;
 grid-template-columns:minmax(285px,.72fr) minmax(0,1.58fr)!important;
-column-gap:clamp(46px,5.5vw,82px)!important;
-align-items:start!important;
 }
 #salonDesktopServices .mct-price-head{
-position:sticky!important;
-top:108px!important;
-display:block!important;
-grid-column:1!important;
-width:100%!important;
-padding:0 clamp(22px,2.7vw,40px) 0 0!important;
 text-align:left!important;
 transform:translate(-1.5cm,-3cm)!important;
 }
@@ -2354,32 +2189,9 @@ font-size:14.3px!important;
 line-height:1.72!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap{
-grid-column:2!important;
-width:100%!important;
 min-width:0!important;
-margin:0 0 12px!important;
-padding:24px 0 16px!important;
-overflow:visible!important;
 }
-#salonDesktopServices .mct-tabs{
-width:calc(100% + 32px)!important;
-margin:-10px -16px -16px!important;
-padding:10px 16px 16px!important;
-overflow-x:auto!important;
-overflow-y:hidden!important;
-scrollbar-width:none!important;
-overscroll-behavior-x:contain!important;
-scroll-snap-type:x proximity!important;
-box-sizing:border-box!important;
-}
-#salonDesktopServices .mct-tabs::-webkit-scrollbar{display:none!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tabs-track{
-display:flex!important;
-width:max-content!important;
-min-width:100%!important;
-flex-wrap:nowrap!important;
-gap:10px!important;
-padding:5px 6px 18px!important;
 box-sizing:border-box!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tab,
@@ -2413,12 +2225,6 @@ background:#8b7167!important;
 color:#fff!important;
 box-shadow:0 14px 30px rgba(0,0,0,.16)!important;
 }
-#salonDesktopServices .dct-service-groups{
-grid-column:2!important;
-width:100%!important;
-min-width:0!important;
-margin-top:-1cm!important;
-}
 #salonDesktopServices .dct-service-category+.dct-service-category{
 margin-top:30px!important;
 }
@@ -2448,7 +2254,6 @@ background:linear-gradient(90deg,rgba(216,183,170,.26),transparent)!important;
 }
 #salonDesktopServices .dct-service-category-list{
 display:grid!important;
-width:100%!important;
 gap:11px!important;
 }
 #salonDesktopServices .dct-service-card,
@@ -2470,7 +2275,6 @@ transition:transform 200ms ease,border-color 200ms ease,box-shadow 200ms ease,ba
 }
 #salonDesktopServices .dct-service-card:hover{
 border-color:rgba(255,255,255,.23)!important;
-background:rgba(255,255,255,.075)!important;
 box-shadow:0 16px 35px rgba(0,0,0,.10)!important;
 transform:translateY(-3px)!important;
 }
@@ -2604,34 +2408,18 @@ color:rgba(113,91,83,.22)!important;
 font:500 76px/.8 "Cormorant Garamond",Georgia,serif!important;
 }
 #salonDesktopAbout .mct-about-card{
-display:grid!important;
 grid-template-columns:minmax(360px,.84fr) minmax(500px,1.16fr)!important;
-height:clamp(600px,43vw,640px)!important;
-min-height:0!important;
-margin-top:28px!important;
-overflow:hidden!important;
-border:1px solid rgba(85,64,57,.10)!important;
-border-radius:28px!important;
-background:#fff!important;
-box-shadow:0 18px 48px rgba(67,50,44,.075)!important;
 }
 #salonDesktopAbout .mct-about-portrait-wrap{
 position:relative!important;
-height:100%!important;
-min-height:540px!important;
-overflow:hidden!important;
 }
 #salonDesktopAbout .mct-about-portrait{
 width:100%!important;
-height:100%!important;
 margin:0!important;
 overflow:hidden!important;
 }
 #salonDesktopAbout .mct-about-portrait img{
 display:block!important;
-width:100%!important;
-height:100%!important;
-object-fit:cover!important;
 object-position:center 20%!important;
 }
 #salonDesktopAbout .mct-about-copy{
@@ -2641,22 +2429,15 @@ justify-content:center!important;
 padding:clamp(34px,3.6vw,52px)!important;
 }
 #salonDesktopAbout .mct-about-lead{
-margin:0 0 12px!important;
-color:#1d1a18!important;
 font:500 clamp(30px,2.5vw,38px)/1.15 "Cormorant Garamond",Georgia,serif!important;
-letter-spacing:-.025em!important;
 }
 #salonDesktopAbout .mct-about-copy>p:not(.mct-about-lead){
-margin:8px 0 0!important;
-color:#58504a!important;
 font-size:13.5px!important;
 line-height:1.62!important;
 }
 #salonDesktopAbout .mct-about-list{display:none!important}
 #salonDesktopAbout .dct-about-amenities{
 display:block!important;
-margin-top:24px!important;
-padding-top:20px!important;
 border-top:1px solid rgba(83,63,55,.11)!important;
 }
 #salonDesktopAbout .dct-about-amenities-head{
@@ -2670,13 +2451,7 @@ color:#716a66!important;
 font-size:10px!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid{
-display:grid!important;
-grid-template-columns:repeat(3,minmax(0,1fr))!important;
 margin-top:16px!important;
-}
-#salonDesktopAbout .dct-about-amenities-grid article{
-min-width:0!important;
-padding:3px 15px 0 0!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid article+article{
 padding-left:15px!important;
@@ -2689,53 +2464,22 @@ color:#373331!important;
 font:600 22px/1.08 "Cormorant Garamond",Georgia,serif!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid span{
-margin-top:5px!important;
 color:#716a66!important;
-font-size:9.5px!important;
-line-height:1.42!important;
-}
-#salonDesktopTeam .std-team-track{
-gap:42px!important;
 }
 #salonDesktopTeam .std-master{
 position:relative!important;
 display:block!important;
-width:100%!important;
-min-width:0!important;
-padding:0!important;
-border:0!important;
-border-radius:0!important;
-background:transparent!important;
-box-shadow:none!important;
-color:#f7f3f0!important;
-text-align:center!important;
 }
 #salonDesktopTeam .std-master-arrow{display:none!important}
 #salonDesktopTeam .std-master-avatar{
-width:min(100%,188px)!important;
-height:auto!important;
-aspect-ratio:1!important;
-margin:0 auto!important;
-border-radius:50%!important;
-background:linear-gradient(145deg,#806b61,#5b4a43)!important;
 border:1px solid rgba(255,255,255,.08)!important;
-box-shadow:none!important;
-}
-#salonDesktopTeam .std-master-name{
-margin-top:17px!important;
 }
 #salonDesktopTeam .std-master-cats{
-margin-top:9px!important;
 gap:8px!important;
 }
 #salonDesktopTeam .std-master-cat{
 min-height:0!important;
-padding:0!important;
-border:0!important;
 border-radius:0!important;
-background:transparent!important;
-color:#bdb5b0!important;
-font-size:10px!important;
 }
 #salonDesktopReviews.std-reviews{
 position:relative!important;
@@ -2900,14 +2644,11 @@ letter-spacing:.14em!important;
 text-transform:uppercase!important;
 }
 #salonDesktopContacts.std-contact{
-padding:82px 70px 0!important;
 background:#2f2926!important;
 color:#f7f3f0!important;
 }
 #salonDesktopContacts .std-contact-inner{
 display:block!important;
-width:min(100%,1360px)!important;
-margin:0 auto!important;
 }
 #salonDesktopContacts .std-contact-head{
 display:flex!important;
@@ -2940,20 +2681,15 @@ color:#a9d5b0!important;
 #salonDesktopContacts .std-contact-body{
 display:grid!important;
 grid-template-columns:minmax(420px,.9fr) minmax(0,1.1fr)!important;
-gap:34px!important;
-margin-top:34px!important;
 align-items:stretch!important;
 }
 #salonDesktopContacts .std-contact-list{
 display:grid!important;
-gap:10px!important;
 margin:0!important;
 }
 #salonDesktopContacts .std-contact-card{
-min-height:76px!important;
 grid-template-columns:46px minmax(0,1fr)!important;
 gap:13px!important;
-padding:13px 15px!important;
 border:1px solid rgba(255,255,255,.13)!important;
 border-radius:14px!important;
 background:rgba(255,255,255,.06)!important;
@@ -2973,9 +2709,7 @@ color:#f7f3f0!important;
 font:500 19px/1.15 "Cormorant Garamond",Georgia,serif!important;
 }
 #salonDesktopContacts .std-contact-card-sub{
-margin-top:5px!important;
 color:#c7bbb4!important;
-font-size:10.5px!important;
 }
 #salonDesktopContacts .std-contact-right{
 display:flex!important;
@@ -2984,7 +2718,6 @@ padding:0!important;
 }
 #salonDesktopContacts .std-contact-map{
 height:100%!important;
-min-height:334px!important;
 border:1px solid rgba(255,255,255,.12)!important;
 border-radius:18px!important;
 overflow:hidden!important;
@@ -2993,8 +2726,6 @@ background:#423a36!important;
 #salonDesktopContacts .std-contact-actions{
 display:grid!important;
 grid-template-columns:1fr 1.15fr!important;
-gap:10px!important;
-margin-top:12px!important;
 }
 #salonDesktopContacts .std-contact-action-btn{
 height:50px!important;
@@ -3014,8 +2745,6 @@ background:#f4ede8!important;
 color:#2b2522!important;
 }
 #salonDesktopContacts .std-contact-bottom{
-width:calc(100% + 140px)!important;
-margin:42px -70px 0!important;
 display:block!important;
 }
 #salonDesktopContacts .std-contact-brand{
@@ -3034,24 +2763,14 @@ gap:8px!important;
 box-shadow:none!important;
 }
 #salonDesktopContacts .br-tanem-mark{
-width:30px!important;
-height:30px!important;
 border:1px solid rgba(255,255,255,.42)!important;
-border-radius:8px!important;
-display:grid!important;
-place-items:center!important;
-color:#fff!important;
 font:500 21px/1 "Cormorant Garamond",Georgia,serif!important;
 }
 #salonDesktopContacts .br-tanem-copy{
-display:block!important;
-color:#cfc8c4!important;
 font:400 10px/1.2 "Manrope",Arial,sans-serif!important;
-text-align:center!important;
 }
 #salonDesktopContacts .br-tanem-copy strong{
 display:inline!important;
-color:#fff!important;
 font:500 15px/1 "Cormorant Garamond",Georgia,serif!important;
 }
 @media(max-width:1199px){
@@ -3117,20 +2836,13 @@ height:auto!important;
 }
 @media(min-width:768px){
 html,body{scroll-behavior:auto!important;overscroll-behavior-y:auto!important}
-.std-hero{height:calc(100dvh - 80px)!important;min-height:0!important}
 .std-hero-copy{min-height:0!important}
 .std-hero-frame{min-height:0!important}
 #salonDesktopPortfolio,#salonDesktopServices,#salonDesktopAbout,#salonDesktopTeam,#salonDesktopReviews,#salonDesktopContacts{scroll-margin-top:80px!important}
 }
 @media(min-width:768px) and (max-height:820px){
 .std-hero-frame{margin-top:18px!important}
-.std-copy-inner{margin-top:72px!important;width:min(100% - 56px,540px)!important}
-.std-hero-kicker{margin-bottom:20px!important}
-.std-logo-sub{margin-bottom:22px!important}
-.std-tagline{margin-bottom:22px!important;font-size:21px!important}
-.std-meta{margin-bottom:20px!important}
-.std-meta-icon{width:52px!important;height:52px!important;flex-basis:52px!important}
-.std-btn{height:58px!important}
+.std-copy-inner{width:min(100% - 56px,540px)!important}
 .std-scroll-hint{bottom:14px!important}
 .std-scroll-circle{width:46px!important;height:46px!important}
 }
@@ -3138,7 +2850,6 @@ html,body{scroll-behavior:auto!important;overscroll-behavior-y:auto!important}
 .std-header{
 height:80px!important;
 padding:0 48px!important;
-background:#fff!important;
 border-bottom:1px solid rgba(77,59,50,.055)!important;
 }
 .std-header-brand{
@@ -3157,7 +2868,6 @@ letter-spacing:.38em!important;
 padding-left:2px!important;
 }
 .std-header-right{
-margin-left:auto!important;
 gap:19px!important;
 transform:none!important;
 }
@@ -3176,7 +2886,6 @@ grid-template-columns:46.5% 53.5%!important;
 height:calc(100dvh - 80px)!important;
 min-height:690px!important;
 overflow:hidden!important;
-background:#fff!important;
 }
 .std-hero:before,
 .std-hero:after{
@@ -3190,15 +2899,9 @@ border-radius:50%!important;
 pointer-events:none!important;
 background:transparent!important;
 }
-.std-hero:before{
-left:33%!important;
-top:-600px!important;
-}
 .std-hero:after{
 width:820px!important;
 height:820px!important;
-right:-410px!important;
-bottom:-540px!important;
 }
 .std-hero-copy{
 position:relative!important;
@@ -3261,10 +2964,8 @@ overflow:visible!important;
 .std-copy-inner{
 position:relative!important;
 z-index:4!important;
-width:min(100%,570px)!important;
 margin:clamp(72px,10.5vh,120px) 0 0!important;
 transform:none!important;
-text-align:left!important;
 }
 .std-hero-kicker{
 margin:0 0 28px!important;
@@ -3282,7 +2983,6 @@ line-height:.84!important;
 letter-spacing:.055em!important;
 text-indent:0!important;
 text-align:left!important;
-white-space:nowrap!important;
 }
 .std-logo-sub{
 width:min(100%,540px)!important;
@@ -3319,10 +3019,6 @@ border-color:rgba(103,78,65,.15)!important;
 .std-meta-icon svg{width:24px!important;height:24px!important}
 .std-meta-text{font-size:15px!important;line-height:1.38!important}
 .std-meta-divider{height:58px!important}
-.std-actions{
-width:min(100%,540px)!important;
-gap:11px!important;
-}
 .std-btn{
 height:62px!important;
 border-radius:9px!important;
@@ -3339,7 +3035,6 @@ position:relative!important;
 z-index:3!important;
 min-width:0!important;
 height:auto!important;
-margin:36px 48px 36px 0!important;
 overflow:hidden!important;
 border:1px solid rgba(109,82,68,.16)!important;
 border-radius:28px!important;
@@ -3380,9 +3075,8 @@ cursor:pointer!important;
 .std-header-right{gap:10px!important}
 .std-header-book{width:132px!important;min-width:132px!important}
 .std-hero{grid-template-columns:48% 52%!important}
-.std-hero-copy{padding-left:42px!important;padding-right:24px!important}
 .std-hero-copy:after{left:42px!important}
-.std-copy-inner{width:min(100%,500px)!important;margin-top:clamp(58px,8vh,86px)!important}
+.std-copy-inner{margin-top:clamp(58px,8vh,86px)!important}
 .std-logo{font-size:clamp(52px,5.1vw,66px)!important}
 .std-logo-sub{margin-bottom:27px!important}
 .std-tagline{font-size:20px!important;margin-bottom:26px!important}
@@ -3390,7 +3084,7 @@ cursor:pointer!important;
 .std-meta-icon{width:50px!important;height:50px!important;flex-basis:50px!important}
 .std-meta-text{font-size:13px!important}
 .std-btn{height:56px!important;font-size:14px!important}
-.std-hero-photo{margin:26px 28px 26px 0!important;border-radius:22px!important}
+.std-hero-photo{border-radius:22px!important}
 }
 @media(min-width:768px) and (max-height:820px){
 .std-copy-inner{margin-top:48px!important}
@@ -3423,10 +3117,6 @@ bottom:-525px!important;
 border-color:rgba(146,106,85,.16)!important;
 box-shadow:0 0 100px rgba(150,112,91,.04)!important;
 }
-.std-hero-copy{
-padding-left:58px!important;
-padding-right:58px!important;
-}
 .std-hero-copy:before{
 left:-355px!important;
 top:88px!important;
@@ -3434,17 +3124,12 @@ border-color:rgba(146,106,85,.12)!important;
 box-shadow:0 0 80px rgba(108,77,61,.035)!important;
 }
 .std-copy-inner{
-width:100%!important;
-max-width:570px!important;
-margin-left:auto!important;
-margin-right:auto!important;
 text-align:center!important;
 }
 .std-hero-kicker,
 .std-logo,
 .std-logo-sub,
 .std-tagline{text-align:center!important}
-.std-logo{margin-left:auto!important;margin-right:auto!important}
 .std-logo-sub,
 .std-tagline,
 .std-meta,
@@ -3472,7 +3157,6 @@ inset 0 -34px 70px rgba(55,39,31,.035)!important;
 }
 @media(min-width:768px) and (max-width:1180px){
 .std-header{padding-left:26px!important;padding-right:26px!important}
-.std-hero-copy{padding-left:34px!important;padding-right:34px!important}
 .std-hero-photo{margin:26px 26px 26px 0!important}
 }
 @media(min-width:768px){
@@ -3488,24 +3172,9 @@ max-width:570px!important;
 margin-left:auto!important;
 margin-right:auto!important;
 }
-.std-actions{
-width:min(100%,540px)!important;
-display:grid!important;
-grid-template-columns:1fr!important;
-gap:11px!important;
-}
-.std-actions .std-btn{
-width:100%!important;
-min-width:0!important;
-height:62px!important;
-padding:0 28px!important;
-font-size:16px!important;
-}
 }
 @media(min-width:768px) and (max-width:1180px){
 .std-hero-copy{padding-left:0!important;padding-right:0!important}
-.std-copy-inner{width:min(calc(100% - 52px),500px)!important}
-.std-actions .std-btn{height:58px!important;font-size:15px!important}
 }
 @media(min-width:768px){
 .std-hero-copy{position:static!important}
@@ -3529,7 +3198,6 @@ text-align:center!important;
 }
 .std-hero-kicker,.std-logo,.std-logo-sub,.std-tagline{
 width:100%!important;
-text-align:center!important;
 }
 .std-logo{
 margin-left:auto!important;
@@ -3544,16 +3212,8 @@ margin-right:auto!important;
 justify-content:center!important;
 justify-items:center!important;
 }
-.std-meta-item{justify-content:center!important}
 .std-actions{
-width:min(100%,540px)!important;
 grid-template-columns:1fr 1fr!important;
-gap:12px!important;
-}
-.std-actions .std-btn{
-width:100%!important;
-height:62px!important;
-font-size:16px!important;
 }
 }
 @media(min-width:768px) and (max-width:1180px){
@@ -3561,8 +3221,6 @@ font-size:16px!important;
 width:48%!important;
 padding:clamp(58px,8vh,86px) 26px 100px!important;
 }
-.std-actions{width:min(100%,500px)!important}
-.std-actions .std-btn{height:58px!important;font-size:15px!important}
 }
 @media(min-width:768px) and (max-height:820px){
 .std-copy-inner{padding-top:48px!important;padding-bottom:82px!important}
@@ -3593,18 +3251,8 @@ transform:none!important;
 }
 }
 @media(min-width:768px){
-.std-actions .std-btn{
-height:62px!important;
-padding:0 28px!important;
-font-size:16px!important;
-}
 }
 @media(min-width:768px) and (max-width:1180px){
-.std-actions .std-btn{
-height:58px!important;
-padding:0 26px!important;
-font-size:15px!important;
-}
 }
 @media(min-width:768px){
 .std-actions{
@@ -3648,7 +3296,6 @@ width:100%!important;
 max-width:none!important;
 min-width:0!important;
 box-sizing:border-box!important;
-height:62px!important;
 margin:0!important;
 }
 }
@@ -3657,8 +3304,6 @@ margin:0!important;
 width:500px!important;
 max-width:calc(100% - 52px)!important;
 }
-#salonDesktopTop .std-actions > #stdBookBtn,
-#salonDesktopTop .std-actions > a.std-btn{height:58px!important}
 }
 @media(min-width:768px){
 #salonDesktopTop .std-copy-inner{
@@ -3671,42 +3316,13 @@ transform:translateY(-50%)!important;
 }
 }
 @media(min-width:768px){
-#salonDesktopTop .std-hero-kicker{
-width:min(100%,540px)!important;
-text-align:left!important;
-align-self:center!important;
-}
-#salonDesktopTop .std-logo-sub{
-font-size:13.2px!important;
-}
-#salonDesktopTop .std-meta-text{
-font-size:16.05px!important;
-}
-#salonDesktopTop .std-actions > #stdBookBtn,
-#salonDesktopTop .std-actions > a.std-btn{
-height:66.34px!important;
-font-size:17.12px!important;
-}
 }
 @media(min-width:768px) and (max-width:1180px){
-#salonDesktopTop .std-logo-sub{font-size:15.4px!important}
-#salonDesktopTop .std-meta-text{font-size:13.91px!important}
-#salonDesktopTop .std-actions > #stdBookBtn,
-#salonDesktopTop .std-actions > a.std-btn{
-height:62.06px!important;
-font-size:16.05px!important;
-}
 }
 @media(min-width:768px){
 #salonDesktopTop .std-hero-kicker{
-width:min(100%,540px)!important;
 box-sizing:border-box!important;
-text-align:left!important;
-align-self:center!important;
-margin-left:auto!important;
-margin-right:auto!important;
 }
-#salonDesktopTop .std-logo-sub{font-size:14.52px!important}
 #salonDesktopTop .std-meta-text{font-size:17.1735px!important}
 #salonDesktopTop .std-actions > #stdBookBtn,
 #salonDesktopTop .std-actions > a.std-btn{
@@ -3716,7 +3332,6 @@ font-size:18.3184px!important;
 }
 @media(min-width:768px) and (max-width:1180px){
 #salonDesktopTop .std-hero-kicker{width:min(100%,500px)!important}
-#salonDesktopTop .std-logo-sub{font-size:16.94px!important}
 #salonDesktopTop .std-meta-text{font-size:14.8837px!important}
 #salonDesktopTop .std-actions > #stdBookBtn,
 #salonDesktopTop .std-actions > a.std-btn{
@@ -3725,14 +3340,6 @@ font-size:17.1735px!important;
 }
 }
 @media(min-width:768px){
-#salonDesktopTop .std-hero-kicker{
-width:100%!important;
-text-align:center!important;
-align-self:center!important;
-}
-#salonDesktopTop .std-logo{
-font-size:inherit!important;
-}
 #salonDesktopTop .std-logo-sub{
 font-size:15.5364px!important;
 }
@@ -3761,9 +3368,6 @@ font-size:clamp(48.36px,4.743vw,61.38px)!important;
 }
 }
 @media(min-width:768px){
-#salonDesktopTop.std-hero{
-background:#fff!important;
-}
 #salonDesktopTop.std-hero:before{
 width:1040px!important;
 height:1040px!important;
@@ -3799,9 +3403,6 @@ transform:none!important;
 }
 }
 @media(min-width:768px){
-#salonDesktopTop.std-hero{
-background:#fff!important;
-}
 #salonDesktopTop .std-hero-copy,
 #salonDesktopTop .std-hero-frame,
 #salonDesktopTop .std-copy-inner{
@@ -3861,12 +3462,10 @@ background:#fff!important;
 position:absolute!important;
 left:calc(36px - 0.1cm)!important;
 top:calc(66px + 0.6cm)!important;
-height:28px!important;
 z-index:20!important;
 display:flex!important;
 align-items:center!important;
 gap:4px!important;
-padding:0!important;
 margin:0!important;
 }
 .std-lang-switch-under-brand button{
@@ -3934,7 +3533,6 @@ transform:translateY(-1px)!important;
 .std-lang-switch-under-brand button.active{
 background:rgba(61,55,51,.14)!important;
 color:#171412!important;
-font-weight:700!important;
 box-shadow:inset 0 0 0 1px rgba(56,49,45,.08)!important;
 }
 .std-nav a{position:relative!important;transition:color .18s ease!important}
@@ -3977,9 +3575,9 @@ html,body,#salon-desktop-v1{scroll-behavior:auto!important;scroll-snap-type:none
 .std-section-reveal,.std-section-reveal.in-view,.std-section-reveal.is-visible{opacity:1!important;transform:none!important;transition:none!important}
 #salon-desktop-v1 section{scroll-snap-align:none!important;scroll-snap-stop:normal!important}
 #salonDesktopTop.std-hero:after{content:""!important;display:block!important;position:absolute!important;z-index:4!important;left:0!important;right:0!important;bottom:-1px!important;width:auto!important;height:150px!important;border:0!important;border-radius:0!important;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.46) 45%,#fff 100%)!important;pointer-events:none!important}
-#salonDesktopPortfolio.std-portfolio{margin-top:-1px!important;padding-top:92px!important;background:radial-gradient(ellipse 330px 520px at -2% 18%,rgba(83,57,45,.12) 0%,rgba(105,74,58,.06) 38%,transparent 76%),radial-gradient(ellipse 390px 560px at 102% 76%,rgba(119,84,67,.08) 0%,rgba(151,112,91,.035) 35%,transparent 76%),radial-gradient(ellipse 760px 500px at 37% 20%,rgba(255,255,255,.36) 0%,rgba(255,255,255,.13) 48%,transparent 78%),linear-gradient(180deg,#f3ebe3 0%,#f4eee7 48%,#eee3da 100%)!important}
-#salonDesktopPortfolio.std-portfolio:before{width:760px!important;height:760px!important;left:-470px!important;bottom:-390px!important;border:1px solid rgba(151,112,91,.09)!important;border-radius:50%!important;background:transparent!important;filter:none!important}
-#salonDesktopPortfolio.std-portfolio:after{width:980px!important;height:980px!important;right:-520px!important;top:-610px!important;border:1px solid rgba(151,112,91,.12)!important;border-radius:50%!important;background:transparent!important;filter:none!important}
+#salonDesktopPortfolio.std-portfolio{background:radial-gradient(ellipse 330px 520px at -2% 18%,rgba(83,57,45,.12) 0%,rgba(105,74,58,.06) 38%,transparent 76%),radial-gradient(ellipse 390px 560px at 102% 76%,rgba(119,84,67,.08) 0%,rgba(151,112,91,.035) 35%,transparent 76%),radial-gradient(ellipse 760px 500px at 37% 20%,rgba(255,255,255,.36) 0%,rgba(255,255,255,.13) 48%,transparent 78%),linear-gradient(180deg,#f3ebe3 0%,#f4eee7 48%,#eee3da 100%)!important}
+#salonDesktopPortfolio.std-portfolio:before{border:1px solid rgba(151,112,91,.09)!important}
+#salonDesktopPortfolio.std-portfolio:after{border:1px solid rgba(151,112,91,.12)!important}
 #salonDesktopPortfolio .std-portfolio-kicker{color:#62564f!important}
 #salonDesktopPortfolio .std-portfolio-title{color:#211c19!important}
 #salonDesktopPortfolio .std-portfolio-copy{color:#655b55!important}
@@ -3990,7 +3588,6 @@ html,body,#salon-desktop-v1{scroll-behavior:auto!important;scroll-snap-type:none
 #salonDesktopTop.std-hero:after{display:none!important}
 #salonDesktopPortfolio.std-portfolio{
 margin-top:0!important;
-padding-top:92px!important;
 border-top:1px solid rgba(93,70,59,.055)!important;
 background:
 radial-gradient(ellipse 185px 610px at -1% 38%,rgba(83,57,45,.18) 0%,rgba(105,74,58,.105) 25%,rgba(133,96,76,.05) 48%,transparent 76%),
@@ -4000,12 +3597,9 @@ linear-gradient(102deg,#f3ebe3 0%,#f4eee7 47%,#eee3da 100%)!important;
 box-shadow:inset 0 30px 52px -48px rgba(73,54,45,.38)!important;
 }
 #salonDesktopPortfolio.std-portfolio:before{
-width:620px!important;height:620px!important;left:-430px!important;bottom:-330px!important;
-border:1px solid rgba(151,112,91,.075)!important;border-radius:50%!important;background:transparent!important;filter:none!important;
+border:1px solid rgba(151,112,91,.075)!important;border-radius:50%!important;filter:none!important;
 }
-#salonDesktopPortfolio.std-portfolio:after{
-width:900px!important;height:900px!important;right:-520px!important;top:-590px!important;
-border:1px solid rgba(151,112,91,.10)!important;border-radius:50%!important;background:transparent!important;filter:none!important;
+#salonDesktopPortfolio.std-portfolio:after{border-radius:50%!important;filter:none!important;
 }
 #salonDesktopPortfolio .std-portfolio-inner{
 padding-top:8px!important;
@@ -4062,7 +3656,6 @@ transition:opacity .32s ease .06s,transform .42s cubic-bezier(.16,1,.3,1) .06s!i
 .std-gallery-browser.open .std-gallery-browser-shell{opacity:1!important;transform:none!important}
 .std-gallery-browser-title strong{font-size:clamp(59.4px,4.4vw,70.4px)!important}
 .std-gallery-browser-title span{
-margin-top:calc(9px + .1cm)!important;
 font-size:11.55px!important;
 }
 .std-gallery-browser-back{
@@ -4159,77 +3752,34 @@ letter-spacing:.08em!important;
 @media(min-width:768px){#salon-desktop-v1{opacity:0;transform:none;transition:opacity 1.05s cubic-bezier(.22,.72,.28,1)}#salon-desktop-v1.desktop-ready{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){#salon-desktop-v1{opacity:1!important;transform:none!important;transition:none!important}}
 @media(min-width:768px){
 #salon-desktop-v1{transition:opacity .45s cubic-bezier(.22,.72,.28,1)!important}
-#salonDesktopServices.mct-prices{
-overflow:clip!important;
-}
-#salonDesktopServices.mct-prices>.mct-shell{
-align-items:start!important;
-}
-#salonDesktopServices .mct-price-head{
-position:sticky!important;
-top:104px!important;
-z-index:6!important;
-grid-column:1!important;
-grid-row:1 / span 4!important;
-width:100%!important;
-transform:none!important;
-padding:0 clamp(22px,2.7vw,40px) 0 0!important;
-align-self:start!important;
-}
-#salonDesktopServices .mct-price-head:after{
-top:0!important;
-right:-1.6cm!important;
-height:min(72vh,660px)!important;
-}
 #salonDesktopServices .dct-service-sticky-card{
-width:100%!important;
-max-width:440px!important;
-min-height:360px!important;
-margin:0!important;
-padding:30px 30px 28px!important;
 border:1px solid rgba(92,69,59,.16)!important;
-border-radius:26px!important;
 background:
 radial-gradient(310px 180px at 88% 0%,rgba(255,255,255,.76),transparent 72%),
 linear-gradient(145deg,#f8f4ee 0%,#eee1d8 100%)!important;
 box-shadow:0 22px 52px rgba(17,14,12,.20)!important;
-color:#211d1a!important;
 }
 #salonDesktopServices .dct-service-sticky-kicker{
 display:block!important;
 margin:0 0 12px!important;
-color:#8f7167!important;
 font:600 11px/1 "Manrope",Arial,sans-serif!important;
-letter-spacing:.24em!important;
 text-transform:uppercase!important;
 }
 #salonDesktopServices .dct-service-sticky-card>strong{
-display:block!important;
-color:#211d1a!important;
 font:500 39px/.98 "Cormorant Garamond",Georgia,serif!important;
 letter-spacing:-.03em!important;
 }
 #salonDesktopServices .dct-service-sticky-info{
-display:grid!important;
 grid-template-columns:1fr 1fr!important;
-gap:10px!important;
-margin-top:28px!important;
 }
 #salonDesktopServices .dct-service-sticky-row{
-min-width:0!important;
-min-height:82px!important;
 display:grid!important;
 grid-template-columns:42px minmax(0,1fr)!important;
-gap:11px!important;
 align-items:center!important;
-padding:12px!important;
 border:1px solid rgba(83,63,55,.105)!important;
-border-radius:16px!important;
 background:rgba(255,255,255,.42)!important;
 }
 #salonDesktopServices .dct-service-sticky-icon{
-width:42px!important;
-height:42px!important;
 display:grid!important;
 place-items:center!important;
 border:1px solid rgba(103,78,65,.13)!important;
@@ -4238,8 +3788,6 @@ background:rgba(255,255,255,.42)!important;
 color:#715b53!important;
 }
 #salonDesktopServices .dct-service-sticky-icon svg{
-width:20px!important;
-height:20px!important;
 fill:none!important;
 stroke:currentColor!important;
 stroke-width:1.7!important;
@@ -4260,9 +3808,7 @@ white-space:nowrap!important;
 }
 #salonDesktopServices .dct-service-sticky-copy small{
 display:block!important;
-margin-top:5px!important;
 overflow:hidden!important;
-color:#776b64!important;
 font:500 10px/1.25 "Manrope",Arial,sans-serif!important;
 text-overflow:ellipsis!important;
 white-space:nowrap!important;
@@ -4313,43 +3859,10 @@ margin-top:20px!important;
 color:#b9ada7!important;
 font:400 14px/1.7 "Manrope",Arial,sans-serif!important;
 }
-#salonDesktopServices .mct-tabs-ribbon-wrap{
-grid-column:2!important;
-width:calc(100% + max(48px, calc((100vw - 1360px)/2)))!important;
-max-width:none!important;
-margin:0!important;
-padding:14px 0 18px!important;
-overflow:visible!important;
-}
-#salonDesktopServices .mct-tabs{
-width:100%!important;
-max-width:none!important;
-margin:0!important;
-padding:4px max(48px, calc((100vw - 1360px)/2)) 12px 0!important;
-overflow-x:auto!important;
-overflow-y:visible!important;
-scrollbar-width:none!important;
-overscroll-behavior-x:contain!important;
-scroll-snap-type:x proximity!important;
-}
-#salonDesktopServices .mct-tabs::-webkit-scrollbar{display:none!important}
-#salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tabs-track{
-min-width:max-content!important;
-gap:10px!important;
-padding:0!important;
-}
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tab,
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tab-all{
-min-height:48px!important;
-padding:0 24px!important;
 border:1px solid rgba(255,255,255,.18)!important;
-border-radius:999px!important;
-background:rgba(255,255,255,.045)!important;
-color:#d2c8c2!important;
-box-shadow:none!important;
-transform:none!important;
 transition:background .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease!important;
-scroll-snap-align:start!important;
 }
 #salonDesktopServices .mct-tab:hover,
 #salonDesktopServices .mct-tab-all:hover{
@@ -4361,12 +3874,7 @@ border-color:rgba(255,255,255,.25)!important;
 #salonDesktopServices .mct-tab-all.is-active{
 background:#9c7967!important;
 border-color:#ad8a78!important;
-color:#fff!important;
 box-shadow:0 8px 20px rgba(0,0,0,.14)!important;
-}
-#salonDesktopServices .dct-service-groups,
-#salonDesktopServices .mct-more-services{
-grid-column:2!important;
 }
 #stdGalleryBrowser.std-gallery-browser{
 overflow-y:scroll!important;
@@ -4417,15 +3925,8 @@ max-width:none!important;
 content-visibility:auto;
 contain-intrinsic-size:auto 900px;
 }
-#salonDesktopServices.mct-prices{
-overflow:visible!important;
-padding:92px 0 108px!important;
-}
 #salonDesktopServices.mct-prices>.mct-shell{
-width:min(calc(100% - 96px),1360px)!important;
 grid-template-columns:minmax(390px,440px) minmax(0,1fr)!important;
-column-gap:clamp(58px,6vw,86px)!important;
-align-items:start!important;
 }
 #salonDesktopServices .mct-price-head{
 position:sticky!important;
@@ -4438,22 +3939,10 @@ display:flex!important;
 justify-content:center!important;
 align-self:start!important;
 }
-#salonDesktopServices .mct-price-head:after{
-top:0!important;
-right:-26px!important;
-height:min(74vh,720px)!important;
-}
 #salonDesktopServices .dct-service-sticky-card{
 position:relative!important;
 isolation:isolate!important;
-width:100%!important;
-max-width:460px!important;
-min-height:500px!important;
-margin:0 auto!important;
-padding:42px 34px 32px!important;
-overflow:hidden!important;
 border:1px solid rgba(102,78,67,.18)!important;
-border-radius:30px!important;
 background:
 radial-gradient(ellipse 190px 330px at -6% 48%,rgba(118,83,66,.16),transparent 76%),
 radial-gradient(ellipse 210px 330px at 104% 76%,rgba(142,102,82,.12),transparent 76%),
@@ -4492,14 +3981,7 @@ letter-spacing:.25em!important;
 font-size:46px!important;
 line-height:.94!important;
 }
-#salonDesktopServices .dct-service-sticky-info{
-gap:12px!important;
-margin-top:34px!important;
-}
 #salonDesktopServices .dct-service-sticky-row{
-min-height:96px!important;
-padding:14px 12px!important;
-border-radius:18px!important;
 background:rgba(255,255,255,.48)!important;
 }
 #salonDesktopServices .dct-service-sticky-book,
@@ -4516,15 +3998,11 @@ font:600 13px/1 "Manrope",Arial,sans-serif!important;
 transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease!important;
 }
 #salonDesktopServices .dct-service-sticky-book{
-margin-top:28px!important;
 background:#9c7967!important;
-color:#fff!important;
 }
 #salonDesktopServices .dct-service-sticky-work{
-margin-top:12px!important;
 border:1px solid rgba(91,68,58,.22)!important;
 background:rgba(248,244,238,.62)!important;
-color:#302925!important;
 }
 #salonDesktopServices .dct-service-sticky-book:hover,
 #salonDesktopServices .dct-service-sticky-work:hover{
@@ -4532,34 +4010,15 @@ transform:translateY(-2px)!important;
 box-shadow:0 14px 28px rgba(63,47,40,.14)!important;
 }
 #salonDesktopServices .dct-services-right-head{display:none!important}
-#salonDesktopServices .mct-tabs-ribbon-wrap{
-grid-column:2!important;
-width:100%!important;
-margin:0 0 26px!important;
-padding:0!important;
-overflow:visible!important;
-}
 #salonDesktopServices .mct-tabs{
-width:100%!important;
-margin:0!important;
-padding:0!important;
 overflow:visible!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tabs-track{
-width:100%!important;
-min-width:0!important;
-padding:0!important;
-display:flex!important;
 flex-wrap:wrap!important;
-gap:11px!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tab,
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tab-all{
-min-width:0!important;
-min-height:49px!important;
-padding:0 22px!important;
 border:1px solid rgba(255,255,255,.19)!important;
-border-radius:999px!important;
 background:rgba(255,255,255,.045)!important;
 color:#d5cbc5!important;
 box-shadow:none!important;
@@ -4578,24 +4037,11 @@ box-shadow:0 10px 22px rgba(0,0,0,.14)!important;
 #salonDesktopServices .mct-tab-all.is-active{
 border-color:#fff!important;
 background:#fff!important;
-color:#2f2926!important;
 box-shadow:0 12px 26px rgba(0,0,0,.16)!important;
 }
-#salonDesktopServices .dct-service-groups{
-grid-column:2!important;
-margin-top:0!important;
-}
-#salonDesktopServices .mct-more-services{grid-column:2!important}
-#salonDesktopAbout.br-about-team{
-padding:92px 0 102px!important;
-background:#fff!important;
-}
 #salonDesktopAbout>.br-about-team-shell{
-width:min(calc(100% - 96px),1360px)!important;
 display:grid!important;
 grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr)!important;
-gap:clamp(42px,5vw,72px)!important;
-align-items:start!important;
 }
 #salonDesktopAbout .mct-about-head{display:block!important}
 #salonDesktopAbout .mct-about-head h2,
@@ -4606,85 +4052,37 @@ letter-spacing:-.035em!important;
 }
 #salonDesktopAbout .mct-about-card{
 display:block!important;
-height:auto!important;
-min-height:0!important;
-margin-top:28px!important;
-overflow:hidden!important;
 border:1px solid rgba(85,64,57,.10)!important;
-border-radius:28px!important;
-background:#fff!important;
 box-shadow:0 18px 48px rgba(67,50,44,.075)!important;
-}
-#salonDesktopAbout .mct-about-portrait-wrap{
-height:270px!important;
-min-height:270px!important;
 }
 #salonDesktopAbout .mct-about-copy{
 display:block!important;
-padding:30px 32px 32px!important;
 }
 #salonDesktopAbout .mct-about-lead{
 font-size:clamp(29px,2.4vw,37px)!important;
 }
-#salonDesktopAbout .dct-about-amenities{
-margin-top:24px!important;
-padding-top:20px!important;
-}
-#salonDesktopAbout .dct-about-amenities-grid{
-grid-template-columns:repeat(3,minmax(0,1fr))!important;
-gap:0!important;
-}
 #salonDesktopTeam.br-team-panel{
-min-height:680px!important;
-padding:42px 40px 40px!important;
 border-radius:28px!important;
 background:
 radial-gradient(circle at 92% 8%,rgba(139,113,103,.20),transparent 34%),
 #2f2926!important;
-color:#f7f3f0!important;
 box-shadow:0 20px 52px rgba(54,41,35,.13)!important;
 }
-#salonDesktopTeam .std-team-kicker{
-margin:0!important;
-color:#c0b5af!important;
-font:600 12px/1 "Manrope",Arial,sans-serif!important;
-letter-spacing:.25em!important;
-text-transform:uppercase!important;
-}
-#salonDesktopTeam .std-team-title{color:#f7f3f0!important}
-#salonDesktopTeam .std-team-subtitle{
-margin:15px 0 0!important;
-color:#b9ada7!important;
-font-size:13px!important;
-line-height:1.5!important;
-}
 #salonDesktopTeam .std-team-track{
-display:grid!important;
-width:100%!important;
-grid-template-columns:repeat(2,minmax(0,1fr))!important;
-gap:34px 24px!important;
 margin-top:38px!important;
-padding:0!important;
-overflow:visible!important;
 }
 #salonDesktopTeam .std-master{
 width:100%!important;
 min-width:0!important;
-padding:0!important;
-border:0!important;
-background:transparent!important;
 color:#f7f3f0!important;
 text-align:center!important;
 }
 #salonDesktopTeam .std-master-avatar{
-width:min(100%,142px)!important;
-height:auto!important;
 aspect-ratio:1!important;
 margin:0 auto!important;
 border:1px solid rgba(255,255,255,.09)!important;
 border-radius:50%!important;
 background:linear-gradient(145deg,#806b61,#5b4a43)!important;
-color:#e6d8d0!important;
 box-shadow:none!important;
 transition:transform .2s ease,box-shadow .2s ease!important;
 }
@@ -4692,18 +4090,7 @@ transition:transform .2s ease,box-shadow .2s ease!important;
 transform:translateY(-4px)!important;
 box-shadow:0 14px 28px rgba(0,0,0,.16)!important;
 }
-#salonDesktopTeam .std-master-name{
-margin-top:15px!important;
-color:#f7f3f0!important;
-font-size:24px!important;
-}
-#salonDesktopTeam .std-master-role{
-margin-top:6px!important;
-color:#c1b5ae!important;
-font-size:10.5px!important;
-}
 #salonDesktopTeam .std-master-cats{display:none!important}
-#salonDesktopContacts.std-contact{padding-top:92px!important}
 #salonDesktopContacts .std-contact-status{
 min-width:208px!important;
 min-height:48px!important;
@@ -4721,10 +4108,6 @@ gap:46px!important;
 margin-top:42px!important;
 }
 #salonDesktopContacts .std-contact-list{gap:14px!important}
-#salonDesktopContacts .std-contact-card{
-min-height:88px!important;
-padding:15px 17px!important;
-}
 #salonDesktopContacts .std-contact-map{min-height:382px!important}
 #salonDesktopContacts .std-contact-actions{
 gap:14px!important;
@@ -4743,74 +4126,29 @@ filter:brightness(1.05)!important;
 }
 @media(min-width:768px) and (max-width:1199px){
 #salonDesktopServices.mct-prices>.mct-shell{
-width:min(calc(100% - 56px),1360px)!important;
 grid-template-columns:minmax(330px,380px) minmax(0,1fr)!important;
-column-gap:50px!important;
 }
-#salonDesktopServices .mct-price-head{padding-right:24px!important}
 #salonDesktopServices .dct-service-sticky-card{
 min-height:470px!important;
-padding:36px 26px 28px!important;
-}
-#salonDesktopAbout>.br-about-team-shell{
-width:min(calc(100% - 56px),1360px)!important;
-gap:34px!important;
 }
 #salonDesktopTeam.br-team-panel{padding:36px 28px!important}
-#salonDesktopTeam .std-master-avatar{width:min(100%,118px)!important}
 }
 @media(min-width:768px){
 #salonDesktopServices.mct-prices{
 padding-top:54px!important;
-}
-#salonDesktopServices.mct-prices>.mct-shell{
-width:calc(100% - 0.8cm)!important;
-max-width:1360px!important;
-margin-left:0.8cm!important;
-margin-right:auto!important;
-grid-template-columns:minmax(455px,505px) minmax(0,1fr)!important;
-column-gap:58px!important;
 }
 #salonDesktopServices .mct-price-head{
 top:92px!important;
 padding-right:38px!important;
 justify-content:stretch!important;
 }
-#salonDesktopServices .mct-price-head:after{
-right:0!important;
-}
 #salonDesktopServices .dct-service-sticky-card{
-width:100%!important;
-max-width:none!important;
-min-height:520px!important;
 padding-top:28px!important;
 }
-#salonDesktopServices .dct-service-sticky-card>strong{
-margin:0!important;
-}
 #salonDesktopServices .dct-services-main-title{
-grid-column:2!important;
-margin:0 0 26px!important;
-color:#f7f3f0!important;
-font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;
 letter-spacing:-.03em!important;
 }
-#salonDesktopServices .mct-tabs-ribbon-wrap{
-grid-column:2!important;
-width:calc(100% + max(38px,calc((100vw - 1360px)/2)))!important;
-max-width:none!important;
-margin:0!important;
-padding:0 0 22px!important;
-overflow:visible!important;
-}
 #salonDesktopServices .mct-tabs{
-width:100%!important;
-max-width:none!important;
-margin:0!important;
-padding:4px max(38px,calc((100vw - 1360px)/2)) 12px 0!important;
-overflow-x:auto!important;
-overflow-y:hidden!important;
-scrollbar-width:none!important;
 overscroll-behavior-x:contain!important;
 scroll-snap-type:x proximity!important;
 }
@@ -4835,32 +4173,20 @@ scroll-snap-align:start!important;
 }
 #salonDesktopServices .mct-tab.is-active,
 #salonDesktopServices .mct-tab-all.is-active{
-border-color:#d8b7aa!important;
-background:#d8b7aa!important;
-color:#2f2926!important;
 box-shadow:0 12px 26px rgba(0,0,0,.14)!important;
 }
 #salonDesktopServices.mct-prices{
 overflow-x:hidden!important;
 }
 #salonDesktopServices.mct-prices>.mct-shell{
-width:calc(100% - 2cm)!important;
-max-width:none!important;
 margin-left:1cm!important;
 margin-right:1cm!important;
 grid-template-columns:minmax(455px,505px) minmax(0,1fr)!important;
-column-gap:2cm!important;
 }
 #salonDesktopServices .mct-price-head{
-top:92px!important;
 padding-right:0!important;
 }
-#salonDesktopServices .mct-price-head:after{
-right:-1cm!important;
-}
 #salonDesktopServices .dct-service-sticky-card{
-min-height:0!important;
-padding:30px 32px!important;
 border-color:rgba(153,112,91,.24)!important;
 background:
 radial-gradient(340px 210px at 95% 2%,rgba(255,255,255,.94),transparent 70%),
@@ -4871,29 +4197,11 @@ box-shadow:
 0 10px 32px rgba(194,151,128,.18),
 inset 0 1px 0 rgba(255,255,255,.92)!important;
 }
-#salonDesktopServices .dct-service-sticky-card>strong,
-#salonDesktopServices .dct-services-main-title{
-font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;
-letter-spacing:-.03em!important;
-}
 #salonDesktopServices .dct-services-main-title{
 align-self:start!important;
-margin:0!important;
-padding:0!important;
 }
 #salonDesktopServices .dct-service-sticky-lead{
-max-width:390px!important;
-margin:16px 0 0!important;
-color:#76675f!important;
 font:500 12px/1.65 "Manrope",Arial,sans-serif!important;
-}
-#salonDesktopServices .dct-service-sticky-info{
-gap:12px!important;
-margin-top:24px!important;
-}
-#salonDesktopServices .dct-service-sticky-row{
-min-height:82px!important;
-padding:12px!important;
 }
 #salonDesktopServices .dct-service-sticky-benefits{
 display:grid!important;
@@ -4922,11 +4230,7 @@ color:#8b7c74!important;
 font:500 9px/1.45 "Manrope",Arial,sans-serif!important;
 }
 #salonDesktopServices .dct-service-sticky-book{
-position:relative!important;
-overflow:hidden!important;
-margin-top:20px!important;
 background:linear-gradient(100deg,#8d6959,#ad8571,#8d6959)!important;
-background-size:220% 100%!important;
 box-shadow:0 12px 28px rgba(147,102,80,.24)!important;
 animation:brServiceBookGlow 3.8s ease-in-out infinite!important;
 }
@@ -4941,9 +4245,6 @@ background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent)!
 transform:rotate(18deg)!important;
 animation:brServiceBookShine 4.6s ease-in-out infinite!important;
 }
-#salonDesktopServices .dct-service-sticky-work{
-margin-top:10px!important;
-}
 @keyframes brServiceBookGlow{
 0%,100%{background-position:0 50%;box-shadow:0 12px 28px rgba(147,102,80,.20)}
 50%{background-position:100% 50%;box-shadow:0 16px 36px rgba(147,102,80,.34)}
@@ -4953,22 +4254,6 @@ margin-top:10px!important;
 68%{opacity:1}
 82%{left:120%;opacity:0}
 100%{left:120%;opacity:0}
-}
-#salonDesktopServices .mct-tabs-ribbon-wrap{
-grid-column:2!important;
-width:calc(100% + 1cm)!important;
-margin-top:30px!important;
-padding:0 0 24px!important;
-overflow:visible!important;
-}
-#salonDesktopServices .mct-tabs{
-width:100%!important;
-padding:4px 1cm 12px 0!important;
-overflow-x:auto!important;
-overflow-y:hidden!important;
-clip-path:none!important;
-mask-image:none!important;
--webkit-mask-image:none!important;
 }
 #salonDesktopServices .dct-service-groups,
 #salonDesktopServices .mct-more-services{
@@ -4995,18 +4280,13 @@ content:""!important;
 background:linear-gradient(to bottom,transparent,rgba(116,90,78,.26),transparent)!important;
 }
 #salonDesktopAbout>.br-about-team-headings h2{
-margin:0!important;
-text-align:center!important;
 font:500 clamp(50px,4.1vw,64px)/.94 "Cormorant Garamond",Georgia,serif!important;
-letter-spacing:-.035em!important;
 }
 #salonDesktopAbout>.br-about-team-headings h2:last-child{color:#2e2724!important}
 #salonDesktopAbout>.br-about-team-shell{
 width:min(calc(100% - 72px),1460px)!important;
 grid-template-columns:repeat(2,minmax(0,1fr))!important;
 gap:72px!important;
-align-items:stretch!important;
-position:relative!important;
 }
 #salonDesktopAbout>.br-about-team-shell:after{
 position:absolute!important;
@@ -5018,18 +4298,11 @@ content:""!important;
 pointer-events:none!important;
 background:linear-gradient(to bottom,transparent,rgba(116,90,78,.18) 15%,rgba(116,90,78,.18) 85%,transparent)!important;
 }
-#salonDesktopAbout .br-about-column,
-#salonDesktopTeam.br-team-panel{
-box-sizing:border-box!important;
-min-height:820px!important;
-}
 #salonDesktopAbout .br-about-column{
 display:flex!important;
 flex-direction:column!important;
-padding:36px!important;
 border:1px solid rgba(85,64,57,.10)!important;
 border-radius:28px!important;
-background:#fff!important;
 box-shadow:0 20px 52px rgba(67,50,44,.09)!important;
 }
 #salonDesktopAbout .mct-about-head,
@@ -5037,31 +4310,9 @@ box-shadow:0 20px 52px rgba(67,50,44,.09)!important;
 #salonDesktopAbout .mct-about-card{
 flex:1 1 auto!important;
 margin-top:0!important;
-border:0!important;
-border-radius:22px!important;
-background:#fff!important;
-box-shadow:none!important;
-}
-#salonDesktopAbout .mct-about-portrait-wrap{
-height:310px!important;
-min-height:310px!important;
-border-radius:22px!important;
-overflow:hidden!important;
-}
-#salonDesktopAbout .mct-about-copy{
-padding:28px 0 0!important;
-}
-#salonDesktopTeam.br-team-panel{
-display:flex!important;
-flex-direction:column!important;
-padding:36px!important;
 }
 #salonDesktopTeam .std-team-kicker{display:none!important}
 #salonDesktopTeam .std-team-title{color:#f7f3f0!important}
-#salonDesktopTeam .std-team-subtitle{
-margin:13px 0 0!important;
-text-align:center!important;
-}
 #salonDesktopTeam .std-team-track{
 flex:1 1 auto!important;
 grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -5071,42 +4322,14 @@ align-content:center!important;
 }
 #salonDesktopTeam .std-master{
 box-sizing:border-box!important;
-min-height:272px!important;
-padding:16px 12px 18px!important;
 border:1px solid rgba(255,255,255,.075)!important;
-border-radius:22px!important;
 background:rgba(255,255,255,.035)!important;
 }
-#salonDesktopTeam .std-master-avatar{
-width:166px!important;
-max-width:100%!important;
-}
-#salonDesktopTeam .std-master-name{
-margin-top:17px!important;
-font-size:26px!important;
-}
-#salonDesktopServices.mct-prices>.mct-shell{
-align-items:start!important;
-}
-#salonDesktopServices .mct-price-head{
-position:sticky!important;
-top:92px!important;
-align-self:start!important;
-transform:none!important;
-}
-#salonDesktopServices .dct-service-sticky-card>strong,
 #salonDesktopServices .dct-services-main-title{
-margin:0!important;
-padding:0!important;
-font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;
-}
-#salonDesktopServices .dct-services-main-title{
-min-height:44px!important;
 display:flex!important;
 align-items:flex-start!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap{
-width:calc(100% + 1.7cm)!important;
 margin-left:-.7cm!important;
 margin-top:32px!important;
 }
@@ -5121,9 +4344,6 @@ background:#d8b7aa!important;
 color:#2f2926!important;
 box-shadow:0 13px 30px rgba(216,183,170,.24)!important;
 }
-#salonDesktopServices .dct-service-groups{
-margin-top:0!important;
-}
 #salonDesktopServices .dct-service-category,
 #salonDesktopServices .dct-service-category-list{
 width:100%!important;
@@ -5135,20 +4355,12 @@ box-sizing:border-box!important;
 max-width:100%!important;
 min-width:0!important;
 }
-#salonDesktopServices .dct-service-sticky-book{
-isolation:isolate!important;
-animation:brHeroLikePulse 3.4s ease-in-out infinite!important;
-}
 #salonDesktopServices .dct-service-sticky-book:after{
 z-index:0!important;
 width:36%!important;
 left:-48%!important;
 opacity:0!important;
 animation:brHeroLikeShine 3.4s cubic-bezier(.2,.7,.25,1) infinite!important;
-}
-#salonDesktopServices .dct-service-sticky-book>span{
-position:relative!important;
-z-index:1!important;
 }
 @keyframes brHeroLikePulse{
 0%,100%{filter:brightness(1);transform:translateY(0);box-shadow:0 12px 28px rgba(147,102,80,.22)}
@@ -5162,72 +4374,20 @@ z-index:1!important;
 }
 #salonDesktopAbout>.br-about-team-headings,
 #salonDesktopAbout>.br-about-team-shell{
-width:min(calc(100% - 56px),1500px)!important;
 gap:78px!important;
-}
-#salonDesktopAbout .br-about-column,
-#salonDesktopTeam.br-team-panel{
-min-height:0!important;
-}
-#salonDesktopAbout .mct-about-card{
-display:flex!important;
-flex-direction:column!important;
-height:100%!important;
-}
-#salonDesktopAbout .mct-about-portrait-wrap{
-height:390px!important;
-min-height:390px!important;
 }
 #salonDesktopAbout .mct-about-portrait,
 #salonDesktopAbout .mct-about-portrait img{
 width:100%!important;
 height:100%!important;
 }
-#salonDesktopAbout .mct-about-portrait img{object-fit:cover!important}
-#salonDesktopTeam .std-team-kicker{
-display:block!important;
-margin:0 0 10px!important;
-text-align:center!important;
-color:#bcb2ad!important;
-font:600 11px/1 "Manrope",Arial,sans-serif!important;
-letter-spacing:.25em!important;
-text-transform:uppercase!important;
-}
 #salonDesktopTeam .std-team-track{
 grid-template-columns:repeat(2,minmax(0,1fr))!important;
 gap:28px 34px!important;
 align-content:center!important;
 }
-#salonDesktopTeam .std-master{
-min-height:0!important;
-padding:4px 0 12px!important;
-border:0!important;
-border-radius:0!important;
-background:transparent!important;
-box-shadow:none!important;
-}
 #salonDesktopTeam .std-master:hover{
-background:transparent!important;
 transform:translateY(-3px)!important;
-}
-#salonDesktopTeam .std-master-avatar{
-width:190px!important;
-height:190px!important;
-max-width:100%!important;
-}
-#salonDesktopTeam .std-master-avatar svg{
-width:72px!important;
-height:72px!important;
-}
-#salonDesktopTeam .std-master-name{font-size:28px!important}
-#salonDesktopTeam .std-master-role{font-size:13px!important}
-#salonDesktopTeam .std-master-cat{
-font-size:10px!important;
-padding:7px 10px!important;
-}
-#stdMasterOverlay .std-master-page-panel{
-width:min(calc(100% - 72px),1320px)!important;
-padding:30px 54px 132px!important;
 }
 #stdMasterOverlay .std-master-page-top{
 grid-template-columns:58px 1fr 58px!important;
@@ -5244,20 +4404,12 @@ font-size:31px!important;
 #stdMasterOverlay .std-master-profile{
 margin-top:34px!important;
 }
-#stdMasterOverlay .std-master-profile .std-master-avatar{
-width:190px!important;
-height:190px!important;
-}
 #stdMasterOverlay .std-master-profile .std-master-avatar svg{
 width:86px!important;
 height:86px!important;
 }
 #stdMasterOverlay .std-master-profile h2{
 margin-top:22px!important;
-font-size:66px!important;
-}
-#stdMasterOverlay .std-master-profile p{
-font-size:17px!important;
 }
 #stdMasterOverlay .std-master-profile-rating{
 font-size:15px!important;
@@ -5272,12 +4424,10 @@ border-radius:24px!important;
 }
 #stdMasterOverlay .std-master-page-block h3{
 margin-bottom:21px!important;
-font-size:39px!important;
 }
 #stdMasterOverlay .std-master-page-service{
 padding:18px 0!important;
 }
-#stdMasterOverlay .std-master-page-service strong{font-size:16px!important}
 #stdMasterOverlay .std-master-page-service span,
 #stdMasterOverlay .std-master-page-empty{font-size:14px!important}
 #stdMasterOverlay .std-master-page-book{
@@ -5287,14 +4437,8 @@ font-size:15px!important;
 }
 #salonDesktopContacts.std-contact{
 padding-top:54px!important;
-padding-bottom:0!important;
-}
-#salonDesktopContacts .std-contact-inner{
-padding-bottom:48px!important;
 }
 #salonDesktopContacts .std-contact-card{
-min-height:106px!important;
-padding:0 25px!important;
 transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease!important;
 }
 #salonDesktopContacts a.std-contact-card:hover{
@@ -5310,38 +4454,20 @@ color:#e0bfae!important;
 #salonDesktopContacts .std-contact-card-icon{
 transition:transform .22s ease,color .22s ease!important;
 }
-#salonDesktopContacts .std-contact-card-title{
-font-size:29px!important;
-}
 #salonDesktopContacts a[href^="tel:"] .std-contact-card-title{
 font:500 20px/1.15 "Manrope",Arial,sans-serif!important;
-letter-spacing:.01em!important;
 }
 #salonDesktopContacts .std-contact-card-sub{
 margin-top:8px!important;
-font-size:15px!important;
 line-height:1.28!important;
 }
-#salonDesktopContacts .std-contact-bottom{
-min-height:150px!important;
-margin:0 -84px!important;
-overflow:visible!important;
-}
-#salonDesktopContacts .std-contact-brand{
-min-height:150px!important;
-overflow:visible!important;
-}
 #salonDesktopContacts .br-tanem-mark{
-width:38px!important;
-height:38px!important;
 flex:0 0 38px!important;
 font-size:25px!important;
 }
 #salonDesktopContacts .br-tanem-copy{
-font-size:12px!important;
 line-height:1.3!important;
 }
-#salonDesktopContacts .br-tanem-copy strong{font-size:18px!important}
 #salonDesktopContacts .std-contact-bottom{
 min-height:118px!important;
 margin:36px -70px -54px!important;
@@ -5371,79 +4497,50 @@ gap:8px!important;
 }
 @media(min-width:768px) and (max-width:1199px){
 #salonDesktopServices.mct-prices>.mct-shell{
-width:calc(100% - 0.8cm)!important;
 max-width:1360px!important;
 margin-left:0.8cm!important;
 margin-right:auto!important;
 grid-template-columns:minmax(400px,440px) minmax(0,1fr)!important;
-column-gap:40px!important;
 }
 #salonDesktopServices .mct-price-head{padding-right:28px!important}
-#salonDesktopServices .mct-price-head:after{right:0!important}
 #salonDesktopAbout>.br-about-team-shell{
 width:min(calc(100% - 56px),1360px)!important;
 gap:30px!important;
 }
 #salonDesktopAbout .br-about-column,
 #salonDesktopTeam.br-team-panel{
-min-height:760px!important;
 padding:30px!important;
 }
-#salonDesktopTeam .std-master-avatar{width:142px!important}
 #salonDesktopTeam .std-master{min-height:248px!important}
 }
 @media(min-width:768px){
-#salonDesktopServices.mct-prices{overflow:visible!important;padding:54px 0 90px!important}
 #salonDesktopServices.mct-prices>.mct-shell{
-display:grid!important;width:calc(100% - 2cm)!important;max-width:1480px!important;margin:0 auto!important;
+display:grid!important;
 grid-template-columns:minmax(340px,440px) minmax(0,1fr)!important;
-grid-template-rows:48px auto minmax(680px,auto) auto!important;column-gap:2cm!important;row-gap:0!important;
-align-items:start!important;overflow:visible!important
-}
-#salonDesktopServices .mct-price-head{
-position:sticky!important;top:92px!important;grid-column:1!important;grid-row:1 / span 4!important;
-align-self:start!important;display:block!important;width:100%!important;height:auto!important;
-margin:0!important;padding:0!important;transform:none!important;z-index:4!important
-}
-#salonDesktopServices .mct-price-head:after{top:0!important;right:-1cm!important;height:min(75vh,700px)!important}
-#salonDesktopServices .dct-service-sticky-card{
-box-sizing:border-box!important;width:100%!important;max-width:none!important;min-height:0!important;height:auto!important;
-margin:0!important;padding:0 28px 28px!important;overflow:hidden!important;
+align-items:start!important}
+#salonDesktopServices .mct-price-head{grid-row:1 / span 4!important;display:block!important}
+#salonDesktopServices .dct-service-sticky-card{max-width:none!important;height:auto!important;
 background:radial-gradient(300px 230px at 100% 0%,#fffefa,transparent 76%),linear-gradient(145deg,#fbf6f0,#ecddd1)!important;
 box-shadow:0 24px 65px rgba(94,57,42,.2),0 0 80px rgba(192,148,124,.1)!important
 }
-#salonDesktopServices .dct-service-sticky-card>strong{
-display:block!important;height:48px!important;margin:0!important;padding:0!important;
-font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;color:#241d19!important;white-space:nowrap!important
+#salonDesktopServices .dct-service-sticky-card>strong{height:48px!important;margin:0!important;padding:0!important;
+font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;white-space:nowrap!important
 }
-#salonDesktopServices .dct-services-main-title{
-grid-column:2!important;grid-row:1!important;display:block!important;height:48px!important;min-height:0!important;
-margin:0!important;padding:0!important;font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;color:#f7f3f0!important
-}
-#salonDesktopServices .mct-tabs-ribbon-wrap{
-grid-column:2!important;grid-row:2!important;width:calc(100% + 1.7cm)!important;max-width:none!important;
-margin:27px 0 0 -.7cm!important;padding:0 0 22px!important;overflow:visible!important
-}
+#salonDesktopServices .dct-services-main-title{height:48px!important;min-height:0!important;
+margin:0!important;padding:0!important;font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important}
 #salonDesktopServices .mct-tabs{
-box-sizing:border-box!important;width:100%!important;max-width:none!important;margin:0!important;
-padding:5px 1cm 15px .7cm!important;overflow-x:auto!important;overflow-y:hidden!important;
-clip-path:none!important;mask-image:none!important;-webkit-mask-image:none!important
-}
-#salonDesktopServices .mct-tabs-track{display:flex!important;flex-wrap:nowrap!important;width:max-content!important;min-width:100%!important;gap:10px!important}
-#salonDesktopServices .mct-tab{flex:0 0 auto!important}
+box-sizing:border-box!important}
 #salonDesktopServices #stdServiceTabs .mct-tab.is-active[aria-selected="true"],
 #salonDesktopServices #stdServiceTabs .mct-tab-all.is-active[aria-selected="true"]{
-border-color:#e3c0aa!important;background:#d8b7aa!important;color:#241d19!important;
+border-color:#e3c0aa!important;background:#d8b7aa!important;
 box-shadow:0 0 0 2px rgba(227,192,170,.24),0 12px 26px rgba(190,142,113,.25)!important
 }
-#salonDesktopServices .dct-service-groups{
-grid-column:2!important;grid-row:3!important;width:100%!important;min-width:0!important;min-height:680px!important;
-margin:0!important;padding:0!important;align-self:start!important
+#salonDesktopServices .dct-service-groups{align-self:start!important
 }
 #salonDesktopServices .dct-service-category,#salonDesktopServices .dct-service-category-list{
 box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important
 }
-#salonDesktopServices .mct-more-services{grid-column:2!important;grid-row:4!important;align-self:start!important;margin-top:24px!important}
+#salonDesktopServices .mct-more-services{align-self:start!important;margin-top:24px!important}
 #salonDesktopServices .dct-service-sticky-lead{margin-top:15px!important}
 #salonDesktopServices .dct-service-sticky-info{margin-top:18px!important}
 #salonDesktopServices .dct-service-sticky-book{position:relative!important;isolation:isolate!important;overflow:hidden!important;animation:brV49BookPulse 3.3s ease-in-out infinite!important}
@@ -5462,83 +4559,52 @@ box-sizing:border-box!important;width:min(calc(100% - 64px),1500px)!important;gr
 box-sizing:border-box!important;min-height:0!important;height:auto!important;padding:24px!important
 }
 #salonDesktopAbout .mct-about-card{
-box-sizing:border-box!important;display:flex!important;flex-direction:column!important;min-height:0!important;height:auto!important;margin:0!important;padding:0!important
-}
-#salonDesktopAbout .mct-about-portrait-wrap{width:100%!important;height:420px!important;min-height:420px!important;flex:0 0 420px!important;margin:0!important;overflow:hidden!important}
+box-sizing:border-box!important;display:flex!important;flex-direction:column!important}
+#salonDesktopAbout .mct-about-portrait-wrap{width:100%!important;flex:0 0 420px!important;margin:0!important}
 #salonDesktopAbout .mct-about-portrait,#salonDesktopAbout .mct-about-portrait img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important}
-#salonDesktopAbout .mct-about-copy{padding:28px!important}
-#salonDesktopTeam .std-team-track{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:24px!important;width:100%!important;overflow:visible!important;padding:0!important}
 #salonDesktopTeam .std-master{
 display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;
 width:100%!important;min-height:0!important;height:auto!important;padding:10px 0 16px!important;border:0!important;background:transparent!important;box-shadow:none!important
 }
-#salonDesktopTeam .std-master-avatar{width:180px!important;height:180px!important;max-width:100%!important}
-#salonDesktopTeam .std-master-name{font-size:28px!important}
-#salonDesktopTeam .std-master-role{font-size:14px!important}
-#stdMasterOverlay .std-master-page-panel{box-sizing:border-box!important;width:min(calc(100% - 56px),1320px)!important;max-width:none!important;padding:32px 52px 140px!important}
-#stdMasterOverlay .std-master-profile h2{font-size:66px!important}
+#stdMasterOverlay .std-master-page-panel{box-sizing:border-box!important;max-width:none!important}
 #stdMasterOverlay .std-master-page-block h3{font-size:39px!important}
-#stdMasterOverlay .std-master-page-service strong{font-size:16px!important}
-#stdMasterOverlay .std-master-page-service span{font-size:14px!important}
 #salonDesktopContacts.std-contact{box-sizing:border-box!important;min-height:0!important;padding:58px 64px 0!important;overflow:visible!important}
 #salonDesktopContacts .std-contact-inner{width:min(100%,1460px)!important;margin:0 auto!important;padding-bottom:50px!important}
-#salonDesktopContacts .std-contact-card{min-height:110px!important;padding:16px 25px!important;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease!important}
-#salonDesktopContacts a.std-contact-card:hover{transform:translateY(-5px)!important;border-color:rgba(216,183,170,.6)!important;background:rgba(255,255,255,.10)!important;box-shadow:0 18px 36px rgba(0,0,0,.22)!important}
-#salonDesktopContacts .std-contact-card-title{font-size:29px!important}
+#salonDesktopContacts .std-contact-card{padding:16px 25px!important;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease!important}
+#salonDesktopContacts a.std-contact-card:hover{border-color:rgba(216,183,170,.6)!important;background:rgba(255,255,255,.10)!important;box-shadow:0 18px 36px rgba(0,0,0,.22)!important}
 #salonDesktopContacts a[href^="tel:"] .std-contact-card-title{font:600 21px/1.25 "Manrope",Arial,sans-serif!important}
-#salonDesktopContacts .std-contact-card-sub{font-size:15px!important}
-#salonDesktopContacts .std-contact-bottom{
-box-sizing:border-box!important;width:calc(100% + 128px)!important;margin:0 -64px!important;padding:20px 0!important;
-min-height:132px!important;overflow:visible!important;background:#11100f!important
-}
 #salonDesktopContacts .std-contact-brand{
 box-sizing:border-box!important;display:flex!important;flex-direction:row!important;justify-content:center!important;align-items:center!important;
 width:min(100%,450px)!important;min-height:90px!important;margin:0 auto!important;padding:16px 22px!important;overflow:visible!important
 }
-#salonDesktopContacts .br-tanem-mark{display:grid!important;flex:0 0 48px!important;width:48px!important;height:48px!important;place-items:center!important;overflow:visible!important}
+#salonDesktopContacts .br-tanem-mark{flex:0 0 48px!important;overflow:visible!important}
 #salonDesktopContacts .br-tanem-copy{display:block!important;font-size:14px!important}
 }
 @media(min-width:768px) and (max-width:1199px){
-#salonDesktopServices.mct-prices>.mct-shell{width:calc(100% - 56px)!important;grid-template-columns:minmax(280px,39%) minmax(0,1fr)!important;column-gap:36px!important}
-#salonDesktopServices .mct-price-head:after{right:-18px!important}
+#salonDesktopServices.mct-prices>.mct-shell{grid-template-columns:minmax(280px,39%) minmax(0,1fr)!important}
 #salonDesktopServices .dct-service-sticky-card{padding:0 18px 22px!important}
 #salonDesktopServices .dct-service-sticky-card>strong,#salonDesktopServices .dct-services-main-title{font-size:40px!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap{width:calc(100% + .5cm)!important;margin-left:-.5cm!important}
 #salonDesktopServices .mct-tabs{padding-left:.5cm!important}
 #salonDesktopAbout>.br-about-team-headings,#salonDesktopAbout>.br-about-team-shell{gap:34px!important}
-#salonDesktopTeam .std-master-avatar{width:130px!important;height:130px!important}
 }
 @media(prefers-reduced-motion:reduce){
 #salonDesktopServices .dct-service-sticky-book,#salonDesktopServices .dct-service-sticky-book:after{animation:none!important}
 }
 @media(min-width:768px){
-#salonDesktopServices.mct-prices{overflow:visible!important}
-#salonDesktopServices.mct-prices>.mct-shell{overflow:visible!important}
 #salonDesktopServices .mct-price-head{
-position:sticky!important;top:92px!important;z-index:5!important;
-grid-column:1!important;grid-row:1 / 5!important;align-self:start!important;
+position:sticky!important;
 }
 #salonDesktopServices .dct-service-sticky-card{
-transform:none!important;margin:0!important;box-sizing:border-box!important;
+transform:none!important;box-sizing:border-box!important;
 }
-#salonDesktopServices .dct-service-sticky-card>strong,
-#salonDesktopServices .dct-services-main-title{
-font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;
-letter-spacing:-.03em!important;margin:0!important;padding:0!important;
-}
-#salonDesktopServices .dct-service-sticky-card>strong{display:block!important}
-#salonDesktopServices .dct-services-main-title{display:block!important;grid-column:2!important;grid-row:1!important}
-#salonDesktopServices .mct-tabs-ribbon-wrap{grid-column:2!important;grid-row:2!important}
-#salonDesktopServices .dct-service-groups{grid-column:2!important;grid-row:3!important;margin-top:0!important}
-#salonDesktopServices .mct-more-services{grid-column:2!important;grid-row:4!important}
+#salonDesktopServices .dct-service-groups{margin-top:0!important}
 #salonDesktopServices .mct-tab[aria-selected="true"]{
 background:#d7b5a4!important;border-color:#ead1c4!important;color:#241d19!important;
 box-shadow:0 0 0 2px rgba(234,209,196,.16),0 14px 30px rgba(0,0,0,.16)!important;
 transform:translateY(-1px)!important;
 }
-#salonDesktopServices .dct-service-sticky-book{
-background:linear-gradient(105deg,#8d6959 0%,#b68a73 45%,#8d6959 100%)!important;
-background-size:220% 100%!important;animation:brHeroLikePulse 3.4s ease-in-out infinite!important;
+#salonDesktopServices .dct-service-sticky-book{animation:brHeroLikePulse 3.4s ease-in-out infinite!important;
 }
 #salonDesktopServices .dct-service-sticky-book:after{
 content:""!important;display:block!important;position:absolute!important;pointer-events:none!important;
@@ -5546,21 +4612,17 @@ top:-45%!important;left:-45%!important;width:32%!important;height:190%!important
 background:linear-gradient(90deg,transparent,rgba(255,255,255,.72),transparent)!important;
 transform:rotate(18deg)!important;animation:brHeroLikeShine 3.4s ease-in-out infinite!important;
 }
-#salonDesktopAbout .br-about-column{min-height:760px!important;padding:28px!important}
-#salonDesktopAbout .mct-about-card{
-height:100%!important;display:grid!important;grid-template-rows:minmax(390px,1.2fr) auto!important;
-gap:0!important;overflow:hidden!important;
+#salonDesktopAbout .br-about-column{min-height:760px!important}
+#salonDesktopAbout .mct-about-card{grid-template-rows:minmax(390px,1.2fr) auto!important;
 }
 #salonDesktopAbout .mct-about-portrait-wrap{height:100%!important;min-height:390px!important}
 #salonDesktopAbout .mct-about-portrait{height:100%!important}
-#salonDesktopAbout .mct-about-portrait img{width:100%!important;height:100%!important;object-fit:cover!important}
+#salonDesktopAbout .mct-about-portrait img{width:100%!important;height:100%!important}
 #salonDesktopAbout .mct-about-copy{padding:24px 4px 2px!important}
-#salonDesktopTeam.br-team-panel{min-height:760px!important;padding:30px 28px!important}
+#salonDesktopTeam.br-team-panel{min-height:760px!important}
 #salonDesktopTeam .std-team-kicker{
-display:block!important;margin:0!important;text-align:center!important;color:#bcaea7!important;
-font:600 12px/1 "Manrope",Arial,sans-serif!important;letter-spacing:.24em!important;text-transform:uppercase!important;
+font:600 12px/1 "Manrope",Arial,sans-serif!important;
 }
-#salonDesktopTeam .std-team-subtitle{margin:12px auto 22px!important;max-width:480px!important}
 #salonDesktopTeam .std-team-track{
 display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
 gap:30px 42px!important;margin:0!important;align-content:space-evenly!important;overflow:visible!important;
@@ -5569,11 +4631,6 @@ gap:30px 42px!important;margin:0!important;align-content:space-evenly!important;
 min-height:0!important;padding:0!important;border:0!important;border-radius:0!important;
 background:transparent!important;box-shadow:none!important;
 }
-#salonDesktopTeam .std-master:hover{background:transparent!important;box-shadow:none!important;transform:translateY(-4px)!important}
-#salonDesktopTeam .std-master-avatar{width:190px!important;height:190px!important;max-width:100%!important}
-#salonDesktopTeam .std-master-name{font-size:29px!important}
-#salonDesktopTeam .std-master-role{font-size:13px!important}
-#salonDesktopTeam .std-master-cat{border:0!important;background:transparent!important;padding:0!important}
 #stdMasterOverlay .std-master-page-panel{width:min(calc(100% - 64px),1380px)!important;padding:30px 56px 140px!important}
 #stdMasterOverlay .std-master-profile .std-master-avatar{width:210px!important;height:210px!important}
 #stdMasterOverlay .std-master-profile h2{font-size:72px!important}
@@ -5600,14 +4657,13 @@ transform:translateY(-5px)!important;background:rgba(255,255,255,.09)!important;
 border-color:rgba(216,183,170,.44)!important;box-shadow:0 16px 38px rgba(0,0,0,.20)!important;
 }
 #salonDesktopContacts .std-contact-bottom{
-box-sizing:border-box!important;width:calc(100% + 168px)!important;min-height:128px!important;
-margin:42px -84px 0!important;padding:24px 0 20px!important;overflow:visible!important;
+box-sizing:border-box!important;
 }
 #salonDesktopContacts .std-contact-brand{
 box-sizing:border-box!important;width:min(calc(100% - 80px),560px)!important;min-height:78px!important;
 margin:0 auto!important;padding:12px 24px!important;overflow:visible!important;
 }
-#salonDesktopContacts .br-tanem-mark{width:40px!important;height:40px!important;flex:0 0 40px!important}
+#salonDesktopContacts .br-tanem-mark{flex:0 0 40px!important}
 }
 @media(min-width:1200px){
 #salonDesktopServices.mct-prices>.mct-shell{
@@ -6258,15 +5314,14 @@ border-color:rgba(109,101,95,.19)!important;background:rgba(255,255,255,.52)!imp
 #salonDesktopServices .dct-service-sticky-row:not(.dct-service-availability) .dct-service-sticky-copy b{color:#57514d!important}
 #salonDesktopServices .dct-service-sticky-steps{margin-top:18px!important;padding:16px 0 15px!important}
 #salonDesktopServices .dct-service-sticky-steps-title{
-margin-bottom:13px!important;color:#6f655f!important;font-size:9.5px!important;letter-spacing:.16em!important;
+margin-bottom:13px!important;color:#6f655f!important;letter-spacing:.16em!important;
 }
 #salonDesktopServices .dct-service-sticky-steps li span{
 white-space:normal!important;overflow:visible!important;text-overflow:clip!important;
-color:#342e2a!important;font-size:9.8px!important;line-height:1.35!important;
+color:#342e2a!important;
 }
-#salonDesktopServices .dct-service-sticky-book{
-position:relative!important;isolation:isolate!important;width:100%!important;height:64px!important;
-margin-top:20px!important;overflow:hidden!important;border:0!important;border-radius:8px!important;
+#salonDesktopServices .dct-service-sticky-book{width:100%!important;height:64px!important;
+margin-top:20px!important;border:0!important;border-radius:8px!important;
 background:#715b53!important;background-image:none!important;color:#fff!important;
 box-shadow:0 13px 30px rgba(74,53,45,.22)!important;animation:none!important;
 transition:transform .16s ease,background .16s ease,box-shadow .16s ease!important;
@@ -6275,20 +5330,17 @@ transition:transform .16s ease,background .16s ease,box-shadow .16s ease!importa
 background:#654f48!important;transform:translateY(-1px)!important;
 box-shadow:0 17px 36px rgba(74,53,45,.30)!important;
 }
-#salonDesktopServices .dct-service-sticky-book>span{position:relative!important;z-index:2!important}
-#salonDesktopServices .mct-tabs-ribbon-wrap{position:relative!important;overflow:hidden!important}
+#salonDesktopServices .mct-tabs-ribbon-wrap{position:relative!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before,
 #salonDesktopServices .mct-tabs-ribbon-wrap:after{
 content:""!important;position:absolute!important;z-index:3!important;top:0!important;height:58px!important;pointer-events:none!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
-left:72px!important;width:48px!important;
 background:linear-gradient(90deg,#242424 0%,rgba(36,36,36,.74) 34%,transparent 100%)!important;
 }
-#salonDesktopServices .mct-tabs-ribbon-wrap:after{
-right:0!important;width:54px!important;background:linear-gradient(90deg,transparent,#242424 90%)!important;
+#salonDesktopServices .mct-tabs-ribbon-wrap:after{width:54px!important;background:linear-gradient(90deg,transparent,#242424 90%)!important;
 }
-#salonDesktopServices .mct-tab-all{position:sticky!important;left:0!important;z-index:5!important}
+#salonDesktopServices .mct-tab-all{position:sticky!important}
 #salonDesktopServices .mct-tab-all:not(.is-active){
 background:#242424!important;box-shadow:10px 0 16px rgba(36,36,36,.72)!important;
 }
@@ -6309,31 +5361,24 @@ transition:transform .18s ease,background .18s ease,box-shadow .18s ease!importa
 transform:translateY(-1px)!important;background:#fff!important;box-shadow:0 10px 22px rgba(0,0,0,.14)!important;
 }
 #salonDesktopAbout.br-about-team{
-padding-top:64px!important;
 background:#fff!important;
 }
 #salonDesktopAbout .mct-about-card{
 box-shadow:0 28px 64px rgba(87,61,49,.13),inset 0 1px 0 rgba(255,255,255,.82)!important;
 }
-#salonDesktopAbout .mct-about-copy>p:not(.mct-about-lead){font-size:15px!important;line-height:1.62!important}
 #salonDesktopAbout .dct-about-amenities-grid article{box-shadow:0 10px 24px rgba(92,65,52,.06)!important}
-#salonDesktopAbout .dct-about-amenities-grid strong{font-size:14.5px!important;line-height:1.25!important}
-#salonDesktopAbout .dct-about-amenities-grid span{margin-top:8px!important;font-size:11.3px!important;line-height:1.42!important}
 #salonDesktopTeam.br-team-panel{
 background:radial-gradient(circle at 88% 8%,rgba(255,255,255,.055),transparent 26%),radial-gradient(circle at 8% 96%,rgba(139,113,103,.12),transparent 32%),#242424!important;
 box-shadow:0 30px 68px rgba(42,30,25,.18),inset 0 1px 0 rgba(255,255,255,.035)!important;
 }
-#salonDesktopTeam .std-team-kicker{font-size:14px!important;letter-spacing:.22em!important}
-#salonDesktopTeam .std-team-subtitle{font-size:13px!important}
+#salonDesktopTeam .std-team-kicker{letter-spacing:.22em!important}
 #salonDesktopTeam .std-team-track{gap:30px!important}
-#salonDesktopTeam .std-master-avatar{
-width:235px!important;height:235px!important;max-width:100%!important;
+#salonDesktopTeam .std-master-avatar{max-width:100%!important;
 background:linear-gradient(145deg,#4a4542,#34302e)!important;box-shadow:0 18px 38px rgba(0,0,0,.18)!important;
 }
 #salonDesktopTeam .std-master-avatar svg{width:78px!important;height:78px!important}
-#salonDesktopTeam .std-master-name{margin-top:19px!important;font-size:28px!important}
-#salonDesktopTeam .std-master-role{margin-top:7px!important;font-size:13px!important}
-#salonDesktopTeam .std-master-cat{font-size:12px!important}
+#salonDesktopTeam .std-master-name{margin-top:19px!important}
+#salonDesktopTeam .std-master-role{margin-top:7px!important}
 #salonDesktopContacts.std-contact{background:#2f2926!important}
 #salonDesktopContacts .std-contact-bottom{background:#11100f!important}
 #salonDesktopContacts .std-contact-brand{background:#11100f!important}
@@ -6342,32 +5387,9 @@ background:linear-gradient(145deg,#4a4542,#34302e)!important;box-shadow:0 18px 3
 .std-btn-primary:after,#salonDesktopServices .dct-service-sticky-book:after{animation:none!important}
 }
 @media(min-width:1024px){
-.std-header-book{
-background:#715b53!important;
-color:#fff!important;
-box-shadow:0 10px 24px rgba(74,53,45,.18)!important;
-}
-.std-header-book:hover{background:#654f48!important;box-shadow:0 12px 28px rgba(74,53,45,.24)!important}
-#salonDesktopServices .dct-service-sticky-card{
-top:58px!important;
-}
-#salonDesktopServices .dct-service-sticky-steps li span{
-font-size:11.2px!important;
-line-height:1.35!important;
-font-weight:550!important;
-}
-#salonDesktopServices .mct-tab{
-font-size:13.4px!important;
-}
+.std-header-book:hover{box-shadow:0 12px 28px rgba(74,53,45,.24)!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
-left:0!important;
-width:22px!important;
 background:linear-gradient(90deg,#242424 0%,rgba(36,36,36,.72) 42%,transparent 100%)!important;
-}
-#salonDesktopServices .mct-tab-all{
-position:relative!important;
-left:auto!important;
-z-index:5!important;
 }
 #salonDesktopServices .mct-tab-all:not(.is-active){
 background:rgba(255,255,255,.035)!important;
@@ -6404,68 +5426,22 @@ animation:brServiceRadar 1.65s ease-out infinite!important;
 72%{box-shadow:0 0 0 7px rgba(23,21,19,0)}
 100%{box-shadow:0 0 0 0 rgba(23,21,19,0)}
 }
-#salonDesktopServices.mct-prices>.mct-shell{
-grid-template-rows:48px auto auto auto!important;
-}
-#salonDesktopServices .dct-service-groups{
-min-height:calc(680px - 5cm)!important;
-}
 #salonDesktopServices .dct-service-category-list{
 min-height:0!important;
 }
-#salonDesktopAbout .mct-about-card{
-border:0!important;
-background:#fff!important;
-box-shadow:none!important;
-}
-#salonDesktopAbout .dct-about-amenities-grid article{
-border:0!important;
-border-radius:0!important;
-background:#f3f4f5!important;
-box-shadow:none!important;
-padding:10px 12px!important;
-}
 #salonDesktopAbout .dct-about-amenities-grid article+article{border-left:0!important}
-#salonDesktopAbout .dct-about-amenities-grid strong{
-font-size:16px!important;
-line-height:1.24!important;
-}
-#salonDesktopAbout .dct-about-amenities-grid span{
-font-size:12.8px!important;
-line-height:1.45!important;
-}
 #salonDesktopAbout .mct-about-portrait img{
-object-fit:contain!important;
 object-position:center 42%!important;
 transform:scale(.88)!important;
 }
 #salonDesktopAbout .br-about-column:hover .mct-about-portrait img{
 transform:scale(.90)!important;
 }
-#salonDesktopTeam .std-team-kicker{
-font-size:15.5px!important;
-}
 #salonDesktopTeam .std-team-subtitle{
-font-size:15px!important;
 line-height:1.55!important;
-}
-#salonDesktopTeam .std-master-avatar{
-width:216px!important;
-height:216px!important;
-}
-#salonDesktopTeam .std-master-name{
-font-size:30px!important;
-}
-#salonDesktopTeam .std-master-role{
-font-size:14px!important;
 }
 #salonDesktopTeam .std-master-cat{
 font-size:13px!important;
-}
-#salonDesktopContacts.std-contact,
-#salonDesktopContacts .std-contact-bottom,
-#salonDesktopContacts .std-contact-brand{
-background:#242424!important;
 }
 }
 @media(prefers-reduced-motion:reduce){
@@ -6475,64 +5451,20 @@ background:#242424!important;
 @media(min-width:1024px){
 .std-header-book{
 border:0!important;
-border-radius:8px!important;
-background:#715b53!important;
-color:#fff!important;
 font-weight:500!important;
 }
 .std-header-book:hover{background:#654f48!important}
 #salonDesktopServices.mct-prices{position:relative!important}
-#salonDesktopServices .dct-service-sticky-card{
-top:58px!important;
-}
-#salonDesktopServices .mct-tabs{padding-left:28px!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
-left:0!important;
-width:28px!important;
-z-index:8!important;
 background:linear-gradient(90deg,#242424 0%,rgba(36,36,36,.88) 36%,rgba(36,36,36,0) 100%)!important;
 }
-#salonDesktopServices .mct-tab-all{z-index:2!important}
 #salonDesktopServices .mct-tab{font-size:13.4px!important}
-#salonDesktopServices .dct-service-sticky-steps li span{
-font-size:11.5px!important;
-line-height:1.42!important;
-}
-#salonDesktopAbout .br-about-column{
-padding:0!important;
-border:0!important;
-background:#fff!important;
-box-shadow:none!important;
-}
-#salonDesktopAbout .mct-about-card{
-border:0!important;
-background:#fff!important;
-box-shadow:none!important;
-border-radius:0!important;
-}
-#salonDesktopAbout .mct-about-portrait-wrap{
-border-radius:20px!important;
-background:#f3f4f5!important;
-}
 #salonDesktopAbout .mct-about-portrait img{
-object-fit:contain!important;
-object-position:center center!important;
 transform:scale(.84) translateY(-10px)!important;
 }
 #salonDesktopAbout .br-about-column:hover .mct-about-portrait img{
 transform:scale(.84) translateY(-10px)!important;
 }
-#salonDesktopAbout .dct-about-amenities{
-margin-bottom:0!important;
-padding-bottom:0!important;
-}
-#salonDesktopAbout .dct-about-amenities-grid strong{font-size:17px!important}
-#salonDesktopAbout .dct-about-amenities-grid span{font-size:13.2px!important}
-#salonDesktopTeam .std-team-kicker{font-size:16px!important}
-#salonDesktopTeam .std-team-subtitle{font-size:15.5px!important}
-#salonDesktopTeam .std-master-avatar{width:216px!important;height:216px!important}
-#salonDesktopTeam .std-master-name{font-size:30px!important}
-#salonDesktopTeam .std-master-role{font-size:14px!important}
 #salonDesktopContacts.std-contact{background:#242424!important}
 }
 @media(min-width:1024px){
@@ -6543,39 +5475,27 @@ border-radius:8px!important;box-shadow:0 10px 24px rgba(74,53,45,.18)!important;
 #salonDesktopServices .dct-service-sticky-card{top:58px!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap{padding-left:0!important}
 #salonDesktopServices .mct-tabs{
-padding-left:34px!important;
 scroll-padding-left:34px!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
-left:0!important;width:34px!important;z-index:20!important;
 background:linear-gradient(90deg,#242424 0%,rgba(36,36,36,.92) 34%,rgba(36,36,36,.38) 70%,transparent 100%)!important;
 }
-#salonDesktopServices .mct-tab-all{position:relative!important;left:auto!important;z-index:1!important}
+#salonDesktopServices .mct-tab-all{left:auto!important}
 #salonDesktopServices.mct-prices>.mct-shell{grid-template-rows:48px auto auto auto!important}
 #salonDesktopServices .dct-service-groups{min-height:491px!important}
 #salonDesktopServices .dct-service-category,
 #salonDesktopServices .dct-service-category-list{min-height:0!important;height:auto!important}
-#salonDesktopAbout .br-about-column{
-padding:0!important;border:0!important;background:#fff!important;box-shadow:none!important;
-}
-#salonDesktopAbout .mct-about-card{
-border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;
-}
-#salonDesktopAbout .mct-about-portrait-wrap{
-border:0!important;box-shadow:none!important;background:#f3f4f5!important;
+#salonDesktopAbout .br-about-column{border:0!important;box-shadow:none!important;
 }
 #salonDesktopAbout .mct-about-portrait img{
-object-fit:contain!important;object-position:center center!important;
 transform:translateY(-12px) scale(.82)!important;
 }
 #salonDesktopAbout .br-about-column:hover .mct-about-portrait img{
 transform:translateY(-12px) scale(.82)!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid article{
-border:0!important;background:#f3f4f5!important;box-shadow:none!important;
+border:0!important;box-shadow:none!important;
 }
-#salonDesktopAbout .dct-about-amenities-grid strong{font-size:17px!important}
-#salonDesktopAbout .dct-about-amenities-grid span{font-size:13.2px!important}
 #salonDesktopTeam .std-team-kicker{font-size:16px!important}
 #salonDesktopTeam .std-team-subtitle{font-size:15.5px!important}
 #salonDesktopTeam .std-master-avatar{width:216px!important;height:216px!important}
@@ -6589,15 +5509,9 @@ border:0!important;background:#f3f4f5!important;box-shadow:none!important;
 #salonDesktopServices .dct-service-sticky-copy b{font-size:14px!important}
 #salonDesktopServices .dct-service-sticky-copy small{font-size:11px!important}
 #salonDesktopServices .dct-service-sticky-steps-title{font-size:10.5px!important}
-#salonDesktopServices .dct-service-sticky-steps li span{font-size:12px!important;line-height:1.42!important}
 #salonDesktopServices .dct-service-sticky-book>span:first-child{font-size:15px!important;font-weight:600!important}
 #salonDesktopServices .dct-service-sticky-work>span:first-child{font-size:13px!important;font-weight:600!important}
-#salonDesktopServices .mct-tabs{padding-left:0!important;scroll-padding-left:0!important}
-#salonDesktopServices .mct-tabs-ribbon-wrap{overflow:visible!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
-left:-.5cm!important;
-width:.5cm!important;
-z-index:12!important;
 background:linear-gradient(90deg,#242424 0%,rgba(36,36,36,.82) 38%,transparent 100%)!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap:after{right:0!important}
@@ -6622,40 +5536,32 @@ flex-direction:column!important;
 padding:20px!important;
 border:1px solid rgba(72,55,47,.10)!important;
 border-radius:28px!important;
-background:#fff!important;
 box-shadow:0 24px 58px rgba(69,50,42,.11)!important;
 }
 #salonDesktopAbout .mct-about-card{
 display:grid!important;
 width:100%!important;height:100%!important;min-height:0!important;
 grid-template-rows:385px minmax(0,1fr)!important;
-margin:0!important;padding:0!important;overflow:hidden!important;
+margin:0!important;padding:0!important;
 border:0!important;border-radius:22px!important;background:#fff!important;box-shadow:none!important;
 }
-#salonDesktopAbout .mct-about-portrait-wrap{
-height:385px!important;min-height:385px!important;
-overflow:hidden!important;border:0!important;border-radius:20px!important;
+#salonDesktopAbout .mct-about-portrait-wrap{border:0!important;border-radius:20px!important;
 background:#f3f4f5!important;box-shadow:none!important;
 }
 #salonDesktopAbout .mct-about-portrait{width:100%!important;height:100%!important}
-#salonDesktopAbout .mct-about-portrait img{
-width:100%!important;height:100%!important;object-fit:contain!important;object-position:center center!important;
+#salonDesktopAbout .mct-about-portrait img{object-fit:contain!important;object-position:center center!important;
 transform:translateY(-8px) scale(.88)!important;
 }
 #salonDesktopAbout .br-about-column:hover .mct-about-portrait img{transform:translateY(-8px) scale(.88)!important}
-#salonDesktopAbout .mct-about-copy{padding:24px 4px 2px!important}
 #salonDesktopAbout .mct-about-lead{font-size:clamp(30px,2.3vw,38px)!important;line-height:1.02!important}
 #salonDesktopAbout .mct-about-copy>p:not(.mct-about-lead){font-size:15.5px!important;line-height:1.62!important}
-#salonDesktopAbout .dct-about-amenities{margin-top:24px!important;padding-top:20px!important}
-#salonDesktopAbout .dct-about-amenities-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important}
+#salonDesktopAbout .dct-about-amenities-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 #salonDesktopAbout .dct-about-amenities-grid article{
-min-height:94px!important;padding:14px!important;
-border:1px solid rgba(81,60,51,.09)!important;border-radius:14px!important;
-background:#f3f4f5!important;box-shadow:0 9px 22px rgba(80,56,45,.055)!important;
+border:1px solid rgba(81,60,51,.09)!important;border-radius:14px!important;box-shadow:0 9px 22px rgba(80,56,45,.055)!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid article+article{border-left:1px solid rgba(81,60,51,.09)!important}
-#salonDesktopAbout .dct-about-amenities-grid strong{font-size:16.5px!important;line-height:1.2!important}
-#salonDesktopAbout .dct-about-amenities-grid span{margin-top:8px!important;font-size:12.5px!important;line-height:1.42!important}
+#salonDesktopAbout .dct-about-amenities-grid strong{line-height:1.2!important}
+#salonDesktopAbout .dct-about-amenities-grid span{margin-top:8px!important}
 #salonDesktopTeam.br-team-panel{
 border-radius:28px!important;
 box-shadow:0 24px 58px rgba(54,41,35,.15)!important;
@@ -6676,8 +5582,7 @@ justify-content:center!important;
 padding:0 15px 0 28px!important;
 }
 #salonDesktopServices .dct-service-card-meta>b:before,
-#salonDesktopServices .dct-service-card-variant-meta>b:before{
-left:13px!important;width:7px!important;height:7px!important;
+#salonDesktopServices .dct-service-card-variant-meta>b:before{width:7px!important;height:7px!important;
 animation:brServiceRadarFinal 1.25s ease-out infinite!important;
 }
 @keyframes brServiceRadarFinal{
@@ -6686,7 +5591,6 @@ animation:brServiceRadarFinal 1.25s ease-out infinite!important;
 78%{opacity:1;box-shadow:0 0 0 6px rgba(23,21,19,0)}
 100%{opacity:1;box-shadow:0 0 0 0 rgba(23,21,19,0)}
 }
-#salonDesktopServices .mct-tabs-ribbon-wrap{overflow:visible!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
 content:""!important;display:block!important;
 left:-28px!important;width:28px!important;top:0!important;height:58px!important;
@@ -6717,16 +5621,14 @@ transform:none!important;
 }
 #salonDesktopAbout .br-about-column:hover .mct-about-portrait img{transform:none!important}
 #salonDesktopAbout .mct-about-copy{
-display:flex!important;flex-direction:column!important;padding:24px 4px 0!important;
+display:flex!important;flex-direction:column!important;
 }
-#salonDesktopAbout .dct-about-amenities{
-margin-top:24px!important;margin-bottom:0!important;padding-top:20px!important;padding-bottom:0!important;
+#salonDesktopAbout .dct-about-amenities{margin-bottom:0!important;padding-bottom:0!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid{
 margin-bottom:0!important;padding-bottom:0!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid article{
-min-height:102px!important;
 box-shadow:0 12px 28px rgba(71,49,40,.085),inset 0 1px 0 rgba(255,255,255,.78)!important;
 }
 #salonDesktopContacts .br-tanem-copy{
@@ -6739,8 +5641,6 @@ font-size:11.5px!important;line-height:1.25!important;
 #salonDesktopServices #stdServiceTabs .mct-tab-all.is-active[aria-selected="true"]{
 background:#8b7167!important;
 border-color:#8b7167!important;
-color:#fff!important;
-box-shadow:0 9px 22px rgba(0,0,0,.16)!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap{
 margin-left:0!important;
@@ -6772,7 +5672,6 @@ gap:7px!important;padding:0 15px!important;
 position:relative!important;left:auto!important;top:auto!important;transform:none!important;
 flex:0 0 auto!important;margin:0!important;
 }
-#salonDesktopServices .dct-service-sticky-book{overflow:hidden!important}
 #salonDesktopServices .dct-service-sticky-book:after{
 content:""!important;position:absolute!important;z-index:1!important;top:-30%!important;bottom:-30%!important;
 width:34%!important;left:-46%!important;pointer-events:none!important;
@@ -6799,9 +5698,6 @@ grid-template-rows:390px minmax(0,1fr)!important;
 #salonDesktopAbout .mct-about-portrait-wrap,
 #salonDesktopAbout .mct-about-portrait{height:390px!important;min-height:390px!important}
 #salonDesktopAbout .mct-about-portrait{position:relative!important}
-#salonDesktopAbout .mct-about-copy{
-padding:28px 18px 18px!important;
-}
 #salonDesktopAbout .mct-about-lead{margin:0!important}
 #salonDesktopAbout .dct-about-brand{
 display:block!important;
@@ -6831,8 +5727,6 @@ box-shadow:0 5px 14px rgba(0,0,0,.13)!important;
 #salonDesktopAbout .dct-about-rating-star{font-size:12px!important;color:#d6ad6b!important}
 #salonDesktopAbout .dct-about-rating strong{font:600 14px/1 "Manrope",Arial,sans-serif!important;color:#fff!important}
 #salonDesktopAbout .dct-about-rating span:last-child{font:500 8px/1 "Manrope",Arial,sans-serif!important;letter-spacing:.035em!important;color:rgba(255,255,255,.72)!important}
-#salonDesktopAbout .dct-about-amenities{margin-top:auto!important;padding-top:18px!important}
-#salonDesktopAbout .dct-about-amenities-grid article{min-height:96px!important}
 body[data-br-lang="hy"] #salonDesktopServices .dct-service-sticky-card>strong{
 font-size:clamp(31px,2.25vw,38px)!important;
 letter-spacing:-.035em!important;
@@ -6843,7 +5737,6 @@ letter-spacing:-.035em!important;
 #salonDesktopServices #stdServiceTabs .mct-tab-all.is-active[aria-selected="true"]{
 background:#fff!important;
 border-color:#fff!important;
-color:#171513!important;
 box-shadow:0 9px 22px rgba(0,0,0,.16)!important;
 }
 }
@@ -6862,7 +5755,7 @@ background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.08) 24%,rgba(
 transform:skewX(-20deg)!important;animation:brStickyBookGlint 3.8s cubic-bezier(.2,.7,.2,1) infinite!important;pointer-events:none!important;
 }
 @keyframes brStickyBookGlint{0%,58%{left:-52%;opacity:0}61%{opacity:1}78%{left:120%;opacity:1}80%,100%{left:120%;opacity:0}}
-#salonDesktopAbout .dct-about-rating{transform:scale(1.07)!important;transform-origin:left bottom!important}
+#salonDesktopAbout .dct-about-rating{transform:scale(1.07)!important}
 #salonDesktopAbout .mct-about-copy{padding:26px 18px 18px!important}
 #salonDesktopAbout .dct-about-copy{margin-top:15px!important;line-height:1.58!important}
 #salonDesktopAbout .dct-about-amenities{margin-top:18px!important;padding-top:15px!important}
@@ -6879,12 +5772,6 @@ box-shadow:0 10px 24px rgba(70,50,41,.075),inset 0 1px 0 rgba(255,255,255,.42)!i
 #salonDesktopContacts .std-contact-status span{font-size:14px!important;font-weight:600!important}
 }
 @media(min-width:1024px){
-#salonDesktopTop #stdBookBtn,
-#salonDesktopServices #stdStickyServiceBook{
-position:relative!important;overflow:hidden!important;isolation:isolate!important;
-}
-#salonDesktopTop #stdBookBtn>*,
-#salonDesktopServices #stdStickyServiceBook>*{position:relative!important;z-index:2!important}
 #salonDesktopTop #stdBookBtn:after,
 #salonDesktopServices #stdStickyServiceBook:after{
 content:""!important;display:block!important;position:absolute!important;z-index:1!important;
@@ -8403,7 +7290,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
 })();
 
 /* salon-template-desktop-cold-neutral-20260924 */
-(function(){if(document.getElementById('salon-template-desktop-cold-neutral-20260924'))return;const style=document.createElement('style');style.id='salon-template-desktop-cold-neutral-20260924';style.textContent="\n@media(min-width:1024px){\n#salon-desktop-v1{--purple:#181818!important;--purple2:#303030!important;background:#fafaf9!important;color:#181818!important}\n#salon-desktop-v1 .std-header{background:#f5f5f3!important;border-bottom:1px solid rgba(24,24,24,.06)!important}\n#salon-desktop-v1 .std-header-book,#salon-desktop-v1 .std-btn-primary,#salon-desktop-v1 .dct-service-sticky-book{background:#181818!important;border-color:#181818!important;color:#fff!important;box-shadow:none!important}\n#salon-desktop-v1 .std-btn:not(.std-btn-primary){background:#e8e8e6!important;border-color:#d2d2cf!important;color:#181818!important}\n#salon-desktop-v1 .std-sparkles{color:#454545!important}\n#salon-desktop-v1 .std-status-main.open{color:#2f7d46!important}#salon-desktop-v1 .std-status-main.closed{color:#c54b55!important}\n#salonDesktopPortfolio{background:#fafaf9!important;color:#181818!important}\n#salon-desktop-v1 .std-gallery-browser,#salon-desktop-v1 .std-gallery-browser-shell{background:#f2f2f0!important;color:#181818!important}\n#salon-desktop-v1 .std-gallery-browser-tab.active{background:#181818!important;border-color:#181818!important;color:#fff!important}\n#salonDesktopReviews{background:#f2f2f0!important;color:#181818!important}\n#salonDesktopReviews .std-review-card{background:#fafafa!important;border-color:rgba(24,24,24,.12)!important}\n#salonDesktopReviews .std-review-avatar{background:#dededc!important;color:#404040!important}\n#salonDesktopReviews .std-reviews-stars,#salonDesktopReviews .std-review-stars{color:#E4AD35!important;-webkit-text-stroke:.2px #D99D1E!important}\n#salonDesktopServices.mct-prices,#salonDesktopContacts.std-contact{background:#242424!important;color:#f7f7f6!important}\n#salonDesktopServices .mct-tab.is-active{background:#EDE1D6!important;border-color:#CDB8A5!important;color:#49362D!important}\n#salonDesktopServices .dct-service-sticky-card{background:#EEE4DA!important;border-color:#D6C3B2!important;color:#49362D!important}\n#salonDesktopServices .dct-service-sticky-work{border-color:rgba(113,91,83,.38)!important;background:#efe7e1!important;color:#2f2926!important}\n#salonDesktopContacts .std-contact-card{background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.13)!important}\n#salonDesktopContacts .std-contact-status.open{background:#203b2a!important;border-color:#315b40!important;color:#8fd0a1!important}\n#salonDesktopContacts .std-contact-status.closed{background:#46292e!important;border-color:#63383f!important;color:#ef9ea7!important}\n#salonDesktopContacts .std-contact-map{background:#333!important;border-color:rgba(255,255,255,.10)!important}\n#salonDesktopContacts .std-contact-brand{background:#181818!important}\n#salonDesktopAbout .mct-about-card{box-shadow:0 26px 58px rgba(0,0,0,.10)!important}\nbody[data-br-lang=\"en\"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!important;justify-content:space-between!important;gap:0!important}\n\n/* Approved salon-template desktop synchronisation inside the existing neutral theme. */\n#salonDesktopTop.std-hero{background:radial-gradient(ellipse 185px 610px at -1% 43%,rgba(83,57,45,.24) 0%,rgba(105,74,58,.15) 25%,rgba(133,96,76,.065) 48%,transparent 76%),radial-gradient(ellipse 360px 640px at 101% 70%,rgba(119,84,67,.105) 0%,rgba(151,112,91,.045) 34%,transparent 76%),radial-gradient(ellipse 720px 500px at 35% 45%,rgba(255,255,255,.52) 0%,rgba(255,255,255,.22) 48%,transparent 78%),linear-gradient(102deg,#f3ebe3 0%,#f4eee7 47%,#eee3da 100%)!important;border-bottom:0!important;box-shadow:inset 0 0 90px rgba(83,57,45,.035)!important}\n#salonDesktopTop .std-hero-copy{background:transparent!important}\n#salonDesktopTop .std-hero-frame:before,#salonDesktopTop .std-hero-frame:after{border-color:rgba(24,24,24,.12)!important}\n#salonDesktopTop .std-tagline{color:#575757!important}\n#salonDesktopTop .std-hero-copy:after{color:#575757!important;background:linear-gradient(#575757,#575757) left 9px/38px 1px no-repeat!important}\n#salonDesktopTop .std-tagline,#salonDesktopTop .std-meta,#salonDesktopTop .std-actions{transform:translateY(24px)!important}\n#salonDesktopTop.std-hero,#salonDesktopTop .std-hero-photo,#salonDesktopTop .std-hero-photo:before,#salonDesktopTop .std-hero-photo:after,#salonDesktopTop .std-hero-copy,#salonDesktopTop .std-hero-copy:before,#salonDesktopTop .std-hero-frame,#salonDesktopTop .std-copy-inner,#salonDesktopTop .std-btn{box-shadow:none!important}\n#salonDesktopTop .std-meta-icon{background:rgba(24,24,24,.035)!important;border-color:rgba(24,24,24,.12)!important}\n#salonDesktopTop .std-btn-primary:hover,#salonDesktopServices .dct-service-sticky-book:hover{background:#654f48!important;border-color:#654f48!important;color:#fff!important}\n#salonDesktopTop .std-btn-primary{background:#715b53!important;border-color:#715b53!important;color:#fff!important;box-shadow:0 12px 28px rgba(74,53,45,.20)!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary),#salonDesktopPortfolio .std-portfolio-more{background:#efe7e1!important;border-color:rgba(113,91,83,.38)!important;color:#2f2926!important}\n#salonDesktopPortfolio .std-portfolio-more:active{transform:translateY(2px) scale(.988)!important;background:#DDC9B8!important;box-shadow:0 2px 9px rgba(74,53,45,.14)!important}\n#salonDesktopPortfolio .std-portfolio-more{backdrop-filter:blur(9px)!important;-webkit-backdrop-filter:blur(9px)!important}\n#salon-desktop-v1 .std-header{background:rgba(239,230,221,.92)!important;border-bottom:1px solid rgba(103,82,70,.10)!important;box-shadow:0 7px 24px rgba(73,55,46,.035)!important}\n#salon-desktop-v1 .std-header-book{background:#715b53!important;border:0!important;color:#fff!important;border-radius:8px!important;box-shadow:0 10px 24px rgba(74,53,45,.18)!important}\n#stdGalleryBrowser.std-gallery-browser,#stdGalleryBrowser .std-gallery-browser-shell{background:#f7f2eb!important;color:#171513!important}\n#stdGalleryBrowser .std-gallery-browser-title strong,#stdGalleryBrowser .std-gallery-browser-back{color:#171513!important}\n#stdGalleryBrowser .std-gallery-browser-title span{color:#746c66!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary),#salonDesktopPortfolio .std-portfolio-more{transition:background .32s ease,border-color .32s ease,color .32s ease,transform .22s ease,box-shadow .32s ease!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary):hover,#salonDesktopPortfolio .std-portfolio-more:hover{background:#ccb39e!important;color:#342820!important;border-color:#b69880!important;box-shadow:0 12px 24px rgba(74,53,45,.12)!important}\n#salonDesktopTeam.br-team-panel,#salonDesktopTeam.std-team{background:#242424!important}\n#salonDesktopTeam .std-team-inner{background:transparent!important}\n#salonDesktopTop .std-btn-primary:active{transform:translateY(1px) scale(.992)!important;background:#654f48!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary):active,#salonDesktopPortfolio .std-portfolio-more:active{transform:translateY(2px) scale(.988)!important;background:#715b53!important;color:#fff!important;border-color:#715b53!important}\n#salonDesktopAbout .mct-about-card{background:#eee7df!important;border-color:rgba(66,55,49,.14)!important}\n#salonDesktopAbout .br-about-column{background:#eee7df!important}\n#salonDesktopAbout .dct-about-amenities-grid article{background:linear-gradient(145deg,#e4d6cb 0%,#eadfd6 100%)!important;border-color:rgba(86,64,53,.10)!important}\n#salonDesktopTop.std-hero:before{box-shadow:none!important}\n#salonDesktopPortfolio.std-portfolio:before,#salonDesktopPortfolio.std-portfolio:after{display:none!important}\n#salonDesktopServices .mct-tabs-ribbon-wrap{background:transparent!important}\n#salonDesktopServices .mct-tabs-ribbon-wrap:before{background:linear-gradient(90deg,#242424,transparent)!important}\n#salonDesktopServices .mct-tabs-ribbon-wrap:after{background:linear-gradient(90deg,transparent,#242424)!important}\n#salonDesktopServices #stdServiceTabs .mct-tab-all,#salonDesktopServices #stdServiceTabs .mct-tab-all:not(.is-active){position:relative!important;left:auto!important;background:#242424!important;color:#EDE1D6!important;box-shadow:none!important}\n#salonDesktopServices #stdServiceTabs .mct-tab-all.is-active[aria-selected=\"true\"],#salonDesktopServices #stdServiceTabs .mct-tab.is-active[aria-selected=\"true\"]{background:#EDE1D6!important;border-color:#CDB8A5!important;color:#49362D!important;box-shadow:none!important}\n#salonDesktopServices .mct-tabs-ribbon-wrap{background:#242424!important;border:0!important;box-shadow:none!important}\n#salonDesktopServices .mct-tabs{background:#242424!important;scrollbar-width:none!important}\n#salonDesktopServices .mct-tabs::-webkit-scrollbar{display:none!important}\n#salonDesktopPortfolio.std-portfolio:before,#salonDesktopPortfolio.std-portfolio:after{display:none!important}\n#salonDesktopTop.std-hero:after{display:none!important}\n\n#salonDesktopServices .dct-service-sticky-work:hover{background:#454545!important;color:#fff!important;border-color:#454545!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary):hover,#salonDesktopPortfolio .std-portfolio-more:hover{background:#ccb39e!important;color:#342820!important;border-color:#b69880!important;box-shadow:0 12px 24px rgba(74,53,45,.12)!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary):active,#salonDesktopPortfolio .std-portfolio-more:active{transform:translateY(1px) scale(.992)!important;background:#a98a74!important;color:#fff!important;border-color:#a98a74!important;box-shadow:0 4px 13px rgba(74,53,45,.15)!important}\n#salonDesktopPortfolio.std-portfolio{background:radial-gradient(620px 430px at -8% 96%,rgba(176,145,128,.10) 0%,transparent 70%),radial-gradient(620px 420px at 108% 2%,rgba(190,159,142,.08) 0%,transparent 70%),linear-gradient(180deg,#f0e8e1 0%,#f4ede7 34%,#f7f2ed 100%)!important;border:0!important;margin-top:0!important;box-shadow:inset 0 26px 52px -50px rgba(69,49,41,.28),inset 0 -32px 62px -58px rgba(69,49,41,.20)!important}\n#salonDesktopPortfolio.std-portfolio:before,#salonDesktopPortfolio.std-portfolio:after{border-color:rgba(24,24,24,.06)!important}\n#salon-desktop-v1 .std-gallery-browser-tabs{background:transparent!important;gap:11px!important;overflow:visible!important;padding:8px 10px 12px!important;margin-top:19px!important}\n#salon-desktop-v1 .std-gallery-browser-tab{min-width:116px!important;height:46px!important;padding:0 25px!important;border:1px solid rgba(72,57,49,.17)!important;background:#e7ddd4!important;color:#4f4540!important;box-shadow:0 5px 14px rgba(65,48,41,.045)!important;transition:transform .18s ease,background .18s ease,box-shadow .18s ease!important}\n#salon-desktop-v1 .std-gallery-browser-tab.active{background:#302825!important;border-color:#302825!important;color:#fff!important;box-shadow:0 8px 18px rgba(48,40,37,.14)!important}\n#salon-desktop-v1 .std-gallery-browser-tab:hover{background:#ded0c5!important;box-shadow:0 9px 20px rgba(65,48,41,.08)!important;transform:translateY(-2px)!important}\n#salon-desktop-v1 .std-gallery-browser-tab.active:hover{background:#302825!important}\n#salonDesktopServices .dct-service-sticky-card{background:radial-gradient(330px 230px at 100% 0%,rgba(255,255,255,.78),transparent 72%),linear-gradient(145deg,#f7f2eb 0%,#eaded4 100%)!important;border-color:rgba(66,55,49,.14)!important;color:#2f2926!important;box-shadow:0 28px 70px rgba(9,7,6,.25),0 0 46px rgba(190,145,121,.11)!important}\n#salonDesktopServices .dct-service-sticky-card>strong,#salonDesktopServices .dct-service-sticky-card p,#salonDesktopServices .dct-service-sticky-card span:not(.std-status-main):not(.std-status-sub){color:#49362D!important}\n#salonDesktopServices .dct-service-sticky-book{background:#715b53!important;color:#fff!important}\n#salonDesktopServices .dct-service-sticky-book span{color:#fff!important}\n#salonDesktopServices .dct-service-sticky-work{background:#e8e8e6!important;color:#181818!important;border-color:rgba(24,24,24,.15)!important}\n#salonDesktopServices .dct-service-card-meta{justify-content:center!important;text-align:center!important}\n#salonDesktopServices .dct-service-card-meta>b{display:block!important;width:100%!important;text-align:center!important}\n#salonDesktopServices .dct-service-card-meta>b.is-price,#salonDesktopServices .dct-service-card-variant-meta>b.is-price{color:#181818!important;background:#f7f2eb!important;border-color:rgba(255,255,255,.92)!important;justify-content:center!important;text-align:center!important}\n#salonDesktopServices .dct-service-card-meta>b.is-book,#salonDesktopServices .dct-service-card-variant-meta>b.is-book{color:#fff!important;background:transparent!important;border-color:transparent!important;box-shadow:none!important;justify-content:center!important;text-align:center!important}\n#salonDesktopServices .dct-service-card-meta>b.is-price:before,#salonDesktopServices .dct-service-card-variant-meta>b.is-price:before,#salonDesktopServices .dct-service-card-meta>b.is-book:before,#salonDesktopServices .dct-service-card-variant-meta>b.is-book:before{display:none!important;content:none!important;animation:none!important;box-shadow:none!important}\n#salonDesktopServices .dct-service-card:hover .dct-service-card-meta>b.is-book,#salonDesktopServices .dct-service-card:hover .dct-service-card-variant-meta>b.is-book{transform:none!important;background:transparent!important;box-shadow:none!important}\n#salonDesktopServices .dct-service-duration{display:inline-flex!important;align-items:center!important;min-height:30px!important;margin-top:12px!important;padding:0 12px!important;border-radius:999px!important;background:rgba(255,255,255,.13)!important;border:1px solid rgba(255,255,255,.1)!important;color:#e6e6e6!important;font:600 15px/1 Manrope,Arial,sans-serif!important;align-self:flex-start!important}\n#salonDesktopReviews.std-reviews{background:#e9e2da!important;color:#171513!important}\n#salonDesktopReviews .std-reviews-all{background:rgba(255,255,255,.18)!important;border:1px solid rgba(66,55,49,.18)!important;color:#242327!important}\n#salonDesktopReviews .std-review-avatar{background:#d7cec6!important;border-color:rgba(66,55,49,.10)!important;color:#514943!important}\n#salonDesktopReviews .std-review-name{color:#2a2522!important}\n#salonDesktopReviews .std-review-text{color:#4f4843!important}\n#salonDesktopReviews .std-reviews-count{color:#716862!important}\n#salonDesktopReviews .std-reviews-kicker{color:#746c66!important}\n#salonDesktopReviews .std-review-card{background:rgba(255,255,255,.34)!important;border:1px solid rgba(66,55,49,.15)!important;box-shadow:none!important}\n#salonDesktopAbout .mct-about-portrait{overflow:hidden!important}\n#salonDesktopAbout .mct-about-portrait img{height:calc(100% + 1cm)!important;max-height:none!important;transform:translateY(-1cm)!important;object-position:center 38%!important;transition:none!important}\n#salonDesktopAbout .br-about-column:hover,#salonDesktopAbout .mct-about-card:hover,#salonDesktopAbout .dct-about-amenities-grid article:hover{transform:none!important}\n#salonDesktopAbout .br-about-column:hover .mct-about-portrait img{transform:translateY(-1cm)!important}\n\n#salonDesktopTop .std-hero-copy:before{background:radial-gradient(ellipse 34px 76px at 34% 13%,rgba(52,52,52,.9) 0 54%,transparent 58%),radial-gradient(ellipse 32px 70px at 69% 24%,rgba(70,70,70,.84) 0 54%,transparent 58%),radial-gradient(ellipse 36px 78px at 26% 39%,rgba(54,54,54,.8) 0 54%,transparent 58%),radial-gradient(ellipse 31px 72px at 72% 50%,rgba(72,72,72,.77) 0 54%,transparent 58%),radial-gradient(ellipse 37px 82px at 30% 65%,rgba(57,57,57,.72) 0 54%,transparent 58%),radial-gradient(ellipse 32px 74px at 69% 78%,rgba(65,65,65,.68) 0 54%,transparent 58%),linear-gradient(79deg,transparent 46%,rgba(65,65,65,.62) 47% 49%,transparent 50%)!important;opacity:.23!important;filter:blur(8px)!important}\n#salon-desktop-v1 .std-header-book:hover{background:#654f48!important;border-color:#654f48!important;box-shadow:0 12px 28px rgba(74,53,45,.24)!important}\n#salonDesktopContacts .std-contact-bottom,#salonDesktopContacts .std-contact-brand,#salonDesktopContacts .br-tanem-mark{background:#181818!important}\n#salonDesktopContacts .br-tanem-mark{border-color:rgba(255,255,255,.25)!important}\n\n}\n/* Desktop-only salon-template polish: preserve mobile service chooser. */\n@media(min-width:1024px){\n#salonDesktopTop.std-hero,#salonDesktopTop.std-hero:before,#salonDesktopTop.std-hero:after,\n#salonDesktopTop .std-hero-copy,#salonDesktopTop .std-hero-copy:before,#salonDesktopTop .std-hero-copy:after,\n#salonDesktopTop .std-hero-frame,#salonDesktopTop .std-hero-frame:before,#salonDesktopTop .std-hero-frame:after,\n#salonDesktopTop .std-copy-inner,#salonDesktopTop .std-hero-copy *,\n#salonDesktopTop .std-hero-copy *:before,#salonDesktopTop .std-hero-copy *:after{\n  box-shadow:none!important;text-shadow:none!important;\n}\n#salonDesktopTop .std-hero-copy:before{background:none!important;filter:none!important;opacity:0!important}\n#salonDesktopTop .std-hero-photo{box-shadow:0 30px 66px rgba(28,28,28,.18),0 9px 22px rgba(28,28,28,.10)!important}\n#salonDesktopTop .std-hero-photo:before,#salonDesktopTop .std-hero-photo:after{box-shadow:none!important}\n#salonDesktopServices #stdStickyServiceBook,\n#salonDesktopServices #stdStickyServiceBook span{color:#fff!important;-webkit-text-fill-color:#fff!important}\n#salonDesktopServices .mct-tabs{scroll-snap-type:none!important;scroll-behavior:auto!important;overflow-anchor:none!important}\n#salonDesktopServices .dct-service-groups{overflow-anchor:none!important}\n/* Esmeralda-style fixed fade lanes: present before any category scrolling. */\n#salonDesktopServices .mct-tabs-ribbon-wrap{\n  margin-left:-28px!important;\n  width:calc(100% + 28px)!important;\n  overflow:hidden!important;\n}\n#salonDesktopServices .mct-tabs{\n  padding-left:28px!important;\n  scroll-padding-left:28px!important;\n}\n#salonDesktopServices .mct-tabs-ribbon-wrap:before{\n  content:\"\"!important;position:absolute!important;left:0!important;top:0!important;\n  width:28px!important;height:58px!important;z-index:30!important;\n  background:linear-gradient(90deg,#242424 0%,rgba(36,36,36,.96) 24%,rgba(36,36,36,.68) 58%,transparent 100%)!important;\n  pointer-events:none!important;display:block!important;opacity:1!important;\n}\n#salonDesktopServices .mct-tabs-ribbon-wrap:after{\n  content:\"\"!important;position:absolute!important;right:0!important;top:0!important;\n  width:54px!important;height:58px!important;z-index:30!important;\n  background:linear-gradient(90deg,transparent,#242424 100%)!important;\n  pointer-events:none!important;display:block!important;opacity:1!important;\n}\n#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-body{\n  grid-template-columns:minmax(0,1fr) max-content minmax(108px,124px)!important;\n  column-gap:7px!important;align-items:center!important;\n}\n#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-duration{\n  grid-column:2!important;grid-row:1!important;justify-self:end!important;align-self:center!important;\n  width:max-content!important;max-width:82px!important;\n}\n#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-meta>b{\n  grid-column:3!important;grid-row:1!important;justify-self:center!important;align-self:center!important;\n}\n#salonDesktopServices .dct-service-card .dct-service-duration{\n  display:inline-flex!important;align-items:center!important;justify-content:center!important;\n  width:max-content!important;min-width:0!important;min-height:23px!important;\n  margin:0!important;padding:2px 7px!important;\n  border:1px solid rgba(255,255,255,.15)!important;border-radius:999px!important;\n  background:rgba(255,255,255,.085)!important;color:#e8e8e6!important;\n  font:600 12.5px/1.1 \"Manrope\",Arial,sans-serif!important;white-space:nowrap!important;\n}\n#salonDesktopServices .dct-service-card-meta>b.is-price,\n#salonDesktopServices .dct-service-card-variant-meta>b.is-price{\n  display:inline-flex!important;align-items:center!important;justify-content:center!important;\n  width:max-content!important;min-width:0!important;min-height:30px!important;\n  padding:0 2px!important;margin:0!important;border:0!important;\n  background:transparent!important;color:#fff!important;box-shadow:none!important;\n  font:700 clamp(16px,1.35vw,19px)/1.15 \"Manrope\",Arial,sans-serif!important;\n  text-align:center!important;white-space:nowrap!important;transform:none!important;\n  justify-self:center!important;align-self:center!important;\n}\n#salonDesktopServices .dct-service-card:hover .dct-service-card-meta>b.is-price,\n#salonDesktopServices .dct-service-card:hover .dct-service-card-variant-meta>b.is-price{\n  background:transparent!important;color:#fff!important;box-shadow:none!important;transform:none!important;\n}\n#salonDesktopServices .dct-service-card-meta>b.is-price:before,\n#salonDesktopServices .dct-service-card-variant-meta>b.is-price:before{display:none!important;content:none!important}\n#stdGallery.std-gallery,#stdGalleryBrowser.std-gallery-browser{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}\n#stdGalleryBrowser.std-gallery-browser{transition:opacity .34s ease,transform .42s cubic-bezier(.16,1,.3,1),visibility .42s!important}\n#stdGalleryBrowser .std-gallery-browser-shell{transition:opacity .32s ease .06s,transform .42s cubic-bezier(.16,1,.3,1) .06s!important}\n\n/* Expandable hair-service demos; preserve the existing category and booking mechanics. */\n#salonDesktopServices .dct-service-card.is-demo-expandable{height:auto!important;min-height:104px!important}\n#salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-card-body{\n  height:auto!important;min-height:84px!important;grid-template-rows:auto auto!important;align-content:center!important\n}\n#salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-card-description{\n  grid-column:1!important;grid-row:2!important;min-width:0!important;width:calc(100% - 32px)!important;max-width:calc(100% - 32px)!important\n}\n#salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-card-description p{\n  display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;\n  overflow:hidden!important;white-space:normal!important;overflow-wrap:anywhere!important\n}\n#salonDesktopServices .dct-service-card.is-demo-expandable.is-expanded .dct-service-card-description p{\n  display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important\n}\n#salonDesktopServices .dct-service-demo-book-hit{\n  position:absolute!important;inset:0!important;z-index:2!important;\n  display:block!important;width:100%!important;height:100%!important;opacity:0!important;\n  padding:0!important;border:0!important;background:transparent!important;cursor:pointer!important\n}\n#salonDesktopServices .dct-service-demo-more{\n  position:relative!important;z-index:3!important;display:block!important;\n  margin:7px 0 0!important;padding:3px 0!important;border:0!important;\n  background:transparent!important;color:#eee0d4!important;cursor:pointer!important;\n  font:600 11.5px/1.35 \"Manrope\",Arial,sans-serif!important;\n  text-align:left!important;text-decoration:underline!important;text-underline-offset:3px!important\n}\n#salonDesktopServices .dct-service-demo-more:focus-visible{\n  outline:2px solid #eee0d4!important;outline-offset:3px!important\n}\n\n\n/* The expanded service list grows downwards and collapses without a forced scroll. */\n#salonDesktopServices .dct-service-groups{overflow-anchor:none!important}\n#salonDesktopServices .dct-service-more-wrap{\n  grid-column:1/-1!important;display:block!important;min-width:0!important;\n  width:100%!important;box-sizing:border-box!important;height:0;\n  overflow:hidden!important;overflow-anchor:none!important;\n  transition:height .4s cubic-bezier(.22,1,.36,1)!important\n}\n#salonDesktopServices .dct-service-more-wrap .dct-service-extra-cards{\n  margin-top:11px!important;gap:11px!important\n}\n#salonDesktopServices .dct-service-more-wrap .dct-service-category:first-of-type{margin-top:30px!important}\n#salonDesktopServices .dct-service-more-wrap .dct-service-category{\n  width:100%!important;min-width:0!important\n}\n@media(prefers-reduced-motion:reduce){\n #salonDesktopServices .dct-service-more-wrap{transition:none!important}\n}\n/* Consistent right-side rails. Center title only on cards without description. */\n@media(min-width:1024px){\n #salonDesktopServices .dct-service-card:not(.has-variants){\n  position:relative!important;min-height:82px!important;\n  height:auto!important;padding:13px 18px!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants).is-demo-expandable{min-height:82px!important}\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-body,\n #salonDesktopServices .dct-service-card:not(.has-variants).has-description .dct-service-card-body{\n  position:static!important;display:block!important;\n  min-height:54px!important;height:auto!important;\n  padding:0 338px 0 0!important;margin:0!important;\n  box-sizing:border-box!important;align-content:initial!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants):not(.has-description) .dct-service-card-body{\n  display:flex!important;align-items:center!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-title,\n #salonDesktopServices .dct-service-card.has-description.is-demo-expandable .dct-service-card-title{\n  display:block!important;min-width:0!important;max-width:100%!important;\n  width:100%!important;margin:0!important;padding:0!important;\n  align-self:auto!important;line-height:1.12!important;\n  overflow:visible!important;white-space:normal!important;\n  overflow-wrap:anywhere!important;hyphens:auto!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants):not(.has-description) .dct-service-card-title{\n  align-self:center!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-duration{\n  position:absolute!important;top:var(--desktop-side-y,50%)!important;right:231px!important;\n  transform:translateY(-50%)!important;\n  display:inline-flex!important;width:58px!important;min-width:58px!important;\n  max-width:58px!important;min-height:29px!important;\n  justify-content:center!important;align-items:center!important;\n  padding:4px!important;margin:0!important;\n  border:1px solid rgba(255,255,255,.15)!important;border-radius:999px!important;\n  background:rgba(255,255,255,.085)!important;color:#e8e8e6!important;\n  font:600 12px/1.15 \"Manrope\",Arial,sans-serif!important;white-space:nowrap!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-meta{display:contents!important}\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-meta>b.is-price{\n  position:absolute!important;top:var(--desktop-side-y,50%)!important;right:18px!important;\n  transform:translateY(-50%)!important;display:flex!important;\n  width:200px!important;min-width:200px!important;max-width:200px!important;min-height:37px!important;\n  margin:0!important;padding:0 2px!important;box-sizing:border-box!important;\n  border:0!important;border-radius:0!important;background:transparent!important;\n  box-shadow:none!important;color:#fff!important;\n  align-items:center!important;justify-content:flex-end!important;gap:3px!important;text-align:right!important;\n  font:600 clamp(17px,1.7vw,22px)/1.13 \"Manrope\",Arial,sans-serif!important;\n  font-variant-numeric:tabular-nums!important;\n  white-space:nowrap!important;overflow-wrap:normal!important\n }\n #salonDesktopServices .dct-service-card.is-price-range:not(.has-variants) .dct-service-card-meta>b.is-price{\n  font-size:clamp(16px,1.5vw,21px)!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-money-prefix{\n   font:500 11px/1 \"Manrope\",Arial,sans-serif!important;\n   min-width:0!important;max-width:none!important;\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-money-prefix:empty{display:none!important}\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-money-amount{\n   flex:0 0 auto!important;font:inherit!important;white-space:nowrap!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-money-symbol{\n   display:inline-block!important;flex:0 0 18px!important;width:18px!important;\n   font:inherit!important;text-align:right!important;white-space:nowrap!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-meta>b.is-book{\n  position:absolute!important;top:50%!important;right:18px!important;\n  transform:translateY(-50%)!important;width:142px!important;min-width:142px!important;\n  max-width:142px!important;margin:0!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants).has-description .dct-service-card-description{\n  display:block!important;min-width:0!important;width:100%!important;\n  max-width:100%!important;margin:2px 0 0!important;padding:0!important;\n  overflow-wrap:anywhere!important;align-self:auto!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-description p{\n  display:-webkit-box!important;-webkit-box-orient:vertical!important;\n  -webkit-line-clamp:2!important;overflow:hidden!important;\n  margin:0!important;line-height:1.34!important\n }\n #salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-card-description p.is-measuring{\n  display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important\n }\n #salonDesktopServices .dct-service-card.is-demo-expandable.is-expanded .dct-service-card-description p{\n  display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important\n }\n #salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-demo-more{\n  margin:3px 0 0!important;padding:2px 0!important\n }\n #salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-demo-more[hidden]{\n  display:none!important\n }\n body[data-br-lang=\"hy\"] #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-title{\n  font-size:clamp(18px,1.45vw,23px)!important;line-height:1.22!important\n }\n}\n}\n@media(prefers-reduced-motion:reduce){\n#stdGalleryBrowser.std-gallery-browser,#stdGalleryBrowser .std-gallery-browser-shell{transition:none!important}\n}";document.head.appendChild(style);})();
+(function(){if(document.getElementById('salon-template-desktop-cold-neutral-20260924'))return;const style=document.createElement('style');style.id='salon-template-desktop-cold-neutral-20260924';style.textContent="\n@media(min-width:1024px){\n#salon-desktop-v1{--purple:#181818!important;--purple2:#303030!important;background:#fafaf9!important;color:#181818!important}\n#salon-desktop-v1 .std-header{background:#f5f5f3!important;border-bottom:1px solid rgba(24,24,24,.06)!important}\n#salon-desktop-v1 .std-header-book,#salon-desktop-v1 .std-btn-primary,#salon-desktop-v1 .dct-service-sticky-book{background:#181818!important;border-color:#181818!important;color:#fff!important;box-shadow:none!important}\n#salon-desktop-v1 .std-btn:not(.std-btn-primary){background:#e8e8e6!important;border-color:#d2d2cf!important;color:#181818!important}\n#salon-desktop-v1 .std-sparkles{color:#454545!important}\n#salon-desktop-v1 .std-status-main.open{color:#2f7d46!important}#salon-desktop-v1 .std-status-main.closed{color:#c54b55!important}\n#salonDesktopPortfolio{background:#fafaf9!important;color:#181818!important}\n#salon-desktop-v1 .std-gallery-browser,#salon-desktop-v1 .std-gallery-browser-shell{background:#f2f2f0!important;color:#181818!important}\n#salon-desktop-v1 .std-gallery-browser-tab.active{background:#181818!important;border-color:#181818!important;color:#fff!important}\n#salonDesktopReviews{background:#f2f2f0!important;color:#181818!important}\n#salonDesktopReviews .std-review-card{background:#fafafa!important;border-color:rgba(24,24,24,.12)!important}\n#salonDesktopReviews .std-review-avatar{background:#dededc!important;color:#404040!important}\n#salonDesktopReviews .std-reviews-stars,#salonDesktopReviews .std-review-stars{color:#E4AD35!important;-webkit-text-stroke:.2px #D99D1E!important}\n#salonDesktopServices.mct-prices,#salonDesktopContacts.std-contact{background:#242424!important;color:#f7f7f6!important}\n#salonDesktopServices .mct-tab.is-active{background:#EDE1D6!important;border-color:#CDB8A5!important;color:#49362D!important}\n#salonDesktopServices .dct-service-sticky-card{background:#EEE4DA!important;border-color:#D6C3B2!important;color:#49362D!important}\n#salonDesktopServices .dct-service-sticky-work{border-color:rgba(113,91,83,.38)!important;background:#efe7e1!important;color:#2f2926!important}\n#salonDesktopContacts .std-contact-card{background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.13)!important}\n#salonDesktopContacts .std-contact-status.open{background:#203b2a!important;border-color:#315b40!important;color:#8fd0a1!important}\n#salonDesktopContacts .std-contact-status.closed{background:#46292e!important;border-color:#63383f!important;color:#ef9ea7!important}\n#salonDesktopContacts .std-contact-map{background:#333!important;border-color:rgba(255,255,255,.10)!important}\n#salonDesktopContacts .std-contact-brand{background:#181818!important}\n#salonDesktopAbout .mct-about-card{box-shadow:0 26px 58px rgba(0,0,0,.10)!important}\nbody[data-br-lang=\"en\"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!important;justify-content:space-between!important;gap:0!important}\n\n/* Approved salon-template desktop synchronisation inside the existing neutral theme. */\n#salonDesktopTop.std-hero{background:radial-gradient(ellipse 185px 610px at -1% 43%,rgba(83,57,45,.24) 0%,rgba(105,74,58,.15) 25%,rgba(133,96,76,.065) 48%,transparent 76%),radial-gradient(ellipse 360px 640px at 101% 70%,rgba(119,84,67,.105) 0%,rgba(151,112,91,.045) 34%,transparent 76%),radial-gradient(ellipse 720px 500px at 35% 45%,rgba(255,255,255,.52) 0%,rgba(255,255,255,.22) 48%,transparent 78%),linear-gradient(102deg,#f3ebe3 0%,#f4eee7 47%,#eee3da 100%)!important;border-bottom:0!important;box-shadow:inset 0 0 90px rgba(83,57,45,.035)!important}\n#salonDesktopTop .std-hero-copy{background:transparent!important}\n#salonDesktopTop .std-hero-frame:before,#salonDesktopTop .std-hero-frame:after{border-color:rgba(24,24,24,.12)!important}\n#salonDesktopTop .std-tagline{color:#575757!important}\n#salonDesktopTop .std-hero-copy:after{color:#575757!important;background:linear-gradient(#575757,#575757) left 9px/38px 1px no-repeat!important}\n#salonDesktopTop .std-tagline,#salonDesktopTop .std-meta,#salonDesktopTop .std-actions{transform:translateY(24px)!important}\n#salonDesktopTop.std-hero,#salonDesktopTop .std-hero-photo,#salonDesktopTop .std-hero-photo:before,#salonDesktopTop .std-hero-photo:after,#salonDesktopTop .std-hero-copy,#salonDesktopTop .std-hero-copy:before,#salonDesktopTop .std-hero-frame,#salonDesktopTop .std-copy-inner,#salonDesktopTop .std-btn{box-shadow:none!important}\n#salonDesktopTop .std-meta-icon{background:rgba(24,24,24,.035)!important;border-color:rgba(24,24,24,.12)!important}\n#salonDesktopTop .std-btn-primary:hover,#salonDesktopServices .dct-service-sticky-book:hover{background:#654f48!important;border-color:#654f48!important;color:#fff!important}\n#salonDesktopTop .std-btn-primary{background:#715b53!important;border-color:#715b53!important;color:#fff!important;box-shadow:0 12px 28px rgba(74,53,45,.20)!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary),#salonDesktopPortfolio .std-portfolio-more{background:#efe7e1!important;border-color:rgba(113,91,83,.38)!important;color:#2f2926!important}\n#salonDesktopPortfolio .std-portfolio-more:active{transform:translateY(2px) scale(.988)!important;background:#DDC9B8!important;box-shadow:0 2px 9px rgba(74,53,45,.14)!important}\n#salonDesktopPortfolio .std-portfolio-more{backdrop-filter:blur(9px)!important;-webkit-backdrop-filter:blur(9px)!important}\n#salon-desktop-v1 .std-header{background:rgba(239,230,221,.92)!important;border-bottom:1px solid rgba(103,82,70,.10)!important;box-shadow:0 7px 24px rgba(73,55,46,.035)!important}\n#salon-desktop-v1 .std-header-book{background:#715b53!important;border:0!important;color:#fff!important;border-radius:8px!important;box-shadow:0 10px 24px rgba(74,53,45,.18)!important}\n#stdGalleryBrowser.std-gallery-browser,#stdGalleryBrowser .std-gallery-browser-shell{background:#f7f2eb!important;color:#171513!important}\n#stdGalleryBrowser .std-gallery-browser-title strong,#stdGalleryBrowser .std-gallery-browser-back{color:#171513!important}\n#stdGalleryBrowser .std-gallery-browser-title span{color:#746c66!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary),#salonDesktopPortfolio .std-portfolio-more{transition:background .32s ease,border-color .32s ease,color .32s ease,transform .22s ease,box-shadow .32s ease!important}\n#salonDesktopTeam.br-team-panel,#salonDesktopTeam.std-team{background:#242424!important}\n#salonDesktopTeam .std-team-inner{background:transparent!important}\n#salonDesktopTop .std-btn-primary:active{transform:translateY(1px) scale(.992)!important;background:#654f48!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary):active,#salonDesktopPortfolio .std-portfolio-more:active{transform:translateY(2px) scale(.988)!important;background:#715b53!important;color:#fff!important;border-color:#715b53!important}\n#salonDesktopAbout .mct-about-card{background:#eee7df!important;border-color:rgba(66,55,49,.14)!important}\n#salonDesktopAbout .br-about-column{background:#eee7df!important}\n#salonDesktopAbout .dct-about-amenities-grid article{background:linear-gradient(145deg,#e4d6cb 0%,#eadfd6 100%)!important;border-color:rgba(86,64,53,.10)!important}\n#salonDesktopTop.std-hero:before{box-shadow:none!important}\n#salonDesktopServices .mct-tabs-ribbon-wrap{background:transparent!important}\n#salonDesktopServices .mct-tabs-ribbon-wrap:before{background:linear-gradient(90deg,#242424,transparent)!important}\n#salonDesktopServices .mct-tabs-ribbon-wrap:after{background:linear-gradient(90deg,transparent,#242424)!important}\n#salonDesktopServices #stdServiceTabs .mct-tab-all,#salonDesktopServices #stdServiceTabs .mct-tab-all:not(.is-active){position:relative!important;left:auto!important;background:#242424!important;color:#EDE1D6!important;box-shadow:none!important}\n#salonDesktopServices #stdServiceTabs .mct-tab-all.is-active[aria-selected=\"true\"],#salonDesktopServices #stdServiceTabs .mct-tab.is-active[aria-selected=\"true\"]{background:#EDE1D6!important;border-color:#CDB8A5!important;color:#49362D!important;box-shadow:none!important}\n#salonDesktopServices .mct-tabs-ribbon-wrap{background:#242424!important;border:0!important;box-shadow:none!important}\n#salonDesktopServices .mct-tabs{background:#242424!important;scrollbar-width:none!important}\n#salonDesktopServices .mct-tabs::-webkit-scrollbar{display:none!important}\n#salonDesktopPortfolio.std-portfolio:before,#salonDesktopPortfolio.std-portfolio:after{display:none!important}\n#salonDesktopTop.std-hero:after{display:none!important}\n\n#salonDesktopServices .dct-service-sticky-work:hover{background:#454545!important;color:#fff!important;border-color:#454545!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary):hover,#salonDesktopPortfolio .std-portfolio-more:hover{background:#ccb39e!important;color:#342820!important;border-color:#b69880!important;box-shadow:0 12px 24px rgba(74,53,45,.12)!important}\n#salonDesktopTop .std-btn:not(.std-btn-primary):active,#salonDesktopPortfolio .std-portfolio-more:active{transform:translateY(1px) scale(.992)!important;background:#a98a74!important;color:#fff!important;border-color:#a98a74!important;box-shadow:0 4px 13px rgba(74,53,45,.15)!important}\n#salonDesktopPortfolio.std-portfolio{background:radial-gradient(620px 430px at -8% 96%,rgba(176,145,128,.10) 0%,transparent 70%),radial-gradient(620px 420px at 108% 2%,rgba(190,159,142,.08) 0%,transparent 70%),linear-gradient(180deg,#f0e8e1 0%,#f4ede7 34%,#f7f2ed 100%)!important;border:0!important;margin-top:0!important;box-shadow:inset 0 26px 52px -50px rgba(69,49,41,.28),inset 0 -32px 62px -58px rgba(69,49,41,.20)!important}\n#salonDesktopPortfolio.std-portfolio:before,#salonDesktopPortfolio.std-portfolio:after{border-color:rgba(24,24,24,.06)!important}\n#salon-desktop-v1 .std-gallery-browser-tabs{background:transparent!important;gap:11px!important;overflow:visible!important;padding:8px 10px 12px!important;margin-top:19px!important}\n#salon-desktop-v1 .std-gallery-browser-tab{min-width:116px!important;height:46px!important;padding:0 25px!important;border:1px solid rgba(72,57,49,.17)!important;background:#e7ddd4!important;color:#4f4540!important;box-shadow:0 5px 14px rgba(65,48,41,.045)!important;transition:transform .18s ease,background .18s ease,box-shadow .18s ease!important}\n#salon-desktop-v1 .std-gallery-browser-tab.active{background:#302825!important;border-color:#302825!important;color:#fff!important;box-shadow:0 8px 18px rgba(48,40,37,.14)!important}\n#salon-desktop-v1 .std-gallery-browser-tab:hover{background:#ded0c5!important;box-shadow:0 9px 20px rgba(65,48,41,.08)!important;transform:translateY(-2px)!important}\n#salon-desktop-v1 .std-gallery-browser-tab.active:hover{background:#302825!important}\n#salonDesktopServices .dct-service-sticky-card{background:radial-gradient(330px 230px at 100% 0%,rgba(255,255,255,.78),transparent 72%),linear-gradient(145deg,#f7f2eb 0%,#eaded4 100%)!important;border-color:rgba(66,55,49,.14)!important;color:#2f2926!important;box-shadow:0 28px 70px rgba(9,7,6,.25),0 0 46px rgba(190,145,121,.11)!important}\n#salonDesktopServices .dct-service-sticky-card>strong,#salonDesktopServices .dct-service-sticky-card p,#salonDesktopServices .dct-service-sticky-card span:not(.std-status-main):not(.std-status-sub){color:#49362D!important}\n#salonDesktopServices .dct-service-sticky-book{background:#715b53!important;color:#fff!important}\n#salonDesktopServices .dct-service-sticky-book span{color:#fff!important}\n#salonDesktopServices .dct-service-sticky-work{background:#e8e8e6!important;color:#181818!important;border-color:rgba(24,24,24,.15)!important}\n#salonDesktopServices .dct-service-card-meta{justify-content:center!important;text-align:center!important}\n#salonDesktopServices .dct-service-card-meta>b{display:block!important;width:100%!important;text-align:center!important}\n#salonDesktopServices .dct-service-card-meta>b.is-price,#salonDesktopServices .dct-service-card-variant-meta>b.is-price{color:#181818!important;background:#f7f2eb!important;border-color:rgba(255,255,255,.92)!important;justify-content:center!important;text-align:center!important}\n#salonDesktopServices .dct-service-card-meta>b.is-book,#salonDesktopServices .dct-service-card-variant-meta>b.is-book{color:#fff!important;background:transparent!important;border-color:transparent!important;box-shadow:none!important;justify-content:center!important;text-align:center!important}\n#salonDesktopServices .dct-service-card-meta>b.is-price:before,#salonDesktopServices .dct-service-card-variant-meta>b.is-price:before,#salonDesktopServices .dct-service-card-meta>b.is-book:before,#salonDesktopServices .dct-service-card-variant-meta>b.is-book:before{display:none!important;content:none!important;animation:none!important;box-shadow:none!important}\n#salonDesktopServices .dct-service-card:hover .dct-service-card-meta>b.is-book,#salonDesktopServices .dct-service-card:hover .dct-service-card-variant-meta>b.is-book{transform:none!important;background:transparent!important;box-shadow:none!important}\n#salonDesktopServices .dct-service-duration{display:inline-flex!important;align-items:center!important;min-height:30px!important;margin-top:12px!important;padding:0 12px!important;border-radius:999px!important;background:rgba(255,255,255,.13)!important;border:1px solid rgba(255,255,255,.1)!important;color:#e6e6e6!important;font:600 15px/1 Manrope,Arial,sans-serif!important;align-self:flex-start!important}\n#salonDesktopReviews.std-reviews{background:#e9e2da!important;color:#171513!important}\n#salonDesktopReviews .std-reviews-all{background:rgba(255,255,255,.18)!important;border:1px solid rgba(66,55,49,.18)!important;color:#242327!important}\n#salonDesktopReviews .std-review-avatar{background:#d7cec6!important;border-color:rgba(66,55,49,.10)!important;color:#514943!important}\n#salonDesktopReviews .std-review-name{color:#2a2522!important}\n#salonDesktopReviews .std-review-text{color:#4f4843!important}\n#salonDesktopReviews .std-reviews-count{color:#716862!important}\n#salonDesktopReviews .std-reviews-kicker{color:#746c66!important}\n#salonDesktopReviews .std-review-card{background:rgba(255,255,255,.34)!important;border:1px solid rgba(66,55,49,.15)!important;box-shadow:none!important}\n#salonDesktopAbout .mct-about-portrait{overflow:hidden!important}\n#salonDesktopAbout .mct-about-portrait img{height:calc(100% + 1cm)!important;max-height:none!important;transform:translateY(-1cm)!important;object-position:center 38%!important;transition:none!important}\n#salonDesktopAbout .br-about-column:hover,#salonDesktopAbout .mct-about-card:hover,#salonDesktopAbout .dct-about-amenities-grid article:hover{transform:none!important}\n#salonDesktopAbout .br-about-column:hover .mct-about-portrait img{transform:translateY(-1cm)!important}\n\n#salonDesktopTop .std-hero-copy:before{background:radial-gradient(ellipse 34px 76px at 34% 13%,rgba(52,52,52,.9) 0 54%,transparent 58%),radial-gradient(ellipse 32px 70px at 69% 24%,rgba(70,70,70,.84) 0 54%,transparent 58%),radial-gradient(ellipse 36px 78px at 26% 39%,rgba(54,54,54,.8) 0 54%,transparent 58%),radial-gradient(ellipse 31px 72px at 72% 50%,rgba(72,72,72,.77) 0 54%,transparent 58%),radial-gradient(ellipse 37px 82px at 30% 65%,rgba(57,57,57,.72) 0 54%,transparent 58%),radial-gradient(ellipse 32px 74px at 69% 78%,rgba(65,65,65,.68) 0 54%,transparent 58%),linear-gradient(79deg,transparent 46%,rgba(65,65,65,.62) 47% 49%,transparent 50%)!important;opacity:.23!important;filter:blur(8px)!important}\n#salon-desktop-v1 .std-header-book:hover{background:#654f48!important;border-color:#654f48!important;box-shadow:0 12px 28px rgba(74,53,45,.24)!important}\n#salonDesktopContacts .std-contact-bottom,#salonDesktopContacts .std-contact-brand,#salonDesktopContacts .br-tanem-mark{background:#181818!important}\n#salonDesktopContacts .br-tanem-mark{border-color:rgba(255,255,255,.25)!important}\n\n}\n/* Desktop-only salon-template polish: preserve mobile service chooser. */\n@media(min-width:1024px){\n#salonDesktopTop.std-hero,#salonDesktopTop.std-hero:before,#salonDesktopTop.std-hero:after,\n#salonDesktopTop .std-hero-copy,#salonDesktopTop .std-hero-copy:before,#salonDesktopTop .std-hero-copy:after,\n#salonDesktopTop .std-hero-frame,#salonDesktopTop .std-hero-frame:before,#salonDesktopTop .std-hero-frame:after,\n#salonDesktopTop .std-copy-inner,#salonDesktopTop .std-hero-copy *,\n#salonDesktopTop .std-hero-copy *:before,#salonDesktopTop .std-hero-copy *:after{\n  box-shadow:none!important;text-shadow:none!important;\n}\n#salonDesktopTop .std-hero-copy:before{background:none!important;filter:none!important;opacity:0!important}\n#salonDesktopTop .std-hero-photo{box-shadow:0 30px 66px rgba(28,28,28,.18),0 9px 22px rgba(28,28,28,.10)!important}\n#salonDesktopTop .std-hero-photo:before,#salonDesktopTop .std-hero-photo:after{box-shadow:none!important}\n#salonDesktopServices #stdStickyServiceBook,\n#salonDesktopServices #stdStickyServiceBook span{color:#fff!important;-webkit-text-fill-color:#fff!important}\n#salonDesktopServices .mct-tabs{scroll-snap-type:none!important;scroll-behavior:auto!important;overflow-anchor:none!important}\n#salonDesktopServices .dct-service-groups{overflow-anchor:none!important}\n/* Esmeralda-style fixed fade lanes: present before any category scrolling. */\n#salonDesktopServices .mct-tabs-ribbon-wrap{\n  margin-left:-28px!important;\n  width:calc(100% + 28px)!important;\n  overflow:hidden!important;\n}\n#salonDesktopServices .mct-tabs{\n  padding-left:28px!important;\n  scroll-padding-left:28px!important;\n}\n#salonDesktopServices .mct-tabs-ribbon-wrap:before{\n  content:\"\"!important;position:absolute!important;left:0!important;top:0!important;\n  width:28px!important;height:58px!important;z-index:30!important;\n  background:linear-gradient(90deg,#242424 0%,rgba(36,36,36,.96) 24%,rgba(36,36,36,.68) 58%,transparent 100%)!important;\n  pointer-events:none!important;display:block!important;opacity:1!important;\n}\n#salonDesktopServices .mct-tabs-ribbon-wrap:after{\n  content:\"\"!important;position:absolute!important;right:0!important;top:0!important;\n  width:54px!important;height:58px!important;z-index:30!important;\n  background:linear-gradient(90deg,transparent,#242424 100%)!important;\n  pointer-events:none!important;display:block!important;opacity:1!important;\n}\n#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-body{\n  grid-template-columns:minmax(0,1fr) max-content minmax(108px,124px)!important;\n  column-gap:7px!important;align-items:center!important;\n}\n#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-duration{\n  grid-column:2!important;grid-row:1!important;justify-self:end!important;align-self:center!important;\n  width:max-content!important;max-width:82px!important;\n}\n#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-meta>b{\n  grid-column:3!important;grid-row:1!important;justify-self:center!important;align-self:center!important;\n}\n#salonDesktopServices .dct-service-card .dct-service-duration{\n  display:inline-flex!important;align-items:center!important;justify-content:center!important;\n  width:max-content!important;min-width:0!important;min-height:23px!important;\n  margin:0!important;padding:2px 7px!important;\n  border:1px solid rgba(255,255,255,.15)!important;border-radius:999px!important;\n  background:rgba(255,255,255,.085)!important;color:#e8e8e6!important;\n  font:600 12.5px/1.1 \"Manrope\",Arial,sans-serif!important;white-space:nowrap!important;\n}\n#salonDesktopServices .dct-service-card-meta>b.is-price,\n#salonDesktopServices .dct-service-card-variant-meta>b.is-price{\n  display:inline-flex!important;align-items:center!important;justify-content:center!important;\n  width:max-content!important;min-width:0!important;min-height:30px!important;\n  padding:0 2px!important;margin:0!important;border:0!important;\n  background:transparent!important;color:#fff!important;box-shadow:none!important;\n  font:700 clamp(16px,1.35vw,19px)/1.15 \"Manrope\",Arial,sans-serif!important;\n  text-align:center!important;white-space:nowrap!important;transform:none!important;\n  justify-self:center!important;align-self:center!important;\n}\n#salonDesktopServices .dct-service-card:hover .dct-service-card-meta>b.is-price,\n#salonDesktopServices .dct-service-card:hover .dct-service-card-variant-meta>b.is-price{\n  background:transparent!important;color:#fff!important;box-shadow:none!important;transform:none!important;\n}\n#salonDesktopServices .dct-service-card-meta>b.is-price:before,\n#salonDesktopServices .dct-service-card-variant-meta>b.is-price:before{display:none!important;content:none!important}\n#stdGallery.std-gallery,#stdGalleryBrowser.std-gallery-browser{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}\n#stdGalleryBrowser.std-gallery-browser{transition:opacity .34s ease,transform .42s cubic-bezier(.16,1,.3,1),visibility .42s!important}\n#stdGalleryBrowser .std-gallery-browser-shell{transition:opacity .32s ease .06s,transform .42s cubic-bezier(.16,1,.3,1) .06s!important}\n\n/* Expandable hair-service demos; preserve the existing category and booking mechanics. */\n#salonDesktopServices .dct-service-card.is-demo-expandable{height:auto!important;min-height:104px!important}\n#salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-card-body{\n  height:auto!important;min-height:84px!important;grid-template-rows:auto auto!important;align-content:center!important\n}\n#salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-card-description{\n  grid-column:1!important;grid-row:2!important;min-width:0!important;width:calc(100% - 32px)!important;max-width:calc(100% - 32px)!important\n}\n#salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-card-description p{\n  display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;\n  overflow:hidden!important;white-space:normal!important;overflow-wrap:anywhere!important\n}\n#salonDesktopServices .dct-service-card.is-demo-expandable.is-expanded .dct-service-card-description p{\n  display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important\n}\n#salonDesktopServices .dct-service-demo-book-hit{\n  position:absolute!important;inset:0!important;z-index:2!important;\n  display:block!important;width:100%!important;height:100%!important;opacity:0!important;\n  padding:0!important;border:0!important;background:transparent!important;cursor:pointer!important\n}\n#salonDesktopServices .dct-service-demo-more{\n  position:relative!important;z-index:3!important;display:block!important;\n  margin:7px 0 0!important;padding:3px 0!important;border:0!important;\n  background:transparent!important;color:#eee0d4!important;cursor:pointer!important;\n  font:600 11.5px/1.35 \"Manrope\",Arial,sans-serif!important;\n  text-align:left!important;text-decoration:underline!important;text-underline-offset:3px!important\n}\n#salonDesktopServices .dct-service-demo-more:focus-visible{\n  outline:2px solid #eee0d4!important;outline-offset:3px!important\n}\n\n\n/* The expanded service list grows downwards and collapses without a forced scroll. */\n#salonDesktopServices .dct-service-groups{overflow-anchor:none!important}\n#salonDesktopServices .dct-service-more-wrap{\n  grid-column:1/-1!important;display:block!important;min-width:0!important;\n  width:100%!important;box-sizing:border-box!important;height:0;\n  overflow:hidden!important;overflow-anchor:none!important;\n  transition:height .4s cubic-bezier(.22,1,.36,1)!important\n}\n#salonDesktopServices .dct-service-more-wrap .dct-service-extra-cards{\n  margin-top:11px!important;gap:11px!important\n}\n#salonDesktopServices .dct-service-more-wrap .dct-service-category:first-of-type{margin-top:30px!important}\n#salonDesktopServices .dct-service-more-wrap .dct-service-category{\n  width:100%!important;min-width:0!important\n}\n@media(prefers-reduced-motion:reduce){\n #salonDesktopServices .dct-service-more-wrap{transition:none!important}\n}\n/* Consistent right-side rails. Center title only on cards without description. */\n@media(min-width:1024px){\n #salonDesktopServices .dct-service-card:not(.has-variants){\n  position:relative!important;min-height:82px!important;\n  height:auto!important;padding:13px 18px!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants).is-demo-expandable{min-height:82px!important}\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-body,\n #salonDesktopServices .dct-service-card:not(.has-variants).has-description .dct-service-card-body{\n  position:static!important;display:block!important;\n  min-height:54px!important;height:auto!important;\n  padding:0 338px 0 0!important;margin:0!important;\n  box-sizing:border-box!important;align-content:initial!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants):not(.has-description) .dct-service-card-body{\n  display:flex!important;align-items:center!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-title,\n #salonDesktopServices .dct-service-card.has-description.is-demo-expandable .dct-service-card-title{\n  display:block!important;min-width:0!important;max-width:100%!important;\n  width:100%!important;margin:0!important;padding:0!important;\n  align-self:auto!important;line-height:1.12!important;\n  overflow:visible!important;white-space:normal!important;\n  overflow-wrap:anywhere!important;hyphens:auto!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants):not(.has-description) .dct-service-card-title{\n  align-self:center!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-duration{\n  position:absolute!important;top:var(--desktop-side-y,50%)!important;right:231px!important;\n  transform:translateY(-50%)!important;\n  display:inline-flex!important;width:58px!important;min-width:58px!important;\n  max-width:58px!important;min-height:29px!important;\n  justify-content:center!important;align-items:center!important;\n  padding:4px!important;margin:0!important;\n  border:1px solid rgba(255,255,255,.15)!important;border-radius:999px!important;\n  background:rgba(255,255,255,.085)!important;color:#e8e8e6!important;\n  font:600 12px/1.15 \"Manrope\",Arial,sans-serif!important;white-space:nowrap!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-meta{display:contents!important}\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-meta>b.is-price{\n  position:absolute!important;top:var(--desktop-side-y,50%)!important;right:18px!important;\n  transform:translateY(-50%)!important;display:flex!important;\n  width:200px!important;min-width:200px!important;max-width:200px!important;min-height:37px!important;\n  margin:0!important;padding:0 2px!important;box-sizing:border-box!important;\n  border:0!important;border-radius:0!important;background:transparent!important;\n  box-shadow:none!important;color:#fff!important;\n  align-items:center!important;justify-content:flex-end!important;gap:3px!important;text-align:right!important;\n  font:600 clamp(17px,1.7vw,22px)/1.13 \"Manrope\",Arial,sans-serif!important;\n  font-variant-numeric:tabular-nums!important;\n  white-space:nowrap!important;overflow-wrap:normal!important\n }\n #salonDesktopServices .dct-service-card.is-price-range:not(.has-variants) .dct-service-card-meta>b.is-price{\n  font-size:clamp(16px,1.5vw,21px)!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-money-prefix{\n   font:500 11px/1 \"Manrope\",Arial,sans-serif!important;\n   min-width:0!important;max-width:none!important;\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-money-prefix:empty{display:none!important}\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-money-amount{\n   flex:0 0 auto!important;font:inherit!important;white-space:nowrap!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-money-symbol{\n   display:inline-block!important;flex:0 0 18px!important;width:18px!important;\n   font:inherit!important;text-align:right!important;white-space:nowrap!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-meta>b.is-book{\n  position:absolute!important;top:50%!important;right:18px!important;\n  transform:translateY(-50%)!important;width:142px!important;min-width:142px!important;\n  max-width:142px!important;margin:0!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants).has-description .dct-service-card-description{\n  display:block!important;min-width:0!important;width:100%!important;\n  max-width:100%!important;margin:2px 0 0!important;padding:0!important;\n  overflow-wrap:anywhere!important;align-self:auto!important\n }\n #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-description p{\n  display:-webkit-box!important;-webkit-box-orient:vertical!important;\n  -webkit-line-clamp:2!important;overflow:hidden!important;\n  margin:0!important;line-height:1.34!important\n }\n #salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-card-description p.is-measuring{\n  display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important\n }\n #salonDesktopServices .dct-service-card.is-demo-expandable.is-expanded .dct-service-card-description p{\n  display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important\n }\n #salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-demo-more{\n  margin:3px 0 0!important;padding:2px 0!important\n }\n #salonDesktopServices .dct-service-card.is-demo-expandable .dct-service-demo-more[hidden]{\n  display:none!important\n }\n body[data-br-lang=\"hy\"] #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-title{\n  font-size:clamp(18px,1.45vw,23px)!important;line-height:1.22!important\n }\n}\n}\n@media(prefers-reduced-motion:reduce){\n#stdGalleryBrowser.std-gallery-browser,#stdGalleryBrowser .std-gallery-browser-shell{transition:none!important}\n}";document.head.appendChild(style);})();
 
 /* Service-price rail: range keeps its air; fixed and from prices sit closer to time. */
 (function(){
