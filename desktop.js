@@ -7735,6 +7735,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
       const previousScroll=rail?.scrollLeft||0;
       activeServiceCategory=btn.dataset.serviceCategory;
       desktopServicesExpanded=false;
+      desktopMoreWrap=null;
       renderDesktopServices();
       if(rail)rail.scrollLeft=previousScroll;
     });
