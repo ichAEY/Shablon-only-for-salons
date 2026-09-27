@@ -305,11 +305,6 @@
   font.rel='stylesheet';
   font.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap';
   document.head.appendChild(font);
-  const desktopStyle=document.createElement('style');
-  desktopStyle.id='salon-desktop-styles';
-  desktopStyle.textContent='';
-  document.head.appendChild(desktopStyle);
-
   const root=document.createElement('div');
   root.id='salon-desktop-v1';
   root.dataset.emptyTeam=TEAM_MASTERS.length?'0':'1';
@@ -1707,23 +1702,9 @@
   updateStatus();
 })();
 
-/* salon-template-desktop-cold-neutral-20260924 */
-(function(){if(document.getElementById('salon-template-desktop-cold-neutral-20260924'))return;const style=document.createElement('style');style.id='salon-template-desktop-cold-neutral-20260924';style.textContent='';document.head.appendChild(style);})();
 
-/* Service-price rail: range keeps its air; fixed and from prices sit closer to time. */
-(function(){
-  if(document.getElementById('salon-template-service-price-rail-v3'))return;
-  const style=document.createElement('style');
-  style.id='salon-template-service-price-rail-v3';
-  style.textContent='';
-  document.head.appendChild(style);
-})();
 
-/* Laptop service-duration alignment and gallery hover: 2026-09-28 */
-(function(){
-  if(document.getElementById('salon-template-laptop-time-hover-20260928'))return;
-  const style=document.createElement('style');
-  style.id='salon-template-laptop-time-hover-20260928';
-  style.textContent='';
-  document.head.appendChild(style);
-})();
+
+
+
+

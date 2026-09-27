@@ -246,11 +246,6 @@
   font.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600&display=swap';
   document.head.appendChild(font);
 
-  const css=document.createElement('style');
-  css.id='salon-mobile-style';
-  css.textContent='';
-  document.head.appendChild(css);
-
   const root=document.createElement('div');
   root.id='salon-mobile';
 
@@ -660,14 +655,6 @@ const MASTERS=[
 ];
 const MASTER_AVATAR='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" fill="currentColor"></circle><path d="M12 56c2.7-11.4 10-17 20-17s17.3 5.6 20 17" fill="currentColor"></path></svg>';
 
-const css=document.createElement('style'); css.id='salon-mobile-base-style'; css.textContent='';
-document.head.appendChild(css);
-
-const requestedFixStyle=document.createElement('style');
-requestedFixStyle.id='salon-mobile-layout-style';
-requestedFixStyle.textContent='';
-document.head.appendChild(requestedFixStyle);
-
 const $=s=>root.querySelector(s); const $$=s=>[...root.querySelectorAll(s)];
 const book=()=>{const s=$('#tn13BookSheet');if(s){s.classList.add('open');document.body.style.overflow='hidden'}};
 
@@ -886,11 +873,6 @@ if(!root||document.getElementById('tn38About'))return;
 const services=root.querySelector('#tn13Services');
 if(!services)return;
 
-const style=document.createElement('style');
-style.id='tn42-about-style';
-style.textContent='';
-document.head.appendChild(style);
-
 const about=document.createElement('section');
 about.id='tn38About';
 about.innerHTML=`<div class="tn42-about"><p class="tn42-kicker">О нас</p><div class="tn42-card"><div class="tn42-photo"><img src="media-placeholder.svg" alt="SALON NAME" loading="lazy"><div class="tn42-rating"><span class="tn42-rating-star">★</span><strong>—</strong><span>рейтинг не указан</span></div></div><div class="tn42-body"><p class="tn42-lead">SALON NAME — салон красоты.</p><p class="tn42-copy">Описание салона будет добавлено при заполнении шаблона.</p><div class="tn42-facts"><div class="tn42-fact">Мастера разных направлений</div><div class="tn42-fact">Комфортная атмосфера</div><div class="tn42-fact">Индивидуальный подход</div></div></div></div></div>`;
@@ -908,11 +890,6 @@ services.insertAdjacentElement('afterend',about);
 (function(){
   'use strict';
   if(!window.matchMedia || !window.matchMedia('(max-width:1023px)').matches || window.matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine)').matches) return;
-
-    const style=document.createElement('style');
-    style.id='salon-mobile-ui-style';
-    style.textContent='';
-    document.head.appendChild(style);
 
     /* Remove only the client-rejected descriptive sentence. */
     const heroCopy=document.querySelector('#salon-mobile .tn22-copy');
@@ -1088,13 +1065,7 @@ services.insertAdjacentElement('afterend',about);
 
   const VIBER_URL="#tn13Visit";
 
-  function ensureStyle(){
-    if(document.getElementById('salon-mobile-booking-style')) return;
-    const style=document.createElement('style');
-    style.id='salon-mobile-booking-style';
-    style.textContent='';
-    document.head.appendChild(style);
-  }
+  
 
   function forceExternalLinks(scope){
     (scope||document).querySelectorAll('a[href]').forEach(a=>{
@@ -1185,7 +1156,7 @@ services.insertAdjacentElement('afterend',about);
   }
 
   function apply(){
-    ensureStyle();
+
     forceExternalLinks(document);
 
     const root=document.getElementById('salon-mobile');
@@ -1220,13 +1191,7 @@ services.insertAdjacentElement('afterend',about);
   const ABOUT_SRC='media-placeholder.svg';
   const VIDEO_SRC='';
 
-  function ensureStyle(){
-    if(document.getElementById('salon-mobile-media-style')) return;
-    const style=document.createElement('style');
-    style.id='salon-mobile-media-style';
-    style.textContent='';
-    document.head.appendChild(style);
-  }
+  
 
   function applyBrand(root){
     const brand=root.querySelector('.tn22-brand');
@@ -1292,7 +1257,7 @@ services.insertAdjacentElement('afterend',about);
   }
 
   function apply(){
-    ensureStyle();
+
     const root=document.getElementById('salon-mobile');
     if(!root) return false;
     applyBrand(root);
@@ -1734,14 +1699,6 @@ services.insertAdjacentElement('afterend',about);
 })();
 
 /* salon-template-cold-neutral-20260924 */
-(function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const style=document.createElement('style');style.id='salon-template-cold-neutral-20260924';style.textContent='';document.head.appendChild(style);
-const lateCss=document.createElement('link');lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=deep-clean-20260928-v3';document.head.appendChild(lateCss);})();
+(function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const lateCss=document.createElement('link');lateCss.id='salon-template-cold-neutral-20260924';lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=deep-clean-20260928-v3';document.head.appendChild(lateCss);})();
 
-/* Mobile finish: preserve approved rails and restore the approved gallery/hero details. */
-(function(){
-  if(document.getElementById('salon-template-mobile-price-gallery-v4'))return;
-  const style=document.createElement('style');
-  style.id='salon-template-mobile-price-gallery-v4';
-  style.textContent='';
-  document.head.appendChild(style);
-})();
+
