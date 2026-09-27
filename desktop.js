@@ -1802,9 +1802,6 @@ background:var(--br-bg)!important;
 color:var(--br-ink)!important;
 }
 .std-copy-inner{width:min(100%,560px)!important}
-.std-logo{max-width:100%!important;font-size:clamp(54px,4.15vw,70px)!important;letter-spacing:.055em!important;white-space:nowrap!important}
-.std-hero-kicker{font-size:14px!important;letter-spacing:.40em!important;margin-bottom:31px!important}
-.std-logo-sub{font-size:14px!important;letter-spacing:.40em!important;margin-top:20px!important}
 .std-tagline{font-size:26px!important;max-width:510px!important}
 .std-meta{width:100%!important;grid-template-columns:1fr 1px 1.18fr!important;margin-top:2px!important;margin-bottom:34px!important}
 .std-meta-icon{width:68px!important;height:68px!important;flex-basis:68px!important}
@@ -1831,10 +1828,7 @@ mask-image:linear-gradient(90deg,#000 0%,#000 58%,transparent 100%)!important;
 pointer-events:none!important;
 }
 .std-portfolio{padding-top:82px!important;background:linear-gradient(180deg,#f0e8e1 0%,#f4ede7 24%,#f7f2eb 100%)!important}
-.std-portfolio-kicker{color:#746c66!important}
-.std-portfolio-title{color:#171513!important}
 .std-portfolio-copy{color:#746c66!important}
-.std-gallery-browser{background:#f7f2eb!important;color:#171513!important}
 .std-gallery-browser-shell{background:#f7f2eb!important}
 .std-gallery-browser-title strong{font-size:31px!important;color:#171513!important}
 .std-gallery-browser-title span{color:#746c66!important}
@@ -1847,7 +1841,6 @@ background:rgba(255,255,255,.20)!important;
 color:#655d57!important;
 font-size:12.7px!important;
 }
-.std-gallery-browser-tab.active{background:#171513!important;border-color:#171513!important;color:#fff!important}
 .std-services{
 min-height:0!important;
 padding:96px 0 104px!important;
@@ -1928,7 +1921,6 @@ transition:transform 200ms ease,border-color 200ms ease,box-shadow 200ms ease,ba
 .std-service-more{width:min(100%,390px)!important;height:56px!important;margin:32px auto 0!important;border:1px solid #bbaea5!important;border-radius:10px!important;background:rgba(255,255,255,.26)!important;color:#342f2b!important}
 .std-services-count{text-align:center!important;color:#8a7f78!important;font-size:10px!important;margin-top:14px!important}
 .std-about{padding:96px 70px 104px!important;background:#f8f4ee!important;color:#171513!important}
-.std-about-inner{width:min(100%,1360px)!important;margin:0 auto!important}
 .std-about-kicker{color:#9b7d72!important;font-size:12px!important;letter-spacing:.24em!important}
 .std-about-grid{display:grid!important;grid-template-columns:1.05fr .95fr!important;gap:70px!important;align-items:center!important;margin-top:28px!important}
 .std-about-copy{padding:20px 0!important}
@@ -1942,7 +1934,6 @@ transition:transform 200ms ease,border-color 200ms ease,box-shadow 200ms ease,ba
 .std-about-visual img{width:100%!important;height:100%!important;object-fit:cover!important}
 .std-about-rating{left:24px!important;bottom:24px!important;background:rgba(248,244,238,.92)!important;color:#171513!important}
 #salonDesktopTeam.std-team{min-height:0!important;padding:88px 70px 92px!important;background:#f6f1e9!important;color:#171513!important}
-#salonDesktopTeam .std-team-inner{width:min(100%,1360px)!important}
 #salonDesktopTeam .std-team-kicker{color:#9b7d72!important;font-size:12px!important}
 #salonDesktopTeam .std-team-title{margin-top:14px!important;color:#171513!important;font-size:64px!important;line-height:.93!important}
 #salonDesktopTeam .std-team-subtitle{margin-top:14px!important;color:#746c66!important;font-size:14px!important}
@@ -1961,8 +1952,6 @@ padding:78px 0 62px!important;
 background:#fff!important;
 color:#171513!important;
 }
-#salonDesktopReviews .std-reviews-kicker{color:#746c66!important}
-#salonDesktopReviews .std-reviews-title{color:#171513!important}
 #salonDesktopReviews .std-reviews-score>strong{color:#171513!important}
 #salonDesktopReviews .std-reviews-count{color:#716862!important}
 #salonDesktopReviews .std-review-card{border-color:rgba(66,55,49,.15)!important;border-radius:14px!important;background:#f6f7f8!important}
@@ -1982,7 +1971,6 @@ color:#171513!important;
 .std-contact-map{border:1px solid rgba(63,50,44,.12)!important;border-radius:24px!important;overflow:hidden!important;background:#eee!important}
 .std-contact-status{border-color:#b8b0aa!important;background:#fff0df!important;color:#a46020!important}
 .std-contact-status.open{background:#e7f4e6!important;color:#3a7440!important}
-.std-contact-bottom{margin-top:34px!important;display:flex!important;justify-content:center!important}
 .std-contact-brand{min-width:280px!important;min-height:58px!important;padding:0 22px!important;border-radius:16px!important;background:#171513!important;color:#fff!important;box-shadow:0 14px 34px rgba(23,21,19,.16)!important}
 .std-contact-brand-mark{background:#8f7167!important;color:#fff!important}
 .std-contact-brand-text{color:#f4eee8!important}
@@ -2126,8 +2114,7 @@ box-shadow:0 14px 34px rgba(47,37,31,.08)!important}
 display:flex!important;align-items:center!important;justify-content:flex-start!important;text-align:left!important}
 .std-about-fact strong{color:#2b2724!important;font:500 16px/1.2 "Manrope",Arial,sans-serif!important;white-space:nowrap!important}
 #salonDesktopTeam.std-team{min-height:0!important;padding:84px 70px 88px!important;background:#2f2926!important;color:#f7f3f0!important}
-#salonDesktopTeam .std-team-inner{width:min(100%,1360px)!important}#salonDesktopTeam .std-team-kicker{color:#b8ada7!important}
-#salonDesktopTeam .std-team-title{color:#f7f3f0!important}#salonDesktopTeam .std-team-subtitle{margin-top:14px!important;color:#b9ada7!important;font-size:14px!important}
+#salonDesktopTeam .std-team-inner{width:min(100%,1360px)!important}#salonDesktopTeam .std-team-kicker{color:#b8ada7!important}#salonDesktopTeam .std-team-subtitle{margin-top:14px!important;color:#b9ada7!important;font-size:14px!important}
 #salonDesktopTeam .std-team-track{display:grid!important;width:100%!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:28px!important;margin-top:42px!important;overflow:visible!important;padding:0!important}
 #salonDesktopTeam .std-master{position:relative!important;display:block!important;width:100%!important;min-width:0!important;padding:20px 12px 22px!important;
 border:1px solid rgba(255,255,255,.10)!important;border-radius:18px!important;background:rgba(255,255,255,.035)!important;color:#f7f3f0!important;text-align:center!important}
@@ -2369,7 +2356,6 @@ overscroll-behavior-x:contain!important;
 scroll-snap-type:x proximity!important;
 box-sizing:border-box!important;
 }
-#salonDesktopServices .mct-tabs::-webkit-scrollbar{display:none!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tabs-track{
 display:flex!important;
 width:max-content!important;
@@ -3491,18 +3477,10 @@ display:grid!important;
 grid-template-columns:1fr!important;
 gap:11px!important;
 }
-.std-actions .std-btn{
-width:100%!important;
-min-width:0!important;
-height:62px!important;
-padding:0 28px!important;
-font-size:16px!important;
-}
 }
 @media(min-width:768px) and (max-width:1180px){
 .std-hero-copy{padding-left:0!important;padding-right:0!important}
 .std-copy-inner{width:min(calc(100% - 52px),500px)!important}
-.std-actions .std-btn{height:58px!important;font-size:15px!important}
 }
 @media(min-width:768px){
 .std-hero-copy{position:static!important}
@@ -3541,7 +3519,6 @@ margin-right:auto!important;
 justify-content:center!important;
 justify-items:center!important;
 }
-.std-meta-item{justify-content:center!important}
 .std-actions{
 width:min(100%,540px)!important;
 grid-template-columns:1fr 1fr!important;
@@ -3558,7 +3535,6 @@ font-size:16px!important;
 width:48%!important;
 padding:clamp(58px,8vh,86px) 26px 100px!important;
 }
-.std-actions{width:min(100%,500px)!important}
 .std-actions .std-btn{height:58px!important;font-size:15px!important}
 }
 @media(min-width:768px) and (max-height:820px){
@@ -3758,9 +3734,6 @@ font-size:clamp(48.36px,4.743vw,61.38px)!important;
 }
 }
 @media(min-width:768px){
-#salonDesktopTop.std-hero{
-background:#fff!important;
-}
 #salonDesktopTop.std-hero:before{
 width:1040px!important;
 height:1040px!important;
@@ -3796,9 +3769,6 @@ transform:none!important;
 }
 }
 @media(min-width:768px){
-#salonDesktopTop.std-hero{
-background:#fff!important;
-}
 #salonDesktopTop .std-hero-copy,
 #salonDesktopTop .std-hero-frame,
 #salonDesktopTop .std-copy-inner{
@@ -4159,9 +4129,6 @@ letter-spacing:.08em!important;
 #salonDesktopServices.mct-prices{
 overflow:clip!important;
 }
-#salonDesktopServices.mct-prices>.mct-shell{
-align-items:start!important;
-}
 #salonDesktopServices .mct-price-head{
 position:sticky!important;
 top:104px!important;
@@ -4329,7 +4296,6 @@ scrollbar-width:none!important;
 overscroll-behavior-x:contain!important;
 scroll-snap-type:x proximity!important;
 }
-#salonDesktopServices .mct-tabs::-webkit-scrollbar{display:none!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tabs-track{
 min-width:max-content!important;
 gap:10px!important;
@@ -4360,10 +4326,6 @@ background:#9c7967!important;
 border-color:#ad8a78!important;
 color:#fff!important;
 box-shadow:0 8px 20px rgba(0,0,0,.14)!important;
-}
-#salonDesktopServices .dct-service-groups,
-#salonDesktopServices .mct-more-services{
-grid-column:2!important;
 }
 #stdGalleryBrowser.std-gallery-browser{
 overflow-y:scroll!important;
@@ -4648,7 +4610,6 @@ font:600 12px/1 "Manrope",Arial,sans-serif!important;
 letter-spacing:.25em!important;
 text-transform:uppercase!important;
 }
-#salonDesktopTeam .std-team-title{color:#f7f3f0!important}
 #salonDesktopTeam .std-team-subtitle{
 margin:15px 0 0!important;
 color:#b9ada7!important;
@@ -5216,8 +5177,6 @@ max-width:100%!important;
 width:72px!important;
 height:72px!important;
 }
-#salonDesktopTeam .std-master-name{font-size:28px!important}
-#salonDesktopTeam .std-master-role{font-size:13px!important}
 #salonDesktopTeam .std-master-cat{
 font-size:10px!important;
 padding:7px 10px!important;
@@ -5274,7 +5233,6 @@ font-size:39px!important;
 #stdMasterOverlay .std-master-page-service{
 padding:18px 0!important;
 }
-#stdMasterOverlay .std-master-page-service strong{font-size:16px!important}
 #stdMasterOverlay .std-master-page-service span,
 #stdMasterOverlay .std-master-page-empty{font-size:14px!important}
 #stdMasterOverlay .std-master-page-book{
@@ -5476,14 +5434,12 @@ width:100%!important;min-height:0!important;height:auto!important;padding:10px 0
 #stdMasterOverlay .std-master-profile h2{font-size:66px!important}
 #stdMasterOverlay .std-master-page-block h3{font-size:39px!important}
 #stdMasterOverlay .std-master-page-service strong{font-size:16px!important}
-#stdMasterOverlay .std-master-page-service span{font-size:14px!important}
 #salonDesktopContacts.std-contact{box-sizing:border-box!important;min-height:0!important;padding:58px 64px 0!important;overflow:visible!important}
 #salonDesktopContacts .std-contact-inner{width:min(100%,1460px)!important;margin:0 auto!important;padding-bottom:50px!important}
 #salonDesktopContacts .std-contact-card{min-height:110px!important;padding:16px 25px!important;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease!important}
 #salonDesktopContacts a.std-contact-card:hover{transform:translateY(-5px)!important;border-color:rgba(216,183,170,.6)!important;background:rgba(255,255,255,.10)!important;box-shadow:0 18px 36px rgba(0,0,0,.22)!important}
 #salonDesktopContacts .std-contact-card-title{font-size:29px!important}
 #salonDesktopContacts a[href^="tel:"] .std-contact-card-title{font:600 21px/1.25 "Manrope",Arial,sans-serif!important}
-#salonDesktopContacts .std-contact-card-sub{font-size:15px!important}
 #salonDesktopContacts .std-contact-bottom{
 box-sizing:border-box!important;width:calc(100% + 128px)!important;margin:0 -64px!important;padding:20px 0!important;
 min-height:132px!important;overflow:visible!important;background:#11100f!important
@@ -5566,7 +5522,6 @@ gap:30px 42px!important;margin:0!important;align-content:space-evenly!important;
 min-height:0!important;padding:0!important;border:0!important;border-radius:0!important;
 background:transparent!important;box-shadow:none!important;
 }
-#salonDesktopTeam .std-master:hover{background:transparent!important;box-shadow:none!important;transform:translateY(-4px)!important}
 #salonDesktopTeam .std-master-avatar{width:190px!important;height:190px!important;max-width:100%!important}
 #salonDesktopTeam .std-master-name{font-size:29px!important}
 #salonDesktopTeam .std-master-role{font-size:13px!important}
@@ -6272,7 +6227,6 @@ transition:transform .16s ease,background .16s ease,box-shadow .16s ease!importa
 background:#654f48!important;transform:translateY(-1px)!important;
 box-shadow:0 17px 36px rgba(74,53,45,.30)!important;
 }
-#salonDesktopServices .dct-service-sticky-book>span{position:relative!important;z-index:2!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap{position:relative!important;overflow:hidden!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before,
 #salonDesktopServices .mct-tabs-ribbon-wrap:after{
@@ -6345,9 +6299,6 @@ color:#fff!important;
 box-shadow:0 10px 24px rgba(74,53,45,.18)!important;
 }
 .std-header-book:hover{background:#654f48!important;box-shadow:0 12px 28px rgba(74,53,45,.24)!important}
-#salonDesktopServices .dct-service-sticky-card{
-top:58px!important;
-}
 #salonDesktopServices .dct-service-sticky-steps li span{
 font-size:11.2px!important;
 line-height:1.35!important;
@@ -6523,13 +6474,6 @@ transform:scale(.84) translateY(-10px)!important;
 margin-bottom:0!important;
 padding-bottom:0!important;
 }
-#salonDesktopAbout .dct-about-amenities-grid strong{font-size:17px!important}
-#salonDesktopAbout .dct-about-amenities-grid span{font-size:13.2px!important}
-#salonDesktopTeam .std-team-kicker{font-size:16px!important}
-#salonDesktopTeam .std-team-subtitle{font-size:15.5px!important}
-#salonDesktopTeam .std-master-avatar{width:216px!important;height:216px!important}
-#salonDesktopTeam .std-master-name{font-size:30px!important}
-#salonDesktopTeam .std-master-role{font-size:14px!important}
 #salonDesktopContacts.std-contact{background:#242424!important}
 }
 @media(min-width:1024px){
@@ -6590,7 +6534,6 @@ border:0!important;background:#f3f4f5!important;box-shadow:none!important;
 #salonDesktopServices .dct-service-sticky-book>span:first-child{font-size:15px!important;font-weight:600!important}
 #salonDesktopServices .dct-service-sticky-work>span:first-child{font-size:13px!important;font-weight:600!important}
 #salonDesktopServices .mct-tabs{padding-left:0!important;scroll-padding-left:0!important}
-#salonDesktopServices .mct-tabs-ribbon-wrap{overflow:visible!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
 left:-.5cm!important;
 width:.5cm!important;
