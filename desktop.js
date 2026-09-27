@@ -8510,6 +8510,10 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
   #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-side-rail .dct-service-duration{
     transform:translateX(-2mm)!important;
   }
+  /* Even without a duration, the price must end on the same right-hand line. */
+  #salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-side-rail .dct-service-card-meta{
+    margin-left:auto!important;
+  }
 }
 @media(min-width:1024px){
   #salonDesktopServices .dct-service-sticky-work:hover>span,
@@ -8525,6 +8529,12 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
   /* Make the exact gallery button label legible against its existing hover background. */
   #salon-desktop-v1 #salonDesktopServices #stdStickyGalleryOpen:hover > span:first-child,
   #salon-desktop-v1 #salonDesktopServices #stdStickyGalleryOpen:focus-visible > span:first-child{
+    color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+    opacity:1!important;
+  }
+  #salon-desktop-v1 #salonDesktopServices #stdStickyGalleryOpen:hover > span:last-child,
+  #salon-desktop-v1 #salonDesktopServices #stdStickyGalleryOpen:focus-visible > span:last-child{
     color:#fff!important;
     -webkit-text-fill-color:#fff!important;
     opacity:1!important;
