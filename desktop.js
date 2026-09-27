@@ -1747,17 +1747,9 @@ flex:0 0 210px!important;
 width:200px!important;
 height:200px!important;
 }
-#salonDesktopTeam .std-master-avatar svg{
-width:58px!important;
-height:58px!important;
-}
 #salonDesktopTeam .std-master-name{
 margin-top:14px!important;
 font-size:25px!important;
-}
-#salonDesktopTeam .std-master-role{
-margin-top:7px!important;
-font-size:11px!important;
 }
 #salonDesktopTeam .std-team-hint{
 margin-top:18px!important;
@@ -1801,7 +1793,6 @@ font-size:19px!important;
 background:var(--br-bg)!important;
 color:var(--br-ink)!important;
 }
-.std-copy-inner{width:min(100%,560px)!important}
 .std-tagline{font-size:26px!important;max-width:510px!important}
 .std-meta{width:100%!important;grid-template-columns:1fr 1px 1.18fr!important;margin-top:2px!important;margin-bottom:34px!important}
 .std-meta-icon{width:68px!important;height:68px!important;flex-basis:68px!important}
@@ -1828,10 +1819,7 @@ mask-image:linear-gradient(90deg,#000 0%,#000 58%,transparent 100%)!important;
 pointer-events:none!important;
 }
 .std-portfolio{padding-top:82px!important;background:linear-gradient(180deg,#f0e8e1 0%,#f4ede7 24%,#f7f2eb 100%)!important}
-.std-portfolio-copy{color:#746c66!important}
-.std-gallery-browser-shell{background:#f7f2eb!important}
 .std-gallery-browser-title strong{font-size:31px!important;color:#171513!important}
-.std-gallery-browser-title span{color:#746c66!important}
 .std-gallery-browser-back{color:#171513!important;border-color:rgba(62,51,44,.16)!important;background:rgba(255,255,255,.34)!important}
 .std-gallery-browser-tab{
 height:44px!important;
@@ -1941,7 +1929,6 @@ transition:transform 200ms ease,border-color 200ms ease,box-shadow 200ms ease,ba
 #salonDesktopTeam .std-master{position:relative!important;display:block!important;width:100%!important;min-width:0!important;padding:0 8px 18px!important;border:0!important;background:none!important;color:#171513!important;text-align:center!important;cursor:pointer!important}
 #salonDesktopTeam .std-master-arrow{position:absolute!important;top:7px!important;right:12px!important;z-index:2!important;width:36px!important;height:36px!important;border:1px solid rgba(62,51,44,.12)!important;border-radius:50%!important;background:rgba(255,255,255,.48)!important;display:grid!important;place-items:center!important;color:#75675f!important;font-size:14px!important}
 #salonDesktopTeam .std-master-avatar{width:min(100%,190px)!important;height:auto!important;aspect-ratio:1/1!important;margin:0 auto!important;border:0!important;border-radius:50%!important;background:linear-gradient(145deg,#e9e3dc,#d7cec6)!important;color:#9b9088!important;box-shadow:none!important;transition:transform .22s ease!important}
-#salonDesktopTeam .std-master:hover .std-master-avatar{transform:translateY(-4px)!important}
 #salonDesktopTeam .std-master-avatar svg{width:64px!important;height:64px!important}
 #salonDesktopTeam .std-master-name{margin-top:18px!important;color:#171513!important;font-size:29px!important}
 #salonDesktopTeam .std-master-role{margin-top:7px!important;color:#827871!important;font-size:11px!important}
@@ -1952,12 +1939,8 @@ padding:78px 0 62px!important;
 background:#fff!important;
 color:#171513!important;
 }
-#salonDesktopReviews .std-reviews-score>strong{color:#171513!important}
-#salonDesktopReviews .std-reviews-count{color:#716862!important}
 #salonDesktopReviews .std-review-card{border-color:rgba(66,55,49,.15)!important;border-radius:14px!important;background:#f6f7f8!important}
 #salonDesktopReviews .std-review-avatar{background:#e4e6e8!important;border-color:rgba(66,55,49,.10)!important;color:#514943!important}
-#salonDesktopReviews .std-review-name{color:#2a2522!important}
-#salonDesktopReviews .std-review-text{color:#4f4843!important}
 #salonDesktopReviews .std-reviews-all{border-color:rgba(66,55,49,.18)!important;background:#f3f4f5!important;color:#2f2a26!important}
 .std-contact{padding:74px 70px 54px!important;background:#f7f2eb!important;color:#171513!important}
 .std-contact-inner{width:min(100%,1360px)!important;grid-template-columns:520px minmax(0,1fr)!important;gap:42px!important}
@@ -2023,8 +2006,7 @@ font:600 11px/1 "Manrope",Arial,sans-serif!important;letter-spacing:.04em}
 .std-logo{max-width:100%!important;font-size:clamp(54px,4.15vw,70px)!important;letter-spacing:.055em!important;white-space:nowrap!important}
 .std-logo-sub{font-size:14px!important;letter-spacing:.40em!important;margin-top:20px!important}
 .std-tagline{font-size:25px!important;line-height:1.38!important;max-width:500px!important}
-.std-meta-text{font-size:16px!important;line-height:1.42!important}
-.std-actions{gap:12px!important}.std-btn{height:66px!important;font-size:16px!important;border-radius:8px!important}
+.std-meta-text{font-size:16px!important;line-height:1.42!important}.std-btn{height:66px!important;font-size:16px!important;border-radius:8px!important}
 .std-scroll-hint{right:-88px!important;color:#fff!important;background:rgba(50,42,38,.78)!important;
 border:1px solid rgba(255,255,255,.13)!important;box-shadow:0 12px 34px rgba(36,29,26,.20)!important;backdrop-filter:blur(7px)!important}
 .std-scroll-hint span{color:#fff!important}
@@ -2127,8 +2109,7 @@ background:linear-gradient(145deg,#806b61,#5b4a43)!important;color:#e6d8d0!impor
 .std-master-cats{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:13px}
 .std-master-cat{display:inline-flex;min-height:25px;align-items:center;padding:0 9px;border:1px solid rgba(255,255,255,.11);border-radius:999px;color:#d8cdc6;font:500 9px/1 "Manrope",Arial,sans-serif}
 #salonDesktopReviews.std-reviews{height:auto!important;min-height:0!important;padding:82px 0 70px!important;background:#fff!important;color:#171513!important}
-#salonDesktopReviews .std-reviews-head{width:min(calc(100% - 96px),1360px)!important;margin:0 auto!important;text-align:center!important}
-#salonDesktopReviews .std-reviews-kicker{color:#746c66!important}#salonDesktopReviews .std-reviews-title{color:#171513!important}
+#salonDesktopReviews .std-reviews-head{width:min(calc(100% - 96px),1360px)!important;margin:0 auto!important;text-align:center!important}#salonDesktopReviews .std-reviews-title{color:#171513!important}
 #salonDesktopReviews .std-reviews-score{margin-top:34px!important}#salonDesktopReviews .std-reviews-score>strong{font:500 78px/.82 "Cormorant Garamond",Georgia,serif!important;color:#171513!important}
 #salonDesktopReviews .std-reviews-stars{margin-top:17px!important;font-size:27px!important;color:#b78d4f!important}
 #salonDesktopReviews .std-reviews-count{margin-top:13px!important;color:#716862!important;font-size:13px!important}
@@ -2703,9 +2684,6 @@ border-radius:50%!important;
 background:linear-gradient(145deg,#806b61,#5b4a43)!important;
 border:1px solid rgba(255,255,255,.08)!important;
 box-shadow:none!important;
-}
-#salonDesktopTeam .std-master-name{
-margin-top:17px!important;
 }
 #salonDesktopTeam .std-master-cats{
 margin-top:9px!important;
@@ -3302,10 +3280,6 @@ border-color:rgba(103,78,65,.15)!important;
 .std-meta-icon svg{width:24px!important;height:24px!important}
 .std-meta-text{font-size:15px!important;line-height:1.38!important}
 .std-meta-divider{height:58px!important}
-.std-actions{
-width:min(100%,540px)!important;
-gap:11px!important;
-}
 .std-btn{
 height:62px!important;
 border-radius:9px!important;
@@ -3427,7 +3401,6 @@ text-align:center!important;
 .std-logo,
 .std-logo-sub,
 .std-tagline{text-align:center!important}
-.std-logo{margin-left:auto!important;margin-right:auto!important}
 .std-logo-sub,
 .std-tagline,
 .std-meta,
@@ -3470,12 +3443,6 @@ width:min(calc(100% - 72px),570px)!important;
 max-width:570px!important;
 margin-left:auto!important;
 margin-right:auto!important;
-}
-.std-actions{
-width:min(100%,540px)!important;
-display:grid!important;
-grid-template-columns:1fr!important;
-gap:11px!important;
 }
 }
 @media(min-width:768px) and (max-width:1180px){
@@ -3524,18 +3491,12 @@ width:min(100%,540px)!important;
 grid-template-columns:1fr 1fr!important;
 gap:12px!important;
 }
-.std-actions .std-btn{
-width:100%!important;
-height:62px!important;
-font-size:16px!important;
-}
 }
 @media(min-width:768px) and (max-width:1180px){
 .std-copy-inner{
 width:48%!important;
 padding:clamp(58px,8vh,86px) 26px 100px!important;
 }
-.std-actions .std-btn{height:58px!important;font-size:15px!important}
 }
 @media(min-width:768px) and (max-height:820px){
 .std-copy-inner{padding-top:48px!important;padding-bottom:82px!important}
@@ -3566,18 +3527,8 @@ transform:none!important;
 }
 }
 @media(min-width:768px){
-.std-actions .std-btn{
-height:62px!important;
-padding:0 28px!important;
-font-size:16px!important;
-}
 }
 @media(min-width:768px) and (max-width:1180px){
-.std-actions .std-btn{
-height:58px!important;
-padding:0 26px!important;
-font-size:15px!important;
-}
 }
 @media(min-width:768px){
 .std-actions{
@@ -3644,11 +3595,6 @@ transform:translateY(-50%)!important;
 }
 }
 @media(min-width:768px){
-#salonDesktopTop .std-hero-kicker{
-width:min(100%,540px)!important;
-text-align:left!important;
-align-self:center!important;
-}
 #salonDesktopTop .std-logo-sub{
 font-size:13.2px!important;
 }
@@ -4296,11 +4242,6 @@ scrollbar-width:none!important;
 overscroll-behavior-x:contain!important;
 scroll-snap-type:x proximity!important;
 }
-#salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tabs-track{
-min-width:max-content!important;
-gap:10px!important;
-padding:0!important;
-}
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tab,
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-many .mct-tab-all{
 min-height:48px!important;
@@ -4540,11 +4481,6 @@ background:#fff!important;
 color:#2f2926!important;
 box-shadow:0 12px 26px rgba(0,0,0,.16)!important;
 }
-#salonDesktopServices .dct-service-groups{
-grid-column:2!important;
-margin-top:0!important;
-}
-#salonDesktopServices .mct-more-services{grid-column:2!important}
 #salonDesktopAbout.br-about-team{
 padding:92px 0 102px!important;
 background:#fff!important;
@@ -4743,9 +4679,6 @@ max-width:none!important;
 min-height:520px!important;
 padding-top:28px!important;
 }
-#salonDesktopServices .dct-service-sticky-card>strong{
-margin:0!important;
-}
 #salonDesktopServices .dct-services-main-title{
 grid-column:2!important;
 margin:0 0 26px!important;
@@ -4813,9 +4746,6 @@ column-gap:2cm!important;
 top:92px!important;
 padding-right:0!important;
 }
-#salonDesktopServices .mct-price-head:after{
-right:-1cm!important;
-}
 #salonDesktopServices .dct-service-sticky-card{
 min-height:0!important;
 padding:30px 32px!important;
@@ -4828,11 +4758,6 @@ box-shadow:
 0 28px 70px rgba(86,56,43,.18),
 0 10px 32px rgba(194,151,128,.18),
 inset 0 1px 0 rgba(255,255,255,.92)!important;
-}
-#salonDesktopServices .dct-service-sticky-card>strong,
-#salonDesktopServices .dct-services-main-title{
-font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;
-letter-spacing:-.03em!important;
 }
 #salonDesktopServices .dct-services-main-title{
 align-self:start!important;
@@ -4898,9 +4823,6 @@ content:""!important;
 background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent)!important;
 transform:rotate(18deg)!important;
 animation:brServiceBookShine 4.6s ease-in-out infinite!important;
-}
-#salonDesktopServices .dct-service-sticky-work{
-margin-top:10px!important;
 }
 @keyframes brServiceBookGlow{
 0%,100%{background-position:0 50%;box-shadow:0 12px 28px rgba(147,102,80,.20)}
@@ -5043,21 +4965,6 @@ max-width:100%!important;
 margin-top:17px!important;
 font-size:26px!important;
 }
-#salonDesktopServices.mct-prices>.mct-shell{
-align-items:start!important;
-}
-#salonDesktopServices .mct-price-head{
-position:sticky!important;
-top:92px!important;
-align-self:start!important;
-transform:none!important;
-}
-#salonDesktopServices .dct-service-sticky-card>strong,
-#salonDesktopServices .dct-services-main-title{
-margin:0!important;
-padding:0!important;
-font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;
-}
 #salonDesktopServices .dct-services-main-title{
 min-height:44px!important;
 display:flex!important;
@@ -5078,9 +4985,6 @@ border-color:#d8b7aa!important;
 background:#d8b7aa!important;
 color:#2f2926!important;
 box-shadow:0 13px 30px rgba(216,183,170,.24)!important;
-}
-#salonDesktopServices .dct-service-groups{
-margin-top:0!important;
 }
 #salonDesktopServices .dct-service-category,
 #salonDesktopServices .dct-service-category-list{
@@ -5103,10 +5007,6 @@ width:36%!important;
 left:-48%!important;
 opacity:0!important;
 animation:brHeroLikeShine 3.4s cubic-bezier(.2,.7,.25,1) infinite!important;
-}
-#salonDesktopServices .dct-service-sticky-book>span{
-position:relative!important;
-z-index:1!important;
 }
 @keyframes brHeroLikePulse{
 0%,100%{filter:brightness(1);transform:translateY(0);box-shadow:0 12px 28px rgba(147,102,80,.22)}
@@ -5141,7 +5041,6 @@ min-height:390px!important;
 width:100%!important;
 height:100%!important;
 }
-#salonDesktopAbout .mct-about-portrait img{object-fit:cover!important}
 #salonDesktopTeam .std-team-kicker{
 display:block!important;
 margin:0 0 10px!important;
@@ -5167,11 +5066,6 @@ box-shadow:none!important;
 #salonDesktopTeam .std-master:hover{
 background:transparent!important;
 transform:translateY(-3px)!important;
-}
-#salonDesktopTeam .std-master-avatar{
-width:190px!important;
-height:190px!important;
-max-width:100%!important;
 }
 #salonDesktopTeam .std-master-avatar svg{
 width:72px!important;
@@ -5264,9 +5158,6 @@ color:#e0bfae!important;
 }
 #salonDesktopContacts .std-contact-card-icon{
 transition:transform .22s ease,color .22s ease!important;
-}
-#salonDesktopContacts .std-contact-card-title{
-font-size:29px!important;
 }
 #salonDesktopContacts a[href^="tel:"] .std-contact-card-title{
 font:500 20px/1.15 "Manrope",Arial,sans-serif!important;
@@ -5384,8 +5275,6 @@ box-sizing:border-box!important;width:100%!important;max-width:none!important;ma
 padding:5px 1cm 15px .7cm!important;overflow-x:auto!important;overflow-y:hidden!important;
 clip-path:none!important;mask-image:none!important;-webkit-mask-image:none!important
 }
-#salonDesktopServices .mct-tabs-track{display:flex!important;flex-wrap:nowrap!important;width:max-content!important;min-width:100%!important;gap:10px!important}
-#salonDesktopServices .mct-tab{flex:0 0 auto!important}
 #salonDesktopServices #stdServiceTabs .mct-tab.is-active[aria-selected="true"],
 #salonDesktopServices #stdServiceTabs .mct-tab-all.is-active[aria-selected="true"]{
 border-color:#e3c0aa!important;background:#d8b7aa!important;color:#241d19!important;
@@ -5465,8 +5354,6 @@ width:min(100%,450px)!important;min-height:90px!important;margin:0 auto!importan
 #salonDesktopServices .dct-service-sticky-book,#salonDesktopServices .dct-service-sticky-book:after{animation:none!important}
 }
 @media(min-width:768px){
-#salonDesktopServices.mct-prices{overflow:visible!important}
-#salonDesktopServices.mct-prices>.mct-shell{overflow:visible!important}
 #salonDesktopServices .mct-price-head{
 position:sticky!important;top:92px!important;z-index:5!important;
 grid-column:1!important;grid-row:1 / 5!important;align-self:start!important;
@@ -5474,16 +5361,7 @@ grid-column:1!important;grid-row:1 / 5!important;align-self:start!important;
 #salonDesktopServices .dct-service-sticky-card{
 transform:none!important;margin:0!important;box-sizing:border-box!important;
 }
-#salonDesktopServices .dct-service-sticky-card>strong,
-#salonDesktopServices .dct-services-main-title{
-font:500 46px/.94 "Cormorant Garamond",Georgia,serif!important;
-letter-spacing:-.03em!important;margin:0!important;padding:0!important;
-}
-#salonDesktopServices .dct-service-sticky-card>strong{display:block!important}
-#salonDesktopServices .dct-services-main-title{display:block!important;grid-column:2!important;grid-row:1!important}
-#salonDesktopServices .mct-tabs-ribbon-wrap{grid-column:2!important;grid-row:2!important}
 #salonDesktopServices .dct-service-groups{grid-column:2!important;grid-row:3!important;margin-top:0!important}
-#salonDesktopServices .mct-more-services{grid-column:2!important;grid-row:4!important}
 #salonDesktopServices .mct-tab[aria-selected="true"]{
 background:#d7b5a4!important;border-color:#ead1c4!important;color:#241d19!important;
 box-shadow:0 0 0 2px rgba(234,209,196,.16),0 14px 30px rgba(0,0,0,.16)!important;
@@ -5525,7 +5403,6 @@ background:transparent!important;box-shadow:none!important;
 #salonDesktopTeam .std-master-avatar{width:190px!important;height:190px!important;max-width:100%!important}
 #salonDesktopTeam .std-master-name{font-size:29px!important}
 #salonDesktopTeam .std-master-role{font-size:13px!important}
-#salonDesktopTeam .std-master-cat{border:0!important;background:transparent!important;padding:0!important}
 #stdMasterOverlay .std-master-page-panel{width:min(calc(100% - 64px),1380px)!important;padding:30px 56px 140px!important}
 #stdMasterOverlay .std-master-profile .std-master-avatar{width:210px!important;height:210px!important}
 #stdMasterOverlay .std-master-profile h2{font-size:72px!important}
@@ -6293,19 +6170,11 @@ background:linear-gradient(145deg,#4a4542,#34302e)!important;box-shadow:0 18px 3
 .std-btn-primary:after,#salonDesktopServices .dct-service-sticky-book:after{animation:none!important}
 }
 @media(min-width:1024px){
-.std-header-book{
-background:#715b53!important;
-color:#fff!important;
-box-shadow:0 10px 24px rgba(74,53,45,.18)!important;
-}
 .std-header-book:hover{background:#654f48!important;box-shadow:0 12px 28px rgba(74,53,45,.24)!important}
 #salonDesktopServices .dct-service-sticky-steps li span{
 font-size:11.2px!important;
 line-height:1.35!important;
 font-weight:550!important;
-}
-#salonDesktopServices .mct-tab{
-font-size:13.4px!important;
 }
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
 left:0!important;
@@ -6352,19 +6221,11 @@ animation:brServiceRadar 1.65s ease-out infinite!important;
 72%{box-shadow:0 0 0 7px rgba(23,21,19,0)}
 100%{box-shadow:0 0 0 0 rgba(23,21,19,0)}
 }
-#salonDesktopServices.mct-prices>.mct-shell{
-grid-template-rows:48px auto auto auto!important;
-}
 #salonDesktopServices .dct-service-groups{
 min-height:calc(680px - 5cm)!important;
 }
 #salonDesktopServices .dct-service-category-list{
 min-height:0!important;
-}
-#salonDesktopAbout .mct-about-card{
-border:0!important;
-background:#fff!important;
-box-shadow:none!important;
 }
 #salonDesktopAbout .dct-about-amenities-grid article{
 border:0!important;
@@ -6397,23 +6258,8 @@ font-size:15.5px!important;
 font-size:15px!important;
 line-height:1.55!important;
 }
-#salonDesktopTeam .std-master-avatar{
-width:216px!important;
-height:216px!important;
-}
-#salonDesktopTeam .std-master-name{
-font-size:30px!important;
-}
-#salonDesktopTeam .std-master-role{
-font-size:14px!important;
-}
 #salonDesktopTeam .std-master-cat{
 font-size:13px!important;
-}
-#salonDesktopContacts.std-contact,
-#salonDesktopContacts .std-contact-bottom,
-#salonDesktopContacts .std-contact-brand{
-background:#242424!important;
 }
 }
 @media(prefers-reduced-motion:reduce){
@@ -6430,9 +6276,6 @@ font-weight:500!important;
 }
 .std-header-book:hover{background:#654f48!important}
 #salonDesktopServices.mct-prices{position:relative!important}
-#salonDesktopServices .dct-service-sticky-card{
-top:58px!important;
-}
 #salonDesktopServices .mct-tabs{padding-left:28px!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
 left:0!important;
@@ -6446,22 +6289,6 @@ background:linear-gradient(90deg,#242424 0%,rgba(36,36,36,.88) 36%,rgba(36,36,36
 font-size:11.5px!important;
 line-height:1.42!important;
 }
-#salonDesktopAbout .br-about-column{
-padding:0!important;
-border:0!important;
-background:#fff!important;
-box-shadow:none!important;
-}
-#salonDesktopAbout .mct-about-card{
-border:0!important;
-background:#fff!important;
-box-shadow:none!important;
-border-radius:0!important;
-}
-#salonDesktopAbout .mct-about-portrait-wrap{
-border-radius:20px!important;
-background:#f3f4f5!important;
-}
 #salonDesktopAbout .mct-about-portrait img{
 object-fit:contain!important;
 object-position:center center!important;
@@ -6469,10 +6296,6 @@ transform:scale(.84) translateY(-10px)!important;
 }
 #salonDesktopAbout .br-about-column:hover .mct-about-portrait img{
 transform:scale(.84) translateY(-10px)!important;
-}
-#salonDesktopAbout .dct-about-amenities{
-margin-bottom:0!important;
-padding-bottom:0!important;
 }
 #salonDesktopContacts.std-contact{background:#242424!important}
 }
@@ -6502,9 +6325,6 @@ padding:0!important;border:0!important;background:#fff!important;box-shadow:none
 #salonDesktopAbout .mct-about-card{
 border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;
 }
-#salonDesktopAbout .mct-about-portrait-wrap{
-border:0!important;box-shadow:none!important;background:#f3f4f5!important;
-}
 #salonDesktopAbout .mct-about-portrait img{
 object-fit:contain!important;object-position:center center!important;
 transform:translateY(-12px) scale(.82)!important;
@@ -6533,7 +6353,6 @@ border:0!important;background:#f3f4f5!important;box-shadow:none!important;
 #salonDesktopServices .dct-service-sticky-steps li span{font-size:12px!important;line-height:1.42!important}
 #salonDesktopServices .dct-service-sticky-book>span:first-child{font-size:15px!important;font-weight:600!important}
 #salonDesktopServices .dct-service-sticky-work>span:first-child{font-size:13px!important;font-weight:600!important}
-#salonDesktopServices .mct-tabs{padding-left:0!important;scroll-padding-left:0!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
 left:-.5cm!important;
 width:.5cm!important;
@@ -6586,7 +6405,6 @@ transform:translateY(-8px) scale(.88)!important;
 #salonDesktopAbout .mct-about-copy{padding:24px 4px 2px!important}
 #salonDesktopAbout .mct-about-lead{font-size:clamp(30px,2.3vw,38px)!important;line-height:1.02!important}
 #salonDesktopAbout .mct-about-copy>p:not(.mct-about-lead){font-size:15.5px!important;line-height:1.62!important}
-#salonDesktopAbout .dct-about-amenities{margin-top:24px!important;padding-top:20px!important}
 #salonDesktopAbout .dct-about-amenities-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important}
 #salonDesktopAbout .dct-about-amenities-grid article{
 min-height:94px!important;padding:14px!important;
@@ -6626,7 +6444,6 @@ animation:brServiceRadarFinal 1.25s ease-out infinite!important;
 78%{opacity:1;box-shadow:0 0 0 6px rgba(23,21,19,0)}
 100%{opacity:1;box-shadow:0 0 0 0 rgba(23,21,19,0)}
 }
-#salonDesktopServices .mct-tabs-ribbon-wrap{overflow:visible!important}
 #salonDesktopServices .mct-tabs-ribbon-wrap:before{
 content:""!important;display:block!important;
 left:-28px!important;width:28px!important;top:0!important;height:58px!important;
@@ -6712,7 +6529,6 @@ gap:7px!important;padding:0 15px!important;
 position:relative!important;left:auto!important;top:auto!important;transform:none!important;
 flex:0 0 auto!important;margin:0!important;
 }
-#salonDesktopServices .dct-service-sticky-book{overflow:hidden!important}
 #salonDesktopServices .dct-service-sticky-book:after{
 content:""!important;position:absolute!important;z-index:1!important;top:-30%!important;bottom:-30%!important;
 width:34%!important;left:-46%!important;pointer-events:none!important;
@@ -6819,12 +6635,6 @@ box-shadow:0 10px 24px rgba(70,50,41,.075),inset 0 1px 0 rgba(255,255,255,.42)!i
 #salonDesktopContacts .std-contact-status span{font-size:14px!important;font-weight:600!important}
 }
 @media(min-width:1024px){
-#salonDesktopTop #stdBookBtn,
-#salonDesktopServices #stdStickyServiceBook{
-position:relative!important;overflow:hidden!important;isolation:isolate!important;
-}
-#salonDesktopTop #stdBookBtn>*,
-#salonDesktopServices #stdStickyServiceBook>*{position:relative!important;z-index:2!important}
 #salonDesktopTop #stdBookBtn:after,
 #salonDesktopServices #stdStickyServiceBook:after{
 content:""!important;display:block!important;position:absolute!important;z-index:1!important;
