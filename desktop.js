@@ -7153,7 +7153,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
             <div class="mct-about-portrait-wrap">
               <figure class="mct-about-portrait">
                 <img src="media-placeholder.svg" alt="SALON NAME" loading="lazy">
-                <div class="dct-about-rating"><span class="dct-about-rating-star">☆</span><strong>—</strong><span>рейтинг не указан</span></div>
+                <div class="dct-about-rating"><span class="dct-about-rating-star">★</span><strong>—</strong><span>рейтинг не указан</span></div>
               </figure>
             </div>
             <div class="mct-about-copy">
@@ -7193,7 +7193,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
         <h2 class="std-reviews-title" id="stdReviewsTitle">Что говорят о нас</h2>
         <div class="std-reviews-score">
           <strong>—</strong>
-          <div class="std-reviews-stars" aria-label="Рейтинг не указан">☆☆☆☆☆</div>
+          <div class="std-reviews-stars" aria-label="Рейтинг не указан">★★★★★</div>
           <div class="std-reviews-count">Отзывы будут добавлены</div>
         </div>
       </div>
@@ -7208,7 +7208,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
                   <span>
                     <strong class="std-review-name">${r[0]}</strong>
                     <span class="std-review-meta">Источник отзыва</span>
-                    <span class="std-review-stars">☆☆☆☆☆</span>
+                    <span class="std-review-stars">★★★★★</span>
                   </span>
                 </div>
                 <p class="std-review-text">${r[1]}</p>
@@ -7224,7 +7224,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
                   <span>
                     <strong class="std-review-name">${r[0]}</strong>
                     <span class="std-review-meta">Источник отзыва</span>
-                    <span class="std-review-stars">☆☆☆☆☆</span>
+                    <span class="std-review-stars">★★★★★</span>
                   </span>
                 </div>
                 <p class="std-review-text">${r[1]}</p>
