@@ -8,7 +8,6 @@
   const MESSENGER_URL='#tn13Visit';
   const MAP_URL='#tn13Visit';
   const REVIEWS_URL='#tn13Reviews';
-  const ADDRESS='Адрес салона';
   const RATING='—';
   const RATINGS_COUNT=0;
   const services=[
@@ -485,7 +484,6 @@ if(!window.matchMedia||!window.matchMedia('(max-width:1023px)').matches||window.
 const root=document.getElementById('salon-mobile'); if(!root)return;
 const MAP_URL='#tn13Visit';
 const REVIEWS_URL='#tn13Reviews';
-const ROUTE='#tn13Visit';
 const PHONE='';
 const MESSENGER_URL='#tn13Visit';
 const SERVICES=[
@@ -867,7 +865,7 @@ heroMedia.addEventListener('pointerup',finishHeroGesture);heroMedia.addEventList
 
 // VIEWER
 const viewer=document.createElement('div');viewer.className='tn22-viewer';viewer.innerHTML=`<div class="tn22-viewer-frame"><div class="tn23-viewer-hint">Разведите двумя пальцами, чтобы увеличить</div><div class="tn22-viewer-top"><div class="tn22-viewer-actions"><button class="tn22-vbtn tn22-view-close" type="button" aria-label="Закрыть">×</button></div></div><div class="tn42-viewer-canvas"><img class="tn22-viewer-img" alt=""></div><button class="tn22-navbtn tn22-prev" type="button">‹</button><button class="tn22-navbtn tn22-next" type="button">›</button><div class="tn23-viewer-foot"><span class="tn23-viewer-label">Фото SALON NAME</span><span class="tn22-viewer-count">01 / 01</span></div><button class="tn22-view-gallery" type="button">Открыть галерею</button></div>`;root.appendChild(viewer);
-let viewerItems=[],viewerIndex=0; const vFrame=viewer.querySelector('.tn22-viewer-frame'),vCanvas=viewer.querySelector('.tn42-viewer-canvas'),vImg=viewer.querySelector('.tn22-viewer-img'),vCount=viewer.querySelector('.tn22-viewer-count'),vPrev=viewer.querySelector('.tn22-prev'),vNext=viewer.querySelector('.tn22-next');
+let viewerItems=[],viewerIndex=0; const vCanvas=viewer.querySelector('.tn42-viewer-canvas'),vImg=viewer.querySelector('.tn22-viewer-img'),vCount=viewer.querySelector('.tn22-viewer-count'),vPrev=viewer.querySelector('.tn22-prev'),vNext=viewer.querySelector('.tn22-next');
 let sx=0,sy=0,viewerScale=1,viewerX=0,viewerY=0,pinchStart=0,pinchBaseScale=1,panStartX=0,panStartY=0,gestureHadPinch=false;
 const pinchDist=e=>Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
 function clampViewerPan(){if(viewerScale<=1){viewerX=0;viewerY=0;return}const maxX=(viewerScale-1)*vCanvas.clientWidth*.5,maxY=(viewerScale-1)*vCanvas.clientHeight*.5;viewerX=Math.max(-maxX,Math.min(maxX,viewerX));viewerY=Math.max(-maxY,Math.min(maxY,viewerY))}
