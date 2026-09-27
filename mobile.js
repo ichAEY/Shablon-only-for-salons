@@ -900,10 +900,6 @@ const serv=$('#tn13Services');let serviceCat='Маникюр',servicesExpanded=f
 const SERVICE_CATS=['Маникюр',...[...new Set(SERVICES.map(s=>s.cat))].filter(c=>c!=='Маникюр')];
 serv.innerHTML=`<div class="tn31-services"><p class="tn22-kicker">Услуги</p><h2>Наши услуги</h2><div class="tn31-cats-wrap"><div class="tn31-cats"></div></div><div class="tn31-service-list"></div><button class="tn31-service-more" type="button"><span class="tn31-more-text"></span><span aria-hidden="true">↓</span></button></div>`;
 const scats=serv.querySelector('.tn31-cats'),slist=serv.querySelector('.tn31-service-list'),sMore=serv.querySelector('.tn31-service-more');
-const scatsWrap=scats.closest('.tn31-cats-wrap');
-const syncMobileCategoryFade=()=>scatsWrap?.classList.toggle('is-scrolled',scats.scrollLeft>8);
-scats.addEventListener('scroll',syncMobileCategoryFade,{passive:true});
-syncMobileCategoryFade();
 function splitServiceTitle(raw){const parts=String(raw).split(' — ');const main=parts.shift()||raw;let detail=parts.join(' — ');if(!detail&&main.length>48){const m=main.match(/^(.*?)(\s\([^)]{5,}\)|\sBrazilian Blowout)$/i);if(m)return {main:m[1],detail:m[2].trim()}}return {main,detail}}
 function serviceDurationValue(raw){const m=String(raw||'').match(/\d+(?:[.,]\d+)?/);return m?m[0]:''}
 function mobileServiceLang(){const raw=(document.body.dataset.brLang||document.documentElement.lang||(navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase();return raw.startsWith('ru')?'ru':raw.startsWith('hy')?'hy':'en'}
@@ -1047,7 +1043,7 @@ services.insertAdjacentElement('afterend',about);
       #tn13Services{background:#242424!important;color:#f3f3f3!important;border-color:rgba(255,255,255,.08)!important}
       #tn13Services .tn22-kicker{color:#bdbdbd!important}
       #tn13Services h2,#tn13Services .tn31-service-name{color:#f5f5f5!important}
-      #tn13Services .tn31-cats-wrap{position:relative!important;margin:25px -25px 0!important;overflow:hidden!important;-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 24px),transparent 100%)!important;mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 24px),transparent 100%)!important}\n#tn13Services .tn31-cats-wrap.is-scrolled{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 24px),transparent 100%)!important;mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 24px),transparent 100%)!important}
+      #tn13Services .tn31-cats-wrap{position:relative!important;margin:25px -25px 0!important;overflow:hidden!important}
       #tn13Services .tn31-cats{display:flex!important;align-items:center!important;gap:8px!important;overflow-x:auto!important;overscroll-behavior-inline:contain!important;-webkit-overflow-scrolling:touch!important;padding:0 0 11px!important;scroll-padding-left:36px!important;scroll-padding-right:25px!important;box-sizing:border-box!important}
       #tn13Services .tn31-cats:before,#tn13Services .tn31-cats:after{content:''!important;display:block!important;height:1px!important;pointer-events:none!important}#tn13Services .tn31-cats:before{flex:0 0 10px!important;width:10px!important}#tn13Services .tn31-cats:after{flex:0 0 25px!important;width:25px!important}
       #tn13Services .tn31-cat{border-color:rgba(255,255,255,.20)!important;color:#d2d2d2!important;background:rgba(255,255,255,.03)!important}
