@@ -7735,6 +7735,7 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
       const previousScroll=rail?.scrollLeft||0;
       activeServiceCategory=btn.dataset.serviceCategory;
       desktopServicesExpanded=false;
+      desktopMoreAnchorRun++;
       desktopMoreWrap=null;
       unlockServiceScrollAnchor();
       renderDesktopServices();
@@ -7822,6 +7823,20 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
   /* Append extra cards below the existing eight; never re-render the visible cards or force page scroll. */
   let desktopMoreWrap=null;
   let desktopSavedScrollAnchor=null;
+  let desktopMoreAnchorRun=0;
+  function stabilizeDesktopMoreButton(anchorTop){
+    const delta=serviceMore.getBoundingClientRect().top-anchorTop;
+    if(Number.isFinite(delta)&&Math.abs(delta)>.5){
+      window.scrollTo({top:Math.max(0,window.scrollY+delta),behavior:'instant'});
+    }
+  }
+  function followDesktopMoreButton(anchorTop,token){
+    if(token!==desktopMoreAnchorRun)return;
+    stabilizeDesktopMoreButton(anchorTop);
+    if(!desktopServicesExpanded&&desktopMoreWrap){
+      requestAnimationFrame(()=>followDesktopMoreButton(anchorTop,token));
+    }
+  }
   function lockServiceScrollAnchor(){
     if(desktopSavedScrollAnchor!==null)return;
     desktopSavedScrollAnchor=document.documentElement.style.overflowAnchor||'';
@@ -7867,6 +7882,8 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
     translateDesktopTree(serviceMore,currentDesktopLang);
   }
   serviceMore.onclick=()=>{
+    const anchorTop=serviceMore.getBoundingClientRect().top;
+    const anchorToken=++desktopMoreAnchorRun;
     lockServiceScrollAnchor();
     const duration=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:400;
     desktopServicesExpanded=!desktopServicesExpanded;
@@ -7914,17 +7931,22 @@ width:100%!important;max-width:920px!important;min-height:0!important;height:aut
       if(!duration){
         wrap.remove();
         desktopMoreWrap=null;
+        stabilizeDesktopMoreButton(anchorTop);
         unlockServiceScrollAnchor();
       }else{
         wrap.style.height=wrap.getBoundingClientRect().height+'px';
         wrap.offsetHeight;
         requestAnimationFrame(()=>{
-          if(!desktopServicesExpanded&&desktopMoreWrap===wrap)wrap.style.height='0px';
+          if(!desktopServicesExpanded&&desktopMoreWrap===wrap){
+            followDesktopMoreButton(anchorTop,anchorToken);
+            wrap.style.height='0px';
+          }
         });
         wrap.ontransitionend=e=>{
           if(e.target===wrap&&e.propertyName==='height'&&!desktopServicesExpanded){
             wrap.remove();
             desktopMoreWrap=null;
+            stabilizeDesktopMoreButton(anchorTop);
             unlockServiceScrollAnchor();
           }
         };
