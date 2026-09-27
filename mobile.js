@@ -924,7 +924,14 @@ function serviceLine(s){
 function serviceWord(n){const n10=n%10,n100=n%100;if(n10===1&&n100!==11)return 'услугу';if(n10>=2&&n10<=4&&(n100<12||n100>14))return 'услуги';return 'услуг'}
 /* Category selection must not auto-scroll the viewport or horizontal rail. */
 function renderServices(){scats.innerHTML=SERVICE_CATS.map(c=>`<button class="tn31-cat${c===serviceCat?' active':''}" type="button" data-scat="${c}">${c}</button>`).join('');scats.querySelectorAll('[data-scat]').forEach(b=>b.onclick=()=>{const previousRailLeft=scats.scrollLeft;serviceCat=b.dataset.scat;servicesExpanded=false;renderServices();scats.scrollLeft=previousRailLeft});const arr=SERVICES.filter(s=>s.cat===serviceCat),shown=servicesExpanded?arr:arr.slice(0,7),remaining=Math.max(0,arr.length-7);slist.innerHTML=shown.map(serviceLine).join('');slist.querySelectorAll('[data-book-service]').forEach(b=>b.onclick=book);slist.querySelectorAll('[data-service-details]').forEach(b=>b.onclick=()=>{const row=b.closest('.tn31-service-demo');if(!row.classList.contains('is-expanded'))row.style.setProperty('--service-price-y',(row.offsetHeight/2)+'px');const expanded=row.classList.toggle('is-expanded');if(!expanded)requestAnimationFrame(syncDemoPricePositions);b.setAttribute('aria-expanded',String(expanded));b.textContent=expanded?'Свернуть':'Подробнее…';if(b.firstChild)b.firstChild.__brI18nCanonical=expanded?'Свернуть':'Подробнее…';});requestAnimationFrame(syncDemoPricePositions);sMore.hidden=arr.length<=7;sMore.querySelector('.tn31-more-text').textContent=servicesExpanded?'Свернуть':`Показать ещё ${remaining} ${serviceWord(remaining)}`;sMore.querySelector('span:last-child').textContent=servicesExpanded?'↑':'↓';updateServiceDurationLabels()}
-function syncDemoPricePositions(){slist.querySelectorAll('.tn31-service-demo:not(.is-expanded)').forEach(row=>row.style.setProperty('--service-price-y',(row.offsetHeight/2)+'px'))}
+function syncDemoPricePositions(){
+ slist.querySelectorAll('.tn31-service-demo').forEach(row=>{
+  const expanded=row.classList.contains('is-expanded');
+  if(expanded)row.classList.remove('is-expanded');
+  row.style.setProperty('--service-price-y',(row.offsetHeight/2)+'px');
+  if(expanded)row.classList.add('is-expanded');
+ });
+}
 sMore.onclick=()=>{servicesExpanded=!servicesExpanded;renderServices()};
 window.addEventListener('salon-template:languagechange',e=>{updateServiceDurationLabels(e.detail&&e.detail.lang);requestAnimationFrame(syncDemoPricePositions)});
 window.addEventListener('resize',()=>requestAnimationFrame(syncDemoPricePositions),{passive:true});
