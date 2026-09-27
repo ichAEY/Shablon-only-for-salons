@@ -2207,13 +2207,16 @@ services.insertAdjacentElement('afterend',about);
   style.textContent=`
 @media(max-width:1023px){
   #salon-mobile #tn13Top .tn22-card{
-    background:linear-gradient(180deg,#f8f4ee 0%,#f8f4ee 70%,rgba(248,244,238,.99) 81%,rgba(248,244,238,0) 100%)!important;
-    border:1px solid rgba(24,24,24,.07)!important;
+    background:linear-gradient(180deg,#f8f4ee 0%,#f8f4ee 65%,rgba(248,244,238,.96) 73%,rgba(248,244,238,.56) 86%,rgba(248,244,238,0) 97%)!important;
+    border:1px solid rgba(24,24,24,.04)!important;
+    border-radius:20px 20px 0 0!important;
     border-bottom:0!important;
-    box-shadow:0 -8px 32px rgba(0,0,0,.15),-9px 0 22px rgba(0,0,0,.09),9px 0 22px rgba(0,0,0,.09)!important;
-    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 84%,transparent 100%)!important;
-    mask-image:linear-gradient(to bottom,#000 0%,#000 84%,transparent 100%)!important;
+    box-shadow:0 -4px 23px rgba(35,29,25,.065),-6px 0 19px rgba(35,29,25,.045),6px 0 19px rgba(35,29,25,.045)!important;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 78%,rgba(0,0,0,.62) 86%,transparent 96%)!important;
+    mask-image:linear-gradient(to bottom,#000 0%,#000 78%,rgba(0,0,0,.62) 86%,transparent 96%)!important;
   }
+  #salon-mobile #tn13Top .tn22-top{padding-left:14px!important;}
+  #salon-mobile #tn13Top .tn22-card:after{background:linear-gradient(180deg,rgba(248,244,238,0),rgba(248,244,238,.5) 55%,#f8f4ee)!important;}
   #salon-mobile #tn13Gallery .tn22-gallery-tabs{
     width:100%!important;
     gap:0!important;
