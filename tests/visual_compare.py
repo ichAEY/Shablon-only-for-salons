@@ -53,12 +53,41 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
         clip={"x": 0, "y": section_y, "width": width, "height": height - section_y},
         animations="disabled",
     )
+    if (not mobile and width == 1366) or (mobile and width == 390):
+        expand = page.locator(section + (" .tn31-service-demo-more" if mobile else " .dct-service-demo-more")).first
+        if expand.count() == 0:
+            raise AssertionError(name + ": approved description toggle missing")
+        expand.click(timeout=12000)
+        if expand.get_attribute("aria-expanded") != "true":
+            raise AssertionError(name + ": description did not expand")
+        page.wait_for_timeout(180)
+        images["description-expanded"] = page.screenshot(animations="disabled")
+        expand.click(timeout=12000)
+        if expand.get_attribute("aria-expanded") != "false":
+            raise AssertionError(name + ": description did not collapse")
+
     if not mobile and width == 1366:
         page.locator("#stdStickyGalleryOpen").hover(timeout=10000)
         page.wait_for_timeout(150)
         images["gallery-hover"] = page.locator("#stdStickyGalleryOpen").screenshot(
             animations="disabled"
         )
+        star_color = page.locator("#stdStickyGalleryOpen > span:last-child").evaluate(
+            "(el) => getComputedStyle(el).color"
+        )
+        if star_color != "rgb(255, 255, 255)":
+            raise AssertionError(name + ": gallery star lost its approved white hover")
+        page.locator("#stdStickyGalleryOpen").click(timeout=12000)
+        page.locator("#stdGalleryBrowser.open").wait_for(timeout=8000)
+        images["gallery-open"] = page.screenshot(animations="disabled")
+
+    if mobile and width == 390:
+        page.locator(".tn22-worklink").click(timeout=12000)
+        page.locator("#tn13Gallery.open").wait_for(timeout=8000)
+        images["gallery-open"] = page.screenshot(animations="disabled")
+        page.locator("#tn13Gallery [data-gcat='Волосы']").click(timeout=12000)
+        images["gallery-category"] = page.screenshot(animations="disabled")
+
     context.close()
     for label, data in images.items():
         (OUT / f"{name}-{label}.png").write_bytes(data)
@@ -89,8 +118,10 @@ def main():
     parser.add_argument("--baseline", default="http://127.0.0.1:4173/")
     parser.add_argument("--candidate", default="http://127.0.0.1:4174/")
     args = parser.parse_args()
-    cases = [(1366, 900, False), (1440, 900, False),
-             (390, 844, True), (360, 740, True)]
+    cases = [(1024, 768, False), (1366, 900, False),
+             (1440, 900, False), (1920, 1080, False),
+             (360, 740, True), (375, 812, True),
+             (390, 844, True), (414, 896, True)]
     errors = []
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
