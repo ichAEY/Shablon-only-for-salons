@@ -85,6 +85,13 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
     if mobile and width == 390:
         page.locator(".tn22-worklink").click(timeout=12000)
         page.locator("#tn13Gallery.open").wait_for(timeout=8000)
+        # Wait for gallery-specific fonts, lazy media and compositing to settle.
+        # The open-overlay screenshot can otherwise capture subpixel text repainting.
+        page.evaluate("() => document.fonts.ready")
+        page.locator("#tn13Gallery img").first.evaluate(
+            "(img) => img.decode().catch(() => {})"
+        )
+        page.wait_for_timeout(350)
         images["gallery-open"] = page.screenshot(animations="disabled")
         page.locator("#tn13Gallery [data-gcat='Волосы']").click(timeout=12000)
         images["gallery-category"] = page.screenshot(animations="disabled")
