@@ -69,7 +69,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
    }else ready();
  }
  const script=document.createElement('script');
- script.src=desktop?'desktop.js?v=salon-range-layout-20260927':'mobile.js?v=salon-range-layout-20260927';
+ script.src=desktop?'desktop.js?v=salon-aligned-rails-v3-20260927':'mobile.js?v=salon-aligned-rails-v3-20260927';
  script.async=false;script.onload=loaded;
  script.onerror=()=>{if(closed)error.classList.add('is-visible')};
  document.body.appendChild(script);
