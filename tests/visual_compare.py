@@ -118,14 +118,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--baseline", default="http://127.0.0.1:4173/")
     parser.add_argument("--candidate", default="http://127.0.0.1:4174/")
+    parser.add_argument("--engine", choices=("chromium", "webkit"), default="chromium")
+    parser.add_argument("--quick", action="store_true")
     args = parser.parse_args()
-    cases = [(1024, 768, False), (1366, 900, False),
+    cases = [(1366, 900, False), (390, 844, True)] if args.quick else [
+             (1024, 768, False), (1366, 900, False),
              (1440, 900, False), (1920, 1080, False),
              (360, 740, True), (375, 812, True),
              (390, 844, True), (414, 896, True)]
     errors = []
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = getattr(p, args.engine).launch(headless=True)
         try:
             for w, h, mobile in cases:
                 key = f"{'mobile' if mobile else 'desktop'}-{w}"
