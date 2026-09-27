@@ -1539,7 +1539,7 @@ services.insertAdjacentElement('afterend',about);
           display:flex!important;
           align-items:center!important;
           justify-content:flex-start!important;
-          margin-left:-6px!important;
+          margin-left:0!important;
           height:52px!important;
           width:auto!important;
           max-width:250px!important;
