@@ -103,7 +103,10 @@ assert(index.includes('(hover:hover) and (pointer:fine), (min-width:1024px)'),'w
 assert(desktop.includes('SITE.services.filter'),'desktop services must come from the unified source');
 assert(desktop.includes('DESKTOP_SERVICE_TABS.length<=5'),'desktop must stretch All plus up to four real categories');
 assert(mobile.includes('SITE.services.map'),'mobile services must come from the unified source');
-assert(mobile.includes('SERVICE_CATS.length>0&&SERVICE_CATS.length<=4'),'mobile must stretch one to four real categories');
+assert(!mobile.includes('SERVICE_CATS.length>0&&SERVICE_CATS.length<=4'),'mobile must not force 1-4 categories into equal-width compact cells');
+const mobileCategoryCSS=fs.readFileSync(path.join(root,'mobile-overrides.css'),'utf8');
+assert(mobileCategoryCSS.includes('grid-template-columns:none!important')&&mobileCategoryCSS.includes('flex:0 0 auto!important')&&mobileCategoryCSS.includes('overflow-x:auto!important'),
+  'mobile service categories must use natural Esmeralda pill widths with horizontal scrolling at any count');
 assert(desktop.includes('В основе нашей работы — профессиональный подход'),'desktop About must contain the approved universal copy');
 assert(!desktop.includes("locales:['ru','en','hy']"),'desktop fallback must not expose Armenian for the default template');
 assert(!mobile.includes("locales:['ru','en','hy']"),'mobile fallback must not expose Armenian for the default template');
