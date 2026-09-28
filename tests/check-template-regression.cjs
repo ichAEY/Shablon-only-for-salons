@@ -54,15 +54,18 @@ function verifyTemplate(){
       for(const block of blocks)for(const [key,value] of effectiveRules(block))cascade.set(key,value);
       return [...cascade.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
     };
-    // New compact-tab rules are intentionally scoped behind .is-compact and do not
-    // affect the frozen design when categories overflow. All existing declarations
-    // must remain pixel-for-pixel equivalent to the approved baseline.
-    const currentDeclarations=allDeclarations(newCSS).filter(([key])=>{
-      if(name!=="desktop.js")return true;
-      const [,selector]=JSON.parse(key);
-      return !selector.includes(".is-compact");
-    });
-    assert.deepEqual(currentDeclarations,allDeclarations(oldCSS),name+": approved CSS cascade differs from baseline outside intentionally scoped compact tabs");
+    // Compact category rules and the explicitly approved title-weight adjustment are
+    // the only service-style differences allowed from the frozen baseline.
+    const keepFrozenDeclaration=([key])=>{
+      const [,selector,property]=JSON.parse(key);
+      if(selector.includes(".is-compact"))return false;
+      if(property==="font-weight"&&selector.includes("#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-title"))return false;
+      if(property==="font-weight"&&selector.includes("#salon-mobile #tn13Services .tn31-service-name"))return false;
+      return true;
+    };
+    const currentDeclarations=allDeclarations(newCSS).filter(keepFrozenDeclaration);
+    const baselineDeclarations=allDeclarations(oldCSS).filter(keepFrozenDeclaration);
+    assert.deepEqual(currentDeclarations,baselineDeclarations,name+": approved CSS cascade differs from baseline outside intentional category and title-weight changes");
     const boundaries=name==="desktop.js"?["function templateServiceCard(item){","function currentTemplateServiceState()"]:["function servicePriceMarkup(price){","function serviceWord(n){"];
     const code=s=>{
       const a=s.indexOf(boundaries[0]),b=s.indexOf(boundaries[1],a+boundaries[0].length);
