@@ -41,7 +41,14 @@ def check(browser, width, height, mobile, language):
     page.locator(switch).first.click(timeout=9000)
     page.wait_for_timeout(250)
     brand = ".std-header-brand-main" if desktop else ".tn22-title"
-    must_equal(page.locator(brand), data["salon"]["name"][language], "brand")
+    if desktop and data.get("media", {}).get("logo"):
+        brand_logo = page.locator(brand + " img")
+        assert brand_logo.count() == 1, "Desktop header logo is missing"
+        assert (brand_logo.first.get_attribute("alt") or "").strip() == data["salon"]["name"][language], "Desktop header logo alt is incorrect"
+    else:
+        must_equal(page.locator(brand), data["salon"]["name"][language], "brand")
+    if desktop and data.get("media", {}).get("heroDesktop"):
+        assert page.locator("#stdHeroMedia").first.get_attribute("src") == data["media"]["heroDesktop"], "Desktop hero did not use heroDesktop"
     assert data["salon"]["name"][language] in page.title(), "Incorrect page title"
     cards = page.locator("#stdServiceList .dct-service-card" if desktop
                          else "#tn13Services .tn31-service-row")
