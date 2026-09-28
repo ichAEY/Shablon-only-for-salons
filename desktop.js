@@ -12,6 +12,7 @@
     return value[lang]??value.ru??value.en??value.hy??'';
   };
   const russian=value=>localized(value,'ru');
+  const REGION=window.TANEM_REGION||{locales:['ru','en','hy'],fallback:'en',labels:{ru:'RU',en:'EN',hy:'HY'},resolve:v=>v,ui:()=>null,teamHeading:l=>l==='ru'?'Наша команда':'Our Team'};
   const MAP_URL=SITE.contacts.mapUrl||'#salonDesktopContacts';
   const ROUTE=MAP_URL;
   const MESSENGER_URL=SITE.contacts.messengerUrl||'#salonDesktopContacts';
@@ -62,7 +63,7 @@
         <span class="std-header-brand-main">SALON NAME</span>
 
       </a>
-      <div class="std-lang-switch std-lang-switch-under-brand" role="group" aria-label="Language"><button type="button" data-desktop-lang="ru">RU</button><span class="sep">|</span><button type="button" data-desktop-lang="en">EN</button><span class="sep">|</span><button type="button" data-desktop-lang="hy">HY</button></div>
+      <div class="std-lang-switch std-lang-switch-under-brand" role="group" aria-label="Language">${REGION.locales.map((lang,index)=>(index?'<span class="sep">|</span>':'')+'<button type="button" data-desktop-lang="'+lang+'">'+REGION.labels[lang]+'</button>').join('')}</div>
       <nav class="std-nav" aria-label="Основная навигация">
         <a href="#salonDesktopServices">Услуги</a>
         <a href="#salonDesktopPortfolio">Наши работы</a>
@@ -1303,7 +1304,7 @@
     ['Открыто','Բաց է','Open'],['Закрыто','Փակ է','Closed'],['Уточняется','Կավելացվի','To be added'],['Уточняется','Կավելացվի','To be added'],
     ['График работы','Աշխատանքային ժամեր','Opening hours'],['График работы','Աշխատանքային ժամեր','Opening hours']
   ];
-  const desktopLangIndex={ru:0,hy:1,en:2};
+  const desktopLangIndex={ru:0,hy:1,en:2,uz:2,tg:2};
   const desktopDirect={};
   if(window.TANEM_SITE_DATA?.mode==='production')DESKTOP_I18N_ROWS.push(...(window.TANEM_SITE_I18N_ROWS||[]));
   DESKTOP_I18N_ROWS.forEach(row=>desktopDirect[row[0]]=row);
@@ -1311,9 +1312,9 @@
   function desktopDetectLanguage(){
     try{
       const saved=localStorage.getItem(DESKTOP_LANG_STORAGE);
-      if(/^(hy|ru|en)$/.test(saved||''))return saved;
+      if(REGION.locales.includes(saved))return saved;
     }catch(_){}
-    return 'en';
+    return REGION.locales.includes('en')?'en':REGION.fallback;
   }
   let currentDesktopLang=desktopDetectLanguage();
 
@@ -1335,11 +1336,14 @@
   }
   function desktopTrText(source,lang=currentDesktopLang){
     const row=desktopDirect[source];
+    if(source==='Наша команда')return REGION.teamHeading(lang);
+    const special=REGION.ui(source,lang,row?.[2]);
+    if(special!==null)return special;
     if(row)return row[desktopLangIndex[lang]];
     const dyn=desktopDynamicTranslation(source,lang);
     return dyn===null?source:dyn;
   }
-  function desktopCanTranslate(source){return !!desktopDirect[source]||desktopDynamicTranslation(source,'ru')!==null}
+  function desktopCanTranslate(source){return !!desktopDirect[source]||desktopDynamicTranslation(source,'ru')!==null||!!REGION.ui(source,'uz')||!!REGION.ui(source,'tg')}
   function desktopSkipText(node){
     const el=node.parentElement;
     if(!el)return true;
@@ -1386,7 +1390,7 @@
     document.body.dataset.brLang=currentDesktopLang;
     window.dispatchEvent(new CustomEvent('salon-template:languagechange',{detail:{lang:currentDesktopLang}}));
 
-    if(currentDesktopLang==='hy'){
+    if(currentDesktopLang==='hy'&&SITE.mode==='template'){
       // Headings and explanatory text use their ordinary HY translation; only specialties remain in English.
       const teamEnglish={
         nails:{name:'Nail Master',role:'Manicure · Pedicure',cat:'Nails'},

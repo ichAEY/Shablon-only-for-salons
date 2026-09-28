@@ -730,6 +730,7 @@ services.insertAdjacentElement('afterend',about);
   if(window.__BR_DESKTOP_DEVICE__===true) return;
 
   var STORAGE_KEY='salon-template-language';
+  var REGION=window.TANEM_REGION||{locales:['ru','en','hy'],fallback:'en',labels:{ru:'RU',en:'EN',hy:'HY'},resolve:value=>value,ui:()=>null};
   var currentLang='hy';
   var root=null;
 
@@ -897,12 +898,12 @@ services.insertAdjacentElement('afterend',about);
   var direct={};
   rows.forEach(function(row){ direct[row[0]]=row; });
 
-  var langIndex={ru:0,hy:1,en:2};
+  var langIndex={ru:0,hy:1,en:2,uz:2,tg:2};
 
   function getSaved(){
     try{
       var v=localStorage.getItem(STORAGE_KEY);
-      return /^(hy|ru|en)$/.test(v||'')?v:null;
+      return REGION.locales.includes(v)?v:null;
     }catch(_){ return null; }
   }
 
@@ -910,9 +911,8 @@ services.insertAdjacentElement('afterend',about);
     var saved=getSaved();
     if(saved) return saved;
     var langs=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en']).map(function(x){return String(x||'').toLowerCase()});
-    if(langs.some(function(x){return x.indexOf('hy')===0})) return 'hy';
-    if(langs.some(function(x){return x.indexOf('ru')===0})) return 'ru';
-    return 'en';
+    for(var lang of ['hy','uz','tg','ru','en'])if(REGION.locales.includes(lang)&&langs.some(function(x){return x.indexOf(lang)===0}))return lang;
+    return REGION.locales.includes('en')?'en':REGION.fallback;
   }
 
   function save(lang){
@@ -939,11 +939,14 @@ services.insertAdjacentElement('afterend',about);
   }
 
   function canTranslate(source){
-    return !!direct[source] || dynamicValue(source,'ru')!==null;
+    return !!direct[source] || dynamicValue(source,'ru')!==null || !!REGION.ui(source,'uz') || !!REGION.ui(source,'tg');
   }
 
   function outputFor(source,lang){
     var row=direct[source];
+    if(source==='Наша команда')return lang==='ru'?'Наша команда':'Our Team';
+    var special=REGION.ui(source,lang,row&&row[2]);
+    if(special!==null)return special;
     if(row) return row[langIndex[lang]];
     var dyn=dynamicValue(source,lang);
     return dyn===null?source:dyn;
@@ -1033,7 +1036,8 @@ services.insertAdjacentElement('afterend',about);
     sw.className='br-lang-switch';
     sw.setAttribute('role','group');
     sw.setAttribute('aria-label','Language');
-    sw.innerHTML='<button type="button" data-lang="hy">HY</button><span class="sep">/</span><button type="button" data-lang="ru">RU</button><span class="sep">/</span><button type="button" data-lang="en">EN</button>';
+    var order=REGION.locales.includes('hy')?['hy','ru','en']:REGION.locales;
+    sw.innerHTML=order.map(function(lang,index){return (index?'<span class="sep">/</span>':'')+'<button type="button" data-lang="'+lang+'">'+REGION.labels[lang]+'</button>'}).join('');
     sw.addEventListener('pointerdown',function(e){e.stopPropagation();});
     sw.addEventListener('click',function(e){
       var btn=e.target.closest('[data-lang]');
@@ -1084,7 +1088,7 @@ services.insertAdjacentElement('afterend',about);
   }
 
   function updateMeta(){
-    var m=meta[currentLang]||meta.hy;
+    var m=meta[currentLang]||meta.en;
     document.documentElement.lang=currentLang;
     document.documentElement.dir='ltr';
     document.title=m.title;
@@ -1107,7 +1111,7 @@ services.insertAdjacentElement('afterend',about);
   }
 
   function setLanguage(lang,userChoice){
-    if(!/^(hy|ru|en)$/.test(lang)) lang='en';
+    lang=REGION.resolve(lang);
     currentLang=lang;
     if(userChoice) save(lang);
     applyLanguage();
