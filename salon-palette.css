@@ -366,6 +366,23 @@ html[data-br-device="mobile"] #salon-mobile #tn13Services .tn31-cats.is-compact{
   padding-left:10px!important;padding-right:10px!important;
   scroll-padding-left:10px!important;scroll-padding-right:10px!important;
 }
+/* Match the actual Esmeralda service tabs irrespective of category count:
+   each card retains natural width and the horizontal rail does the overflow. */
+html[data-br-device="mobile"] #salon-mobile #tn13Services .tn31-cats{
+  display:flex!important;flex-wrap:nowrap!important;
+  align-items:center!important;justify-content:flex-start!important;
+  gap:8px!important;grid-template-columns:none!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  overscroll-behavior-inline:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-x!important;scrollbar-width:none!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Services .tn31-cats .tn31-cat{
+  flex:0 0 auto!important;width:max-content!important;min-width:max-content!important;
+  height:35px!important;padding:0 15px!important;
+  font:500 10.5px/1 'Manrope',Arial,sans-serif!important;
+  white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;
+}
 html[data-br-device="mobile"] #salon-mobile #tn13Services .tn31-cats::before,
 html[data-br-device="mobile"] #salon-mobile #tn13Services .tn31-cats::after{
   content:none!important;display:none!important;

@@ -240,13 +240,25 @@ def verify_mobile_category_rails(page, width: int):
         const style=getComputedStyle(el);
         return {name:el.textContent.trim(), font:parseFloat(style.fontSize),
             padding:parseFloat(style.paddingLeft), whitespace:style.whiteSpace,
+            height:el.getBoundingClientRect().height,
+            width:el.getBoundingClientRect().width, flexShrink:style.flexShrink,
             clipped:el.scrollWidth>el.clientWidth+1};
     })""")
     if len(category_metrics) != 4 or not any(x["name"] in ("Брови и ресницы", "Brows and Lashes") for x in category_metrics):
         raise AssertionError(f"{width}px: missing approved demo categories: {category_metrics}")
-    if any(x["font"] < 10.5 or x["padding"] < 15 or x["whitespace"] != "nowrap"
-           or x["clipped"] for x in category_metrics):
-        raise AssertionError(f"{width}px: labels are wrapped or compressed: {category_metrics}")
+    if any(abs(x["font"]-10.5) > .05 or abs(x["height"]-35) > .5
+           or abs(x["padding"]-15) > .5 or x["whitespace"] != "nowrap"
+           or x["flexShrink"] != "0" or x["clipped"] for x in category_metrics):
+        raise AssertionError(f"{width}px: categories differ from Esmeralda geometry: {category_metrics}")
+    rail_style = service_rail.evaluate("""rail => {
+        const s=getComputedStyle(rail);
+        return {display:s.display,gap:parseFloat(s.columnGap),overflow:s.overflowX,
+            scrollWidth:rail.scrollWidth,clientWidth:rail.clientWidth};
+    }""")
+    if (rail_style["display"] != "flex" or abs(rail_style["gap"]-8) > .5
+        or rail_style["overflow"] != "auto" or
+        rail_style["scrollWidth"] <= rail_style["clientWidth"]+4):
+        raise AssertionError(f"{width}px: full demo category rail must scroll: {rail_style}")
     # In this design service cards bleed 15px beyond the 25px container padding.
     # Their actual left edge and the first service-category pill must coincide.
     service_left = page.locator("#tn13Services .tn31-service-row").first.evaluate(
@@ -268,16 +280,16 @@ def verify_mobile_category_rails(page, width: int):
     }""")
     if service_end["right"] > service_end["railRight"]+1:
         raise AssertionError(f"{width}px: last category cannot be fully scrolled: {service_end}")
-    # Substitute two short categories to test the auto-stretch contract.
+    # Short groups must also keep natural Esmeralda pill widths, not expand
+    # to occupy the whole screen just because only two categories remain.
     two = service_rail.evaluate("""rail => {
         rail.innerHTML='<button class="tn31-cat">Ногти</button><button class="tn31-cat">Волосы</button>';
-        rail.classList.add('is-compact');
-        rail.style.setProperty('--mobile-service-category-count','2');
         return {widths:[...rail.querySelectorAll('.tn31-cat')].map(b=>b.getBoundingClientRect().width),
-            overflow:rail.scrollWidth>rail.clientWidth+1};
+            overflow:rail.scrollWidth>rail.clientWidth+1,
+            available:rail.clientWidth};
     }""")
-    if abs(two["widths"][0]-two["widths"][1]) > 1 or two["overflow"]:
-        raise AssertionError(f"{width}px: two short categories must stretch evenly: {two}")
+    if two["overflow"] or max(two["widths"]) > 120 or sum(two["widths"]) > two["available"]-70:
+        raise AssertionError(f"{width}px: two short categories were stretched or clipped: {two}")
 
     page.locator("#tn13Top .tn22-worklink").click()
     page.locator("#tn13Gallery.open").wait_for(timeout=8000)

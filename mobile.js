@@ -157,9 +157,6 @@ const SERVICE_CATS=SITE.categoryOrder.filter(c=>SERVICES.some(s=>s.cat===c));
 let serviceCat=SERVICE_CATS[0]||'',servicesExpanded=false;
 serv.innerHTML=`<div class="tn31-services"><p class="tn22-kicker">Услуги</p><h2>Наши услуги</h2><div class="tn31-cats-wrap"><div class="tn31-cats"></div></div><div class="tn31-service-list"></div><button class="tn31-service-more" type="button"><span class="tn31-more-text"></span><span aria-hidden="true">↓</span></button></div>`;
 const scats=serv.querySelector('.tn31-cats'),slist=serv.querySelector('.tn31-service-list'),sMore=serv.querySelector('.tn31-service-more');
-const compactServiceCategories=SERVICE_CATS.length>0&&SERVICE_CATS.length<=4;
-scats.classList.toggle('is-compact',compactServiceCategories);
-scats.style.setProperty('--mobile-service-category-count',String(Math.max(1,SERVICE_CATS.length)));
 function splitServiceTitle(raw){const parts=String(raw).split(' — ');const main=parts.shift()||raw;let detail=parts.join(' — ');if(!detail&&main.length>48){const m=main.match(/^(.*?)(\s\([^)]{5,}\)|\sBrazilian Blowout)$/i);if(m)return {main:m[1],detail:m[2].trim()}}return {main,detail}}
 function serviceDurationValue(raw){const m=String(raw||'').match(/\d+(?:[.,]\d+)?/);return m?m[0]:''}
 function mobileServiceLang(){const raw=(document.body.dataset.brLang||document.documentElement.lang||(navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase();return raw.startsWith('ru')?'ru':raw.startsWith('hy')?'hy':'en'}
@@ -1156,4 +1153,4 @@ services.insertAdjacentElement('afterend',about);
 })();
 
 /* salon-template-cold-neutral-20260924 */
-(function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const lateCss=document.createElement('link');lateCss.id='salon-template-cold-neutral-20260924';lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=salon-final-20260928-v5-categories';document.head.appendChild(lateCss);const paletteCss=document.createElement('link');paletteCss.id='tanem-salon-palette-v2';paletteCss.rel='stylesheet';paletteCss.href='salon-palette.css?v=neutral-v6-gallery-frame-20260929';document.head.appendChild(paletteCss);})();
+(function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const lateCss=document.createElement('link');lateCss.id='salon-template-cold-neutral-20260924';lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=salon-final-20260929-v6-esmeralda-service-rail';document.head.appendChild(lateCss);const paletteCss=document.createElement('link');paletteCss.id='tanem-salon-palette-v2';paletteCss.rel='stylesheet';paletteCss.href='salon-palette.css?v=neutral-v7-esmeralda-service-rail-20260929';document.head.appendChild(paletteCss);})();
