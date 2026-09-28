@@ -41,7 +41,7 @@ python3 -m http.server 4173
 - `mobile-overrides.css` — итоговые мобильные переопределения, подключаемые **после** динамических языковых стилей;
 - `logo-placeholder.svg` и `media-placeholder.svg` — нейтральные заглушки.
 
-Инструкция по созданию нового клиентского сайта: [`docs/FACTORY_GUIDE.md`](docs/FACTORY_GUIDE.md). Для выпуска редактируйте `site-data.js` и медиа, установите `mode: 'production'`, затем запустите `node tests/validate-site-data.cjs --production`.
+Инструкция по созданию нового клиентского сайта: [`docs/FACTORY_GUIDE.md`](docs/FACTORY_GUIDE.md). Для нового клиента **скопируйте `site-data.blank.js` в `site-data.js`**: стартовый файл не содержит демонстрационных услуг, мастеров и отзывов. Заполните только реальные данные и медиа, установите `mode: 'production'`, затем запустите `node tests/validate-site-data.cjs --production`. `site-data.js` в самом шаблоне остаётся демонстрационным только для проверки утверждённого дизайна.
 
 
 ## Безопасная очистка и защита эталона
@@ -50,3 +50,5 @@ python3 -m http.server 4173
 - Для правок стилей редактируйте отдельные CSS-файлы, а не создавайте новые встроенные `style.textContent` поверх старых. Сохраняйте порядок: `mobile.css` → динамический `salon-mobile-i18n-style` → `mobile-overrides.css`.
 - При изменениях CSS/JS обновляйте версии `?v=` в `index.html` и URL позднего CSS в `mobile.js`. В противном случае браузер может показать устаревший интерфейс.
 - Перед публикацией запускайте `node tests/validate-site-data.cjs --production`, `node tests/check-factory-contract.cjs` и `node tests/check-template-regression.cjs`. Затем проверяйте GitHub Actions (Chromium, WebKit и production-сценарий). Главную ветку `main` обновлять только после успешных проверок.
+
+Для отдельных клиентских репозиториев используйте `docs/FACTORY_GUIDE.md`: GitHub Actions автоматически получают неизменяемый исходный эталон даже после копирования файлов без истории Git. Production CI проверяет реальные данные клиента и открывает сайт в Chromium и WebKit, а не сравнивает клиентские фотографии с демонстрационными.

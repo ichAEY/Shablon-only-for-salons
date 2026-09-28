@@ -29,7 +29,7 @@ function loadSiteData(filePath){
   return sandbox.window.TANEM_SITE_DATA;
 }
 
-function validateSiteData(data,{rootDir=process.cwd()}={}){
+function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}){
   const errors=[];
   const production=data?.mode==='production';
   const add=(field,message)=>errors.push(`${field}: ${message}`);
@@ -65,6 +65,13 @@ function validateSiteData(data,{rootDir=process.cwd()}={}){
     if(!string(value,field,{required})||!value)return;
     const allowed=allowTel?/^(?:https?:\/\/|tel:|tg:|viber:|whatsapp:)/i:/^https?:\/\//i;
     if(!allowed.test(value))add(field,`must use ${allowTel?'https:// or an approved contact protocol':'http:// or https://'}`);
+    if(production&&/^https?:\/\//i.test(value)){
+      try{
+        const host=new URL(value).hostname.toLowerCase();
+        if(!allowTestDomains&&(/^(?:.*\.)?example\.(?:com|org|net)$/.test(host)||['localhost','127.0.0.1','0.0.0.0'].includes(host)||host.endsWith('.example')))
+          add(field,'test domain or localhost is forbidden in production');
+      }catch{add(field,'must be a valid URL')}
+    }
   }
   function media(value,field,{required=false}={}){
     if(typeof value==='object'&&value!==null)value=value.src;
@@ -223,7 +230,8 @@ function main(){
   const input=args.find(argument=>!argument.startsWith('--'))||'site-data.js';
   let data;
   try{data=loadSiteData(input)}catch(error){console.error(`FAIL: ${error.message}`);process.exitCode=1;return}
-  const errors=validateSiteData(data,{rootDir:process.cwd()});
+  const isFixture=path.resolve(input)===path.resolve(__dirname,'fixtures/site-data.production.js');
+  const errors=validateSiteData(data,{rootDir:process.cwd(),allowTestDomains:isFixture});
   if(requireProduction&&data.mode!=='production')errors.unshift('mode: must equal production for a release check');
   if(errors.length){
     console.error(`FAIL: ${errors.length} site data problem${errors.length===1?'':'s'}`);

@@ -18,9 +18,10 @@ assert(unsafeErrors.some(error=>error.includes('placeholder media')),'production
 assert(unsafeErrors.some(error=>error.includes('booking method')),'production mode must require a booking method');
 
 const ready=loadSiteData(path.join(root,'tests/fixtures/site-data.production.js'));
-assert.deepEqual(validateSiteData(ready,{rootDir:root}),[],'a complete production fixture must pass');
+assert.deepEqual(validateSiteData(ready,{rootDir:root,allowTestDomains:true}),[],'a complete production fixture must pass');
+assert(validateSiteData(ready,{rootDir:root}).some(error=>error.includes('test domain')),'test domains must never pass a real client release');
 ready.reviews[0].rating=4;
-assert(validateSiteData(ready,{rootDir:root}).some(error=>error.includes('only five-star reviews')),'non-five-star reviews must be rejected');
+assert(validateSiteData(ready,{rootDir:root,allowTestDomains:true}).some(error=>error.includes('only five-star reviews')),'non-five-star reviews must be rejected');
 
 const index=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const desktop=fs.readFileSync(path.join(root,'desktop.js'),'utf8');
