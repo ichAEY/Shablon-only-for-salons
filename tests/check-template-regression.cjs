@@ -2,8 +2,11 @@
 // Run from repository root: node tests/check-template-regression.cjs
 function verifyTemplate(){
   const fs=require("node:fs"),assert=require("node:assert/strict"),cp=require("node:child_process");
+  const {retiredClasses,retiredIds,selectorUsesRetiredHook,atRuleUsesRetiredHook}=require("../scripts/style-cleanup-config.cjs");
   const baseline="79ea1c63864627b634528c6c6f39c997226f85c4";
   const paths=["desktop.js","mobile.js"];
+  const runtimeSource=["index.html","desktop.js","mobile.js","site-runtime.js","site-regions.js"].map(name=>fs.readFileSync(name,"utf8")).join("\n");
+  for(const hook of [...retiredClasses,...retiredIds])assert(!runtimeSource.includes(hook),"Retired style hook is active again: "+hook);
   function styles(src){
     const rx=/\.textContent\s*=\s*(String\.raw)?([`"])/g;let m,res=[];
     while((m=rx.exec(src))){
@@ -19,16 +22,29 @@ function verifyTemplate(){
     return res;
   }
   function effectiveRules(css){
+    function selectors(header){
+      const result=[];let start=0,round=0,square=0,quote="";
+      for(let i=0;i<header.length;i++){
+        const char=header[i];
+        if(quote){if(char==="\\")i++;else if(char===quote)quote="";continue}
+        if(char==='"'||char==="'"){quote=char;continue}
+        if(char==="(")round++;else if(char===")")round--;
+        else if(char==="[")square++;else if(char==="]")square--;
+        else if(char===","&&round===0&&square===0){result.push(header.slice(start,i).trim());start=i+1}
+      }
+      result.push(header.slice(start).trim());
+      return result.filter(Boolean);
+    }
     const stack=[],result=new Map();let last=0;
     for(let i=0;i<css.length;i++){
       if(css[i]==="{"){
-        const header=css.slice(last,i).trim();
+        const header=css.slice(last,i).replace(/\/\*[\s\S]*?\*\//g,"").trim();
         if(stack.length)stack[stack.length-1].nested=true;
         stack.push({header,parents:stack.map(x=>x.header),open:i,nested:false});last=i+1;
       }else if(css[i]==="}"){
         const r=stack.pop();assert(r,"Unbalanced CSS }");
-        if(!r.nested)for(const d of css.slice(r.open+1,i).split(";").map(x=>x.trim()).filter(Boolean)){
-          const sep=d.indexOf(":");if(sep>=0)result.set(JSON.stringify([r.parents,r.header,d.slice(0,sep).trim()]),d.slice(sep+1).trim());
+        if(!r.nested)for(const header of selectors(r.header))for(const d of css.slice(r.open+1,i).split(";").map(x=>x.trim()).filter(Boolean)){
+          const sep=d.indexOf(":");if(sep>=0)result.set(JSON.stringify([r.parents,header,d.slice(0,sep).trim()]),d.slice(sep+1).trim());
         }
         last=i+1;
       }
@@ -60,14 +76,22 @@ function verifyTemplate(){
     // Service card titles, time/price rails and the desktop cascade remain
     // protected by the comparison below.
     const keepFrozenDeclaration=([key])=>{
-      const [,selector,property]=JSON.parse(key);
+      const [parents,selector,property]=JSON.parse(key);
+      // Explicitly retired hooks belonged to markup removed before the factory
+      // release. All still-reachable selectors remain byte-for-byte protected.
+      if(selectorUsesRetiredHook(selector)||parents.some(atRuleUsesRetiredHook))return false;
       if(selector.includes(".is-compact"))return false;
       if(name==="mobile.js"&&/^#salon-mobile #tn13Services \.tn31-cat(?:s)?(?:::[\w-]+)?$/.test(selector))return false;
       if(property==="font-weight"&&selector.includes("#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-title"))return false;
       if(property==="font-weight"&&selector.includes("#salon-mobile #tn13Services .tn31-service-name"))return false;
       return true;
     };
-    const currentDeclarations=allDeclarations(newCSS).filter(keepFrozenDeclaration);
+    const currentAllDeclarations=allDeclarations(newCSS);
+    assert(!currentAllDeclarations.some(([key])=>{
+      const [parents,selector]=JSON.parse(key);
+      return selectorUsesRetiredHook(selector)||parents.some(atRuleUsesRetiredHook);
+    }),name+": retired CSS hook was reintroduced");
+    const currentDeclarations=currentAllDeclarations.filter(keepFrozenDeclaration);
     const baselineDeclarations=allDeclarations(oldCSS).filter(keepFrozenDeclaration);
     assert.deepEqual(currentDeclarations,baselineDeclarations,name+": approved CSS cascade differs from baseline outside intentional category and title-weight changes");
     const boundaries=name==="desktop.js"?["function templateServiceCard(item){","function currentTemplateServiceState()"]:["function servicePriceMarkup(price){","function serviceWord(n){"];
@@ -81,6 +105,7 @@ function verifyTemplate(){
   }
   const index=fs.readFileSync("index.html","utf8");
   assert(index.includes("desktop.js")&&index.includes("mobile.js"),"Both device bundles must still load");
+  cp.execFileSync(process.execPath,["scripts/prune-dead-css.cjs","--check"],{stdio:"inherit"});
   console.log("PASS: All static baseline and service-contract checks");
 }
 verifyTemplate();

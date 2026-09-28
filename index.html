@@ -24,8 +24,8 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
 #brLoadError a{display:inline-block;margin-top:22px;color:#181818}
 @media(prefers-reduced-motion:reduce){#brBootIntro{transition:none!important}}
 </style>
-<link rel="stylesheet" href="desktop.css?v=salon-final-20260928-v2" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
-<link rel="stylesheet" href="salon-palette.css?v=neutral-v9-category-font-round2-20260929" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
+<link rel="stylesheet" href="desktop.css?v=safe-clean-20260929-v1" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
+<link rel="stylesheet" href="salon-palette.css?v=safe-clean-20260929-v1" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
 <script src="site-data.js?v=salon-final-20260928-v1"></script>
 <script src="site-regions.js?v=salon-final-20260928-v2"></script>
 <script>
@@ -36,16 +36,16 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
  if(!desktop){
   const css=document.createElement('link');
   css.rel='stylesheet';
-  css.href='mobile.css?v=deep-clean-20260928-v3';
+  css.href='mobile.css?v=safe-clean-20260929-v1';
   document.head.appendChild(css);
   const preload=document.createElement('link');
   preload.rel='preload';
   preload.as='style';
-  preload.href='mobile-overrides.css?v=salon-final-20260929-v8-category-font-round2';
+  preload.href='mobile-overrides.css?v=safe-clean-20260929-v1';
   const palettePreload=document.createElement('link');
   palettePreload.rel='preload';
   palettePreload.as='style';
-  palettePreload.href='salon-palette.css?v=neutral-v9-category-font-round2-20260929';
+  palettePreload.href='salon-palette.css?v=safe-clean-20260929-v1';
   document.head.appendChild(palettePreload);
   document.head.appendChild(preload);
  }
@@ -95,7 +95,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
    }else ready();
  }
  const script=document.createElement('script');
- script.src=desktop?'desktop.js?v=salon-final-20260928-v2':'mobile.js?v=salon-final-20260928-v4';
+ script.src=desktop?'desktop.js?v=safe-clean-20260929-v1':'mobile.js?v=safe-clean-20260929-v1';
  script.async=false;script.onload=()=>{
    const runtime=document.createElement('script');
    runtime.src='site-runtime.js?v=factory-20260928-v1';
