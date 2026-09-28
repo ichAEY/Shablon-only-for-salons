@@ -28,7 +28,10 @@ def check_desktop(browser):
     wait_for_app(page, "#salon-desktop-v1")
     page.locator('[data-desktop-lang="ru"]').first.click()
     page.wait_for_timeout(150)
-    expect_text(page.locator(".std-header-brand-main"), "Люмен", "desktop brand in Russian")
+    logo = page.locator(".std-header-brand-main img")
+    assert logo.count() == 1, "desktop header logo is missing"
+    assert (logo.first.get_attribute("alt") or "").strip() == "Люмен", "desktop header logo alt is incorrect"
+    assert page.locator("#stdHeroMedia").first.get_attribute("src") == "tests/fixtures/photo.svg", "desktop heroDesktop media is not applied"
     assert page.locator("#stdServiceList .dct-service-card").count() == 3
     assert page.locator("#salonDesktopTeam").is_hidden()
     assert page.locator("#salonDesktopPortfolio").is_hidden()
