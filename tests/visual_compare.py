@@ -144,7 +144,7 @@ def main():
              (360, 740, True), (375, 812, True),
              (390, 844, True), (414, 896, True)]
     errors = []
-    with urlopen(args.baseline + "site-data.js", timeout=10) as response:
+    with urlopen(args.baseline.rstrip("/") + "/site-data.js", timeout=10) as response:
         approved_data = response.read().decode("utf-8")
     with sync_playwright() as p:
         browser = getattr(p, args.engine).launch(headless=True)
