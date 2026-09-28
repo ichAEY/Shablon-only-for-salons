@@ -1399,7 +1399,12 @@
     }
 
     const titles={ru:'SALON NAME — Город',hy:'SALON NAME — Քաղաք',en:'SALON NAME — City'};
-    document.title=titles[currentDesktopLang]||titles.hy;
+    const productionSite=window.TANEM_SITE_DATA?.mode==='production'?window.TANEM_SITE_DATA:null;
+    if(productionSite){
+      const localized=(value)=>typeof value==='string'?value:(value?.[currentDesktopLang]||value?.ru||'');
+      const name=localized(productionSite.salon?.name),city=localized(productionSite.salon?.city);
+      document.title=name+(city?' — '+city:'');
+    }else document.title=titles[currentDesktopLang]||titles.hy;
   }
   root.querySelectorAll('.std-lang-switch [data-desktop-lang]').forEach(btn=>btn.addEventListener('click',()=>{
     currentDesktopLang=btn.dataset.desktopLang;
