@@ -244,15 +244,19 @@ html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-title spa
   color:#66615D!important;
 }
 html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tabs-wrap {
-  background:rgba(241,236,229,.97)!important;
-  box-shadow:0 9px 24px rgba(37,37,37,.08)!important;
+  background:#F1ECE5!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
 }
 html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tabs {
-  border-color:rgba(37,37,37,.15)!important;
+  border:0!important;background:transparent!important;
+  overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;
 }
 html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tab {
-  background:transparent!important;
-  color:#252525!important;
+  flex:1 0 max-content!important;min-width:max-content!important;padding-inline:12px!important;
+  font-size:12.1px!important;line-height:1.15!important;white-space:nowrap!important;
+  background:transparent!important;color:#252525!important;
 }
 html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tab.active {
   background:#252525!important;
@@ -326,4 +330,16 @@ html[data-br-device="mobile"] #salon-mobile #tn13Top .tn22-cta>span {
 }
 @media(prefers-reduced-motion:reduce) {
   html[data-br-device="mobile"] #salon-mobile #tn13Top .tn22-cta::after {animation:none!important}
+}
+
+/* Mobile master detail tabs: the last pill can scroll fully into view
+   at the right screen edge without altering the existing pill spacing. */
+html[data-br-device="mobile"] #salon-mobile .tn22-master-tabs {
+  margin-right:-20px!important;padding-right:12px!important;box-sizing:border-box!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  -webkit-mask-image:none!important;mask-image:none!important;scrollbar-width:none!important;
+}
+html[data-br-device="mobile"] #salon-mobile .tn22-master-tabs::-webkit-scrollbar{display:none!important}
+html[data-br-device="mobile"] #salon-mobile .tn22-master-tabs button{
+  flex-shrink:0!important;white-space:nowrap!important;
 }
