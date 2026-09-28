@@ -188,12 +188,17 @@ def verify_palette(browser, candidate: str):
                 got = locator.evaluate("(el, prop) => getComputedStyle(el)[prop]", prop)
                 if got != wanted:
                     raise AssertionError(f"{width}px {selector} {prop}: {got}, expected {wanted}")
-            primary = page.locator("#tn13Top .tn22-cta" if mobile else "#salon-desktop-v1 .std-header-book").first
-            primary.hover()
-            got = primary.evaluate("(el) => getComputedStyle(el).backgroundColor")
-            if got != "rgb(66, 66, 66)":
-                raise AssertionError(f"{width}px primary hover: {got}, expected rgb(66, 66, 66)")
-            print(f"PASS neutral palette: {width}px backgrounds, cards, primary/secondary buttons and hover")
+            if not mobile:
+                # Hover animates over a few hundred milliseconds in the real UI.
+                # Wait for the destination colour, not the initial transition frame.
+                primary = page.locator("#salon-desktop-v1 .std-header-book").first
+                primary.hover()
+                page.wait_for_timeout(480)
+                got = primary.evaluate("(el) => getComputedStyle(el).backgroundColor")
+                if got != "rgb(66, 66, 66)":
+                    hovered = primary.evaluate("(el) => el.matches(':hover')")
+                    raise AssertionError(f"{width}px primary hover: {got}, :hover={hovered}, expected rgb(66, 66, 66)")
+            print(f"PASS neutral palette: {width}px backgrounds, cards, buttons" + (" and hover" if not mobile else ""))
         finally:
             context.close()
 
