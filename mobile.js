@@ -885,6 +885,7 @@ services.insertAdjacentElement('afterend',about);
     ['Наращивание ресниц','Թարթիչների երկարացում','Eyelash extensions']
   ];
 
+  rows.push(...(window.TANEM_SITE_I18N_ROWS||[]));
   var direct={};
   rows.forEach(function(row){ direct[row[0]]=row; });
 

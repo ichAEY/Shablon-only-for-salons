@@ -97,7 +97,7 @@
     {id:'master-4',name:t('Мастер 4','Specialist 4','Մասնագետ 4'),role:t('Специалист','Specialist','Մասնագետ'),about:t(''),categories:['Брови и ресницы'],work:[],reviewIds:[]}
   ];
 
-  global.TANEM_SITE_DATA={
+  const siteData={
     schemaVersion:1,
     mode:'template',
     locales:['ru','en','hy'],
@@ -134,4 +134,23 @@
     team,
     reviews
   };
+
+  const localizedRows=[];
+  const collect=value=>{
+    if(!value||typeof value!=='object')return;
+    if(typeof value.ru==='string'&&typeof value.en==='string'&&typeof value.hy==='string'){
+      if(value.ru)localizedRows.push([value.ru,value.hy,value.en]);
+      return;
+    }
+    if(Array.isArray(value))value.forEach(collect);
+    else Object.values(value).forEach(collect);
+  };
+  collect(siteData.salon);
+  collect(siteData.categoryLabels);
+  collect(siteData.services);
+  collect(siteData.team);
+  collect(siteData.contacts);
+
+  global.TANEM_SITE_DATA=siteData;
+  global.TANEM_SITE_I18N_ROWS=localizedRows;
 })(window);

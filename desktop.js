@@ -1297,6 +1297,7 @@
   ];
   const desktopLangIndex={ru:0,hy:1,en:2};
   const desktopDirect={};
+  DESKTOP_I18N_ROWS.push(...(window.TANEM_SITE_I18N_ROWS||[]));
   DESKTOP_I18N_ROWS.forEach(row=>desktopDirect[row[0]]=row);
 
   function desktopDetectLanguage(){
@@ -1449,7 +1450,6 @@
   }
   updateStatus();
 })();
-
 
 
 

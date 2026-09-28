@@ -28,7 +28,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
 <script src="site-data.js?v=factory-20260928-v1"></script>
 <script>
 (()=>{
- const desktop=!!(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches);
+ const desktop=!!(window.matchMedia&&(matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(min-width:1024px)').matches));
  window.__BR_DESKTOP_DEVICE__=desktop;
  document.documentElement.dataset.brDevice=desktop?'desktop':'mobile';
  if(!desktop){
@@ -87,7 +87,13 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
  }
  const script=document.createElement('script');
  script.src=desktop?'desktop.js?v=deep-clean-20260928-v4':'mobile.js?v=deep-clean-20260928-v4';
- script.async=false;script.onload=loaded;
+ script.async=false;script.onload=()=>{
+   const runtime=document.createElement('script');
+   runtime.src='site-runtime.js?v=factory-20260928-v1';
+   runtime.async=false;runtime.onload=loaded;
+   runtime.onerror=()=>{if(closed)error.classList.add('is-visible')};
+   document.body.appendChild(runtime);
+ };
  script.onerror=()=>{if(closed)error.classList.add('is-visible')};
  document.body.appendChild(script);
 })();
