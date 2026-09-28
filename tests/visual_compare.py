@@ -88,6 +88,12 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool,
             raise AssertionError(name + ": gallery star lost its approved white hover")
         page.locator("#stdStickyGalleryOpen").click(timeout=12000)
         page.locator("#stdGalleryBrowser.open").wait_for(timeout=8000)
+        # Lazy-loaded SVG tiles can be captured before their first decode on CI.
+        # Wait for every gallery tile to paint before comparing pixels.
+        page.locator("#stdGalleryBrowserGrid img").evaluate_all(
+            "(imgs) => Promise.all(imgs.map(img => {img.loading = 'eager'; return img.decode().catch(() => {});} ))"
+        )
+        page.wait_for_timeout(250)
         images["gallery-open"] = page.screenshot(animations="disabled")
 
     if mobile and width == 390:
