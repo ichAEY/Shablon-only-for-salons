@@ -21,7 +21,9 @@ def wait_for_app(page, root):
 def check_desktop(browser):
     page = browser.new_page(viewport={"width": 1366, "height": 900}, locale="ru-RU")
     wait_for_app(page, "#salon-desktop-v1")
-    assert page.locator(".std-header-brand-main").inner_text() == "Lumen"
+    page.locator('[data-desktop-lang="ru"]').first.click()
+    page.wait_for_timeout(150)
+    assert page.locator(".std-header-brand-main").text_content().strip() == "Люмен"
     assert page.locator("#stdServiceList .dct-service-card").count() == 3
     assert page.locator("#salonDesktopTeam").is_hidden()
     assert page.locator("#salonDesktopPortfolio").is_hidden()
@@ -31,15 +33,13 @@ def check_desktop(browser):
     page.locator("#stdHeaderBookBtn").click()
     assert page.locator("#stdBookOverlay .std-book-options a").count() == 4
     assert page.locator("#stdBookOverlay .std-book-options a").first.get_attribute("href") == "tel:+37410555555"
-    page.locator('[data-desktop-lang="ru"]').first.click()
-    page.wait_for_timeout(100)
-    assert page.locator(".std-header-brand-main").inner_text() == "Люмен"
-    assert page.locator(".std-address").inner_text().startswith("Ереван")
-    assert page.locator("#stdServiceList .dct-service-card-title").first.inner_text() == "Стрижка"
+    page.locator("#stdBookClose").click()
+    assert page.locator(".std-address").inner_text().strip().startswith("Ереван")
+    assert page.locator("#stdServiceList .dct-service-card-title").first.text_content().strip() == "Стрижка"
     page.locator('[data-desktop-lang="en"]').first.click()
-    page.wait_for_timeout(100)
-    assert page.locator(".std-address").inner_text().startswith("Yerevan")
-    assert page.locator("#stdServiceList .dct-service-card-title").first.inner_text() == "Haircut"
+    page.wait_for_timeout(150)
+    assert page.locator(".std-address").inner_text().strip().startswith("Yerevan")
+    assert page.locator("#stdServiceList .dct-service-card-title").first.text_content().strip() == "Haircut"
     page.close()
 
 
@@ -47,7 +47,9 @@ def check_mobile(browser):
     context = browser.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True, locale="ru-RU")
     page = context.new_page()
     wait_for_app(page, "#salon-mobile")
-    assert page.locator(".tn22-title").inner_text() == "Люмен"
+    page.locator('[data-lang="ru"]').click()
+    page.wait_for_timeout(150)
+    assert page.locator(".tn22-title").text_content().strip() == "Люмен"
     assert page.locator("#tn13Services .tn31-service-row").count() == 3
     assert page.locator("#tn13Team").is_hidden()
     assert page.locator("#tn13Portfolio").is_hidden()
@@ -55,10 +57,11 @@ def check_mobile(browser):
     assert page.locator("#tn13Reviews .br-review-meta span").first.inner_text() == "Google"
     page.locator(".tn22-cta").click()
     assert page.locator("#tn13BookSheet .tn50-book-option").count() == 4
+    page.locator("#tn13BookClose").click()
     page.locator('[data-lang="en"]').click()
-    page.wait_for_timeout(100)
-    assert page.locator(".tn37-location .tn37-info-copy").inner_text().startswith("Yerevan")
-    assert page.locator("#tn13Services .tn31-service-name").first.inner_text() == "Haircut"
+    page.wait_for_timeout(150)
+    assert page.locator(".tn37-location .tn37-info-copy").inner_text().strip().startswith("Yerevan")
+    assert page.locator("#tn13Services .tn31-service-name").first.text_content().strip() == "Haircut"
     context.close()
 
 
