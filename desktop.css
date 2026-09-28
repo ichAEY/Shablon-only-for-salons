@@ -6031,3 +6031,22 @@ body[data-br-lang="en"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!importa
     opacity:1!important;
   }
 }
+
+/* TANEM factory: equal-width categories only when All + 1–2 categories fit.
+   Original overflowing ribbon, edge fade and interaction remain untouched for 4+. */
+#salonDesktopServices .mct-tabs-ribbon-wrap.is-compact{
+  width:100%!important;max-width:100%!important;min-width:0!important;
+}
+#salonDesktopServices .mct-tabs-ribbon-wrap.is-compact .mct-tabs{
+  width:100%!important;max-width:100%!important;overflow:visible!important;
+}
+#salonDesktopServices .mct-tabs-ribbon-wrap.is-compact #stdServiceTabs{
+  display:grid!important;grid-template-columns:repeat(var(--salon-service-tab-count,3),minmax(0,1fr))!important;
+  column-gap:10px!important;width:100%!important;max-width:100%!important;
+  padding-right:0!important;overflow:visible!important;
+}
+#salonDesktopServices .mct-tabs-ribbon-wrap.is-compact #stdServiceTabs .mct-tab{
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  padding-inline:8px!important;white-space:nowrap!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;
+}

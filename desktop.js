@@ -782,6 +782,14 @@
   }
 
   function renderDesktopServices(){
+    // When there are only “All” plus up to two categories, share the exact
+    // available service-card width evenly. Keep the original blurred rail for many.
+    const ribbon=serviceTabs.closest('.mct-tabs-ribbon-wrap');
+    const compact=DESKTOP_SERVICE_TABS.length<=3;
+    ribbon?.classList.toggle('is-compact',compact);
+    ribbon?.classList.toggle('is-many',!compact);
+    serviceTabs.closest('.mct-tabs')?.classList.toggle('is-many',!compact);
+    serviceTabs.style.setProperty('--salon-service-tab-count',String(DESKTOP_SERVICE_TABS.length));
     serviceTabs.innerHTML=DESKTOP_SERVICE_TABS.map(cat=>
       '<button class="mct-tab'+(cat==='Все'?' mct-tab-all':'')+(cat===activeServiceCategory?' is-active':'')+'" type="button" role="tab" aria-selected="'+(cat===activeServiceCategory?'true':'false')+'" data-service-category="'+cat+'">'+cat+'</button>'
     ).join('');
