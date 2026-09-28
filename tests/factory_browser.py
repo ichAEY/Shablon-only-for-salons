@@ -8,6 +8,11 @@ from playwright.sync_api import sync_playwright
 BASE_URL = os.environ.get("FACTORY_SITE_URL", "http://127.0.0.1:4175")
 
 
+def expect_text(locator, expected, label):
+    actual = (locator.text_content() or "").strip()
+    assert actual == expected, f"{label}: expected {expected!r}, got {actual!r}"
+
+
 def wait_for_app(page, root):
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
@@ -23,23 +28,23 @@ def check_desktop(browser):
     wait_for_app(page, "#salon-desktop-v1")
     page.locator('[data-desktop-lang="ru"]').first.click()
     page.wait_for_timeout(150)
-    assert page.locator(".std-header-brand-main").text_content().strip() == "Люмен"
+    expect_text(page.locator(".std-header-brand-main"), "Люмен", "desktop brand in Russian")
     assert page.locator("#stdServiceList .dct-service-card").count() == 3
     assert page.locator("#salonDesktopTeam").is_hidden()
     assert page.locator("#salonDesktopPortfolio").is_hidden()
-    assert page.locator(".std-reviews-score strong").inner_text() == "5"
-    assert page.locator(".std-review-meta").first.inner_text() == "Google"
+    expect_text(page.locator(".std-reviews-score strong"), "5", "desktop rating")
+    expect_text(page.locator(".std-review-meta").first, "Google", "desktop review source")
     assert page.locator(".std-phone").get_attribute("href") == "tel:+37410555555"
     page.locator("#stdHeaderBookBtn").click()
     assert page.locator("#stdBookOverlay .std-book-options a").count() == 4
     assert page.locator("#stdBookOverlay .std-book-options a").first.get_attribute("href") == "tel:+37410555555"
     page.locator("#stdBookClose").click()
     assert page.locator(".std-address").inner_text().strip().startswith("Ереван")
-    assert page.locator("#stdServiceList .dct-service-card-title").first.text_content().strip() == "Стрижка"
+    expect_text(page.locator("#stdServiceList .dct-service-card-title").first, "Стрижка", "desktop service in Russian")
     page.locator('[data-desktop-lang="en"]').first.click()
     page.wait_for_timeout(150)
     assert page.locator(".std-address").inner_text().strip().startswith("Yerevan")
-    assert page.locator("#stdServiceList .dct-service-card-title").first.text_content().strip() == "Haircut"
+    expect_text(page.locator("#stdServiceList .dct-service-card-title").first, "Haircut", "desktop service in English")
     page.close()
 
 
@@ -49,19 +54,19 @@ def check_mobile(browser):
     wait_for_app(page, "#salon-mobile")
     page.locator('[data-lang="ru"]').click()
     page.wait_for_timeout(150)
-    assert page.locator(".tn22-title").text_content().strip() == "Люмен"
+    expect_text(page.locator(".tn22-title"), "Люмен", "mobile brand in Russian")
     assert page.locator("#tn13Services .tn31-service-row").count() == 3
     assert page.locator("#tn13Team").is_hidden()
     assert page.locator("#tn13Portfolio").is_hidden()
     assert page.locator("#tn13Reviews .br-review-card").count() >= 3
-    assert page.locator("#tn13Reviews .br-review-meta span").first.inner_text() == "Google"
+    expect_text(page.locator("#tn13Reviews .br-review-meta span").first, "Google", "mobile review source")
     page.locator(".tn22-cta").click()
     assert page.locator("#tn13BookSheet .tn50-book-option").count() == 4
     page.locator("#tn13BookClose").click()
     page.locator('[data-lang="en"]').click()
     page.wait_for_timeout(150)
     assert page.locator(".tn37-location .tn37-info-copy").inner_text().strip().startswith("Yerevan")
-    assert page.locator("#tn13Services .tn31-service-name").first.text_content().strip() == "Haircut"
+    expect_text(page.locator("#tn13Services .tn31-service-name").first, "Haircut", "mobile service in English")
     context.close()
 
 
