@@ -69,7 +69,7 @@
     contacts:{phone:'',phoneLabel:t('Телефон салона','Salon phone','Սրահի հեռախոս'),messengerUrl:'',messengerLabel:t('Мессенджер','Messenger','Մեսենջեր'),mapUrl:'',reviewsUrl:'',booking:[]},
     rating:{value:null,count:0},
     media:{
-      logo:'logo-placeholder.svg',hero:[placeholderSalon(),placeholderWork()],about:placeholder,
+      logo:'logo-placeholder.svg',hero:[placeholderSalon(),placeholderWork()],heroDesktop:'',about:placeholder,
       portfolio:Array.from({length:7},placeholderWork),
       gallery:{
         'Салон':Array.from({length:2},placeholderSalon),

@@ -34,6 +34,7 @@
     media:{
       logo:'tests/fixtures/logo.svg',
       hero:[photo('Интерьер салона','Salon interior','Սրահի ինտերիեր')],
+      heroDesktop:'tests/fixtures/photo.svg',
       about:'tests/fixtures/photo.svg',
       portfolio:[],
       gallery:{},
