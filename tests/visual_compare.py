@@ -253,10 +253,10 @@ def verify_mobile_category_rails(page, width: int):
     })""")
     if len(category_metrics) != 4 or not any(x["name"] in ("Брови и ресницы", "Brows and Lashes") for x in category_metrics):
         raise AssertionError(f"{width}px: missing approved demo categories: {category_metrics}")
-    if any(abs(x["font"]-10.5) > .05 or abs(x["height"]-35) > .5
+    if any(abs(x["font"]-11.55) > .05 or abs(x["height"]-35) > .5
            or abs(x["padding"]-15) > .5 or x["whitespace"] != "nowrap"
            or x["flexShrink"] != "0" or x["clipped"] for x in category_metrics):
-        raise AssertionError(f"{width}px: categories differ from Esmeralda geometry: {category_metrics}")
+        raise AssertionError(f"{width}px: categories differ from approved Esmeralda geometry with 10% larger font: {category_metrics}")
     rail_style = service_rail.evaluate("""rail => {
         const s=getComputedStyle(rail);
         return {display:s.display,gap:parseFloat(s.columnGap),overflow:s.overflowX,

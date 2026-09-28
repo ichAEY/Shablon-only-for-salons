@@ -300,7 +300,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
 
 /* Mobile service categories: copy the independent, horizontally scrollable
    pills from Beauty Room by Esmeralda (35px high, 15px side padding, 8px gap,
-   Manrope 10.5px). No forced grid or compression for 1-4 categories. */
+   Manrope 11.55px, 10% above Esmeralda base). No forced grid or compression for 1-4 categories. */
 @media(max-width:1023px){
  #salon-mobile #tn13Services .tn31-cats{
   display:flex!important;align-items:center!important;justify-content:flex-start!important;
@@ -313,7 +313,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
  #salon-mobile #tn13Services .tn31-cat{
   flex:0 0 auto!important;width:max-content!important;min-width:max-content!important;
   height:35px!important;padding:0 15px!important;
-  font:500 10.5px/1 'Manrope',Arial,sans-serif!important;
+  font:500 11.55px/1 'Manrope',Arial,sans-serif!important;
   white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important;
   text-align:center!important;
  }
