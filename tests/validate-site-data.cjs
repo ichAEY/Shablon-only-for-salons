@@ -6,6 +6,7 @@ const path=require('node:path');
 const vm=require('node:vm');
 
 const REQUIRED_LOCALES=['ru','en','hy'];
+const COUNTRY_LOCALES=Object.freeze({RU:['ru','en'],AM:['ru','en','hy'],UZ:['ru','en','uz'],TJ:['ru','en','tg']});
 const PLACEHOLDER_MEDIA=new Set(['media-placeholder.svg','logo-placeholder.svg']);
 const PLACEHOLDER_RULES=[
   {test:value=>/SALON NAME/i.test(value),label:'SALON NAME'},
@@ -32,6 +33,8 @@ function loadSiteData(filePath){
 function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}){
   const errors=[];
   const production=data?.mode==='production';
+  const country=typeof data?.country==='string'?data.country.trim().toUpperCase():'';
+  const requiredLocales=COUNTRY_LOCALES[country]||REQUIRED_LOCALES;
   const add=(field,message)=>errors.push(`${field}: ${message}`);
   const isObject=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
   const nonEmpty=value=>typeof value==='string'&&value.trim().length>0;
@@ -52,11 +55,11 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   function local(value,field,{required=false}={}){
     if(typeof value==='string'){
       if(required&&!value.trim())add(field,'must not be empty');
-      if(production&&required)add(field,'must provide ru, en and hy translations');
+      if(production&&required)add(field,`must provide ${requiredLocales.join(', ')} translations`);
       return;
     }
     if(!object(value,field))return;
-    for(const locale of REQUIRED_LOCALES){
+    for(const locale of requiredLocales){
       if(typeof value[locale]!=='string')add(`${field}.${locale}`,'must be a string');
       else if(required&&!value[locale].trim())add(`${field}.${locale}`,'must not be empty');
     }
@@ -98,8 +101,13 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   if(!object(data,'TANEM_SITE_DATA'))return errors;
   if(data.schemaVersion!==1)add('schemaVersion','must equal 1');
   if(!['template','production'].includes(data.mode))add('mode','must be template or production');
-  if(array(data.locales,'locales'))for(const locale of REQUIRED_LOCALES)if(!data.locales.includes(locale))add('locales',`must include ${locale}`);
-  if(!REQUIRED_LOCALES.includes(data.defaultLocale))add('defaultLocale','must be ru, en or hy');
+  if(country&&!COUNTRY_LOCALES[country])add('country','unsupported country; use RU, AM, UZ or TJ');
+  if(array(data.locales,'locales')){
+    for(const locale of requiredLocales)if(!data.locales.includes(locale))add('locales',`must include ${locale} for ${country||'legacy configuration'}`);
+    if(country&&(data.locales.length!==requiredLocales.length||data.locales.some(locale=>!requiredLocales.includes(locale))))
+      add('locales',`country ${country} must have exactly ${requiredLocales.join(', ')}`);
+  }
+  if(!requiredLocales.includes(data.defaultLocale))add('defaultLocale',`must be one of ${requiredLocales.join(', ')}`);
 
   if(object(data.salon,'salon')){
     ['name','kind','city','address','heroDescription','about'].forEach(key=>local(data.salon[key],`salon.${key}`,{required:production}));
