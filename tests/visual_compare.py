@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import subprocess
 
 from PIL import Image, ImageChops
 from playwright.sync_api import sync_playwright
@@ -12,7 +13,7 @@ OUT = Path("test-artifacts/visual")
 OUT.mkdir(parents=True, exist_ok=True)
 
 
-def capture(browser, url: str, name: str, width: int, height: int, mobile: bool):
+def capture(browser, url: str, name: str, width: int, height: int, mobile: bool, approved_data: str | None = None):
     context = browser.new_context(
         viewport={"width": width, "height": height},
         device_scale_factor=1,
@@ -22,6 +23,10 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
         locale="ru-RU",
     )
     page = context.new_page()
+    # Render both revisions with identical approved demo content. This isolates
+    # visual regressions from the deliberate reduction to four neutral cards.
+    if approved_data is not None:
+        page.route("**/site-data.js*", lambda route: route.fulfill(status=200, content_type="application/javascript", body=approved_data))
     page.goto(url, wait_until="domcontentloaded", timeout=30000)
     root = "#salon-mobile" if mobile else "#salon-desktop-v1"
     section = "#tn13Services" if mobile else "#salonDesktopServices"
@@ -83,6 +88,12 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool)
             raise AssertionError(name + ": gallery star lost its approved white hover")
         page.locator("#stdStickyGalleryOpen").click(timeout=12000)
         page.locator("#stdGalleryBrowser.open").wait_for(timeout=8000)
+        # Lazy-loaded SVG tiles can be captured before their first decode on CI.
+        # Wait for every gallery tile to paint before comparing pixels.
+        page.locator("#stdGalleryBrowserGrid img").evaluate_all(
+            "(imgs) => Promise.all(imgs.map(img => {img.loading = 'eager'; return img.decode().catch(() => {});} ))"
+        )
+        page.wait_for_timeout(250)
         images["gallery-open"] = page.screenshot(animations="disabled")
 
     if mobile and width == 390:
@@ -139,13 +150,19 @@ def main():
              (360, 740, True), (375, 812, True),
              (390, 844, True), (414, 896, True)]
     errors = []
+    # The historical approved baseline predates site-data.js. Obtain the
+    # factory-approved dataset from the first published factory commit instead.
+    approved_data = subprocess.check_output(
+        ["git", "show", "4bf5f867c0217a4a478a6ab9a5d6b4aad49d4042:site-data.js"],
+        text=True,
+    )
     with sync_playwright() as p:
         browser = getattr(p, args.engine).launch(headless=True)
         try:
             for w, h, mobile in cases:
                 key = f"{'mobile' if mobile else 'desktop'}-{w}"
                 baseline = capture(browser, args.baseline, key+"-approved", w, h, mobile)
-                candidate = capture(browser, args.candidate, key+"-cleaned", w, h, mobile)
+                candidate = capture(browser, args.candidate, key+"-cleaned", w, h, mobile, approved_data)
                 for item in baseline:
                     try:
                         compare(baseline[item], candidate[item], key+"-"+item)

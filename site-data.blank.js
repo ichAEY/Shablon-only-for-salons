@@ -2,11 +2,12 @@
   'use strict';
   // Fill client information in this file, then rename it to site-data.js.
   // Never publish a client site while mode is 'template'.
-  const t=(ru='',en='',hy='')=>({ru,en,hy});
+  const t=(ru='',en='',hy='',uz='',tg='')=>({ru,en,hy,uz,tg});
   const data={
     schemaVersion:1,
     mode:'template',
-    locales:['ru','en','hy'],
+    country:'RU', // RU: ru/en; AM: ru/en/hy; UZ: ru/en/uz; TJ: ru/en/tg
+    locales:['ru','en'],
     defaultLocale:'ru',
     salon:{name:t(),kind:t(),city:t(),address:t(),heroDescription:t(),about:t()},
     schedule:{timezone:'Europe/Moscow',periods:[],fallback:t()},

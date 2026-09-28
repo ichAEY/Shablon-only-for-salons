@@ -152,8 +152,9 @@ window.addEventListener('scroll',()=>{if(!navRaf)navRaf=requestAnimationFrame(up
 const port=$('#tn13Portfolio');port.innerHTML=`<div class="tn22-port"><p class="tn22-kicker">Портфолио</p><h2>Наши работы</h2><div class="tn22-port-grid">${PORTFOLIO.map((x,i)=>`<button class="tn22-photo" type="button" data-pi="${i}"><img loading="lazy" decoding="async" src="${x.src}" alt="${x.alt}"></button>`).join('')}</div><button class="tn22-port-all" type="button">Открыть галерею <span>→</span></button></div>`;port.querySelectorAll('[data-pi]').forEach(b=>b.onclick=()=>openViewer(PORTFOLIO,+b.dataset.pi,'portfolio'));port.querySelector('.tn22-port-all').onclick=()=>openGallery('Салон');
 
 // SERVICES
-const serv=$('#tn13Services');let serviceCat='Волосы',servicesExpanded=false;
-const SERVICE_CATS=['Волосы',...[...new Set(SERVICES.map(s=>s.cat))].filter(c=>c!=='Волосы')];
+const serv=$('#tn13Services');
+const SERVICE_CATS=SITE.categoryOrder.filter(c=>SERVICES.some(s=>s.cat===c));
+let serviceCat=SERVICE_CATS[0]||'',servicesExpanded=false;
 serv.innerHTML=`<div class="tn31-services"><p class="tn22-kicker">Услуги</p><h2>Наши услуги</h2><div class="tn31-cats-wrap"><div class="tn31-cats"></div></div><div class="tn31-service-list"></div><button class="tn31-service-more" type="button"><span class="tn31-more-text"></span><span aria-hidden="true">↓</span></button></div>`;
 const scats=serv.querySelector('.tn31-cats'),slist=serv.querySelector('.tn31-service-list'),sMore=serv.querySelector('.tn31-service-more');
 function splitServiceTitle(raw){const parts=String(raw).split(' — ');const main=parts.shift()||raw;let detail=parts.join(' — ');if(!detail&&main.length>48){const m=main.match(/^(.*?)(\s\([^)]{5,}\)|\sBrazilian Blowout)$/i);if(m)return {main:m[1],detail:m[2].trim()}}return {main,detail}}
@@ -729,6 +730,7 @@ services.insertAdjacentElement('afterend',about);
   if(window.__BR_DESKTOP_DEVICE__===true) return;
 
   var STORAGE_KEY='salon-template-language';
+  var REGION=window.TANEM_REGION||{locales:['ru','en','hy'],fallback:'en',labels:{ru:'RU',en:'EN',hy:'HY'},resolve:value=>value,ui:()=>null};
   var currentLang='hy';
   var root=null;
 
@@ -896,12 +898,12 @@ services.insertAdjacentElement('afterend',about);
   var direct={};
   rows.forEach(function(row){ direct[row[0]]=row; });
 
-  var langIndex={ru:0,hy:1,en:2};
+  var langIndex={ru:0,hy:1,en:2,uz:2,tg:2};
 
   function getSaved(){
     try{
       var v=localStorage.getItem(STORAGE_KEY);
-      return /^(hy|ru|en)$/.test(v||'')?v:null;
+      return REGION.locales.includes(v)?v:null;
     }catch(_){ return null; }
   }
 
@@ -909,9 +911,8 @@ services.insertAdjacentElement('afterend',about);
     var saved=getSaved();
     if(saved) return saved;
     var langs=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en']).map(function(x){return String(x||'').toLowerCase()});
-    if(langs.some(function(x){return x.indexOf('hy')===0})) return 'hy';
-    if(langs.some(function(x){return x.indexOf('ru')===0})) return 'ru';
-    return 'en';
+    for(var lang of ['hy','uz','tg','ru','en'])if(REGION.locales.includes(lang)&&langs.some(function(x){return x.indexOf(lang)===0}))return lang;
+    return REGION.locales.includes('en')?'en':REGION.fallback;
   }
 
   function save(lang){
@@ -938,11 +939,14 @@ services.insertAdjacentElement('afterend',about);
   }
 
   function canTranslate(source){
-    return !!direct[source] || dynamicValue(source,'ru')!==null;
+    return !!direct[source] || dynamicValue(source,'ru')!==null || !!REGION.ui(source,'uz') || !!REGION.ui(source,'tg');
   }
 
   function outputFor(source,lang){
     var row=direct[source];
+    if(source==='Наша команда')return lang==='ru'?'Наша команда':'Our Team';
+    var special=REGION.ui(source,lang,row&&row[2]);
+    if(special!==null)return special;
     if(row) return row[langIndex[lang]];
     var dyn=dynamicValue(source,lang);
     return dyn===null?source:dyn;
@@ -1032,7 +1036,8 @@ services.insertAdjacentElement('afterend',about);
     sw.className='br-lang-switch';
     sw.setAttribute('role','group');
     sw.setAttribute('aria-label','Language');
-    sw.innerHTML='<button type="button" data-lang="hy">HY</button><span class="sep">/</span><button type="button" data-lang="ru">RU</button><span class="sep">/</span><button type="button" data-lang="en">EN</button>';
+    var order=REGION.locales.includes('hy')?['hy','ru','en']:REGION.locales;
+    sw.innerHTML=order.map(function(lang,index){return (index?'<span class="sep">/</span>':'')+'<button type="button" data-lang="'+lang+'">'+REGION.labels[lang]+'</button>'}).join('');
     sw.addEventListener('pointerdown',function(e){e.stopPropagation();});
     sw.addEventListener('click',function(e){
       var btn=e.target.closest('[data-lang]');
@@ -1083,7 +1088,7 @@ services.insertAdjacentElement('afterend',about);
   }
 
   function updateMeta(){
-    var m=meta[currentLang]||meta.hy;
+    var m=meta[currentLang]||meta.en;
     document.documentElement.lang=currentLang;
     document.documentElement.dir='ltr';
     document.title=m.title;
@@ -1106,7 +1111,7 @@ services.insertAdjacentElement('afterend',about);
   }
 
   function setLanguage(lang,userChoice){
-    if(!/^(hy|ru|en)$/.test(lang)) lang='en';
+    lang=REGION.resolve(lang);
     currentLang=lang;
     if(userChoice) save(lang);
     applyLanguage();

@@ -4,9 +4,10 @@
   const data=window.TANEM_SITE_DATA;
   if(!data||data.mode!=='production')return;
 
+  const REGION=window.TANEM_REGION||{locales:data.locales||['ru','en','hy'],fallback:data.defaultLocale||'ru',resolve:lang=>lang};
   const currentLang=()=>{
-    const raw=(document.body.dataset.brLang||document.documentElement.lang||data.defaultLocale||'ru').toLowerCase();
-    return raw.startsWith('hy')?'hy':raw.startsWith('en')?'en':'ru';
+    const raw=(document.body.dataset.brLang||document.documentElement.lang||REGION.fallback||'ru').toLowerCase();
+    return REGION.resolve(raw);
   };
   const text=(value,lang=currentLang())=>{
     if(value==null)return '';
