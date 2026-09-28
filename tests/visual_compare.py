@@ -241,7 +241,7 @@ def verify_mobile_category_rails(page, width: int):
             padding:parseFloat(style.paddingLeft), whitespace:style.whiteSpace,
             clipped:el.scrollWidth>el.clientWidth+1};
     })""")
-    if len(category_metrics) != 4 or not any(x["name"] == "Брови и ресницы" for x in category_metrics):
+    if len(category_metrics) != 4 or not any(x["name"] in ("Брови и ресницы", "Brows and Lashes") for x in category_metrics):
         raise AssertionError(f"{width}px: missing approved demo categories: {category_metrics}")
     if any(x["font"] < 10.5 or x["padding"] < 15 or x["whitespace"] != "nowrap"
            or x["clipped"] for x in category_metrics):
