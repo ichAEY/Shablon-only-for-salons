@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f8f4ee">
+<meta name="theme-color" content="#FAF9F6">
 <title>SALON NAME — цифровой офис</title>
 <meta name="description" content="Универсальный шаблон цифрового офиса салона красоты.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +12,8 @@
 <link rel="preload" href="media-placeholder.svg" as="image" type="image/svg+xml" fetchpriority="high">
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:#fafaf9;color:#181818;font-family:Manrope,Arial,sans-serif}
-#brBootIntro{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:#fafaf9;opacity:1;transition:opacity .24s ease;pointer-events:auto}
+html,body{margin:0;min-height:100%;background:#FAF9F6;color:#252525;font-family:Manrope,Arial,sans-serif}
+#brBootIntro{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:#FAF9F6;opacity:1;transition:opacity .24s ease;pointer-events:auto}
 #brBootIntro img{display:block;width:min(50vw,220px);height:auto;max-height:38svh;object-fit:contain}
 html[data-br-device="desktop"] #brBootIntro{transition:opacity .40s cubic-bezier(.22,1,.36,1)}
 html[data-br-device="desktop"] #brBootIntro img{width:min(75vw,330px);max-height:48svh}
@@ -25,6 +25,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
 @media(prefers-reduced-motion:reduce){#brBootIntro{transition:none!important}}
 </style>
 <link rel="stylesheet" href="desktop.css?v=salon-final-20260928-v2" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
+<link rel="stylesheet" href="salon-palette.css?v=neutral-v2-20260928" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
 <script src="site-data.js?v=salon-final-20260928-v1"></script>
 <script src="site-regions.js?v=salon-final-20260928-v2"></script>
 <script>
@@ -41,6 +42,11 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
   preload.rel='preload';
   preload.as='style';
   preload.href='mobile-overrides.css?v=salon-final-20260928-v4';
+  const palettePreload=document.createElement('link');
+  palettePreload.rel='preload';
+  palettePreload.as='style';
+  palettePreload.href='salon-palette.css?v=neutral-v2-20260928';
+  document.head.appendChild(palettePreload);
   document.head.appendChild(preload);
  }
 })()

@@ -1,0 +1,310 @@
+/* TANEM salon palette v2 — approved neutral backgrounds and graphite buttons.
+   Kept separate from approved layout/service CSS to preserve factory baselines.
+   Loaded after desktop.css or after mobile-overrides.css. No dimensions or markup. */
+html[data-br-device="desktop"] #salon-desktop-v1,
+html[data-br-device="mobile"] #salon-mobile {
+  --tanem-bg:#FAF9F6;
+  --tanem-section:#F1ECE5;
+  --tanem-card:#FFFFFF;
+  --tanem-dark:#242424;
+  --tanem-ink:#252525;
+  --tanem-primary:#252525;
+  --tanem-primary-hover:#424242;
+  --tanem-primary-active:#161616;
+  --tanem-secondary:#EBE5DE;
+  --tanem-secondary-hover:#D9D0C6;
+  --tanem-secondary-active:#C6BEB5;
+  --tanem-inverse:#F5F2ED;
+}
+html[data-br-device="desktop"],
+html[data-br-device="desktop"] body,
+html[data-br-device="mobile"] body {
+  background-color:#FAF9F6!important;
+  color:#252525!important;
+}
+/* DESKTOP — soften the original warm gradients without removing them. */
+html[data-br-device="desktop"] #salon-desktop-v1 {
+  background:#FAF9F6!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 .std-header {
+  background:rgba(250,249,246,.96)!important;
+  border-bottom-color:rgba(37,37,37,.09)!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopTop.std-hero {
+  background:radial-gradient(ellipse 260px 520px at 0% 60%,rgba(160,148,136,.10),transparent 74%),
+    radial-gradient(ellipse 310px 560px at 102% 66%,rgba(174,158,141,.09),transparent 74%),
+    linear-gradient(105deg,#FAF9F6 0%,#F8F6F2 55%,#F1ECE5 100%)!important;
+  background-color:#FAF9F6!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopPortfolio.std-portfolio {
+  background:radial-gradient(ellipse 580px 340px at -8% 95%,rgba(174,161,146,.08),transparent 72%),
+    radial-gradient(ellipse 550px 350px at 108% 4%,rgba(179,165,150,.07),transparent 73%),
+    linear-gradient(180deg,#F8F6F2 0%,#F1ECE5 100%)!important;
+  background-color:#F1ECE5!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopAbout {
+  background:#FAF9F6!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopAbout :is(.mct-about-card,.br-about-column) {
+  background:#FFFFFF!important;
+  border-color:rgba(37,37,37,.11)!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopAbout .dct-about-amenities-grid article {
+  background:linear-gradient(145deg,#F8F6F2,#F1ECE5)!important;
+  border-color:rgba(37,37,37,.10)!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopReviews.std-reviews {
+  background:#F1ECE5!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopReviews .std-review-card {
+  background:#FFFFFF!important;
+  border-color:rgba(37,37,37,.11)!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopReviews .std-reviews-all {
+  background:transparent!important;
+  color:#252525!important;
+  border-color:#77716B!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopReviews .std-reviews-all:hover {
+  background:#EBE5DE!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #stdGalleryBrowser.std-gallery-browser,
+html[data-br-device="desktop"] #salon-desktop-v1 #stdGalleryBrowser .std-gallery-browser-shell {
+  background:#F1ECE5!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 .std-gallery-browser-tab {
+  background:#EBE5DE!important;
+  border-color:rgba(37,37,37,.16)!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 .std-gallery-browser-tab:hover:not(.active) {
+  background:#D9D0C6!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 .std-gallery-browser-tab.active,
+html[data-br-device="desktop"] #salon-desktop-v1 .std-gallery-browser-tab.active:hover {
+  background:#252525!important;
+  border-color:#252525!important;
+  color:#FFFFFF!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 :is(#salonDesktopServices,#salonDesktopTeam,#salonDesktopContacts) {
+  background:#242424!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices .dct-service-sticky-card {
+  background:radial-gradient(330px 230px at 100% 0%,rgba(255,255,255,.75),transparent 72%),
+    linear-gradient(145deg,#FAF9F6,#F1ECE5)!important;
+  border-color:rgba(37,37,37,.13)!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices :is(.dct-service-card-meta>b.is-price,.dct-service-card-variant-meta>b.is-price) {
+  background:#F5F2ED!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices :is(.mct-tab.is-active,.mct-tab-all.is-active[aria-selected="true"]) {
+  background:#F5F2ED!important;
+  border-color:#F5F2ED!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 :is(.std-header-book,.std-btn-primary,.dct-service-sticky-book,.std-master-page-book),
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices #stdStickyServiceBook {
+  background:#252525!important;
+  border-color:#252525!important;
+  color:#FFFFFF!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 :is(.std-header-book,.std-btn-primary,.dct-service-sticky-book,.std-master-page-book):hover,
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices #stdStickyServiceBook:hover {
+  background:#424242!important;
+  border-color:#424242!important;
+  color:#FFFFFF!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 :is(.std-header-book,.std-btn-primary,.dct-service-sticky-book,.std-master-page-book):active,
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices #stdStickyServiceBook:active {
+  background:#161616!important;
+  border-color:#161616!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 :is(#salonDesktopTop .std-btn:not(.std-btn-primary),#salonDesktopPortfolio .std-portfolio-more,#salonDesktopServices .dct-service-sticky-work) {
+  background:#EBE5DE!important;
+  border-color:#D9D0C6!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 :is(#salonDesktopTop .std-btn:not(.std-btn-primary),#salonDesktopPortfolio .std-portfolio-more,#salonDesktopServices .dct-service-sticky-work):hover {
+  background:#D9D0C6!important;
+  border-color:#D9D0C6!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 :is(#salonDesktopTop .std-btn:not(.std-btn-primary),#salonDesktopPortfolio .std-portfolio-more,#salonDesktopServices .dct-service-sticky-work):active {
+  background:#C6BEB5!important;
+  border-color:#C6BEB5!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices .dct-service-sticky-work:hover>span,
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices .dct-service-sticky-work:hover>span svg,
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopServices #stdStickyGalleryOpen:hover>span {
+  color:#252525!important;
+  -webkit-text-fill-color:#252525!important;
+  stroke:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopContacts .std-contact-call {
+  background:#F5F2ED!important;
+  border-color:#F5F2ED!important;
+  color:#252525!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopContacts .std-contact-call:hover {
+  background:#FFFFFF!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopContacts .std-contact-route {
+  background:transparent!important;
+  border-color:#F5F2ED!important;
+  color:#F5F2ED!important;
+}
+html[data-br-device="desktop"] #salon-desktop-v1 #salonDesktopContacts .std-contact-route:hover {
+  background:rgba(245,242,237,.12)!important;
+}
+/* MOBILE — maintain all existing motion, category sizing and price alignment. */
+html[data-br-device="mobile"] {
+  --salon-template-white:#FAF9F6;
+  --salon-template-soft:#F1ECE5;
+  --salon-template-menu:#FAF9F6;
+  --salon-template-mid:#EBE5DE;
+  --salon-template-ink:#252525;
+  --salon-template-dark:#242424;
+  background:linear-gradient(to bottom,#FAF9F6 0%,#FAF9F6 58%,#242424 100%)!important;
+}
+html[data-br-device="mobile"] #salon-mobile {
+  background:#FAF9F6!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Top,
+html[data-br-device="mobile"] #salon-mobile #tn13Top .tn22-top {
+  background:#FAF9F6!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Top .tn22-card {
+  background:linear-gradient(180deg,#FAF9F6 0%,#FAF9F6 82%,rgba(250,249,246,0) 100%)!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Top .tn22-card:after,
+html[data-br-device="mobile"] #salon-mobile #tn13Top .tn22-media.br-video-media:after {
+  background:linear-gradient(180deg,rgba(250,249,246,0),rgba(250,249,246,.48) 52%,#FAF9F6 100%)!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Portfolio {
+  background:#F1ECE5!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Portfolio:before {
+  background:linear-gradient(180deg,#FAF9F6,rgba(241,236,229,0))!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn38About {
+  background:#FAF9F6!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn38About :is(.tn42-card,.tn42-body) {
+  background:#FFFFFF!important;
+  border-color:rgba(37,37,37,.11)!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn38About .tn42-fact {
+  background:#F1ECE5!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Reviews {
+  background:#F1ECE5!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Reviews .br-review-card {
+  background:#FFFFFF!important;
+  border-color:rgba(37,37,37,.11)!important;
+}
+html[data-br-device="mobile"] #salon-mobile :is(#tn13Services,#tn13Team,#tn13Visit) {
+  background:#242424!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Sticky {
+  background:rgba(250,249,246,.97)!important;
+  border-color:rgba(37,37,37,.12)!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13BookSheet .tn13-panel {
+  background:#FAF9F6!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13BookSheet .tn50-book-option {
+  background:#FFFFFF!important;
+  border-color:rgba(37,37,37,.12)!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery {
+  background:#F1ECE5!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery {
+  background:transparent!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery :is(.tn22-gallery-back,.tn22-gallery-title strong) {
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-title span {
+  color:#66615D!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tabs-wrap {
+  background:rgba(241,236,229,.97)!important;
+  box-shadow:0 9px 24px rgba(37,37,37,.08)!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tabs {
+  border-color:rgba(37,37,37,.15)!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tab {
+  background:transparent!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tab.active {
+  background:#252525!important;
+  color:#FFFFFF!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Gallery .tn22-gallery-tile {
+  background:#EBE5DE!important;
+}
+html[data-br-device="mobile"] #salon-mobile :is(#tn13Services .tn31-cat.active,#tn13Visit .tn22-route) {
+  background:#F5F2ED!important;
+  border-color:#F5F2ED!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile :is(#tn13Top .tn22-cta,#tn13Sticky button,.tn22-master-book) {
+  background:#252525!important;
+  border-color:#252525!important;
+  color:#FFFFFF!important;
+}
+html[data-br-device="mobile"] #salon-mobile :is(#tn13Top .tn22-cta,#tn13Sticky button,.tn22-master-book):hover {
+  background:#424242!important;
+  border-color:#424242!important;
+}
+html[data-br-device="mobile"] #salon-mobile :is(#tn13Top .tn22-cta,#tn13Sticky button,.tn22-master-book):active {
+  background:#161616!important;
+  border-color:#161616!important;
+}
+html[data-br-device="mobile"] #salon-mobile :is(#tn13Top .tn22-worklink,#tn13Portfolio .tn22-port-all) {
+  background:#EBE5DE!important;
+  border-color:#D9D0C6!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile :is(#tn13Top .tn22-worklink,#tn13Portfolio .tn22-port-all):hover {
+  background:#D9D0C6!important;
+  border-color:#D9D0C6!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile :is(#tn13Top .tn22-worklink,#tn13Portfolio .tn22-port-all):active {
+  background:#C6BEB5!important;
+  border-color:#C6BEB5!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile #tn13Visit .tn22-route:hover {
+  background:#FFFFFF!important;
+  border-color:#FFFFFF!important;
+  color:#252525!important;
+}
+html[data-br-device="mobile"] #salon-mobile .tn22-view-gallery {
+  background:rgba(37,37,37,.78)!important;
+  border-color:rgba(255,255,255,.48)!important;
+  color:#FFFFFF!important;
+}

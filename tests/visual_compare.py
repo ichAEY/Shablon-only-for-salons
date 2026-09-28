@@ -26,6 +26,11 @@ def capture(browser, url: str, name: str, width: int, height: int, mobile: bool,
     # Render both revisions with identical approved demo content. This isolates
     # visual regressions from the deliberate reduction to four neutral cards.
     if approved_data is not None:
+        # Keep the frozen-baseline pixel comparison focused on structure:
+        # approved palette differences are verified separately below.
+        page.route("**/salon-palette.css*", lambda route: route.fulfill(
+            status=200, content_type="text/css", body=""
+        ))
         page.route("**/site-data.js*", lambda route: route.fulfill(status=200, content_type="application/javascript", body=approved_data))
     page.goto(url, wait_until="domcontentloaded", timeout=30000)
     root = "#salon-mobile" if mobile else "#salon-desktop-v1"
@@ -143,6 +148,56 @@ def compare(a: bytes, b: bytes, filename: str):
         )
 
 
+def verify_palette(browser, candidate: str):
+    """Check the actual, palette-enabled browser cascade on both device UIs."""
+    cases = [
+        (1366, 900, False, {
+            "#salon-desktop-v1": ("backgroundColor", "rgb(250, 249, 246)"),
+            "#salonDesktopReviews": ("backgroundColor", "rgb(241, 236, 229)"),
+            "#salonDesktopReviews .std-review-card": ("backgroundColor", "rgb(255, 255, 255)"),
+            "#salon-desktop-v1 .std-header-book": ("backgroundColor", "rgb(37, 37, 37)"),
+            "#salonDesktopTop .std-btn-primary": ("backgroundColor", "rgb(37, 37, 37)"),
+            "#salonDesktopTop .std-btn:not(.std-btn-primary)": ("backgroundColor", "rgb(235, 229, 222)"),
+            "#salonDesktopServices": ("backgroundColor", "rgb(36, 36, 36)"),
+        }),
+        (390, 844, True, {
+            "#salon-mobile": ("backgroundColor", "rgb(250, 249, 246)"),
+            "#tn13Top": ("backgroundColor", "rgb(250, 249, 246)"),
+            "#tn13Portfolio": ("backgroundColor", "rgb(241, 236, 229)"),
+            "#tn13Reviews .br-review-card": ("backgroundColor", "rgb(255, 255, 255)"),
+            "#tn13Top .tn22-cta": ("backgroundColor", "rgb(37, 37, 37)"),
+            "#tn13Top .tn22-worklink": ("backgroundColor", "rgb(235, 229, 222)"),
+            "#tn13Services": ("backgroundColor", "rgb(36, 36, 36)"),
+            "#tn13Gallery": ("backgroundColor", "rgb(241, 236, 229)"),
+        }),
+    ]
+    for width, height, mobile, expected in cases:
+        context = browser.new_context(
+            viewport={"width": width, "height": height},
+            is_mobile=mobile, has_touch=mobile, reduced_motion="reduce"
+        )
+        try:
+            page = context.new_page()
+            page.goto(candidate, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_selector("#salon-mobile" if mobile else "#salon-desktop-v1", state="attached")
+            page.wait_for_function("() => !document.documentElement.classList.contains('br-booting')")
+            page.wait_for_function("() => !!document.styleSheets && Array.from(document.styleSheets).some(s => s.href && s.href.includes('salon-palette.css'))", timeout=12000)
+            for selector, (prop, wanted) in expected.items():
+                locator = page.locator(selector).first
+                locator.wait_for(state="attached")
+                got = locator.evaluate("(el, prop) => getComputedStyle(el)[prop]", prop)
+                if got != wanted:
+                    raise AssertionError(f"{width}px {selector} {prop}: {got}, expected {wanted}")
+            primary = page.locator("#tn13Top .tn22-cta" if mobile else "#salon-desktop-v1 .std-header-book").first
+            primary.hover()
+            got = primary.evaluate("(el) => getComputedStyle(el).backgroundColor")
+            if got != "rgb(66, 66, 66)":
+                raise AssertionError(f"{width}px primary hover: {got}, expected rgb(66, 66, 66)")
+            print(f"PASS neutral palette: {width}px backgrounds, cards, primary/secondary buttons and hover")
+        finally:
+            context.close()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--baseline", default="http://127.0.0.1:4173/")
@@ -174,6 +229,7 @@ def main():
                         compare(baseline[item], candidate[item], key+"-"+item)
                     except AssertionError as exc:
                         errors.append(str(exc))
+            verify_palette(browser, args.candidate)
         finally:
             browser.close()
     if errors:
