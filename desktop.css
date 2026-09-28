@@ -6032,8 +6032,8 @@ body[data-br-lang="en"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!importa
   }
 }
 
-/* TANEM factory: equal-width categories only when All + 1–2 categories fit.
-   Original overflowing ribbon, edge fade and interaction remain untouched for 4+. */
+/* TANEM factory: equal-width categories when All + 1–4 real categories fit.
+   Original overflowing ribbon, edge fade and interaction remain untouched for 5+ real categories. */
 #salonDesktopServices .mct-tabs-ribbon-wrap.is-compact{
   width:100%!important;max-width:100%!important;min-width:0!important;
 }
@@ -6049,4 +6049,9 @@ body[data-br-lang="en"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!importa
   width:100%!important;min-width:0!important;max-width:100%!important;
   padding-inline:8px!important;white-space:nowrap!important;
   overflow:hidden!important;text-overflow:ellipsis!important;
+}
+
+/* Final approved title weight: denser without changing card geometry. */
+#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-title{
+  font-weight:600!important;
 }

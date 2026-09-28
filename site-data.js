@@ -8,9 +8,9 @@
 
   const categoryLabels={
     'Маникюр':t('Маникюр','Manicure','Մատնահարդարում'),
-    'Брови и ресницы':t('Брови и ресницы','Brows & lashes','Հոնքեր և թարթիչներ'),
+    'Брови и ресницы':t('Брови и ресницы','Brows and Lashes','Հոնքեր և թարթիչներ'),
     'Волосы':t('Волосы','Hair','Մազեր'),
-    'Эпиляция':t('Эпиляция','Hair removal','Էպիլյացիա'),
+    'Эпиляция':t('Эпиляция','Hair Removal','Էպիլյացիա'),
     'Другое':t('Другое','Other','Այլ'),
     'Косметология':t('Косметология','Cosmetology','Կոսմետոլոգիա'),
     'Макияж':t('Макияж','Makeup','Դիմահարդարում'),
@@ -18,12 +18,13 @@
   };
 
   // Four neutral service cards solely for testing the responsive layout.
+  // Prices, durations, descriptions and variants intentionally stay empty.
   // Client sites always start from site-data.blank.js (zero demo services).
   const services=[
-    {id:'demo-hair-01',category:'Волосы',title:t('Услуга 01','Service 01','Ծառայություն 01'),price:'',duration:'',description:t(''),variants:[]},
-    {id:'demo-hair-02',category:'Волосы',title:t('Услуга 02','Service 02','Ծառայություն 02'),price:'',duration:'',description:t(''),variants:[]},
-    {id:'demo-nails-03',category:'Маникюр',title:t('Услуга 03','Service 03','Ծառայություն 03'),price:'',duration:'',description:t(''),variants:[]},
-    {id:'demo-nails-04',category:'Маникюр',title:t('Услуга 04','Service 04','Ծառայություն 04'),price:'',duration:'',description:t(''),variants:[]}
+    {id:'demo-hair',category:'Волосы',title:t('Услуга для волос','Hair service','Մազերի ծառայություն'),price:'',duration:'',description:t(''),variants:[]},
+    {id:'demo-manicure',category:'Маникюр',title:t('Маникюр','Manicure','Մատնահարդարում'),price:'',duration:'',description:t(''),variants:[]},
+    {id:'demo-brows-lashes',category:'Брови и ресницы',title:t('Брови и ресницы','Brows and Lashes','Հոնքեր և թարթիչներ'),price:'',duration:'',description:t(''),variants:[]},
+    {id:'demo-hair-removal',category:'Эпиляция',title:t('Эпиляция','Hair Removal','Էպիլյացիա'),price:'',duration:'',description:t(''),variants:[]}
   ];
 
   const reviews=Array.from({length:9},(_,index)=>{
@@ -50,19 +51,19 @@
   const siteData={
     schemaVersion:1,
     mode:'template',
-    country:'AM',
-    locales:['ru','en','hy'],
+    country:'RU',
+    locales:['ru','en'],
     defaultLocale:'ru',
     salon:{
       name:t('SALON NAME','SALON NAME','SALON NAME'),
       kind:t('Салон красоты','Beauty salon','Գեղեցկության սրահ'),
       city:t('Город','City','Քաղաք'),
       address:t('Адрес салона','Salon address','Սրահի հասցե'),
-      heroDescription:t('Описание салона.','Salon description.','Սրահի նկարագրություն։'),
+      heroDescription:t('Ваша красота. Ваша уверенность.','Your beauty. Your confidence.','Ձեր գեղեցկությունը։ Ձեր վստահությունը։'),
       about:t(
-        'Описание салона будет добавлено при заполнении шаблона.',
-        'The salon description will be added when the template is completed.',
-        'Սրահի նկարագրությունը կավելացվի ձևանմուշը լրացնելիս։'
+        'В основе нашей работы — профессиональный подход, внимание к деталям и уважение к индивидуальности каждого гостя. Мы создаём комфортное пространство, где качество и забота остаются главным приоритетом.',
+        'Our work is built on professionalism, attention to detail, and respect for every guest’s individuality. We create a comfortable space where quality and care remain our highest priorities.',
+        'Մեր աշխատանքի հիմքում մասնագիտական մոտեցումն է, ուշադրությունը մանրուքներին և հարգանքը յուրաքանչյուր հյուրի անհատականության նկատմամբ։ Մենք ստեղծում ենք հարմարավետ միջավայր, որտեղ որակն ու հոգատարությունը մնում են գլխավոր առաջնահերթությունները։'
       )
     },
     schedule:{timezone:'Europe/Moscow',periods:[],fallback:t('Уточняется','To be added','Կավելացվի')},
@@ -80,7 +81,7 @@
       desktopGalleryLimits:{'Салон':2,'Ногти':9,'Волосы':7,'Макияж':3}
     },
     categoryLabels,
-    categoryOrder:['Волосы','Маникюр'],
+    categoryOrder:['Волосы','Маникюр','Брови и ресницы','Эпиляция'],
     services,
     team,
     reviews

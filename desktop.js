@@ -12,7 +12,7 @@
     return value[lang]??value.ru??value.en??value.hy??'';
   };
   const russian=value=>localized(value,'ru');
-  const REGION=window.TANEM_REGION||{locales:['ru','en','hy'],fallback:'en',labels:{ru:'RU',en:'EN',hy:'HY'},resolve:v=>v,ui:()=>null,teamHeading:l=>l==='ru'?'Наша команда':'Our Team'};
+  const REGION=window.TANEM_REGION||{locales:['ru','en'],fallback:'ru',labels:{ru:'RU',en:'EN'},resolve:v=>['ru','en'].includes(v)?v:'ru',ui:()=>null,teamHeading:l=>l==='ru'?'Наша команда':'Our Team'};
   const MAP_URL=SITE.contacts.mapUrl||'#salonDesktopContacts';
   const ROUTE=MAP_URL;
   const MESSENGER_URL=SITE.contacts.messengerUrl||'#salonDesktopContacts';
@@ -89,7 +89,7 @@
           <h1 class="std-logo">SALON NAME</h1>
 
 
-          <p class="std-tagline">Описание салона.</p>
+          <p class="std-tagline">Ваша красота. Ваша уверенность.</p>
 
           <div class="std-meta">
             <div class="std-meta-item">
@@ -215,10 +215,10 @@
             </div>
             <div class="mct-about-copy">
               <p class="mct-about-lead"><span class="dct-about-brand">SALON NAME</span><span class="dct-about-kind">Салон красоты</span></p>
-              <p class="dct-about-copy">Описание салона будет добавлено при заполнении шаблона.</p>
+              <p class="dct-about-copy">В основе нашей работы — профессиональный подход, внимание к деталям и уважение к индивидуальности каждого гостя. Мы создаём комфортное пространство, где качество и забота остаются главным приоритетом.</p>
               <div class="dct-about-amenities">
                 <div class="dct-about-amenities-grid">
-                  <article><strong>Разные направления</strong><span>Маникюр, волосы, брови и косметология.</span></article>
+                  <article><strong>Разные направления</strong><span>Волосы, маникюр, брови и ресницы, эпиляция.</span></article>
                   <article><strong>Комфорт</strong><span>Спокойная атмосфера и внимание к каждому гостю.</span></article>
                   <article><strong>Прямая запись</strong><span>Контакты будут добавлены при заполнении шаблона.</span></article>
                 </div>
@@ -783,10 +783,10 @@
   }
 
   function renderDesktopServices(){
-    // When there are only “All” plus up to two categories, share the exact
-    // available service-card width evenly. Keep the original blurred rail for many.
+    // “All” plus up to four real categories share the full available width.
+    // Keep the original blurred scrolling rail for five or more real categories.
     const ribbon=serviceTabs.closest('.mct-tabs-ribbon-wrap');
-    const compact=DESKTOP_SERVICE_TABS.length<=3;
+    const compact=DESKTOP_SERVICE_TABS.length<=5;
     ribbon?.classList.toggle('is-compact',compact);
     ribbon?.classList.toggle('is-many',!compact);
     serviceTabs.closest('.mct-tabs')?.classList.toggle('is-many',!compact);
@@ -1251,12 +1251,13 @@
     ["от 6 000 ₽","from 6 000 ₽","from 6 000 ₽"],
     ['Услуги','Ծառայություններ','Services'],['Наши работы','Մեր աշխատանքները','Our work'],['О нас','Մեր մասին','About us'],
     ['Отзывы','Կարծիքներ','Reviews'],['Контакты','Կոնտակտներ','Contacts'],['Салон красоты','Գեղեցկության սրահ','Beauty salon'],
+    ['Ваша красота. Ваша уверенность.','Ձեր գեղեցկությունը։ Ձեր վստահությունը։','Your beauty. Your confidence.'],
     ['Салон красоты в самом сердце Города.','Գեղեցկության սրահ Քաղաքի սրտում։','A beauty salon in the heart of City.'],['Листайте вниз','Սահեցրեք ներքև','Scroll down'],['Город,','Քաղաք,','City,'],['Адрес салона','Սրահի հասցե','Адрес салона'],
     ['Записаться','Ամրագրել','Book now'],['Записаться →','Ամրագրել →','Book now →'],['Записаться онлайн','Ամրագրել առցանց','Book online'],['Смотреть работы','Դիտել աշխատանքները','View our work'],
     ['Портфолио','Պորտֆոլիո','Portfolio'],['Вдохновляйтесь реальными результатами наших мастеров и выбирайте свой идеальный образ.','Ոգեշնչվեք մեր մասնագետների իրական աշխատանքներով և ընտրեք ձեր կերպարը։','Explore real results from our specialists and choose your look.'],['Открыть галерею','Բացել պատկերասրահը','Open gallery'],
     ['Открыть галерею','Բացել պատկերասրահը','Open gallery'],['Колесо или двойной клик — увеличить','Մեծացնելու համար օգտագործեք անիվը կամ կրկնակի սեղմումը','Use the wheel or double-click to zoom'],['Галерея','Պատկերասրահ','Gallery'],
-    ['Ногти','Եղունգներ','Nails'],['Волосы','Մազեր','Hair'],['Брови и ресницы','Հոնքեր և թարթիչներ','Brows & lashes'],
-    ['Косметология','Կոսմետոլոգիա','Cosmetology'],['Эпиляция','Էպիլյացիա','Hair removal'],['Макияж','Դիմահարդարում','Makeup'],
+    ['Ногти','Եղունգներ','Nails'],['Волосы','Մազեր','Hair'],['Брови и ресницы','Հոնքեր և թարթիչներ','Brows and Lashes'],
+    ['Косметология','Կոսմետոլոգիա','Cosmetology'],['Эпиляция','Էպիլյացիա','Hair Removal'],['Макияж','Դիմահարդարում','Makeup'],
     ['Массаж','Մերսում','Massage'],['Другое','Այլ','Other'],['Все','Բոլորը','All'],
     ['Услуги и цены','Ծառայություններ և գներ','Services & prices'],['Выберите услугу','Ընտրեք ծառայությունը','Choose a service'],
     ['Все услуги собраны по направлениям. Выберите подходящую процедуру — запись откроется сразу, без лишних шагов.','Աջ կողմում ընտրեք ուղղությունը, ապա անհրաժեշտ ծառայությունը։ Դրանից հետո կբացվի սրահի հետ կապվելու հարմար տարբերակը։','Choose a category on the right, then select a service. You can then contact the salon in the way that suits you.'],
@@ -1264,7 +1265,7 @@
     ['Выберите направление и нужную процедуру. Запись открывается в отдельной плашке, а все услуги собраны в одной понятной структуре.','Ընտրեք ուղղությունն ու անհրաժեշտ ծառայությունը։ Բոլոր ծառայությունները հավաքված են մեկ պարզ կառուցվածքում։','Choose a category and service. Everything is organized in one clear structure.'],['Выберите направление и нужную процедуру. Нажмите на услугу, чтобы выбрать удобный способ записи.','Ընտրեք ուղղությունն ու անհրաժեշտ ծառայությունը։ Սեղմեք ծառայության վրա՝ ամրագրման հարմար տարբերակ ընտրելու համար։','Choose a category and service. Select a service to choose a convenient booking method.'],
     ['Свернуть','Փակել ցանկը','Show less'],['Свернуть услуги','Փակել ծառայությունները','Collapse services'],['Открыть ещё','Բացել ևս','Show'],['О салоне','Սրահի մասին','About the salon'],
     ['SALON NAME — салон красоты в городе.','SALON NAME — գեղեցկության սրահ Քաղաքում։','SALON NAME — a beauty salon in City.'],
-    ['Здесь можно спокойно выбрать нужные процедуры и доверить уход мастерам разных направлений. Мы ценим аккуратную работу, комфорт и внимательное отношение к каждому гостю.','Այստեղ կարող եք հանգիստ ընտրել անհրաժեշտ ծառայությունները և ձեր խնամքը վստահել տարբեր ուղղությունների մասնագետների։ Մենք կարևորում ենք կոկիկ աշխատանքը, հարմարավետությունն ու յուրաքանչյուր հյուրի նկատմամբ ուշադիր վերաբերմունքը։','Here you can comfortably choose the services you need and trust your care to specialists in different fields. We value precise work, comfort and attentive service for every guest.'],
+    ['В основе нашей работы — профессиональный подход, внимание к деталям и уважение к индивидуальности каждого гостя. Мы создаём комфортное пространство, где качество и забота остаются главным приоритетом.','Մեր աշխատանքի հիմքում մասնագիտական մոտեցումն է, ուշադրությունը մանրուքներին և հարգանքը յուրաքանչյուր հյուրի անհատականության նկատմամբ։ Մենք ստեղծում ենք հարմարավետ միջավայր, որտեղ որակն ու հոգատարությունը մնում են գլխավոր առաջնահերթությունները։','Our work is built on professionalism, attention to detail, and respect for every guest’s individuality. We create a comfortable space where quality and care remain our highest priorities.'],
     ['Несколько направлений в одном салоне','Մի քանի ուղղություն մեկ սրահում','Several services in one salon'],
     ['Комфортная атмосфера','Հարմարավետ մթնոլորտ','Comfortable atmosphere'],['Индивидуальный подход','Անհատական մոտեցում','Personal approach'],
     ['Наша команда','Մեր թիմը','Our Team'],['Наша команда','Մեր թիմը','Our Team'],
@@ -1278,7 +1279,7 @@
     ['Открыть карту','Բացել քարտեզը','Open map'],
     ['Нажмите, чтобы позвонить','Սեղմեք զանգահարելու համար','Click to call'],['Написать в салон','Գրել սրահին','Message the salon'],
     ['График работы','Աշխատանքային ժամեր','Opening hours'],['Уточняется','Կավելացվի','To be added'],
-    ['Цифровой офис для салонов красоты','Թվային գրասենյակ գեղեցկության սրահների համար','Digital office for beauty salons'],['Создано в','Ստեղծված է','Created in'],['Позвонить','Զանգահարել','Call'],['Построить маршрут','Կառուցել երթուղի','Get directions'],['Всё необходимое для комфортного визита','Ամեն ինչ հարմարավետ այցի համար','Everything for a comfortable visit'],['Салон красоты в городе','Գեղեցկության սրահ Քաղաքում','Beauty salon in City'],['Здесь можно спокойно выбрать нужные процедуры и доверить уход мастерам разных направлений. Мы ценим аккуратную работу, комфорт и внимательное отношение к каждому гостю.','Այստեղ կարող եք հանգիստ ընտրել անհրաժեշտ ծառայությունները և վստահել խնամքը տարբեր ուղղությունների մասնագետներին։ Մենք կարևորում ենք ճշգրիտ աշխատանքը, հարմարավետությունն ու յուրաքանչյուր հյուրի նկատմամբ ուշադիր վերաբերմունքը։','Choose the services you need and trust your care to specialists across different beauty fields. We value precise work, comfort, and attentive service for every guest.'],['Маникюр, волосы, брови и косметология.','Մատնահարդարում, մազեր, հոնքեր և կոսմետոլոգիա։','Nails, hair, brows and cosmetology.'],['Спокойная атмосфера и внимание к каждому гостю.','Հանգիստ մթնոլորտ և ուշադրություն յուրաքանչյուր հյուրի նկատմամբ։','A calm atmosphere and personal attention.'],['Контакты будут добавлены при заполнении шаблона.','Կոնտակտները կավելացվեն ձևանմուշը լրացնելիս։','Contact details will be added when the template is completed.'],['Разные направления','Տարբեր ուղղություններ','Different services'],['Комфорт','Հարմարավետություն','Comfort'],['Прямая запись','Ուղիղ ամրագրում','Direct booking'],
+    ['Цифровой офис для салонов красоты','Թվային գրասենյակ գեղեցկության սրահների համար','Digital office for beauty salons'],['Создано в','Ստեղծված է','Created in'],['Позвонить','Զանգահարել','Call'],['Построить маршрут','Կառուցել երթուղի','Get directions'],['Всё необходимое для комфортного визита','Ամեն ինչ հարմարավետ այցի համար','Everything for a comfortable visit'],['Салон красоты в городе','Գեղեցկության սրահ Քաղաքում','Beauty salon in City'],['Здесь можно спокойно выбрать нужные процедуры и доверить уход мастерам разных направлений. Мы ценим аккуратную работу, комфорт и внимательное отношение к каждому гостю.','Այստեղ կարող եք հանգիստ ընտրել անհրաժեշտ ծառայությունները և վստահել խնամքը տարբեր ուղղությունների մասնագետներին։ Մենք կարևորում ենք ճշգրիտ աշխատանքը, հարմարավետությունն ու յուրաքանչյուր հյուրի նկատմամբ ուշադիր վերաբերմունքը։','Choose the services you need and trust your care to specialists across different beauty fields. We value precise work, comfort, and attentive service for every guest.'],['Волосы, маникюр, брови и ресницы, эпиляция.','Մազեր, մատնահարդարում, հոնքեր և թարթիչներ, էպիլյացիա։','Hair, manicure, brows and lashes, hair removal.'],['Спокойная атмосфера и внимание к каждому гостю.','Հանգիստ մթնոլորտ և ուշադրություն յուրաքանչյուր հյուրի նկատմամբ։','A calm atmosphere and personal attention.'],['Контакты будут добавлены при заполнении шаблона.','Կոնտակտները կավելացվեն ձևանմուշը լրացնելիս։','Contact details will be added when the template is completed.'],['Разные направления','Տարբեր ուղղություններ','Different services'],['Комфорт','Հարմարավետություն','Comfort'],['Прямая запись','Ուղիղ ամրագրում','Direct booking'],
     ['Запись','Ամրագրում','Booking'],['Как вам удобнее записаться?','Ինչպե՞ս է ձեզ հարմար ամրագրել։','How would you like to book?'],
     ['Выберите удобный способ связи.','Ընտրեք ձեզ հարմար կապի տարբերակը։','Choose the most convenient way to contact us.'],
     ['Телефон','Հեռախոս','Phone'],['Открыть','Բացել','Open'],['Профиль','Պրոֆիլ','Profile'],['О мастере','Մասնագետի մասին','About the specialist'],
@@ -1467,6 +1468,3 @@
   }
   updateStatus();
 })();
-
-
-

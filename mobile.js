@@ -157,6 +157,9 @@ const SERVICE_CATS=SITE.categoryOrder.filter(c=>SERVICES.some(s=>s.cat===c));
 let serviceCat=SERVICE_CATS[0]||'',servicesExpanded=false;
 serv.innerHTML=`<div class="tn31-services"><p class="tn22-kicker">Услуги</p><h2>Наши услуги</h2><div class="tn31-cats-wrap"><div class="tn31-cats"></div></div><div class="tn31-service-list"></div><button class="tn31-service-more" type="button"><span class="tn31-more-text"></span><span aria-hidden="true">↓</span></button></div>`;
 const scats=serv.querySelector('.tn31-cats'),slist=serv.querySelector('.tn31-service-list'),sMore=serv.querySelector('.tn31-service-more');
+const compactServiceCategories=SERVICE_CATS.length>0&&SERVICE_CATS.length<=4;
+scats.classList.toggle('is-compact',compactServiceCategories);
+scats.style.setProperty('--mobile-service-category-count',String(Math.max(1,SERVICE_CATS.length)));
 function splitServiceTitle(raw){const parts=String(raw).split(' — ');const main=parts.shift()||raw;let detail=parts.join(' — ');if(!detail&&main.length>48){const m=main.match(/^(.*?)(\s\([^)]{5,}\)|\sBrazilian Blowout)$/i);if(m)return {main:m[1],detail:m[2].trim()}}return {main,detail}}
 function serviceDurationValue(raw){const m=String(raw||'').match(/\d+(?:[.,]\d+)?/);return m?m[0]:''}
 function mobileServiceLang(){const raw=(document.body.dataset.brLang||document.documentElement.lang||(navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase();return raw.startsWith('ru')?'ru':raw.startsWith('hy')?'hy':'en'}
@@ -220,6 +223,7 @@ function renderServices(){
  const shown=servicesExpanded?arr:arr.slice(0,8);
  const remaining=Math.max(0,arr.length-8);
  slist.innerHTML=shown.map(serviceLine).join('');
+ slist.querySelectorAll('.tn31-service-price').forEach(price=>{if(price.textContent.trim()==='—')price.hidden=true});
  slist.querySelectorAll('[data-book-service]').forEach(btn=>btn.onclick=book);
  slist.querySelectorAll('[data-service-details]').forEach(btn=>btn.onclick=()=>{
   const row=btn.closest('.tn31-service-demo');
@@ -316,7 +320,7 @@ if(!services)return;
 
 const about=document.createElement('section');
 about.id='tn38About';
-about.innerHTML=`<div class="tn42-about"><p class="tn42-kicker">О нас</p><div class="tn42-card"><div class="tn42-photo"><img src="media-placeholder.svg" alt="SALON NAME" loading="lazy"><div class="tn42-rating"><span class="tn42-rating-star">★</span><strong>—</strong><span>рейтинг не указан</span></div></div><div class="tn42-body"><p class="tn42-lead">SALON NAME — салон красоты.</p><p class="tn42-copy">Описание салона будет добавлено при заполнении шаблона.</p><div class="tn42-facts"><div class="tn42-fact">Мастера разных направлений</div><div class="tn42-fact">Комфортная атмосфера</div><div class="tn42-fact">Индивидуальный подход</div></div></div></div></div>`;
+about.innerHTML=`<div class="tn42-about"><p class="tn42-kicker">О нас</p><div class="tn42-card"><div class="tn42-photo"><img src="media-placeholder.svg" alt="SALON NAME" loading="lazy"><div class="tn42-rating"><span class="tn42-rating-star">★</span><strong>—</strong><span>рейтинг не указан</span></div></div><div class="tn42-body"><p class="tn42-lead">SALON NAME — салон красоты.</p><p class="tn42-copy">В основе нашей работы — профессиональный подход, внимание к деталям и уважение к индивидуальности каждого гостя. Мы создаём комфортное пространство, где качество и забота остаются главным приоритетом.</p><div class="tn42-facts"><div class="tn42-fact">Мастера разных направлений</div><div class="tn42-fact">Комфортная атмосфера</div><div class="tn42-fact">Индивидуальный подход</div></div></div></div></div>`;
 services.insertAdjacentElement('afterend',about);
 })();
 
@@ -343,7 +347,7 @@ services.insertAdjacentElement('afterend',about);
     }
     const aboutCopy=document.querySelector('#salon-mobile #tn38About .tn42-copy');
     if(aboutCopy){
-      aboutCopy.textContent='Описание салона будет добавлено при заполнении шаблона.';
+      aboutCopy.textContent='В основе нашей работы — профессиональный подход, внимание к деталям и уважение к индивидуальности каждого гостя. Мы создаём комфортное пространство, где качество и забота остаются главным приоритетом.';
     }
 
     /* Client migration compatibility removed in the clean template. */
@@ -724,14 +728,14 @@ services.insertAdjacentElement('afterend',about);
   apply();
 })();
 
-/* Salon template multilingual interface — HY / RU / EN */
+/* Salon template multilingual interface — languages enabled for the site country. */
 (function(){
   'use strict';
   if(window.__BR_DESKTOP_DEVICE__===true) return;
 
   var STORAGE_KEY='salon-template-language';
-  var REGION=window.TANEM_REGION||{locales:['ru','en','hy'],fallback:'en',labels:{ru:'RU',en:'EN',hy:'HY'},resolve:value=>value,ui:()=>null};
-  var currentLang='hy';
+  var REGION=window.TANEM_REGION||{locales:['ru','en'],fallback:'ru',labels:{ru:'RU',en:'EN'},resolve:value=>['ru','en'].includes(value)?value:'ru',ui:()=>null};
+  var currentLang=REGION.fallback||'ru';
   var root=null;
 
   var meta={
@@ -800,8 +804,8 @@ services.insertAdjacentElement('afterend',about);
     ['Салон','Սրահ','Salon'],
     ['Ногти','Եղունգներ','Nails'],
     ['Волосы','Մազեր','Hair'],
-    ['Брови и ресницы','Հոնքեր և թարթիչներ','Brows & lashes'],
-    ['Эпиляция','Էպիլյացիա','Hair removal'],
+    ['Брови и ресницы','Հոնքեր և թարթիչներ','Brows and Lashes'],
+    ['Эпиляция','Էպիլյացիա','Hair Removal'],
     ['Макияж','Դիմահարդարում','Makeup'],
     ['Массаж','Մերսում','Massage'],
     ['Другое','Այլ','Other'],
@@ -850,7 +854,7 @@ services.insertAdjacentElement('afterend',about);
     ['Салон красоты в городе','Գեղեցկության սրահ Քաղաքում','Beauty salon in City'],
     ['SALON NAME — салон красоты.','SALON NAME — գեղեցկության սրահ Քաղաքում։','SALON NAME — a beauty salon in City.'],
     ['Описание услуг салона.','Մատնահարդարում, մազեր, հոնքեր և թարթիչներ, դիմահարդարում, կոսմետոլոգիա, էպիլյացիա և մերսում՝ մեկ վայրում։','Manicure, hair, brows and lashes, makeup, cosmetology, hair removal and massage — all in one place.'],
-    ['Описание салона будет добавлено при заполнении шаблона.','Այստեղ կարող եք հանգիստ ընտրել անհրաժեշտ ծառայությունները և ձեր խնամքը վստահել տարբեր ուղղությունների մասնագետների։ Մենք կարևորում ենք կոկիկ աշխատանքը, հարմարավետությունն ու յուրաքանչյուր հյուրի նկատմամբ ուշադիր վերաբերմունքը։','Here you can comfortably choose the services you need and trust your care to specialists in different fields. We value precise work, comfort and attentive service for every guest.'],
+    ['В основе нашей работы — профессиональный подход, внимание к деталям и уважение к индивидуальности каждого гостя. Мы создаём комфортное пространство, где качество и забота остаются главным приоритетом.','Մեր աշխատանքի հիմքում մասնագիտական մոտեցումն է, ուշադրությունը մանրուքներին և հարգանքը յուրաքանչյուր հյուրի անհատականության նկատմամբ։ Մենք ստեղծում ենք հարմարավետ միջավայր, որտեղ որակն ու հոգատարությունը մնում են գլխավոր առաջնահերթությունները։','Our work is built on professionalism, attention to detail, and respect for every guest’s individuality. We create a comfortable space where quality and care remain our highest priorities.'],
     ['Мастера разных направлений','Տարբեր ուղղությունների մասնագետներ','Specialists in different fields'],
     ['Комфортная атмосфера','Հարմարավետ մթնոլորտ','Comfortable atmosphere'],
     ['Индивидуальный подход','Անհատական մոտեցում','Personal approach'],
@@ -1152,4 +1156,4 @@ services.insertAdjacentElement('afterend',about);
 })();
 
 /* salon-template-cold-neutral-20260924 */
-(function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const lateCss=document.createElement('link');lateCss.id='salon-template-cold-neutral-20260924';lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=deep-clean-20260928-v3';document.head.appendChild(lateCss);})();
+(function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const lateCss=document.createElement('link');lateCss.id='salon-template-cold-neutral-20260924';lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=salon-final-20260928-v4';document.head.appendChild(lateCss);})();

@@ -2,7 +2,7 @@
   'use strict';
   const data=global.TANEM_SITE_DATA||{};
   const byCountry={RU:['ru','en'],AM:['ru','en','hy'],UZ:['ru','en','uz'],TJ:['ru','en','tg']};
-  const configured=byCountry[String(data.country||'').toUpperCase()]||data.locales||['ru','en','hy'];
+  const configured=byCountry[String(data.country||'').toUpperCase()]||data.locales||['ru','en'];
   const locales=[...new Set(configured)].filter(value=>['ru','en','hy','uz','tg'].includes(value));
   const labels={ru:'RU',en:'EN',hy:'HY',uz:'UZ',tg:'TG'};
   const fallback=(locales.includes(data.defaultLocale)?data.defaultLocale:locales.includes('ru')?'ru':locales[0])||'ru';
