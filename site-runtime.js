@@ -185,6 +185,11 @@
     if(!root)return;
     const salon=data.salon,contacts=data.contacts;
     setText('.std-header-brand-main,.std-logo,.dct-about-brand',text(salon.name,lang),root);
+    const desktopBrand=root.querySelector('.std-header-brand-main');
+    if(desktopBrand&&data.media.logo){
+      desktopBrand.classList.add('has-logo');
+      desktopBrand.innerHTML='<img class="std-header-brand-logo" src="'+esc(data.media.logo)+'" alt="'+esc(text(salon.name,lang))+'">';
+    }
     setText('.std-tagline',text(salon.heroDescription,lang),root);
     setText('.dct-about-kind',text(salon.kind,lang),root);
     setText('.dct-about-copy',text(salon.about,lang),root);
@@ -203,9 +208,15 @@
     setLink(root.querySelector('.std-contact-route'),contacts.mapUrl,'#salonDesktopContacts');
     const mapFrame=root.querySelector('.std-contact-map iframe');
     if(mapFrame)mapFrame.src=contacts.mapEmbedUrl||'about:blank';
-    const hero=data.media.hero?.[0];
+    const mobileHero=data.media.hero?.[0];
+    const hero=data.media.heroDesktop||mobileHero;
     const heroImage=root.querySelector('#stdHeroMedia');
-    if(heroImage&&hero){heroImage.src=hero.src;heroImage.alt=text(hero.alt,lang)}
+    if(heroImage&&hero){
+      const src=typeof hero==='string'?hero:hero.src;
+      const alt=typeof hero==='string'?text(salon.name,lang):text(hero.alt,lang);
+      if(src)heroImage.src=src;
+      heroImage.alt=alt||text(salon.name,lang);
+    }
     const aboutImage=root.querySelector('.mct-about-portrait img');
     if(aboutImage&&data.media.about)aboutImage.src=data.media.about;
     const bookingAmenity=root.querySelector('.dct-about-amenities-grid article:last-child span');
