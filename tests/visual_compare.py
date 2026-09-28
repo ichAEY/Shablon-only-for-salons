@@ -163,7 +163,11 @@ def verify_palette(browser, candidate: str):
         (390, 844, True, {
             "#salon-mobile": ("backgroundColor", "rgb(250, 249, 246)"),
             "#tn13Top": ("backgroundColor", "rgb(250, 249, 246)"),
-            "#tn13Portfolio": ("backgroundColor", "rgb(241, 236, 229)"),
+            "#tn13Portfolio": ("backgroundColor", "rgb(250, 249, 246)"),
+            "#tn38About": ("backgroundColor", "rgb(250, 249, 246)"),
+            "#tn38About .tn42-fact": ("backgroundColor", "rgb(248, 246, 242)"),
+            "#tn13Reviews": ("backgroundColor", "rgb(241, 236, 229)"),
+            "#tn13Visit": ("backgroundColor", "rgb(36, 36, 36)"),
             "#tn13Reviews .br-review-card": ("backgroundColor", "rgb(255, 255, 255)"),
             "#tn13Top .tn22-cta": ("backgroundColor", "rgb(37, 37, 37)"),
             "#tn13Top .tn22-worklink": ("backgroundColor", "rgb(235, 229, 222)"),
@@ -188,6 +192,22 @@ def verify_palette(browser, candidate: str):
                 got = locator.evaluate("(el, prop) => getComputedStyle(el)[prop]", prop)
                 if got != wanted:
                     raise AssertionError(f"{width}px {selector} {prop}: {got}, expected {wanted}")
+            if mobile:
+                hero_color = page.locator("#tn13Top").evaluate("(el) => getComputedStyle(el).backgroundColor")
+                portfolio_color = page.locator("#tn13Portfolio").evaluate("(el) => getComputedStyle(el).backgroundColor")
+                if hero_color != portfolio_color:
+                    raise AssertionError(f"Visible hero/portfolio seam: {hero_color} vs {portfolio_color}")
+                fade = page.locator("#tn13Portfolio").evaluate("(el) => getComputedStyle(el, '::before').backgroundImage")
+                if "250, 249, 246" not in fade:
+                    raise AssertionError(f"Portfolio fade does not match hero: {fade}")
+                hero_btn = page.locator("#tn13Top .tn22-cta")
+                page.emulate_media(reduced_motion="no-preference")
+                effect = hero_btn.evaluate("(el) => ({name: getComputedStyle(el, '::after').animationName, duration: getComputedStyle(el, '::after').animationDuration})")
+                if effect["name"] != "tn22Shine" or effect["duration"] != "3.2s":
+                    raise AssertionError(f"Hero booking shimmer differs from sticky: {effect}")
+                page.emulate_media(reduced_motion="reduce")
+                if hero_btn.evaluate("(el) => getComputedStyle(el, '::after').animationName") != "none":
+                    raise AssertionError("Reduced-motion setting does not disable shimmer")
             if not mobile:
                 # Hover animates over a few hundred milliseconds in the real UI.
                 # Wait for the destination colour, not the initial transition frame.
