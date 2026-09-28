@@ -4,6 +4,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
+const vm=require('node:vm');
 const {loadSiteData,validateSiteData}=require('./validate-site-data.cjs');
 
 const root=path.resolve(__dirname,'..');
@@ -25,6 +26,36 @@ assert(unsafeErrors.some(error=>error.includes('booking method')),'production mo
 const ready=loadSiteData(path.join(root,'tests/fixtures/site-data.production.js'));
 assert.deepEqual(validateSiteData(ready,{rootDir:root,allowTestDomains:true}),[],'a complete production fixture must pass');
 assert(validateSiteData(ready,{rootDir:root}).some(error=>error.includes('test domain')),'test domains must never pass a real client release');
+// A Russian salon must not need Armenian; Uzbek and Tajik salons must supply their own third language.
+for(const [country,locales] of Object.entries({RU:['ru','en'],AM:['ru','en','hy'],UZ:['ru','en','uz'],TJ:['ru','en','tg']})){
+  const sample=structuredClone(ready);
+  sample.country=country;sample.locales=locales;
+  const augment=value=>{
+    if(!value||typeof value!=='object')return;
+    if(typeof value.ru==='string'&&typeof value.en==='string'){
+      if(country==='UZ')value.uz=value.en;
+      if(country==='TJ')value.tg=value.en;
+      return;
+    }
+    if(Array.isArray(value))value.forEach(augment);
+    else Object.values(value).forEach(augment);
+  };
+  augment(sample);
+  assert.deepEqual(validateSiteData(sample,{rootDir:root,allowTestDomains:true}),[],`${country} locale schema should accept its supported languages`);
+  const context={window:{TANEM_SITE_DATA:sample}};
+  vm.runInNewContext(fs.readFileSync(path.join(root,'site-regions.js'),'utf8'),context);
+  assert.deepEqual(Array.from(context.window.TANEM_REGION.locales),locales,`${country} switcher languages`);
+  assert.equal(context.window.TANEM_REGION.teamHeading('ru'),'Наша команда');
+  assert.equal(context.window.TANEM_REGION.teamHeading(locales.at(-1)),locales.at(-1)==='ru'?'Наша команда':'Our Team');
+  if(country==='RU'){
+    const invalid=structuredClone(sample);invalid.locales=['ru','en','hy'];
+    assert(validateSiteData(invalid,{rootDir:root,allowTestDomains:true}).some(e=>e.includes('exactly ru, en')),'Russia must not expose HY');
+  }
+  if(country==='UZ'||country==='TJ'){
+    const invalid=structuredClone(sample);invalid.salon.name[locales[2]]='';
+    assert(validateSiteData(invalid,{rootDir:root,allowTestDomains:true}).some(e=>e.includes(`salon.name.${locales[2]}`)),'Missing regional salon name must fail release');
+  }
+}
 ready.reviews[0].rating=4;
 assert(validateSiteData(ready,{rootDir:root,allowTestDomains:true}).some(error=>error.includes('only five-star reviews')),'non-five-star reviews must be rejected');
 
