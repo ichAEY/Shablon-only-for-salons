@@ -25,7 +25,10 @@ jobs:
         with:
           node-version: '22'
       - name: Verify syntax, service contract, and unchanged effective CSS
-        run: node tests/check-template-regression.cjs
+        run: |
+          node tests/check-template-regression.cjs
+          node tests/validate-site-data.cjs
+          node tests/check-factory-contract.cjs
 
   visual-regression:
     needs: compare-to-approved-template
@@ -51,6 +54,14 @@ jobs:
           python -m http.server 4174 --bind 127.0.0.1 --directory "$GITHUB_WORKSPACE" > /tmp/salon-cleaned.log 2>&1 &
           sleep 2
           python tests/visual_compare.py
+      - name: Exercise a populated production site
+        run: |
+          mkdir -p /tmp/salon-production
+          cp -R . /tmp/salon-production/
+          cp tests/fixtures/site-data.production.js /tmp/salon-production/site-data.js
+          python -m http.server 4175 --bind 127.0.0.1 --directory /tmp/salon-production > /tmp/salon-production.log 2>&1 &
+          sleep 2
+          python tests/factory_browser.py
       - name: Attach screenshot evidence
         if: always()
         uses: actions/upload-artifact@v4

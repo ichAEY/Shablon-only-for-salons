@@ -45,7 +45,7 @@
     role:russian(master.role),
     about:russian(master.about),
     cats:[...(master.categories||[])],
-    work:[...(master.work||[])]
+    work:(master.work||[]).map(item=>typeof item==='string'?item:item.src)
   }));
   const TEAM_AVATAR='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" fill="currentColor"></circle><path d="M12 56c2.7-11.4 10-17 20-17s17.3 5.6 20 17" fill="currentColor"></path></svg>';
 
@@ -1297,7 +1297,7 @@
   ];
   const desktopLangIndex={ru:0,hy:1,en:2};
   const desktopDirect={};
-  DESKTOP_I18N_ROWS.push(...(window.TANEM_SITE_I18N_ROWS||[]));
+  if(window.TANEM_SITE_DATA?.mode==='production')DESKTOP_I18N_ROWS.push(...(window.TANEM_SITE_I18N_ROWS||[]));
   DESKTOP_I18N_ROWS.forEach(row=>desktopDirect[row[0]]=row);
 
   function desktopDetectLanguage(){
@@ -1450,8 +1450,6 @@
   }
   updateStatus();
 })();
-
-
 
 
 

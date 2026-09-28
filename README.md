@@ -33,11 +33,15 @@ python3 -m http.server 4173
 Основные файлы:
 
 - `index.html` — загрузчик, выбор версии устройства и CSS;
+- `site-data.js` — единственный источник данных салона, услуг, мастеров, отзывов, контактов и медиа;
+- `site-runtime.js` — подстановка production-данных, графика, способов записи и необязательных разделов;
 - `desktop.js` — логика компьютерной версии; её утверждённые стили в `desktop.css`;
 - `mobile.js` — логика мобильной и touch-версии;
 - `mobile.css` — базовые мобильные стили;
 - `mobile-overrides.css` — итоговые мобильные переопределения, подключаемые **после** динамических языковых стилей;
 - `logo-placeholder.svg` и `media-placeholder.svg` — нейтральные заглушки.
+
+Инструкция по созданию нового клиентского сайта: [`docs/FACTORY_GUIDE.md`](docs/FACTORY_GUIDE.md). Для выпуска редактируйте `site-data.js` и медиа, установите `mode: 'production'`, затем запустите `node tests/validate-site-data.cjs --production`.
 
 
 ## Безопасная очистка и защита эталона
@@ -45,4 +49,4 @@ python3 -m http.server 4173
 - Контрольная ветка до глубокой очистки: `baseline/pre-deep-clean-2026-09-28` (коммит `f9007f0`). Исходный утверждённый эталон услуг: `baseline/services-approved-v1-2026-09-28`.
 - Для правок стилей редактируйте отдельные CSS-файлы, а не создавайте новые встроенные `style.textContent` поверх старых. Сохраняйте порядок: `mobile.css` → динамический `salon-mobile-i18n-style` → `mobile-overrides.css`.
 - При изменениях CSS/JS обновляйте версии `?v=` в `index.html` и URL позднего CSS в `mobile.js`. В противном случае браузер может показать устаревший интерфейс.
-- Перед публикацией запускайте проверку `node tests/check-template-regression.cjs` и проверяйте GitHub Actions (Chromium на восьми размерах экрана и WebKit для телефона и ноутбука). Главную ветку `main` обновлять только после успешных проверок.
+- Перед публикацией запускайте `node tests/validate-site-data.cjs --production`, `node tests/check-factory-contract.cjs` и `node tests/check-template-regression.cjs`. Затем проверяйте GitHub Actions (Chromium, WebKit и production-сценарий). Главную ветку `main` обновлять только после успешных проверок.

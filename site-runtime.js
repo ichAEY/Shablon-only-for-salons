@@ -148,6 +148,37 @@
     if(mobileHours)mobileHours.textContent=copy.full;
   }
 
+  function applyRatingAndReviews(lang){
+    const value=Number(data.rating?.value);
+    const count=Number(data.rating?.count)||0;
+    const hasRating=Number.isFinite(value)&&value>0;
+    const countCopy=lang==='hy'?`${count} գնահատական`:lang==='en'?`${count} rating${count===1?'':'s'}`:`${count} оцен${count%10===1&&count%100!==11?'ка':count%10>=2&&count%10<=4&&(count%100<12||count%100>14)?'ки':'ок'}`;
+    const missing=lang==='hy'?'վարկանիշը նշված չէ':lang==='en'?'rating not specified':'рейтинг не указан';
+    document.querySelectorAll('.dct-about-rating,.tn42-rating').forEach(node=>{
+      const strong=node.querySelector('strong'),label=node.querySelector('span:last-child');
+      if(strong)strong.textContent=hasRating?String(value).replace('.',','):'—';
+      if(label)label.textContent=hasRating?countCopy:missing;
+    });
+    document.querySelectorAll('.std-reviews-score,.br-score,.tn30-score').forEach(node=>{
+      const strong=node.querySelector('strong');
+      const label=node.querySelector('.std-reviews-count,.br-count,.tn30-count');
+      if(strong)strong.textContent=hasRating?String(value).replace('.',','):'—';
+      if(label)label.textContent=hasRating?countCopy:missing;
+    });
+    document.querySelectorAll('.std-reviews-stars').forEach(node=>node.setAttribute('aria-label',hasRating?`${value} / 5`:missing));
+
+    const reviews=data.reviews||[];
+    if(reviews.length)document.querySelectorAll('#salonDesktopReviews .std-review-card').forEach((card,index)=>{
+      const review=reviews[index%reviews.length];
+      setText('.std-review-name',text(review.author,lang),card);
+      setText('.std-review-text',text(review.text,lang),card);
+      setText('.std-review-meta',text(review.source,lang),card);
+      setLink(card,review.url||data.contacts.reviewsUrl,'#salonDesktopReviews');
+    });
+    const reviewsAll=document.querySelector('.std-reviews-all');
+    if(reviewsAll)setLink(reviewsAll,data.contacts.reviewsUrl,'#salonDesktopReviews');
+  }
+
   function applyDesktop(lang){
     const root=document.getElementById('salon-desktop-v1');
     if(!root)return;
@@ -176,6 +207,8 @@
     if(heroImage&&hero){heroImage.src=hero.src;heroImage.alt=text(hero.alt,lang)}
     const aboutImage=root.querySelector('.mct-about-portrait img');
     if(aboutImage&&data.media.about)aboutImage.src=data.media.about;
+    const bookingAmenity=root.querySelector('.dct-about-amenities-grid article:last-child span');
+    if(bookingAmenity)bookingAmenity.textContent=lang==='hy'?'Գրանցումը հասանելի է հեռախոսով, մեսենջերով կամ առցանց։':lang==='en'?'Book by phone, messenger, or online.':'Запись доступна по телефону, в мессенджере или онлайн.';
     renderDesktopBooking(lang);
   }
 
@@ -228,6 +261,7 @@
     applyDesktop(lang);
     applyMobile(lang);
     applySchedule(lang);
+    applyRatingAndReviews(lang);
     applyOptionalSections();
     replaceBrandTokens(document.body,name);
     document.title=city?name+' — '+city:name;

@@ -149,7 +149,10 @@
   collect(siteData.categoryLabels);
   collect(siteData.services);
   collect(siteData.team);
+  collect(siteData.reviews);
   collect(siteData.contacts);
+  collect(siteData.schedule);
+  collect(siteData.media);
 
   global.TANEM_SITE_DATA=siteData;
   global.TANEM_SITE_I18N_ROWS=localizedRows;

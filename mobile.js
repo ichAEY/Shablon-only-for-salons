@@ -90,7 +90,7 @@ const MASTERS=SITE.team.map(master=>({
   role:russian(master.role),
   about:russian(master.about),
   cats:[...(master.categories||[])],
-  work:[...(master.work||[])],
+  work:(master.work||[]).map(item=>typeof item==='string'?item:item.src),
   reviewNames:(master.reviewIds||[]).map(id=>russian(SITE.reviews.find(review=>review.id===id)?.author)).filter(Boolean)
 }));
 const MASTER_AVATAR='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" fill="currentColor"></circle><path d="M12 56c2.7-11.4 10-17 20-17s17.3 5.6 20 17" fill="currentColor"></path></svg>';
@@ -267,11 +267,11 @@ team.querySelectorAll('[data-mid]').forEach(b=>b.onclick=()=>openMaster(b.datase
 
 // REVIEWS
 const reviews=$('#tn13Reviews');
-const REAL_REVIEW_DATA=[["Клиент 1","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 2","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 3","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 4","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 5","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 6","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 7","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 8","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 9","Текст отзыва клиента будет добавлен при заполнении шаблона."]];
+const REAL_REVIEW_DATA=REVIEW_DATA.length?REVIEW_DATA:[['','']];
 const reviewInitial=n=>([...String(n).trim()][0]||'S').toUpperCase();
 const reviewHref=()=>REVIEWS_URL;
 const reviewCard=r=>`<a class="tn30-review-card" href="${reviewHref(r)}" aria-disabled="true"><div class="tn30-review-head"><span class="tn30-review-avatar">${reviewInitial(r[0])}</span><span><strong class="tn30-review-name">${r[0]}</strong><span class="tn30-review-meta">Источник отзыва</span></span></div><p>${r[1]}</p><span class="tn30-review-open">Подробнее →</span></a>`;
-const reviewLanes=[0,1,2].map(row=>REAL_REVIEW_DATA.filter((_,i)=>i%3===row));
+const reviewLanes=[0,1,2].map(row=>REAL_REVIEW_DATA.filter((_,i)=>i%3===row)).filter(lane=>lane.length);
 reviews.innerHTML=`<div class="tn30-reviews"><p class="tn22-kicker">Отзывы</p><h2>Что говорят о нас</h2><div class="tn30-score"><strong>—</strong><div class="tn30-stars">★★★★★</div><div class="tn30-count">Отзывы будут добавлены</div></div><div class="tn30-review-stage">${reviewLanes.map((lane,i)=>{const loop=[lane[lane.length-1],...lane,lane[0]];return `<div class="tn30-lane" data-lane="${i}"><div class="tn30-track">${loop.map(reviewCard).join('')}</div></div>`}).join('')}</div><a class="tn30-review-all" href="${REVIEWS_URL}" aria-disabled="true">Смотреть все отзывы →</a></div>`;
 const reviewStage=reviews.querySelector('.tn30-review-stage'),reviewTracks=[...reviews.querySelectorAll('.tn30-track')];
 let reviewIndex=1,reviewPauseTimer=0,reviewMotionTimer=0,reviewDragging=false,reviewMoved=false,reviewSuppressClick=false,reviewStartX=0,reviewStartY=0,reviewDx=0;
@@ -350,10 +350,16 @@ services.insertAdjacentElement('afterend',about);
     /* Rebuild only reviews: 3 stacked cards per slide, centered with neighbor edges visible. */
     const reviewsRoot=document.querySelector('#salon-mobile #tn13Reviews');
     if(reviewsRoot){
-      const REVIEW_URL='#tn13Reviews';
-      const reviewData=[["Клиент 1","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 2","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 3","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 4","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 5","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 6","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 7","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 8","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 9","Текст отзыва клиента будет добавлен при заполнении шаблона."]];
+      const site=window.TANEM_SITE_DATA;
+      const pick=value=>typeof value==='string'?value:(value?.ru??value?.en??value?.hy??'');
+      const REVIEW_URL=site.contacts.reviewsUrl||'#tn13Reviews';
+      const reviewData=site.reviews.map(review=>[pick(review.author),pick(review.text),pick(review.source),review.url||REVIEW_URL]);
+      if(!reviewData.length){
+        reviewsRoot.hidden=true;
+        reviewsRoot.innerHTML='';
+      }else{
       const initial=name=>([...String(name).trim()][0]||'B').toUpperCase();
-      const card=r=>`<a class="br-review-card" href="${REVIEW_URL}" aria-disabled="true"><div class="br-review-head"><span class="br-review-avatar">${initial(r[0])}</span><span><strong class="br-review-name">${r[0]}</strong><span class="br-review-meta"><span>Источник отзыва</span><span class="br-review-meta-stars">★★★★★</span></span></span></div><p>${r[1]}</p><span class="br-review-open">Подробнее →</span></a>`;
+      const card=r=>`<a class="br-review-card" href="${r[3]}"${r[3].startsWith('#')?' aria-disabled="true"':''}><div class="br-review-head"><span class="br-review-avatar">${initial(r[0])}</span><span><strong class="br-review-name">${r[0]}</strong><span class="br-review-meta"><span>${r[2]||'Источник отзыва'}</span><span class="br-review-meta-stars">★★★★★</span></span></span></div><p>${r[1]}</p><span class="br-review-open">Подробнее →</span></a>`;
       const groups=[];
       for(let i=0;i<reviewData.length;i+=3){const group=reviewData.slice(i,i+3);while(group.length<3)group.push(reviewData[(i+group.length)%reviewData.length]);groups.push(group)}
       const page=g=>`<div class="br-review-page">${g.map(card).join('')}</div>`;
@@ -449,6 +455,7 @@ services.insertAdjacentElement('afterend',about);
       window.addEventListener('resize',()=>paint(false),{passive:true});
       paint(false);
       schedule();
+      }
     }
 
     /* Replace only the TANEM footer content with the compact badge. */
@@ -885,7 +892,7 @@ services.insertAdjacentElement('afterend',about);
     ['Наращивание ресниц','Թարթիչների երկարացում','Eyelash extensions']
   ];
 
-  rows.push(...(window.TANEM_SITE_I18N_ROWS||[]));
+  if(window.TANEM_SITE_DATA?.mode==='production')rows.push(...(window.TANEM_SITE_I18N_ROWS||[]));
   var direct={};
   rows.forEach(function(row){ direct[row[0]]=row; });
 
