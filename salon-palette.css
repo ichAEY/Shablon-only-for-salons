@@ -211,8 +211,9 @@ html[data-br-device="mobile"] #salon-mobile #tn13Reviews {
   color:#252525!important;
 }
 html[data-br-device="mobile"] #salon-mobile #tn13Reviews .br-review-card {
-  background:#FFFFFF!important;
-  border-color:rgba(37,37,37,.11)!important;
+  background:#F8F6F2!important;
+  border-color:#E2DAD1!important;
+  box-shadow:0 4px 12px rgba(50,39,32,.03)!important;
 }
 html[data-br-device="mobile"] #salon-mobile #tn13Sticky {
   background:rgba(250,249,246,.97)!important;
