@@ -176,6 +176,11 @@ def verify_palette(browser, candidate: str):
             "#tn13Gallery": ("backgroundColor", "rgb(241, 236, 229)"),
         }),
     ]
+    # Exercise narrower iPhone sizes too, not only the 390 px reference.
+    cases.append((360, 740, True, {
+        "#tn13Services": ("backgroundColor", "rgb(36, 36, 36)"),
+        "#tn13Gallery": ("backgroundColor", "rgb(241, 236, 229)"),
+    }))
     for width, height, mobile, expected in cases:
         context = browser.new_context(
             viewport={"width": width, "height": height},
@@ -209,6 +214,8 @@ def verify_palette(browser, candidate: str):
                 page.emulate_media(reduced_motion="reduce")
                 if hero_btn.evaluate("(el) => getComputedStyle(el, '::after').animationName") != "none":
                     raise AssertionError("Reduced-motion setting does not disable shimmer")
+            if mobile:
+                verify_mobile_category_rails(page, width)
             if not mobile:
                 # Hover animates over a few hundred milliseconds in the real UI.
                 # Wait for the destination colour, not the initial transition frame.
@@ -222,6 +229,84 @@ def verify_palette(browser, candidate: str):
             print(f"PASS neutral palette: {width}px backgrounds, cards, buttons" + (" and hover" if not mobile else ""))
         finally:
             context.close()
+
+
+
+def verify_mobile_category_rails(page, width: int):
+    """Regression coverage for mobile single-line categories and visible last tab."""
+    service_rail = page.locator("#tn13Services .tn31-cats")
+    category_metrics = service_rail.locator(".tn31-cat").evaluate_all("""els => els.map(el => {
+        const style=getComputedStyle(el);
+        return {name:el.textContent.trim(), font:parseFloat(style.fontSize),
+            padding:parseFloat(style.paddingLeft), whitespace:style.whiteSpace,
+            clipped:el.scrollWidth>el.clientWidth+1};
+    })""")
+    if len(category_metrics) != 4 or not any(x["name"] == "Брови и ресницы" for x in category_metrics):
+        raise AssertionError(f"{width}px: missing approved demo categories: {category_metrics}")
+    if any(x["font"] < 10.5 or x["padding"] < 15 or x["whitespace"] != "nowrap"
+           or x["clipped"] for x in category_metrics):
+        raise AssertionError(f"{width}px: labels are wrapped or compressed: {category_metrics}")
+    service_end = service_rail.evaluate("""rail => {
+        rail.scrollLeft=rail.scrollWidth;
+        const last=rail.lastElementChild.getBoundingClientRect();
+        return {right:last.right,railRight:rail.getBoundingClientRect().right,
+            scrollWidth:rail.scrollWidth,clientWidth:rail.clientWidth};
+    }""")
+    if service_end["right"] > service_end["railRight"]+1:
+        raise AssertionError(f"{width}px: last category cannot be fully scrolled: {service_end}")
+    # Substitute two short categories to test the auto-stretch contract.
+    two = service_rail.evaluate("""rail => {
+        rail.innerHTML='<button class="tn31-cat">Ногти</button><button class="tn31-cat">Волосы</button>';
+        rail.classList.add('is-compact');
+        rail.style.setProperty('--mobile-service-category-count','2');
+        return {widths:[...rail.querySelectorAll('.tn31-cat')].map(b=>b.getBoundingClientRect().width),
+            overflow:rail.scrollWidth>rail.clientWidth+1};
+    }""")
+    if abs(two["widths"][0]-two["widths"][1]) > 1 or two["overflow"]:
+        raise AssertionError(f"{width}px: two short categories must stretch evenly: {two}")
+
+    page.locator("#tn13Top .tn22-worklink").click()
+    page.locator("#tn13Gallery.open").wait_for(timeout=8000)
+    gallery_tabs = page.locator("#tn13Gallery .tn22-gallery-tabs")
+    appearance = gallery_tabs.evaluate("""rail => {
+        const wrap=getComputedStyle(rail.parentElement);
+        const base=getComputedStyle(document.querySelector('#tn13Gallery'));
+        const label=getComputedStyle(rail.querySelector('.tn22-gallery-tab'));
+        return {wrap:wrap.backgroundColor,base:base.backgroundColor,
+            shadow:wrap.boxShadow,font:parseFloat(label.fontSize),
+            nowrap:label.whiteSpace,railBg:getComputedStyle(rail).backgroundColor};
+    }""")
+    if appearance["wrap"] != appearance["base"] or appearance["shadow"] != "none":
+        raise AssertionError(f"{width}px: gallery has a distinct category band: {appearance}")
+    if appearance["font"] < 12.1 or appearance["nowrap"] != "nowrap":
+        raise AssertionError(f"{width}px: gallery category text remains too small: {appearance}")
+    gallery_last = gallery_tabs.evaluate("""rail => {
+        rail.scrollLeft=rail.scrollWidth;
+        const last=rail.lastElementChild.getBoundingClientRect();
+        return {right:last.right,railRight:rail.getBoundingClientRect().right};
+    }""")
+    if gallery_last["right"] > gallery_last["railRight"]+1:
+        raise AssertionError(f"{width}px: gallery category is cut off: {gallery_last}")
+    page.locator("#tn13Gallery .tn22-gallery-back").click()
+    page.wait_for_function(
+        "() => !document.querySelector('#tn13Gallery').classList.contains('closing')",
+        timeout=5000,
+    )
+
+    page.locator("#tn13Team .tn22-master-card").first.click()
+    page.locator(".tn22-master-page.open").wait_for(timeout=8000)
+    last_tab = page.locator(".tn22-master-tabs").evaluate("""rail => {
+        rail.scrollLeft=rail.scrollWidth;
+        const last=rail.lastElementChild.getBoundingClientRect();
+        return {right:last.right,viewport:document.documentElement.clientWidth,
+            railRight:rail.getBoundingClientRect().right,
+            mask:getComputedStyle(rail).maskImage};
+    }""")
+    if (last_tab["right"] > last_tab["viewport"]-1 or
+        last_tab["right"] < last_tab["viewport"]-30 or
+        last_tab["mask"] != "none"):
+        raise AssertionError(f"{width}px: master Reviews tab clips too early: {last_tab}")
+    print(f"PASS mobile category rails: {width}px full labels, gallery uniformity, master last tab")
 
 
 def main():
