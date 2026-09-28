@@ -187,6 +187,7 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   if(object(data.media,'media')){
     media(data.media.logo,'media.logo',{required:production});
     media(data.media.about,'media.about',{required:production});
+    if(data.media.heroDesktop)media(data.media.heroDesktop,'media.heroDesktop');
     if(array(data.media.hero,'media.hero')){
       if(production&&!data.media.hero.length)add('media.hero','must contain at least one item');
       data.media.hero.forEach((item,index)=>{media(item,`media.hero[${index}]`,{required:true});if(item?.alt)local(item.alt,`media.hero[${index}].alt`,{required:production})});
