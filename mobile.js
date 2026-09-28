@@ -8,6 +8,11 @@
   const SITE=window.TANEM_SITE_DATA;
   if(!SITE)throw new Error('TANEM_SITE_DATA must load before mobile.js');
 
+  const font=document.createElement('link');
+  font.rel='stylesheet';
+  font.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600&display=swap';
+  document.head.appendChild(font);
+
   const root=document.createElement('div');
   root.id='salon-mobile';
   root.innerHTML=`
