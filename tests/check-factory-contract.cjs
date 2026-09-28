@@ -10,6 +10,11 @@ const root=path.resolve(__dirname,'..');
 const data=loadSiteData(path.join(root,'site-data.js'));
 assert.deepEqual(validateSiteData(data,{rootDir:root}),[],'the distributed template must satisfy its schema');
 
+const starter=loadSiteData(path.join(root,'site-data.blank.js'));
+assert.equal(starter.mode,'template','blank starter cannot be published by accident');
+assert.deepEqual([...starter.services],[],'new customer sites must start without example services');
+assert.deepEqual(validateSiteData(starter,{rootDir:root}),[],'blank starter must have valid schema');
+
 const unsafe=structuredClone(data);
 unsafe.mode='production';
 const unsafeErrors=validateSiteData(unsafe,{rootDir:root});
