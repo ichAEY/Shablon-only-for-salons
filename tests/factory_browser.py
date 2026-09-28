@@ -21,7 +21,7 @@ def wait_for_app(page, root):
 def check_desktop(browser):
     page = browser.new_page(viewport={"width": 1366, "height": 900}, locale="ru-RU")
     wait_for_app(page, "#salon-desktop-v1")
-    assert page.locator(".std-header-brand-main").inner_text() == "Люмен"
+    assert page.locator(".std-header-brand-main").inner_text() == "Lumen"
     assert page.locator("#stdServiceList .dct-service-card").count() == 3
     assert page.locator("#salonDesktopTeam").is_hidden()
     assert page.locator("#salonDesktopPortfolio").is_hidden()
@@ -31,6 +31,11 @@ def check_desktop(browser):
     page.locator("#stdHeaderBookBtn").click()
     assert page.locator("#stdBookOverlay .std-book-options a").count() == 4
     assert page.locator("#stdBookOverlay .std-book-options a").first.get_attribute("href") == "tel:+37410555555"
+    page.locator('[data-desktop-lang="ru"]').first.click()
+    page.wait_for_timeout(100)
+    assert page.locator(".std-header-brand-main").inner_text() == "Люмен"
+    assert page.locator(".std-address").inner_text().startswith("Ереван")
+    assert page.locator("#stdServiceList .dct-service-card-title").first.inner_text() == "Стрижка"
     page.locator('[data-desktop-lang="en"]').first.click()
     page.wait_for_timeout(100)
     assert page.locator(".std-address").inner_text().startswith("Yerevan")
