@@ -188,7 +188,12 @@
     const desktopBrand=root.querySelector('.std-header-brand-main');
     if(desktopBrand&&data.media.logo){
       desktopBrand.classList.add('has-logo');
-      desktopBrand.innerHTML='<img class="std-header-brand-logo" src="'+esc(data.media.logo)+'" alt="'+esc(text(salon.name,lang))+'">';
+      desktopBrand.style.width='100%';
+      desktopBrand.style.height='46px';
+      desktopBrand.style.display='flex';
+      desktopBrand.style.alignItems='center';
+      desktopBrand.style.justifyContent='flex-start';
+      desktopBrand.innerHTML='<img class="std-header-brand-logo" style="display:block;max-width:100%;max-height:46px;width:auto;height:auto;object-fit:contain;object-position:left center" src="'+esc(data.media.logo)+'" alt="'+esc(text(salon.name,lang))+'">';
     }
     setText('.std-tagline',text(salon.heroDescription,lang),root);
     setText('.dct-about-kind',text(salon.kind,lang),root);
