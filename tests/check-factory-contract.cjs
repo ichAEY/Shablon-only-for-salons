@@ -12,6 +12,11 @@ const data=loadSiteData(path.join(root,'site-data.js'));
 assert.deepEqual(validateSiteData(data,{rootDir:root}),[],'the distributed template must satisfy its schema');
 
 const starter=loadSiteData(path.join(root,'site-data.blank.js'));
+const mediaRules=fs.readFileSync(path.join(root,'RULES.md'),'utf8');
+for(const token of ['logo.webp','master.00000.webp','masterpc.00000.webp','gallery.00000.webp','favicon-source.png']){
+  assert(mediaRules.includes(token),`RULES.md must preserve canonical media token: ${token}`);
+}
+assert(Object.prototype.hasOwnProperty.call(starter.media,'heroDesktop'),'starter media must expose optional heroDesktop for masterpc.00000.webp');
 assert.equal(starter.mode,'template','blank starter cannot be published by accident');
 assert.deepEqual([...starter.services],[],'new customer sites must start without example services');
 assert.deepEqual(validateSiteData(starter,{rootDir:root}),[],'blank starter must have valid schema');
