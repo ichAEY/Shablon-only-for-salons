@@ -138,10 +138,17 @@ def compare(a: bytes, b: bytes, filename: str):
     fraction = changed / (x.width * x.height)
     diff.save(OUT / f"{filename}-diff.png")
     print(f"{filename}: {changed} changed pixels / {fraction:.3%}")
-    # The services section intentionally differs from the frozen baseline:
-    # 1–4 categories now fill the available width and service titles are slightly
-    # heavier. Keep the original strict threshold everywhere else.
-    limit = 0.03 if filename.endswith("-services") else 0.003
+    # Mobile service screenshots now include the owner's approved switch from
+    # squeezed 1–4-column category grids to naturally sized Esmeralda pills.
+    # That small layout change affects ~3.4% of the screenshot; protect the
+    # exact new pill/card geometry with verify_mobile_category_rails and keep
+    # every non-service screenshot and all desktop thresholds unchanged.
+    if filename.startswith("mobile-") and filename.endswith("-services"):
+        limit = 0.036
+    elif filename.endswith("-services"):
+        limit = 0.03
+    else:
+        limit = 0.003
     if fraction > limit:
         raise AssertionError(
             f"{filename}: visible regression exceeds {limit:.1%} of pixels"
