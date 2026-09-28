@@ -2,244 +2,11 @@
 
 (function(){
   'use strict';
-  if(!window.matchMedia || !window.matchMedia('(max-width:1023px)').matches || window.matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine)').matches) return;
 
-  const PHONE='';
-  const MESSENGER_URL='#tn13Visit';
-  const MAP_URL='#tn13Visit';
-  const REVIEWS_URL='#tn13Reviews';
-  const RATING='—';
-  const RATINGS_COUNT=0;
-  const services=[
-  [
-    "nails",
-    "Услуга 01",
-    "Записаться"
-  ],
-  [
-    "brows",
-    "Услуга 02",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 03",
-    "Записаться"
-  ],
-  [
-    "brows",
-    "Услуга 04",
-    "Записаться"
-  ],
-  [
-    "depilation",
-    "Услуга 05",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 06",
-    "Записаться"
-  ],
-  [
-    "other",
-    "Услуга 07",
-    "Записаться"
-  ],
-  [
-    "depilation",
-    "Услуга 08",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 09",
-    "Записаться"
-  ],
-  [
-    "depilation",
-    "Услуга 10",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 11",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 12",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 13",
-    "Записаться"
-  ],
-  [
-    "nails",
-    "Услуга 14",
-    "Записаться"
-  ],
-  [
-    "nails",
-    "Услуга 15",
-    "Записаться"
-  ],
-  [
-    "nails",
-    "Услуга 16",
-    "Записаться"
-  ],
-  [
-    "nails",
-    "Услуга 17",
-    "Записаться"
-  ],
-  [
-    "face",
-    "Услуга 18",
-    "Записаться"
-  ],
-  [
-    "face",
-    "Услуга 19",
-    "Записаться"
-  ],
-  [
-    "depilation",
-    "Услуга 20",
-    "Записаться"
-  ],
-  [
-    "brows",
-    "Услуга 21",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 22",
-    "Записаться"
-  ],
-  [
-    "brows",
-    "Услуга 23",
-    "Записаться"
-  ],
-  [
-    "brows",
-    "Услуга 24",
-    "Записаться"
-  ],
-  [
-    "makeup",
-    "Услуга 25",
-    "Записаться"
-  ],
-  [
-    "nails",
-    "Услуга 26",
-    "Записаться"
-  ],
-  [
-    "massage",
-    "Услуга 27",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 28",
-    "Записаться"
-  ],
-  [
-    "hair",
-    "Услуга 29",
-    "Записаться"
-  ],
-  [
-    "brows",
-    "Услуга 30",
-    "Записаться"
-  ]
-];
-  const works=[
-    {src:'media-placeholder.svg',cat:'salon',alt:'Фото салона'},
-    {src:'media-placeholder.svg',cat:'nails',alt:'Работа салона'},
-    {src:'media-placeholder.svg',cat:'nails',alt:'Работа салона'},
-    {src:'media-placeholder.svg',cat:'hair',alt:'Работа салона'},
-    {src:'media-placeholder.svg',cat:'hair',alt:'Работа салона'},
-    {src:'media-placeholder.svg',cat:'makeup',alt:'Работа салона'}
-  ];
-  const reviews=[
-  {
-    "name": "Клиент 1",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  },
-  {
-    "name": "Клиент 2",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  },
-  {
-    "name": "Клиент 3",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  },
-  {
-    "name": "Клиент 4",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  },
-  {
-    "name": "Клиент 5",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  },
-  {
-    "name": "Клиент 6",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  },
-  {
-    "name": "Клиент 7",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  },
-  {
-    "name": "Клиент 8",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  },
-  {
-    "name": "Клиент 9",
-    "text": "Текст отзыва клиента будет добавлен при заполнении шаблона."
-  }
-];
-  const masters=[
-  {
-    "id": "master-1",
-    "name": "Мастер 1",
-    "category": "Специалист",
-    "initial": "1",
-    "about": "",
-    "cats": [
-      "nails"
-    ]
-  },
-  {
-    "id": "master-2",
-    "name": "Мастер 2",
-    "category": "Специалист",
-    "initial": "2",
-    "about": "",
-    "cats": [
-      "hair"
-    ]
-  },
-  {
-    "id": "master-3",
-    "name": "Мастер 3",
-    "category": "Специалист",
-    "initial": "3",
-    "about": "",
-    "cats": [
-      "face"
-    ]
-  }
-];
+  const desktopDevice=window.__BR_DESKTOP_DEVICE__===true;
+  if(desktopDevice)return;
+  const SITE=window.TANEM_SITE_DATA;
+  if(!SITE)throw new Error('TANEM_SITE_DATA must load before mobile.js');
 
   const font=document.createElement('link');
   font.rel='stylesheet';
@@ -248,411 +15,84 @@
 
   const root=document.createElement('div');
   root.id='salon-mobile';
-
-  const serviceTabs=[['all','Все'],['nails','Ногти'],['hair','Волосы'],['brows','Брови и ресницы'],['face','Косметология'],['depilation','Эпиляция'],['makeup','Макияж'],['massage','Массаж'],['other','Другое']];
-  const galleryTabs=[['all','Все'],['salon','Салон'],['nails','Ногти'],['hair','Волосы'],['makeup','Макияж']];
-
   root.innerHTML=`
-    <header class="tn13-hero" id="tn13Top">
-      <div class="tn13-shell">
-        <div class="tn13-topbar">
-          <a class="tn13-brand" href="#tn13Top">SALON NAME</a>
-          <div class="tn13-menu-wrap">
-            <button class="tn13-menu-btn" id="tn13MenuBtn" type="button" aria-label="Открыть меню"><span></span><span></span><span></span></button>
-            <nav class="tn13-menu" id="tn13Menu">
-              <a href="#tn13Portfolio"><span>01</span>Портфолио</a>
-              <a href="#tn13Services"><span>02</span>Услуги</a>
-              <a href="#tn13Team"><span>03</span>Команда</a>
-              <a href="#tn13Reviews"><span>04</span>Отзывы</a>
-              <a href="#tn13Visit"><span>05</span>Визит и запись</a>
-            </nav>
-          </div>
-        </div>
-
-        <div class="tn13-hero-content">
-          <div class="tn13-ticker"><div class="tn13-ticker-track"><span>Салон красоты · Город · услуги · запись</span><span>Салон красоты · Город · услуги · запись</span></div></div>
-          <h1>Салон красоты <em>SALON NAME</em></h1>
-          <p class="tn13-hero-copy">Описание салона будет добавлено при заполнении шаблона.</p>
-        </div>
-
-        <div class="tn13-visual" aria-label="Интерьер и работы SALON NAME">
-          <button class="tn13-visual-main" type="button" data-gallery="salon"></button>
-          <button class="tn13-visual-small" type="button" data-gallery="nails"></button>
-          <div class="tn13-visual-label">Город · Адрес салона</div>
-        </div>
-
-        <div class="tn13-hero-bottom">
-          <div class="tn13-hero-actions"><button class="tn13-main-cta" type="button" data-book>Записаться&nbsp; →</button><a class="tn13-quiet-link" href="#tn13Portfolio">Смотреть работы ↓</a></div>
-          <div class="tn13-stats"><div class="tn13-stat"><strong>${RATING}</strong><span>рейтинг</span></div><div class="tn13-stat"><strong>${RATINGS_COUNT}</strong><span>оценок</span></div><div class="tn13-stat"><strong>${services.length}</strong><span>услуг</span></div></div>
-        </div>
-      </div>
-    </header>
-
-    <section class="tn13-section tn13-portfolio" id="tn13Portfolio">
-      <div class="tn13-shell tn13-reveal">
-        <div class="tn13-section-head"><div><p class="tn13-kicker">Портфолио</p><h2>Пространство<br>и работы</h2></div><p class="tn13-section-note">Фотографии салона</p></div>
-      </div>
-      <div class="tn13-shell tn13-reveal">
-        <div class="tn13-feature">${works.slice(0,2).map(w=>`<button type="button" data-gallery="${w.cat}"><img loading="lazy" decoding="async" src="${w.src}" alt="${w.alt}"></button>`).join('')}</div>
-        <div class="tn13-work-grid">${works.slice(2,5).map(w=>`<button type="button" data-gallery="${w.cat}"><img loading="lazy" decoding="async" src="${w.src}" alt="${w.alt}"></button>`).join('')}</div>
-        <button class="tn13-gallery-btn" type="button" data-gallery="all"><span>Открыть всю галерею</span><span>→</span></button>
-      </div>
-    </section>
-
-    <section class="tn13-section tn13-services" id="tn13Services">
-      <div class="tn13-shell tn13-reveal">
-        <div class="tn13-section-head"><div><p class="tn13-kicker">Услуги</p><h2>Выберите<br>услугу</h2></div></div>
-        <div class="tn13-tabs" id="tn13ServiceTabs">${serviceTabs.map((t,i)=>`<button class="tn13-tab ${i===0?'active':''}" data-service-cat="${t[0]}" type="button">${t[1]}</button>`).join('')}</div>
-        <div class="tn13-service-list" id="tn13ServiceList"></div>
-        <button class="tn13-more" id="tn13More" type="button">Показать ещё услуги</button>
-      </div>
-    </section>
-
-    <section class="tn13-section tn13-team" id="tn13Team"${masters.length?'':' hidden'}>
-      <div class="tn13-shell tn13-reveal">
-        <div class="tn13-section-head"><div><p class="tn13-kicker">Команда</p><h2>Наша<br>команда</h2></div><p class="tn13-section-note">Персональные страницы специалистов</p></div>
-        <div class="tn13-team-grid">${masters.map(m=>`<button class="tn13-master" type="button" data-master="${m.id}"><span class="tn13-master-arrow">↗</span><div class="tn13-master-monogram">${m.initial}</div><strong>${m.name}</strong><span>${m.category}</span></button>`).join('')}</div>
-      </div>
-    </section>
-
-    <section class="tn13-section tn13-reviews" id="tn13Reviews">
-      <div class="tn13-shell tn13-reveal">
-        <div class="tn13-section-head"><div><p class="tn13-kicker">Отзывы</p><h2>Что говорят<br>клиенты</h2></div></div>
-        <a class="tn13-review-summary" href="${REVIEWS_URL}" aria-disabled="true"><strong>${RATING}</strong><span>★★★★★<br>Отзывы будут добавлены</span></a>
-      </div>
-      <div class="tn13-review-viewport" id="tn13ReviewViewport"><div class="tn13-review-track" id="tn13ReviewTrack">${reviews.concat(reviews).map(r=>`<a class="tn13-review-card" href="${REVIEWS_URL}" aria-disabled="true"><div class="tn13-review-stars">★★★★★</div><blockquote>«${r.text}»</blockquote><small>${r.name} · Источник отзыва</small></a>`).join('')}</div></div>
-    </section>
-
-    <section class="tn13-final" id="tn13Visit">
-      <div class="tn13-shell tn13-reveal">
-        <p class="tn13-kicker">Визит и запись</p>
-        <h2>Выберите удобный<br><em>способ записи</em></h2>
-        <p class="tn13-final-copy">Адрес, график и контакты заполняются для каждого салона.</p>
-        <div class="tn13-final-actions">
-          <button class="tn13-final-cta" type="button" data-book><span>Записаться</span><span>→</span></button>
-          <div class="tn13-final-secondary-row"><a class="tn13-final-secondary" href="#tn13Visit" aria-disabled="true"><svg class="tn50-brand-svg" aria-hidden="true"><use href="#stl-icon-message"/></svg>Мессенджер</a><a class="tn13-final-secondary" href="#tn13Visit" aria-disabled="true"><svg aria-hidden="true"><use href="#stl-icon-phone"/></svg>Позвонить</a><a class="tn13-final-secondary" href="${MAP_URL}" aria-disabled="true">Карты</a></div>
-        </div>
-        <iframe class="tn13-map" loading="lazy" src="about:blank" title="Карта SALON NAME"></iframe>
-        <div class="tn13-final-facts"><span><strong>—</strong><small>график</small></span><span><strong>—</strong><small>рейтинг</small></span><span><strong>30</strong><small>услуг</small></span></div>
-      </div>
-    </section>
-
+    <header class="tn13-hero" id="tn13Top"></header>
+    <section class="tn13-section tn13-portfolio" id="tn13Portfolio"></section>
+    <section class="tn13-section tn13-services" id="tn13Services"></section>
+    <section class="tn13-section tn13-team" id="tn13Team"></section>
+    <section class="tn13-section tn13-reviews" id="tn13Reviews"></section>
+    <section class="tn13-final" id="tn13Visit"></section>
     <footer class="tn13-footer"><div class="tn13-shell"><strong>SALON NAME</strong>Цифровой офис TANEM.RU</div></footer>
-
-    <div class="tn13-sticky" id="tn13Sticky"><span>Доступно <strong>${services.length} услуги</strong></span><button type="button" data-book>Записаться</button></div>
-
-    <div class="tn13-overlay" id="tn13Gallery"><div class="tn13-gallery-head"><button class="tn13-back" id="tn13GalleryClose" type="button">←</button><div class="tn13-gallery-title">Галерея SALON NAME</div><div class="tn13-gallery-sub">Салон · ногти · волосы · макияж</div></div><div class="tn13-gallery-tabs" id="tn13GalleryTabs"></div><div class="tn13-gallery-list" id="tn13GalleryList"></div></div>
-
+    <div class="tn13-sticky" id="tn13Sticky"></div>
+    <div class="tn13-overlay" id="tn13Gallery"></div>
     <div class="tn13-sheet" id="tn13MasterSheet"><div class="tn13-panel"><button class="tn13-close" id="tn13MasterClose" type="button">×</button><div id="tn13MasterBody"></div></div></div>
     <div class="tn13-sheet" id="tn13BookSheet" role="dialog" aria-modal="true" aria-labelledby="tn50BookTitle"><div class="tn13-panel"><button class="tn13-close" id="tn13BookClose" type="button" aria-label="Закрыть">×</button><p class="tn13-kicker">Запись</p><h2 class="tn50-book-title" id="tn50BookTitle">Как вам удобнее записаться?</h2><p class="tn50-book-copy">Выберите удобный способ связи.</p><div class="tn50-book-options"><a class="tn50-book-option" href="#tn13Visit" aria-disabled="true"><span class="tn50-book-icon phone"><svg aria-hidden="true"><use href="#stl-icon-phone"/></svg></span><span><strong>Телефон будет добавлен</strong></span><span class="tn50-book-arrow">→</span></a><a class="tn50-book-option" href="#tn13Visit" aria-disabled="true"><span class="tn50-book-icon viber-generic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5h14v10H9l-4 3v-13Z"/></svg></span><span><strong>Мессенджер будет добавлен</strong></span><span class="tn50-book-arrow">→</span></a></div></div></div>
   `;
   document.body.appendChild(root);
 
-  const $=(s,c=root)=>c.querySelector(s);const $$=(s,c=root)=>Array.from(c.querySelectorAll(s));
+  const bookSheet=root.querySelector('#tn13BookSheet');
+  const closeBook=()=>{
+    bookSheet.classList.remove('open');
+    document.body.style.overflow='';
+  };
+  root.querySelector('#tn13BookClose').addEventListener('click',closeBook);
+  bookSheet.addEventListener('click',event=>{if(event.target===bookSheet)closeBook()});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&bookSheet.classList.contains('open'))closeBook()});
 
-  const menuBtn=$('#tn13MenuBtn'),menu=$('#tn13Menu');
-  menuBtn.addEventListener('click',()=>{menuBtn.classList.toggle('open');menu.classList.toggle('open')});
-  $$('#tn13Menu a').forEach(a=>a.addEventListener('click',()=>{menuBtn.classList.remove('open');menu.classList.remove('open')}));
-  document.addEventListener('pointerdown',e=>{if(!e.target.closest('.tn13-menu-wrap')){menuBtn.classList.remove('open');menu.classList.remove('open')}});
-
-  let serviceCat='all',expanded=false;
-  function renderServices(){const all=services.filter(s=>serviceCat==='all'||s[0]===serviceCat);const shown=expanded?all:all.slice(0,6);$('#tn13ServiceList').innerHTML=shown.map(s=>`<article class="tn13-service-row"><div class="tn13-service-name"><strong>${s[1]}</strong></div><div class="tn13-service-action"><button type="button" data-book>Записаться →</button></div></article>`).join('');const more=$('#tn13More');more.style.display=all.length>6?'block':'none';more.textContent=expanded?'Свернуть услуги':'Показать ещё '+Math.max(0,all.length-6)+' услуг';bindBook();}
-  renderServices();
-  $$('#tn13ServiceTabs [data-service-cat]').forEach(b=>b.addEventListener('click',()=>{serviceCat=b.dataset.serviceCat;expanded=false;$$('#tn13ServiceTabs .tn13-tab').forEach(x=>x.classList.toggle('active',x===b));renderServices()}));
-  $('#tn13More').addEventListener('click',()=>{expanded=!expanded;renderServices()});
-
-  let galleryCat='all';
-  function renderGalleryTabs(){ $('#tn13GalleryTabs').innerHTML=galleryTabs.map(t=>`<button type="button" data-gallery-tab="${t[0]}" class="${galleryCat===t[0]?'active':''}">${t[1]}</button>`).join('');$$('#tn13GalleryTabs button').forEach(b=>b.addEventListener('click',()=>{galleryCat=b.dataset.galleryTab;renderGalleryTabs();renderGalleryList()})); }
-  function renderGalleryList(){const arr=works.filter(w=>galleryCat==='all'||w.cat===galleryCat);$('#tn13GalleryList').innerHTML=arr.map(w=>`<img loading="lazy" decoding="async" src="${w.src}" alt="${w.alt}">`).join('')}
-  function openGallery(cat){galleryCat=galleryTabs.some(t=>t[0]===cat)?cat:'all';renderGalleryTabs();renderGalleryList();$('#tn13Gallery').classList.add('open');document.body.style.overflow='hidden'}
-  $$('[data-gallery]').forEach(b=>b.addEventListener('click',()=>openGallery(b.dataset.gallery)));
-  $('#tn13GalleryClose').addEventListener('click',()=>{$('#tn13Gallery').classList.remove('open');document.body.style.overflow=''});
-
-  function openMaster(id){const m=masters.find(x=>x.id===id);if(!m)return;const ms=services.filter(s=>m.cats.includes(s[0]));$('#tn13MasterBody').innerHTML=`<div class="tn13-master-hero"><div class="tn13-master-big">${m.initial}</div><div class="tn13-master-title">${m.name}</div><div class="tn13-master-sub">Мастер · ${m.category}</div></div><div class="tn13-master-about">${m.about}</div><div class="tn13-master-services">${ms.length?ms.slice(0,6).map(s=>`<div class="tn13-master-service"><b>${s[1]}</b><span>${s[2]}</span></div>`).join(''):'<div class="tn13-master-about">Персональные услуги будут добавлены после подтверждения салоном.</div>'}</div><button class="tn13-sheet-cta" type="button" data-book>Записаться</button>`;$('#tn13MasterSheet').classList.add('open');document.body.style.overflow='hidden';bindBook();}
-  $$('[data-master]').forEach(b=>b.addEventListener('click',()=>openMaster(b.dataset.master)));
-  $('#tn13MasterClose').addEventListener('click',()=>{$('#tn13MasterSheet').classList.remove('open');document.body.style.overflow=''});
-
-  function openBook(){ $('#tn13BookSheet').classList.add('open');document.body.style.overflow='hidden'; }
-  function bindBook(){ $$('[data-book]').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.addEventListener('click',openBook)}); }
-  bindBook();
-  $('#tn13BookClose').addEventListener('click',()=>{$('#tn13BookSheet').classList.remove('open');document.body.style.overflow=''});
-  $$('.tn13-sheet').forEach(s=>s.addEventListener('click',e=>{if(e.target===s){s.classList.remove('open');document.body.style.overflow=''}}));
-
-  const reviewTrack=$('#tn13ReviewTrack'),reviewViewport=$('#tn13ReviewViewport');let resume;
-  reviewViewport.addEventListener('pointerdown',()=>{clearTimeout(resume);reviewTrack.classList.add('paused')},{passive:true});
-  const resumeReviews=()=>{clearTimeout(resume);resume=setTimeout(()=>reviewTrack.classList.remove('paused'),500)};
-  reviewViewport.addEventListener('pointerup',resumeReviews,{passive:true});reviewViewport.addEventListener('pointercancel',resumeReviews,{passive:true});
-
-  const reveal=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');reveal.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -8% 0px'});$$('.tn13-reveal').forEach(el=>reveal.observe(el));
-
-  const sticky=$('#tn13Sticky'),hero=$('#tn13Top'),final=$('#tn13Visit');let raf=0;
-  function scrollState(){raf=0;const heroDone=hero.getBoundingClientRect().bottom<=0;const finalNear=final.getBoundingClientRect().top<=window.innerHeight+70;sticky.classList.toggle('show',heroDone&&!finalNear)}
-  window.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(scrollState)},{passive:true});scrollState();
-
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#tn13Gallery').classList.remove('open');$('#tn13MasterSheet').classList.remove('open');$('#tn13BookSheet').classList.remove('open');document.body.style.overflow=''}});
+  const sticky=root.querySelector('#tn13Sticky');
+  const hero=root.querySelector('#tn13Top');
+  const visit=root.querySelector('#tn13Visit');
+  let scrollFrame=0;
+  const syncSticky=()=>{
+    scrollFrame=0;
+    const heroDone=hero.getBoundingClientRect().bottom<=0;
+    const finalNear=visit.getBoundingClientRect().top<=window.innerHeight+70;
+    sticky.classList.toggle('show',heroDone&&!finalNear);
+  };
+  window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(syncSticky)},{passive:true});
+  syncSticky();
 })();
 
 (function(){
 'use strict';
 
-if(!window.matchMedia||!window.matchMedia('(max-width:1023px)').matches||window.matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine)').matches)return;
+if(window.__BR_DESKTOP_DEVICE__===true)return;
 const root=document.getElementById('salon-mobile'); if(!root)return;
-const MAP_URL='#tn13Visit';
-const REVIEWS_URL='#tn13Reviews';
-const PHONE='';
-const MESSENGER_URL='#tn13Visit';
-const SERVICES=[
-  {"cat":"Волосы","title":"Окрашивание волос средней длины","price":"5 000–10 000 ֏","desc":"2 ч"},
-  {"cat":"Волосы","title":"Сложное мелирование","price":"15 000 ₽","desc":"4 ч","details":"Привет, это описание. Оно очень необходимо для того, чтобы вы понимали, что это такое. Но это мелирование, поэтому действуйте именно вот так."},
-  {"cat":"Волосы","title":"Сложная покраска волос с заливкой","price":"от 6 000 ₽","desc":"1,5 ч","details":"если ваши волосы когда-то испортились или вы обожгли их утюгом, есть специальное средство для того, чтобы выйти из этого состояния и вновь обрести хорошие, свежие, красивые волосы. Чтобы всё было хорошо, запишитесь к нам на услугу, и мы примем вас, как только вы возьмёте."},
-  {"cat":"Волосы","title":"Мужская стрижка","price":"4 600 ₽","desc":"3 ч"},
-  {"cat":"Волосы","title":"Окрашивание волос без маски","price":"от 15 000 ₽","desc":"5 ч"},
-  {"cat":"Волосы","title":"Мелирование мелирования","price":"от 4 000 ₽","desc":""},
-  {"cat":"Волосы","title":"Мужская стрижка","price":"4 600 ₽","desc":"3 ч","details":"Для того чтобы постричься мужчине, нужно определить, какой уровень он имеет, для того чтобы сделать так-то, так-то. Без этого не получится сформулировать единогласное решение судей, которое пунктурирует невыносимое обстоятельство обстоятельств.","demoId":"tnDemoMensCutDesc"},
-  {"cat":"Волосы","title":"Мужская стрижка с покраской","price":"1 000 ₽","desc":"","details":"Мужская стрижка с последующим окрашиванием волос.","demoId":"tnDemoMensCutColorDesc"},
-  {
-    "cat": "Маникюр",
-    "title": "Услуга 01",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Брови и ресницы",
-    "title": "Услуга 02",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 03",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Брови и ресницы",
-    "title": "Услуга 04",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Эпиляция",
-    "title": "Услуга 05",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 06",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Другое",
-    "title": "Услуга 07",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Эпиляция",
-    "title": "Услуга 08",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 09",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Эпиляция",
-    "title": "Услуга 10",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 11",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 12",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 13",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Маникюр",
-    "title": "Услуга 14",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Маникюр",
-    "title": "Услуга 15",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Маникюр",
-    "title": "Услуга 16",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Маникюр",
-    "title": "Услуга 17",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Косметология",
-    "title": "Услуга 18",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Косметология",
-    "title": "Услуга 19",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Эпиляция",
-    "title": "Услуга 20",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Брови и ресницы",
-    "title": "Услуга 21",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 22",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Брови и ресницы",
-    "title": "Услуга 23",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Брови и ресницы",
-    "title": "Услуга 24",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Макияж",
-    "title": "Услуга 25",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Маникюр",
-    "title": "Услуга 26",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Массаж",
-    "title": "Услуга 27",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 28",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Волосы",
-    "title": "Услуга 29",
-    "price": "",
-    "desc": ""
-  },
-  {
-    "cat": "Брови и ресницы",
-    "title": "Услуга 30",
-    "price": "",
-    "desc": ""
-  }
-];
-const GALLERY={
-'Салон':Array.from({length:2},()=>({src:'media-placeholder.svg',alt:'Фото салона'})),
-'Ногти':Array.from({length:10},()=>({src:'media-placeholder.svg',alt:'Работа салона'})),
-'Волосы':Array.from({length:9},()=>({src:'media-placeholder.svg',alt:'Работа салона'})),
-'Макияж':Array.from({length:3},()=>({src:'media-placeholder.svg',alt:'Работа салона'}))
+const SITE=window.TANEM_SITE_DATA;
+if(!SITE)throw new Error('TANEM_SITE_DATA must load before mobile.js');
+const localized=(value,lang='ru')=>{
+  if(value==null)return '';
+  if(typeof value==='string')return value;
+  return value[lang]??value.ru??value.en??value.hy??'';
 };
-const PORTFOLIO=Array.from({length:7},()=>({src:'media-placeholder.svg',alt:'Работа салона'}));
-const REVIEW_DATA=[["Клиент 1","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 2","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 3","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 4","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 5","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 6","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 7","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 8","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 9","Текст отзыва клиента будет добавлен при заполнении шаблона."]];
-const MASTERS=[
-  {
-    "id": "master-1",
-    "name": "Мастер 1",
-    "role": "Специалист",
-    "about": "",
-    "cats": [
-      "Маникюр"
-    ],
-    "work": [
-      "media-placeholder.svg",
-      "media-placeholder.svg",
-      "media-placeholder.svg"
-    ],
-    "reviewNames": []
-  },
-  {
-    "id": "master-2",
-    "name": "Мастер 2",
-    "role": "Специалист",
-    "about": "",
-    "cats": [
-      "Волосы"
-    ],
-    "work": [
-      "media-placeholder.svg",
-      "media-placeholder.svg",
-      "media-placeholder.svg"
-    ],
-    "reviewNames": []
-  },
-  {
-    "id": "master-3",
-    "name": "Мастер 3",
-    "role": "Специалист",
-    "about": "",
-    "cats": [
-      "Косметология"
-    ],
-    "work": [],
-    "reviewNames": []
-  },
-  {
-    "id": "master-4",
-    "name": "Мастер 4",
-    "role": "Специалист",
-    "about": "",
-    "cats": [
-      "Брови и ресницы"
-    ],
-    "work": [],
-    "reviewNames": []
-  }
-];
+const russian=value=>localized(value,'ru');
+const mediaItem=item=>({src:item.src,alt:russian(item.alt)});
+const MAP_URL=SITE.contacts.mapUrl||'#tn13Visit';
+const REVIEWS_URL=SITE.contacts.reviewsUrl||'#tn13Reviews';
+const PHONE=SITE.contacts.phone||'';
+const MESSENGER_URL=SITE.contacts.messengerUrl||'#tn13Visit';
+const SERVICES=SITE.services.map(service=>({
+  cat:service.category,
+  title:russian(service.title),
+  price:russian(service.price),
+  desc:russian(service.duration),
+  details:russian(service.description),
+  ...(service.mobileDemoId?{demoId:service.mobileDemoId}:{})
+}));
+const GALLERY=Object.fromEntries(
+  Object.entries(SITE.media.gallery).map(([category,items])=>[category,items.map(mediaItem)])
+);
+const PORTFOLIO=SITE.media.portfolio.map(mediaItem);
+const REVIEW_DATA=SITE.reviews.map(review=>[russian(review.author),russian(review.text)]);
+const MASTERS=SITE.team.map(master=>({
+  id:master.id,
+  name:russian(master.name),
+  role:russian(master.role),
+  about:russian(master.about),
+  cats:[...(master.categories||[])],
+  work:(master.work||[]).map(item=>typeof item==='string'?item:item.src),
+  reviewNames:(master.reviewIds||[]).map(id=>russian(SITE.reviews.find(review=>review.id===id)?.author)).filter(Boolean)
+}));
 const MASTER_AVATAR='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" fill="currentColor"></circle><path d="M12 56c2.7-11.4 10-17 20-17s17.3 5.6 20 17" fill="currentColor"></path></svg>';
 
 const $=s=>root.querySelector(s); const $$=s=>[...root.querySelectorAll(s)];
@@ -827,11 +267,11 @@ team.querySelectorAll('[data-mid]').forEach(b=>b.onclick=()=>openMaster(b.datase
 
 // REVIEWS
 const reviews=$('#tn13Reviews');
-const REAL_REVIEW_DATA=[["Клиент 1","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 2","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 3","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 4","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 5","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 6","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 7","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 8","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 9","Текст отзыва клиента будет добавлен при заполнении шаблона."]];
+const REAL_REVIEW_DATA=REVIEW_DATA.length?REVIEW_DATA:[['','']];
 const reviewInitial=n=>([...String(n).trim()][0]||'S').toUpperCase();
 const reviewHref=()=>REVIEWS_URL;
 const reviewCard=r=>`<a class="tn30-review-card" href="${reviewHref(r)}" aria-disabled="true"><div class="tn30-review-head"><span class="tn30-review-avatar">${reviewInitial(r[0])}</span><span><strong class="tn30-review-name">${r[0]}</strong><span class="tn30-review-meta">Источник отзыва</span></span></div><p>${r[1]}</p><span class="tn30-review-open">Подробнее →</span></a>`;
-const reviewLanes=[0,1,2].map(row=>REAL_REVIEW_DATA.filter((_,i)=>i%3===row));
+const reviewLanes=[0,1,2].map(row=>REAL_REVIEW_DATA.filter((_,i)=>i%3===row)).filter(lane=>lane.length);
 reviews.innerHTML=`<div class="tn30-reviews"><p class="tn22-kicker">Отзывы</p><h2>Что говорят о нас</h2><div class="tn30-score"><strong>—</strong><div class="tn30-stars">★★★★★</div><div class="tn30-count">Отзывы будут добавлены</div></div><div class="tn30-review-stage">${reviewLanes.map((lane,i)=>{const loop=[lane[lane.length-1],...lane,lane[0]];return `<div class="tn30-lane" data-lane="${i}"><div class="tn30-track">${loop.map(reviewCard).join('')}</div></div>`}).join('')}</div><a class="tn30-review-all" href="${REVIEWS_URL}" aria-disabled="true">Смотреть все отзывы →</a></div>`;
 const reviewStage=reviews.querySelector('.tn30-review-stage'),reviewTracks=[...reviews.querySelectorAll('.tn30-track')];
 let reviewIndex=1,reviewPauseTimer=0,reviewMotionTimer=0,reviewDragging=false,reviewMoved=false,reviewSuppressClick=false,reviewStartX=0,reviewStartY=0,reviewDx=0;
@@ -867,7 +307,7 @@ const oldMaster=$('#tn13MasterSheet');if(oldMaster)oldMaster.style.display='none
 
 (function(){
 'use strict';
-if(!window.matchMedia||!window.matchMedia('(max-width:1023px)').matches||window.matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine)').matches)return;
+if(window.__BR_DESKTOP_DEVICE__===true)return;
 const root=document.getElementById('salon-mobile');
 if(!root||document.getElementById('tn38About'))return;
 const services=root.querySelector('#tn13Services');
@@ -889,7 +329,7 @@ services.insertAdjacentElement('afterend',about);
 
 (function(){
   'use strict';
-  if(!window.matchMedia || !window.matchMedia('(max-width:1023px)').matches || window.matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine)').matches) return;
+  if(window.__BR_DESKTOP_DEVICE__===true) return;
 
     /* Remove only the client-rejected descriptive sentence. */
     const heroCopy=document.querySelector('#salon-mobile .tn22-copy');
@@ -910,10 +350,16 @@ services.insertAdjacentElement('afterend',about);
     /* Rebuild only reviews: 3 stacked cards per slide, centered with neighbor edges visible. */
     const reviewsRoot=document.querySelector('#salon-mobile #tn13Reviews');
     if(reviewsRoot){
-      const REVIEW_URL='#tn13Reviews';
-      const reviewData=[["Клиент 1","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 2","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 3","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 4","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 5","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 6","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 7","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 8","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 9","Текст отзыва клиента будет добавлен при заполнении шаблона."]];
+      const site=window.TANEM_SITE_DATA;
+      const pick=value=>typeof value==='string'?value:(value?.ru??value?.en??value?.hy??'');
+      const REVIEW_URL=site.contacts.reviewsUrl||'#tn13Reviews';
+      const reviewData=site.reviews.map(review=>[pick(review.author),pick(review.text),pick(review.source),review.url||REVIEW_URL]);
+      if(!reviewData.length){
+        reviewsRoot.hidden=true;
+        reviewsRoot.innerHTML='';
+      }else{
       const initial=name=>([...String(name).trim()][0]||'B').toUpperCase();
-      const card=r=>`<a class="br-review-card" href="${REVIEW_URL}" aria-disabled="true"><div class="br-review-head"><span class="br-review-avatar">${initial(r[0])}</span><span><strong class="br-review-name">${r[0]}</strong><span class="br-review-meta"><span>Источник отзыва</span><span class="br-review-meta-stars">★★★★★</span></span></span></div><p>${r[1]}</p><span class="br-review-open">Подробнее →</span></a>`;
+      const card=r=>`<a class="br-review-card" href="${r[3]}"${r[3].startsWith('#')?' aria-disabled="true"':''}><div class="br-review-head"><span class="br-review-avatar">${initial(r[0])}</span><span><strong class="br-review-name">${r[0]}</strong><span class="br-review-meta"><span>${r[2]||'Источник отзыва'}</span><span class="br-review-meta-stars">★★★★★</span></span></span></div><p>${r[1]}</p><span class="br-review-open">Подробнее →</span></a>`;
       const groups=[];
       for(let i=0;i<reviewData.length;i+=3){const group=reviewData.slice(i,i+3);while(group.length<3)group.push(reviewData[(i+group.length)%reviewData.length]);groups.push(group)}
       const page=g=>`<div class="br-review-page">${g.map(card).join('')}</div>`;
@@ -1009,6 +455,7 @@ services.insertAdjacentElement('afterend',about);
       window.addEventListener('resize',()=>paint(false),{passive:true});
       paint(false);
       schedule();
+      }
     }
 
     /* Replace only the TANEM footer content with the compact badge. */
@@ -1061,7 +508,7 @@ services.insertAdjacentElement('afterend',about);
 
 (function(){
   'use strict';
-  if(!window.matchMedia || !window.matchMedia('(max-width:1023px)').matches || window.matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine)').matches) return;
+  if(window.__BR_DESKTOP_DEVICE__===true) return;
 
   const VIBER_URL="#tn13Visit";
 
@@ -1185,7 +632,7 @@ services.insertAdjacentElement('afterend',about);
 /* Salon template media assets integration — 2026-09-18 */
 (function(){
   'use strict';
-  if(!window.matchMedia || !window.matchMedia('(max-width:1023px)').matches || window.matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine)').matches) return;
+  if(window.__BR_DESKTOP_DEVICE__===true) return;
 
   const BRAND_SRC='logo-placeholder.svg';
   const ABOUT_SRC='media-placeholder.svg';
@@ -1279,7 +726,7 @@ services.insertAdjacentElement('afterend',about);
 /* Salon template multilingual interface — HY / RU / EN */
 (function(){
   'use strict';
-  if(!window.matchMedia || !window.matchMedia('(max-width:1023px)').matches || window.matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine)').matches) return;
+  if(window.__BR_DESKTOP_DEVICE__===true) return;
 
   var STORAGE_KEY='salon-template-language';
   var currentLang='hy';
@@ -1445,6 +892,7 @@ services.insertAdjacentElement('afterend',about);
     ['Наращивание ресниц','Թարթիչների երկարացում','Eyelash extensions']
   ];
 
+  if(window.TANEM_SITE_DATA?.mode==='production')rows.push(...(window.TANEM_SITE_I18N_ROWS||[]));
   var direct={};
   rows.forEach(function(row){ direct[row[0]]=row; });
 
@@ -1700,5 +1148,3 @@ services.insertAdjacentElement('afterend',about);
 
 /* salon-template-cold-neutral-20260924 */
 (function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const lateCss=document.createElement('link');lateCss.id='salon-template-cold-neutral-20260924';lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=deep-clean-20260928-v3';document.head.appendChild(lateCss);})();
-
-

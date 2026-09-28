@@ -24,10 +24,11 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
 #brLoadError a{display:inline-block;margin-top:22px;color:#181818}
 @media(prefers-reduced-motion:reduce){#brBootIntro{transition:none!important}}
 </style>
-<link rel="stylesheet" href="desktop.css?v=deep-clean-20260928-v3" media="(hover:hover) and (pointer:fine)">
+<link rel="stylesheet" href="desktop.css?v=deep-clean-20260928-v3" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
+<script src="site-data.js?v=factory-20260928-v1"></script>
 <script>
 (()=>{
- const desktop=!!(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches);
+ const desktop=!!(window.matchMedia&&(matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(min-width:1024px)').matches));
  window.__BR_DESKTOP_DEVICE__=desktop;
  document.documentElement.dataset.brDevice=desktop?'desktop':'mobile';
  if(!desktop){
@@ -53,6 +54,8 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
  const started=performance.now(),desktop=window.__BR_DESKTOP_DEVICE__===true;
  const id=desktop?'salon-desktop-v1':'salon-mobile';
  const intro=document.getElementById('brBootIntro'),error=document.getElementById('brLoadError');
+ const site=window.TANEM_SITE_DATA;
+ if(site?.mode==='production'&&site.media?.logo){const logo=intro.querySelector('img');logo.src=site.media.logo;logo.alt=(site.salon?.name?.ru||site.salon?.name||'');}
  let closed=false,shown=false,readyTimer=0;
  function showApp(){
    const root=document.getElementById(id);
@@ -86,7 +89,13 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
  }
  const script=document.createElement('script');
  script.src=desktop?'desktop.js?v=deep-clean-20260928-v4':'mobile.js?v=deep-clean-20260928-v4';
- script.async=false;script.onload=loaded;
+ script.async=false;script.onload=()=>{
+   const runtime=document.createElement('script');
+   runtime.src='site-runtime.js?v=factory-20260928-v1';
+   runtime.async=false;runtime.onload=loaded;
+   runtime.onerror=()=>{if(closed)error.classList.add('is-visible')};
+   document.body.appendChild(runtime);
+ };
  script.onerror=()=>{if(closed)error.classList.add('is-visible')};
  document.body.appendChild(script);
 })();

@@ -4,301 +4,49 @@
   const desktopDevice=window.__BR_DESKTOP_DEVICE__===true || (!('__BR_DESKTOP_DEVICE__' in window) && !!window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches);
   if(!desktopDevice) return;
 
-  const MAP_URL='#salonDesktopContacts';
-  const ROUTE=MAP_URL;
-  const MESSENGER_URL='#salonDesktopContacts';
-  const REVIEWS_URL=MAP_URL;
-  const DESKTOP_REAL_REVIEWS=[["Клиент 1","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 2","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 3","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 4","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 5","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 6","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 7","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 8","Текст отзыва клиента будет добавлен при заполнении шаблона."],["Клиент 9","Текст отзыва клиента будет добавлен при заполнении шаблона."]];
-  const PORTFOLIO=Array.from({length:7},()=>({src:'media-placeholder.svg',alt:'Работа салона'}));
-  const DESKTOP_GALLERY_GROUPS={
-    'Салон':Array.from({length:2},()=>({src:'media-placeholder.svg',alt:'Фото салона'})),
-    'Ногти':Array.from({length:9},()=>({src:'media-placeholder.svg',alt:'Работа салона'})),
-    'Волосы':Array.from({length:7},()=>({src:'media-placeholder.svg',alt:'Работа салона'})),
-    'Макияж':Array.from({length:3},()=>({src:'media-placeholder.svg',alt:'Работа салона'}))
+  const SITE=window.TANEM_SITE_DATA;
+  if(!SITE) throw new Error('TANEM_SITE_DATA must load before desktop.js');
+  const localized=(value,lang='ru')=>{
+    if(value==null)return '';
+    if(typeof value==='string')return value;
+    return value[lang]??value.ru??value.en??value.hy??'';
   };
-  const SERVICE_DATA={
-  "Маникюр": [
-    [
-      "Услуга 01",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 14",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 15",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 16",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 17",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 26",
-      "",
-      "",
-      [],
-      ""
-    ]
-  ],
-  "Брови и ресницы": [
-    [
-      "Услуга 02",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 04",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 21",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 23",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 24",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 30",
-      "",
-      "",
-      [],
-      ""
-    ]
-  ],
-  "Волосы": [
-    ["Окрашивание волос средней длины","5 000–10 000 ֏","2 ч",[],""],
-    ["Сложное мелирование","15 000 ₽","4 ч",[],"Привет, это описание. Оно очень необходимо для того, чтобы вы понимали, что это такое. Но это мелирование, поэтому действуйте именно вот так."],
-    ["Сложная покраска волос с заливкой","от 6 000 ₽","1,5 ч",[],"если ваши волосы когда-то испортились или вы обожгли их утюгом, есть специальное средство для того, чтобы выйти из этого состояния и вновь обрести хорошие, свежие, красивые волосы. Чтобы всё было хорошо, запишитесь к нам на услугу, и мы примем вас, как только вы возьмёте."],
-    ["Мужская стрижка","4 600 ₽","3 ч",[],""],
-    ["Окрашивание волос без маски","от 15 000 ₽","5 ч",[],""],
-    ["Мелирование мелирования","от 4 000 ₽","",[],""],
-    ["Мужская стрижка","4 600 ₽","3 ч",[],"Для того чтобы постричься мужчине, нужно определить, какой уровень он имеет, для того чтобы сделать так-то, так-то. Без этого не получится сформулировать единогласное решение судей, которое пунктурирует невыносимое обстоятельство обстоятельств.","mens-cut-long"],
-    ["Мужская стрижка с покраской","1 000 ₽","",[],"Мужская стрижка с последующим окрашиванием волос.","mens-cut-color"],
-    [
-      "Услуга 03",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 06",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 09",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 11",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 12",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 13",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 22",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 28",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 29",
-      "",
-      "",
-      [],
-      ""
-    ]
-  ],
-  "Эпиляция": [
-    [
-      "Услуга 05",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 08",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 10",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 20",
-      "",
-      "",
-      [],
-      ""
-    ]
-  ],
-  "Другое": [
-    [
-      "Услуга 07",
-      "",
-      "",
-      [],
-      ""
-    ]
-  ],
-  "Косметология": [
-    [
-      "Услуга 18",
-      "",
-      "",
-      [],
-      ""
-    ],
-    [
-      "Услуга 19",
-      "",
-      "",
-      [],
-      ""
-    ]
-  ],
-  "Макияж": [
-    [
-      "Услуга 25",
-      "",
-      "",
-      [],
-      ""
-    ]
-  ],
-  "Массаж": [
-    [
-      "Услуга 27",
-      "",
-      "",
-      [],
-      ""
-    ]
-  ]
-};
-  const SERVICE_CATEGORIES=['Волосы',...Object.keys(SERVICE_DATA).filter(cat=>cat!=='Волосы')];
-  const TEAM_MASTERS=[
-  {
-    "id": "master-1",
-    "name": "Мастер 1",
-    "role": "Специалист",
-    "cats": [
-      "Маникюр"
-    ],
-    "work": [
-      "media-placeholder.svg",
-      "media-placeholder.svg",
-      "media-placeholder.svg"
-    ]
-  },
-  {
-    "id": "master-2",
-    "name": "Мастер 2",
-    "role": "Специалист",
-    "cats": [
-      "Волосы"
-    ],
-    "work": [
-      "media-placeholder.svg",
-      "media-placeholder.svg",
-      "media-placeholder.svg"
-    ]
-  },
-  {
-    "id": "master-3",
-    "name": "Мастер 3",
-    "role": "Специалист",
-    "cats": [
-      "Косметология"
-    ],
-    "work": []
-  },
-  {
-    "id": "master-4",
-    "name": "Мастер 4",
-    "role": "Специалист",
-    "cats": [
-      "Брови и ресницы"
-    ],
-    "work": []
-  }
-];
+  const russian=value=>localized(value,'ru');
+  const MAP_URL=SITE.contacts.mapUrl||'#salonDesktopContacts';
+  const ROUTE=MAP_URL;
+  const MESSENGER_URL=SITE.contacts.messengerUrl||'#salonDesktopContacts';
+  const REVIEWS_URL=SITE.contacts.reviewsUrl||MAP_URL;
+  const DESKTOP_REAL_REVIEWS=SITE.reviews.map(review=>[russian(review.author),russian(review.text)]);
+  const mediaItem=item=>({src:item.src,alt:russian(item.alt)});
+  const PORTFOLIO=SITE.media.portfolio.map(mediaItem);
+  const DESKTOP_GALLERY_GROUPS=Object.fromEntries(
+    Object.entries(SITE.media.gallery).map(([category,items])=>{
+      const limit=SITE.media.desktopGalleryLimits?.[category]??items.length;
+      return [category,items.slice(0,limit).map(mediaItem)];
+    })
+  );
+  const SERVICE_CATEGORIES=SITE.categoryOrder.filter(category=>SITE.services.some(service=>service.category===category));
+  const SERVICE_DATA=Object.fromEntries(SERVICE_CATEGORIES.map(category=>[
+    category,
+    SITE.services.filter(service=>service.category===category).map(service=>{
+      const variants=(service.variants||[]).map(variant=>[
+        russian(variant.duration),
+        russian(variant.label),
+        russian(variant.price)
+      ]);
+      const tuple=[russian(service.title),russian(service.price),russian(service.duration),variants,russian(service.description)];
+      if(service.id==='mens-cut-long'||service.id==='mens-cut-color')tuple.push(service.id);
+      return tuple;
+    })
+  ]));
+  const TEAM_MASTERS=SITE.team.map(master=>({
+    id:master.id,
+    name:russian(master.name),
+    role:russian(master.role),
+    about:russian(master.about),
+    cats:[...(master.categories||[])],
+    work:(master.work||[]).map(item=>typeof item==='string'?item:item.src)
+  }));
   const TEAM_AVATAR='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" fill="currentColor"></circle><path d="M12 56c2.7-11.4 10-17 20-17s17.3 5.6 20 17" fill="currentColor"></path></svg>';
 
   const font=document.createElement('link');
@@ -1549,6 +1297,7 @@
   ];
   const desktopLangIndex={ru:0,hy:1,en:2};
   const desktopDirect={};
+  if(window.TANEM_SITE_DATA?.mode==='production')DESKTOP_I18N_ROWS.push(...(window.TANEM_SITE_I18N_ROWS||[]));
   DESKTOP_I18N_ROWS.forEach(row=>desktopDirect[row[0]]=row);
 
   function desktopDetectLanguage(){
@@ -1650,7 +1399,12 @@
     }
 
     const titles={ru:'SALON NAME — Город',hy:'SALON NAME — Քաղաք',en:'SALON NAME — City'};
-    document.title=titles[currentDesktopLang]||titles.hy;
+    const productionSite=window.TANEM_SITE_DATA?.mode==='production'?window.TANEM_SITE_DATA:null;
+    if(productionSite){
+      const localized=(value)=>typeof value==='string'?value:(value?.[currentDesktopLang]||value?.ru||'');
+      const name=localized(productionSite.salon?.name),city=localized(productionSite.salon?.city);
+      document.title=name+(city?' — '+city:'');
+    }else document.title=titles[currentDesktopLang]||titles.hy;
   }
   root.querySelectorAll('.std-lang-switch [data-desktop-lang]').forEach(btn=>btn.addEventListener('click',()=>{
     currentDesktopLang=btn.dataset.desktopLang;
@@ -1701,10 +1455,6 @@
   }
   updateStatus();
 })();
-
-
-
-
 
 
 
