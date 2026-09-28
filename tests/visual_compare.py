@@ -217,6 +217,7 @@ def verify_palette(browser, candidate: str):
             if mobile:
                 verify_mobile_category_rails(page, width)
             if not mobile:
+                verify_desktop_gallery_viewer(page)
                 # Hover animates over a few hundred milliseconds in the real UI.
                 # Wait for the destination colour, not the initial transition frame.
                 primary = page.locator("#salon-desktop-v1 .std-header-book").first
@@ -246,6 +247,19 @@ def verify_mobile_category_rails(page, width: int):
     if any(x["font"] < 10.5 or x["padding"] < 15 or x["whitespace"] != "nowrap"
            or x["clipped"] for x in category_metrics):
         raise AssertionError(f"{width}px: labels are wrapped or compressed: {category_metrics}")
+    # In this design service cards bleed 15px beyond the 25px container padding.
+    # Their actual left edge and the first service-category pill must coincide.
+    service_left = page.locator("#tn13Services .tn31-service-row").first.evaluate(
+        "(el) => el.getBoundingClientRect().left"
+    )
+    category_left = service_rail.locator(".tn31-cat").first.evaluate(
+        "(el) => el.getBoundingClientRect().left"
+    )
+    if abs(service_left - category_left) > 1.25:
+        raise AssertionError(
+            f"{width}px: service category starts at {category_left}, "
+            f"but first service card starts at {service_left}"
+        )
     service_end = service_rail.evaluate("""rail => {
         rail.scrollLeft=rail.scrollWidth;
         const last=rail.lastElementChild.getBoundingClientRect();
@@ -274,12 +288,17 @@ def verify_mobile_category_rails(page, width: int):
         const label=getComputedStyle(rail.querySelector('.tn22-gallery-tab'));
         return {wrap:wrap.backgroundColor,base:base.backgroundColor,
             shadow:wrap.boxShadow,font:parseFloat(label.fontSize),
-            nowrap:label.whiteSpace,railBg:getComputedStyle(rail).backgroundColor};
+            nowrap:label.whiteSpace,railBg:getComputedStyle(rail).backgroundColor,
+            border:getComputedStyle(rail).borderTopWidth,
+            borderColor:getComputedStyle(rail).borderTopColor,
+            radius:getComputedStyle(rail).borderTopLeftRadius};
     }""")
     if appearance["wrap"] != appearance["base"] or appearance["shadow"] != "none":
         raise AssertionError(f"{width}px: gallery has a distinct category band: {appearance}")
-    if appearance["font"] < 12.1 or appearance["nowrap"] != "nowrap":
-        raise AssertionError(f"{width}px: gallery category text remains too small: {appearance}")
+    if (appearance["font"] < 13.3 or appearance["nowrap"] != "nowrap"
+        or appearance["border"] != "1px" or appearance["radius"] != "14px"
+        or appearance["borderColor"] != "rgb(198, 190, 181)"):
+        raise AssertionError(f"{width}px: Esmeralda gallery capsule missing: {appearance}")
     gallery_last = gallery_tabs.evaluate("""rail => {
         rail.scrollLeft=rail.scrollWidth;
         const last=rail.lastElementChild.getBoundingClientRect();
@@ -293,6 +312,38 @@ def verify_mobile_category_rails(page, width: int):
         timeout=5000,
     )
 
+    # Portfolio image viewer footer: a centered button and the photo counter
+    # share a baseline *below* the photo, with no redundant salon name at left.
+    page.locator("#tn13Portfolio .tn22-photo").first.click()
+    page.locator(".tn22-viewer.open").wait_for(timeout=8000)
+    footer = page.locator(".tn22-viewer.open .tn23-viewer-foot")
+    footer_metrics = footer.evaluate("""foot => {
+        const viewer=foot.closest('.tn22-viewer');
+        const frame=viewer.querySelector('.tn22-viewer-frame').getBoundingClientRect();
+        const photo=viewer.querySelector('.tn42-viewer-canvas').getBoundingClientRect();
+        const button=foot.querySelector('.tn22-view-gallery');
+        const btn=button.getBoundingClientRect();
+        const count=foot.querySelector('.tn22-viewer-count').getBoundingClientRect();
+        return {hasLabel:!!foot.querySelector('.tn23-viewer-label'),
+            buttonParent:button.parentElement===foot,
+            buttonDisplay:getComputedStyle(button).display,
+            buttonCenterX:(btn.left+btn.right)/2, frameCenterX:(frame.left+frame.right)/2,
+            buttonCenterY:(btn.top+btn.bottom)/2,countCenterY:(count.top+count.bottom)/2,
+            buttonTop:btn.top,photoBottom:photo.bottom};
+    }""")
+    if (footer_metrics["hasLabel"] or not footer_metrics["buttonParent"]
+        or footer_metrics["buttonDisplay"] == "none"
+        or abs(footer_metrics["buttonCenterX"]-footer_metrics["frameCenterX"]) > 2
+        or abs(footer_metrics["buttonCenterY"]-footer_metrics["countCenterY"]) > 2
+        or footer_metrics["buttonTop"] < footer_metrics["photoBottom"] + 4):
+        raise AssertionError(f"{width}px: portfolio viewer footer alignment: {footer_metrics}")
+    footer.locator(".tn22-view-gallery").click()
+    page.locator("#tn13Gallery.open").wait_for(timeout=8000)
+    page.locator("#tn13Gallery .tn22-gallery-back").click()
+    page.wait_for_function(
+        "() => !document.querySelector('#tn13Gallery').classList.contains('closing')",
+        timeout=5000,
+    )
     page.locator("#tn13Team .tn22-master-card").first.click()
     page.locator(".tn22-master-page.open").wait_for(timeout=8000)
     last_tab = page.locator(".tn22-master-tabs").evaluate("""rail => {
@@ -307,6 +358,39 @@ def verify_mobile_category_rails(page, width: int):
         last_tab["mask"] != "none"):
         raise AssertionError(f"{width}px: master Reviews tab clips too early: {last_tab}")
     print(f"PASS mobile category rails: {width}px full labels, gallery uniformity, master last tab")
+
+
+
+def verify_desktop_gallery_viewer(page):
+    """Desktop count is outside at right; gallery CTA widens and tabs enlarge."""
+    page.locator("#salonDesktopPortfolio .std-work").first.click()
+    page.locator("#stdGallery.open").wait_for(timeout=8000)
+    metrics = page.locator("#stdGallery .std-gallery-stage").evaluate("""stage => {
+        const canvas=stage.querySelector('.std-gallery-canvas').getBoundingClientRect();
+        const count=stage.querySelector('.std-gallery-count').getBoundingClientRect();
+        const button=stage.querySelector('.std-view-gallery');
+        const btn=button.getBoundingClientRect();
+        return {canvasRight:canvas.right, canvasBottom:canvas.bottom,
+            countRight:count.right, countTop:count.top,
+            btnWidth:btn.width, btnCenterX:(btn.left+btn.right)/2,
+            stageCenterX:(stage.getBoundingClientRect().left+stage.getBoundingClientRect().right)/2,
+            buttonDisplay:getComputedStyle(button).display};
+    }""")
+    if (abs(metrics["canvasRight"]-metrics["countRight"]) > 2
+        or metrics["countTop"] < metrics["canvasBottom"]+4
+        or metrics["btnWidth"] < 210 or metrics["buttonDisplay"] == "none"
+        or abs(metrics["btnCenterX"]-metrics["stageCenterX"]) > 2):
+        raise AssertionError(f"Desktop portfolio viewer placement: {metrics}")
+    page.locator("#stdGalleryClose").click()
+    page.locator("#stdOpenGallery").click()
+    page.locator("#stdGalleryBrowser.open").wait_for(timeout=8000)
+    font = page.locator("#stdGalleryBrowserTabs .std-gallery-browser-tab").first.evaluate(
+        "(el) => parseFloat(getComputedStyle(el).fontSize)"
+    )
+    if font < 14:
+        raise AssertionError(f"Desktop gallery tab is still small: {font}px")
+    page.locator("#stdGalleryBrowserBack").click()
+    print("PASS desktop image viewer: counter at card right, wide CTA, larger tabs")
 
 
 def main():
