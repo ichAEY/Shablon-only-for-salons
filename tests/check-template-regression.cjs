@@ -54,11 +54,15 @@ function verifyTemplate(){
       for(const block of blocks)for(const [key,value] of effectiveRules(block))cascade.set(key,value);
       return [...cascade.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
     };
-    // Compact category rules and the explicitly approved title-weight adjustment are
-    // the only service-style differences allowed from the frozen baseline.
+    // Preserve all frozen service card/price CSS. The owner has explicitly
+    // approved Esmeralda-style naturally sized, scrollable MOBILE CATEGORY
+    // tabs, so only those category-rail selectors may differ from baseline.
+    // Service card titles, time/price rails and the desktop cascade remain
+    // protected by the comparison below.
     const keepFrozenDeclaration=([key])=>{
       const [,selector,property]=JSON.parse(key);
       if(selector.includes(".is-compact"))return false;
+      if(name==="mobile.js"&&/^#salon-mobile #tn13Services \.tn31-cat(?:s)?(?:::[\w-]+)?$/.test(selector))return false;
       if(property==="font-weight"&&selector.includes("#salonDesktopServices .dct-service-card:not(.has-variants) .dct-service-card-title"))return false;
       if(property==="font-weight"&&selector.includes("#salon-mobile #tn13Services .tn31-service-name"))return false;
       return true;
