@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-from urllib.request import urlopen
+import subprocess
 
 from PIL import Image, ImageChops
 from playwright.sync_api import sync_playwright
@@ -144,8 +144,12 @@ def main():
              (360, 740, True), (375, 812, True),
              (390, 844, True), (414, 896, True)]
     errors = []
-    with urlopen(args.baseline.rstrip("/") + "/site-data.js", timeout=10) as response:
-        approved_data = response.read().decode("utf-8")
+    # The historical approved baseline predates site-data.js. Obtain the
+    # factory-approved dataset from the first published factory commit instead.
+    approved_data = subprocess.check_output(
+        ["git", "show", "4bf5f867c0217a4a478a6ab9a5d6b4aad49d4042:site-data.js"],
+        text=True,
+    )
     with sync_playwright() as p:
         browser = getattr(p, args.engine).launch(headless=True)
         try:
