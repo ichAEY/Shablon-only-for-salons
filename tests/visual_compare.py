@@ -256,9 +256,8 @@ def verify_mobile_category_rails(page, width: int):
             scrollWidth:rail.scrollWidth,clientWidth:rail.clientWidth};
     }""")
     if (rail_style["display"] != "flex" or abs(rail_style["gap"]-8) > .5
-        or rail_style["overflow"] != "auto" or
-        rail_style["scrollWidth"] <= rail_style["clientWidth"]+4):
-        raise AssertionError(f"{width}px: full demo category rail must scroll: {rail_style}")
+        or rail_style["overflow"] != "auto"):
+        raise AssertionError(f"{width}px: category rail must allow natural horizontal scrolling: {rail_style}")
     # In this design service cards bleed 15px beyond the 25px container padding.
     # Their actual left edge and the first service-category pill must coincide.
     service_left = page.locator("#tn13Services .tn31-service-row").first.evaluate(
@@ -272,6 +271,18 @@ def verify_mobile_category_rails(page, width: int):
             f"{width}px: service category starts at {category_left}, "
             f"but first service card starts at {service_left}"
         )
+    # The real four demo categories may already fit at 390 px. Add a long
+    # synthetic category only when needed to exercise actual overflow.
+    if rail_style["scrollWidth"] <= rail_style["clientWidth"]+4:
+        long_rail = service_rail.evaluate("""rail => {
+            const extra=document.createElement('button');
+            extra.className='tn31-cat';
+            extra.textContent='Дополнительная категория для проверки прокрутки';
+            rail.appendChild(extra);
+            return {scrollWidth:rail.scrollWidth,clientWidth:rail.clientWidth};
+        }""")
+        if long_rail["scrollWidth"] <= long_rail["clientWidth"]+4:
+            raise AssertionError(f"{width}px: category rail cannot overflow on a long category: {long_rail}")
     service_end = service_rail.evaluate("""rail => {
         rail.scrollLeft=rail.scrollWidth;
         const last=rail.lastElementChild.getBoundingClientRect();
