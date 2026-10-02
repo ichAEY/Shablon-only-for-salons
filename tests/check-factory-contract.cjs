@@ -28,10 +28,12 @@ assert(projectPrompt.includes('START_HERE.md'),'the ordinary Chat project prompt
 assert(projectPrompt.includes('одним сообщением'),'the ordinary Chat project prompt must request missing data in one consolidated message');
 assert(inputChecklist.includes('Явный список услуг из чата является окончательным источником правды'),'the input contract must keep the explicit service list authoritative');
 assert(factoryGuide.includes("country: 'RU'")&&factoryGuide.includes("locales: ['ru', 'en']"),'the factory guide must document the Russian RU/EN contract');
-for(const token of ['logo.webp','master.00000.webp','masterpc.00000.webp','gallery.00000.webp','favicon-source.png']){
+for(const token of ['hero.webp','profile.webp','gallery-01.webp','team-01.webp','logo.webp','favicon-source.png']){
   assert(mediaRules.includes(token),`RULES.md must preserve canonical media token: ${token}`);
 }
-assert(Object.prototype.hasOwnProperty.call(starter.media,'heroDesktop'),'starter media must expose optional heroDesktop for masterpc.00000.webp');
+assert(!Object.prototype.hasOwnProperty.call(starter.media,'heroDesktop'),'starter media must not expose obsolete heroDesktop');
+assert.equal(starter.media.hero.length,0,'blank starter keeps hero empty until real hero.webp is connected');
+assert.equal(starter.media.about,'','blank starter keeps profile empty until real profile.webp is connected');
 assert.equal(starter.mode,'template','blank starter cannot be published by accident');
 assert.deepEqual([...starter.services],[],'new customer sites must start without example services');
 assert.equal(starter.salon.heroDescription.ru,'Ваша красота. Ваша уверенность.','blank starter must preserve the approved desktop slogan');
@@ -96,6 +98,7 @@ assert(validateSiteData(ready,{rootDir:root,allowTestDomains:true}).some(error=>
 const index=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const desktop=fs.readFileSync(path.join(root,'desktop.js'),'utf8');
 const mobile=fs.readFileSync(path.join(root,'mobile.js'),'utf8');
+const runtime=fs.readFileSync(path.join(root,'site-runtime.js'),'utf8');
 assert(index.indexOf('site-data.js')<index.indexOf("desktop?'desktop.js"),'site-data.js must load before either UI bundle');
 assert(index.includes('site-runtime.js'),'the production hydration runtime must load');
 assert(index.includes("matchMedia('(min-width:1024px)').matches"),'wide touch devices must use the desktop layout');
@@ -110,5 +113,9 @@ assert(mobileCategoryCSS.includes('grid-template-columns:none!important')&&mobil
 assert(desktop.includes('В основе нашей работы — профессиональный подход'),'desktop About must contain the approved universal copy');
 assert(!desktop.includes("locales:['ru','en','hy']"),'desktop fallback must not expose Armenian for the default template');
 assert(!mobile.includes("locales:['ru','en','hy']"),'mobile fallback must not expose Armenian for the default template');
+assert(index.includes('favicon-source.png'),'salon template must use the TANEM system favicon');
+assert(!runtime.includes("node.hidden=!hasReviews"),'reviews must remain a permanent structural section');
+assert(!runtime.includes("node.hidden=!hasTeam"),'team must remain a permanent structural section');
+assert(!mobile.includes("team.hidden=!MASTERS.length"),'mobile team must stay visible without real team data');
 
 console.log('PASS: schema, release blockers, unified services, and wide-touch routing are enforced');

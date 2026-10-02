@@ -16,7 +16,7 @@
   const MAP_URL=SITE.contacts.mapUrl||'#salonDesktopContacts';
   const ROUTE=MAP_URL;
   const MESSENGER_URL=SITE.contacts.messengerUrl||'#salonDesktopContacts';
-  const REVIEWS_URL=SITE.contacts.reviewsUrl||MAP_URL;
+  const REVIEWS_URL=SITE.contacts.reviewsUrl||'#salonDesktopReviews';
   const DESKTOP_REAL_REVIEWS=SITE.reviews.map(review=>[russian(review.author),russian(review.text)]);
   const mediaItem=item=>({src:item.src,alt:russian(item.alt)});
   const PORTFOLIO=SITE.media.portfolio.map(mediaItem);
@@ -45,10 +45,12 @@
     name:russian(master.name),
     role:russian(master.role),
     about:russian(master.about),
+    photo:typeof master.photo==='string'?master.photo:(master.photo?.src||''),
     cats:[...(master.categories||[])],
     work:(master.work||[]).map(item=>typeof item==='string'?item:item.src)
   }));
   const TEAM_AVATAR='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" fill="currentColor"></circle><path d="M12 56c2.7-11.4 10-17 20-17s17.3 5.6 20 17" fill="currentColor"></path></svg>';
+  const teamAvatar=master=>master.photo?'<img src="'+master.photo+'" alt="'+master.name+'" style="display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit">':TEAM_AVATAR;
 
   const font=document.createElement('link');
   font.rel='stylesheet';
@@ -56,7 +58,7 @@
   document.head.appendChild(font);
   const root=document.createElement('div');
   root.id='salon-desktop-v1';
-  root.dataset.emptyTeam=TEAM_MASTERS.length?'0':'1';
+  root.dataset.emptyTeam='0'; // Team is permanent: an empty team uses the neutral visible state.
   root.innerHTML=`
     <header class="std-header">
       <a class="std-header-brand" href="#salonDesktopTop" aria-label="SALON NAME">
@@ -229,11 +231,11 @@
 
         <aside class="br-team-panel" id="salonDesktopTeam" aria-labelledby="stdTeamTitle">
           <p class="std-team-kicker">Наша команда</p>
-          <p class="std-team-subtitle">Нажмите на мастера, чтобы открыть страницу специалиста.</p>
+          <p class="std-team-subtitle">${TEAM_MASTERS.length?'Нажмите на мастера, чтобы открыть страницу специалиста.':'Информация о мастерах будет добавлена.'}</p>
           <div class="std-team-track" id="stdTeamTrack">
             ${TEAM_MASTERS.map(master=>`
               <button class="std-master" type="button" data-desktop-master="${master.id}">
-                <div class="std-master-avatar">${TEAM_AVATAR}</div>
+                <div class="std-master-avatar">${teamAvatar(master)}</div>
                 <strong class="std-master-name">${master.name}</strong>
                 <span class="std-master-role">${master.role}</span>
                 <span class="std-master-cats">${master.cats.map(cat=>'<span class="std-master-cat">'+cat+'</span>').join('')}</span>
@@ -1247,6 +1249,7 @@
     ['Наша команда','Մեր թիմը','Our Team'],['Наша команда','Մեր թիմը','Our Team'],
     ['Нажмите на мастера, чтобы открыть отдельную страницу специалиста.','Ընտրեք մասնագետին՝ նրա էջը բացելու համար։','Select a specialist to open their profile.'],
     ['Нажмите на мастера, чтобы открыть страницу специалиста.','Ընտրեք մասնագետին՝ նրա էջը բացելու համար։','Choose a specialist to open their profile.'],
+    ['Информация о мастерах будет добавлена.','Մասնագետների մասին տեղեկությունը կավելացվի։','Specialist information will be added.'],
     ['Nail-мастер','Մատնահարդարման վարպետ','Nail specialist'],['Парикмахер','Վարսահարդար','Hair stylist'],['Косметолог','Կոսմետոլոգ','Cosmetologist'],
     ['Brow & Lash-мастер','Հոնքերի և թարթիչների վարպետ','Brow & lash specialist'],
     ['Маникюр · педикюр','Մատնահարդարում · ոտնահարդարում','Manicure · pedicure'],['Волосы · укладки','Մազեր · հարդարում','Hair · styling'],

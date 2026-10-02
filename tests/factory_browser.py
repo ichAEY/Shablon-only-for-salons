@@ -31,9 +31,10 @@ def check_desktop(browser):
     logo = page.locator(".std-header-brand-main img")
     assert logo.count() == 1, "desktop header logo is missing"
     assert (logo.first.get_attribute("alt") or "").strip() == "Люмен", "desktop header logo alt is incorrect"
-    assert page.locator("#stdHeroMedia").first.get_attribute("src") == "tests/fixtures/photo.svg", "desktop heroDesktop media is not applied"
+    assert page.locator("#stdHeroMedia").first.get_attribute("src") == "tests/fixtures/photo.svg", "desktop hero media is not applied"
     assert page.locator("#stdServiceList .dct-service-card").count() == 3
-    assert page.locator("#salonDesktopTeam").is_hidden()
+    assert not page.locator("#salonDesktopTeam").is_hidden()
+    expect_text(page.locator("#salonDesktopTeam .std-team-subtitle"), "Информация о мастерах будет добавлена.", "desktop empty team state")
     assert page.locator("#salonDesktopPortfolio").is_hidden()
     expect_text(page.locator(".std-reviews-score strong"), "5", "desktop rating")
     expect_text(page.locator(".std-review-meta").first, "Google", "desktop review source")
@@ -59,7 +60,9 @@ def check_mobile(browser):
     page.wait_for_timeout(150)
     expect_text(page.locator(".tn22-title"), "Люмен", "mobile brand in Russian")
     assert page.locator("#tn13Services .tn31-service-row").count() == 3
-    assert page.locator("#tn13Team").is_hidden()
+    assert not page.locator("#tn13Team").is_hidden()
+    assert page.locator("#tn13Team .tn22-master-card").count() == 0
+    assert "Информация о мастерах будет добавлена." in page.locator("#tn13Team").inner_text()
     assert page.locator("#tn13Portfolio").is_hidden()
     assert page.locator("#tn13Reviews .br-review-card").count() >= 3
     expect_text(page.locator("#tn13Reviews .br-review-meta span").first, "Google", "mobile review source")

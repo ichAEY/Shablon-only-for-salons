@@ -185,15 +185,25 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   }
 
   if(object(data.media,'media')){
-    media(data.media.logo,'media.logo',{required:production});
+    // Client logo is optional. hero.webp, profile.webp and 1..25 real gallery photos are the production media contract.
+    if(data.media.logo)media(data.media.logo,'media.logo');
     media(data.media.about,'media.about',{required:production});
-    if(data.media.heroDesktop)media(data.media.heroDesktop,'media.heroDesktop');
+    if(Object.prototype.hasOwnProperty.call(data.media,'heroDesktop'))add('media.heroDesktop','obsolete field; use the same hero.webp on mobile and desktop');
     if(array(data.media.hero,'media.hero')){
-      if(production&&!data.media.hero.length)add('media.hero','must contain at least one item');
+      if(production&&!data.media.hero.length)add('media.hero','must contain hero.webp');
+      if(production&&data.media.hero.length>1)add('media.hero','must contain exactly one canonical hero.webp');
       data.media.hero.forEach((item,index)=>{media(item,`media.hero[${index}]`,{required:true});if(item?.alt)local(item.alt,`media.hero[${index}].alt`,{required:production})});
     }
     if(array(data.media.portfolio,'media.portfolio'))data.media.portfolio.forEach((item,index)=>{media(item,`media.portfolio[${index}]`,{required:true});if(item?.alt)local(item.alt,`media.portfolio[${index}].alt`,{required:production})});
-    if(object(data.media.gallery,'media.gallery'))for(const [group,items] of Object.entries(data.media.gallery))if(array(items,`media.gallery.${group}`))items.forEach((item,index)=>{media(item,`media.gallery.${group}[${index}]`,{required:true});if(item?.alt)local(item.alt,`media.gallery.${group}[${index}].alt`,{required:production})});
+    const gallerySources=new Set();
+    if(object(data.media.gallery,'media.gallery'))for(const [group,items] of Object.entries(data.media.gallery))if(array(items,`media.gallery.${group}`))items.forEach((item,index)=>{
+      media(item,`media.gallery.${group}[${index}]`,{required:true});
+      if(item?.alt)local(item.alt,`media.gallery.${group}[${index}].alt`,{required:production});
+      const source=typeof item==='string'?item:item?.src;
+      if(typeof source==='string'&&source.trim())gallerySources.add(source.trim());
+    });
+    if(production&&gallerySources.size<1)add('media.gallery','must contain at least one real gallery-XX.webp photo');
+    if(gallerySources.size>25)add('media.gallery','must contain at most 25 unique gallery photos');
   }
 
   const reviewIds=new Set();
@@ -219,7 +229,8 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
     teamIds.add(member.id);
     local(member.name,`${field}.name`,{required:production});
     local(member.role,`${field}.role`,{required:production});
-    local(member.about,`${field}.about`);
+    local(member.about,`${field}.about`,{required:production});
+    if(production||member.photo)media(member.photo,`${field}.photo`,{required:production});
     if(array(member.categories,`${field}.categories`))member.categories.forEach((category,categoryIndex)=>{if(!categories.has(category))add(`${field}.categories[${categoryIndex}]`,'must exist in categoryLabels')});
     if(array(member.work,`${field}.work`))member.work.forEach((item,workIndex)=>media(item,`${field}.work[${workIndex}]`,{required:true}));
     if(array(member.reviewIds,`${field}.reviewIds`))member.reviewIds.forEach((id,reviewIndex)=>{if(!reviewIds.has(id))add(`${field}.reviewIds[${reviewIndex}]`,'must reference an existing review')});
