@@ -816,6 +816,7 @@ services.insertAdjacentElement('afterend',about);
     ['Свернуть','Փակել ցանկը','Show less'],
     ['Наша команда','Մեր թիմը','Our team'],
     ['Мастера своего дела','Իրենց գործի վարպետները','Experts in their craft'],
+    ['Информация о мастерах будет добавлена.','Մասնագետների մասին տեղեկությունը կավելացվի։','Specialist information will be added.'],
     ['Листайте','Սահեցրեք','Swipe'],
     ['Nail-мастер','Մատնահարդարման վարպետ','Nail specialist'],
     ['Парикмахер','Վարսահարդար','Hair stylist'],
