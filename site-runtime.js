@@ -213,8 +213,7 @@
     setLink(root.querySelector('.std-contact-route'),contacts.mapUrl,'#salonDesktopContacts');
     const mapFrame=root.querySelector('.std-contact-map iframe');
     if(mapFrame)mapFrame.src=contacts.mapEmbedUrl||'about:blank';
-    const mobileHero=data.media.hero?.[0];
-    const hero=data.media.heroDesktop||mobileHero;
+    const hero=data.media.hero?.[0];
     const heroImage=root.querySelector('#stdHeroMedia');
     if(heroImage&&hero){
       const src=typeof hero==='string'?hero:hero.src;
@@ -262,14 +261,10 @@
   function applyOptionalSections(){
     const hasPortfolio=(data.media.portfolio||[]).length>0;
     const hasGallery=Object.values(data.media.gallery||{}).some(items=>items.length>0);
-    const hasReviews=(data.reviews||[]).length>0;
-    const hasTeam=(data.team||[]).length>0;
     ['#salonDesktopPortfolio','#tn13Portfolio'].forEach(selector=>{const node=document.querySelector(selector);if(node)node.hidden=!hasPortfolio});
-    ['#salonDesktopReviews','#tn13Reviews'].forEach(selector=>{const node=document.querySelector(selector);if(node)node.hidden=!hasReviews});
-    ['#salonDesktopTeam','#tn13Team'].forEach(selector=>{const node=document.querySelector(selector);if(node)node.hidden=!hasTeam});
+    // Team and reviews are permanent structural sections. Missing data is rendered as a neutral empty state.
+    ['#salonDesktopReviews','#tn13Reviews','#salonDesktopTeam','#tn13Team'].forEach(selector=>{const node=document.querySelector(selector);if(node)node.hidden=false});
     if(!hasGallery)document.querySelectorAll('#stdOpenGallery,#stdStickyGalleryOpen,.tn22-port-all,.tn22-worklink,.tn22-media').forEach(node=>{node.hidden=true});
-    if(!hasReviews)document.querySelectorAll('a[href="#salonDesktopReviews"],a[href="#tn13Reviews"],[data-section="tn13Reviews"]').forEach(node=>node.remove());
-    if(!hasTeam)document.querySelectorAll('a[href="#tn13Team"],[data-section="tn13Team"]').forEach(node=>node.remove());
   }
 
   function apply(){
