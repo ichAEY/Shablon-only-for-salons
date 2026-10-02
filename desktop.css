@@ -4649,21 +4649,6 @@ z-index:2!important;
 100%{left:130%}
 }
 }
-#salon-desktop-v1[data-empty-team="1"] #salonDesktopTeam{display:none!important}
-#salon-desktop-v1[data-empty-team="1"] #salonDesktopAbout>.br-about-team-headings{
-display:block!important;width:min(calc(100% - 64px),920px)!important;max-width:920px!important;margin-left:auto!important;margin-right:auto!important
-}
-#salon-desktop-v1[data-empty-team="1"] #salonDesktopAbout>.br-about-team-headings:after{display:none!important}
-#salon-desktop-v1[data-empty-team="1"] #salonDesktopAbout>.br-about-team-headings h2:last-child{display:none!important}
-#salon-desktop-v1[data-empty-team="1"] #salonDesktopAbout>.br-about-team-shell{
-display:flex!important;width:min(calc(100% - 64px),920px)!important;max-width:920px!important;margin-left:auto!important;margin-right:auto!important;justify-content:center!important
-}
-#salon-desktop-v1[data-empty-team="1"] #salonDesktopAbout>.br-about-team-shell:after{display:none!important}
-#salon-desktop-v1[data-empty-team="1"] #salonDesktopAbout .br-about-column{
-width:100%!important;max-width:920px!important;min-height:0!important;height:auto!important;flex:1 1 auto!important
-}
-
-
 @media(min-width:1024px){
 #salon-desktop-v1{--purple:#181818!important;--purple2:#303030!important;background:#fafaf9!important;color:#181818!important}
 #salon-desktop-v1 .std-header{background:#f5f5f3!important;border-bottom:1px solid rgba(24,24,24,.06)!important}
