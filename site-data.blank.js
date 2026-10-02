@@ -26,8 +26,8 @@
       messengerUrl:'',messengerLabel:t('Написать','Message','Գրել'),messengerHandle:'',
       mapUrl:'',mapEmbedUrl:'',reviewsUrl:'',booking:[]},
     rating:{value:null,count:0},
-    // Media contract: see RULES.md. hero[0] = master.00000.webp; heroDesktop = masterpc.00000.webp (optional); logo = logo.webp.
-    media:{logo:'',hero:[],heroDesktop:'',about:'',portfolio:[],gallery:{},desktopGalleryLimits:{}},
+    // Media contract: hero.webp -> hero[0], profile.webp -> about, gallery-01.webp...gallery-25.webp -> portfolio/gallery, optional transparent logo.*.
+    media:{logo:'',hero:[],about:'',portfolio:[],gallery:{},desktopGalleryLimits:{}},
     categoryLabels:{},
     categoryOrder:[],
     services:[], // No demo services. Add one object per actual client service.
