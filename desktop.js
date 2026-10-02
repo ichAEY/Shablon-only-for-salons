@@ -233,14 +233,14 @@
           <p class="std-team-kicker">Наша команда</p>
           <p class="std-team-subtitle">${TEAM_MASTERS.length?'Нажмите на мастера, чтобы открыть страницу специалиста.':'Информация о мастерах будет добавлена.'}</p>
           <div class="std-team-track" id="stdTeamTrack">
-            ${TEAM_MASTERS.length?TEAM_MASTERS.map(master=>`
+            ${TEAM_MASTERS.map(master=>`
               <button class="std-master" type="button" data-desktop-master="${master.id}">
                 <div class="std-master-avatar">${teamAvatar(master)}</div>
                 <strong class="std-master-name">${master.name}</strong>
                 <span class="std-master-role">${master.role}</span>
                 <span class="std-master-cats">${master.cats.map(cat=>'<span class="std-master-cat">'+cat+'</span>').join('')}</span>
               </button>
-            `).join(''):'<p class="std-team-empty" style="margin:8px 0 0;color:rgba(37,37,37,.62);font:500 14px/1.6 Manrope,Arial,sans-serif">Мастера появятся здесь после получения фотографий и данных.</p>'}
+            `).join('')}
           </div>
         </aside>
       </div>
@@ -1249,6 +1249,7 @@
     ['Наша команда','Մեր թիմը','Our Team'],['Наша команда','Մեր թիմը','Our Team'],
     ['Нажмите на мастера, чтобы открыть отдельную страницу специалиста.','Ընտրեք մասնագետին՝ նրա էջը բացելու համար։','Select a specialist to open their profile.'],
     ['Нажмите на мастера, чтобы открыть страницу специалиста.','Ընտրեք մասնագետին՝ նրա էջը բացելու համար։','Choose a specialist to open their profile.'],
+    ['Информация о мастерах будет добавлена.','Մասնագետների մասին տեղեկությունը կավելացվի։','Specialist information will be added.'],
     ['Nail-мастер','Մատնահարդարման վարպետ','Nail specialist'],['Парикмахер','Վարսահարդար','Hair stylist'],['Косметолог','Կոսմետոլոգ','Cosmetologist'],
     ['Brow & Lash-мастер','Հոնքերի և թարթիչների վարպետ','Brow & lash specialist'],
     ['Маникюр · педикюр','Մատնահարդարում · ոտնահարդարում','Manicure · pedicure'],['Волосы · укладки','Մազեր · հարդարում','Hair · styling'],
