@@ -36,7 +36,7 @@
       hero:[photo('Интерьер салона','Salon interior','Սրահի ինտերիեր')],
 
       about:'tests/fixtures/photo.svg',
-      portfolio:[photo('Работа салона','Salon work','Salon work')],
+      portfolio:[],
       gallery:{'Волосы':[photo('Работа салона','Salon work','Salon work')]},
       desktopGalleryLimits:{}
     },
