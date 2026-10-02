@@ -16,7 +16,7 @@
   const MAP_URL=SITE.contacts.mapUrl||'#salonDesktopContacts';
   const ROUTE=MAP_URL;
   const MESSENGER_URL=SITE.contacts.messengerUrl||'#salonDesktopContacts';
-  const REVIEWS_URL=SITE.contacts.reviewsUrl||MAP_URL;
+  const REVIEWS_URL=SITE.contacts.reviewsUrl||'#salonDesktopReviews';
   const DESKTOP_REAL_REVIEWS=SITE.reviews.map(review=>[russian(review.author),russian(review.text)]);
   const mediaItem=item=>({src:item.src,alt:russian(item.alt)});
   const PORTFOLIO=SITE.media.portfolio.map(mediaItem);
@@ -45,10 +45,12 @@
     name:russian(master.name),
     role:russian(master.role),
     about:russian(master.about),
+    photo:typeof master.photo==='string'?master.photo:(master.photo?.src||''),
     cats:[...(master.categories||[])],
     work:(master.work||[]).map(item=>typeof item==='string'?item:item.src)
   }));
   const TEAM_AVATAR='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" fill="currentColor"></circle><path d="M12 56c2.7-11.4 10-17 20-17s17.3 5.6 20 17" fill="currentColor"></path></svg>';
+  const teamAvatar=master=>master.photo?'<img src="'+master.photo+'" alt="'+master.name+'" style="display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit">':TEAM_AVATAR;
 
   const font=document.createElement('link');
   font.rel='stylesheet';
@@ -229,16 +231,16 @@
 
         <aside class="br-team-panel" id="salonDesktopTeam" aria-labelledby="stdTeamTitle">
           <p class="std-team-kicker">Наша команда</p>
-          <p class="std-team-subtitle">Нажмите на мастера, чтобы открыть страницу специалиста.</p>
+          <p class="std-team-subtitle">${TEAM_MASTERS.length?'Нажмите на мастера, чтобы открыть страницу специалиста.':'Информация о мастерах будет добавлена.'}</p>
           <div class="std-team-track" id="stdTeamTrack">
-            ${TEAM_MASTERS.map(master=>`
+            ${TEAM_MASTERS.length?TEAM_MASTERS.map(master=>`
               <button class="std-master" type="button" data-desktop-master="${master.id}">
-                <div class="std-master-avatar">${TEAM_AVATAR}</div>
+                <div class="std-master-avatar">${teamAvatar(master)}</div>
                 <strong class="std-master-name">${master.name}</strong>
                 <span class="std-master-role">${master.role}</span>
                 <span class="std-master-cats">${master.cats.map(cat=>'<span class="std-master-cat">'+cat+'</span>').join('')}</span>
               </button>
-            `).join('')}
+            `).join(''):'<p class="std-team-empty" style="margin:8px 0 0;color:rgba(37,37,37,.62);font:500 14px/1.6 Manrope,Arial,sans-serif">Мастера появятся здесь после получения фотографий и данных.</p>'}
           </div>
         </aside>
       </div>
