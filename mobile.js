@@ -637,7 +637,7 @@ services.insertAdjacentElement('afterend',about);
   'use strict';
   if(window.__BR_DESKTOP_DEVICE__===true) return;
 
-  const BRAND_SRC='logo-placeholder.svg';
+  const BRAND_SRC=window.TANEM_SITE_DATA?.media?.logo||'';
   const ABOUT_SRC='media-placeholder.svg';
   const VIDEO_SRC='';
 
@@ -647,9 +647,12 @@ services.insertAdjacentElement('afterend',about);
     const brand=root.querySelector('.tn22-brand');
     if(!brand || brand.dataset.brLogoReady==='1') return;
     brand.dataset.brLogoReady='1';
+    const site=window.TANEM_SITE_DATA;
+    const salonName=typeof site?.salon?.name==='string'?site.salon.name:(site?.salon?.name?.ru||site?.salon?.name?.en||'SALON NAME');
+    brand.setAttribute('aria-label',salonName);
+    if(!BRAND_SRC){brand.textContent=salonName;return}
     brand.classList.add('br-logo-brand');
-    brand.setAttribute('aria-label','SALON NAME');
-    brand.innerHTML='<img src="'+BRAND_SRC+'" alt="SALON NAME" decoding="async">';
+    brand.innerHTML='<img src="'+BRAND_SRC+'" alt="'+salonName+'" decoding="async">';
   }
 
   function applyHeroVideo(root){
