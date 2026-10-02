@@ -230,7 +230,7 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
     local(member.name,`${field}.name`,{required:production});
     local(member.role,`${field}.role`,{required:production});
     local(member.about,`${field}.about`,{required:production});
-    media(member.photo,`${field}.photo`,{required:production});
+    if(production||member.photo)media(member.photo,`${field}.photo`,{required:production});
     if(array(member.categories,`${field}.categories`))member.categories.forEach((category,categoryIndex)=>{if(!categories.has(category))add(`${field}.categories[${categoryIndex}]`,'must exist in categoryLabels')});
     if(array(member.work,`${field}.work`))member.work.forEach((item,workIndex)=>media(item,`${field}.work[${workIndex}]`,{required:true}));
     if(array(member.reviewIds,`${field}.reviewIds`))member.reviewIds.forEach((id,reviewIndex)=>{if(!reviewIds.has(id))add(`${field}.reviewIds[${reviewIndex}]`,'must reference an existing review')});
