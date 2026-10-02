@@ -58,7 +58,7 @@
   document.head.appendChild(font);
   const root=document.createElement('div');
   root.id='salon-desktop-v1';
-  root.dataset.emptyTeam=TEAM_MASTERS.length?'0':'1';
+  root.dataset.emptyTeam='0'; // Team is permanent: an empty team uses the neutral visible state.
   root.innerHTML=`
     <header class="std-header">
       <a class="std-header-brand" href="#salonDesktopTop" aria-label="SALON NAME">
