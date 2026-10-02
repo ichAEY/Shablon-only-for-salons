@@ -47,19 +47,27 @@ def check(browser, width, height, mobile, language):
         assert (brand_logo.first.get_attribute("alt") or "").strip() == data["salon"]["name"][language], "Desktop header logo alt is incorrect"
     else:
         must_equal(page.locator(brand), data["salon"]["name"][language], "brand")
-    if desktop and data.get("media", {}).get("heroDesktop"):
-        assert page.locator("#stdHeroMedia").first.get_attribute("src") == data["media"]["heroDesktop"], "Desktop hero did not use heroDesktop"
+    if desktop and data.get("media", {}).get("hero"):
+        hero = data["media"]["hero"][0]
+        expected_hero = hero if isinstance(hero, str) else hero.get("src")
+        assert page.locator("#stdHeroMedia").first.get_attribute("src") == expected_hero, "Desktop hero did not use canonical hero"
     assert data["salon"]["name"][language] in page.title(), "Incorrect page title"
     cards = page.locator("#stdServiceList .dct-service-card" if desktop
                          else "#tn13Services .tn31-service-row")
     assert 0 < cards.count() <= len(data["services"]), "Wrong number of service cards"
-    for section, entries in [
-        ("#salonDesktopTeam" if desktop else "#tn13Team", data["team"]),
-        ("#salonDesktopPortfolio" if desktop else "#tn13Portfolio", data["media"]["portfolio"]),
-        ("#salonDesktopReviews" if desktop else "#tn13Reviews", data["reviews"]),
-    ]:
-        if not entries:
-            assert page.locator(section).is_hidden(), f"Empty section visible: {section}"
+    team_section = page.locator("#salonDesktopTeam" if desktop else "#tn13Team")
+    reviews_section = page.locator("#salonDesktopReviews" if desktop else "#tn13Reviews")
+    assert not team_section.is_hidden(), "Team is a permanent structural section"
+    assert not reviews_section.is_hidden(), "Reviews are a permanent structural section"
+    if not data["team"]:
+        team_cards = page.locator("#salonDesktopTeam [data-desktop-master]" if desktop else "#tn13Team .tn22-master-card")
+        assert team_cards.count() == 0, "Empty team state must not invent specialists"
+    if not data["reviews"]:
+        review_cards = page.locator("#salonDesktopReviews .std-review-card" if desktop else "#tn13Reviews .br-review-card")
+        assert review_cards.count() == 0, "Empty reviews state must not invent reviews"
+    if not data["media"]["portfolio"]:
+        portfolio_section = page.locator("#salonDesktopPortfolio" if desktop else "#tn13Portfolio")
+        assert portfolio_section.is_hidden(), "Empty portfolio should remain optional"
     sample = page.locator("#stdHeaderBookBtn" if desktop else ".tn22-cta")
     sample.click(timeout=9000)
     links = page.locator("#stdBookOverlay .std-book-options a" if desktop
