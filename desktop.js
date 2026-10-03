@@ -1341,7 +1341,8 @@
   function desktopSkipText(node){
     const el=node.parentElement;
     if(!el)return true;
-    if(el.closest('.std-lang-switch,.std-review-text,.std-review-name,.std-review-meta,.std-header-brand-main,.std-logo,.dct-about-brand'))return true;
+    if(el.closest('.std-lang-switch,.std-review-text,.std-review-name,.std-review-meta'))return true;
+    if(SITE.country==='KZ'&&el.closest('.std-header-brand-main,.std-logo,.dct-about-brand'))return true;
     return /^(SCRIPT|STYLE|NOSCRIPT)$/.test(el.tagName);
   }
   function translateDesktopTree(scope,lang=currentDesktopLang){
