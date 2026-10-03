@@ -25,7 +25,7 @@
   global.TANEM_REGION={
     locales,labels,fallback,regional,
     resolve(value){return locales.includes(value)?value:fallback},
-    ui(source,lang,english){if(lang==='uz'||lang==='tg')return regional[lang]?.[source]||english||source;return null},
+    ui(source,lang,english){if(lang==='kk'||lang==='uz'||lang==='tg')return regional[lang]?.[source]||english||source;return null},
     teamHeading(lang){return lang==='ru'?'Наша команда':'Our Team'}
   };
 })(window);
