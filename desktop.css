@@ -5179,3 +5179,15 @@ body[data-br-lang="en"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!importa
     pointer-events:none!important;
   }
 }
+
+
+/* Kazakhstan KK localization: contain longer UI copy without changing other locales. */
+body[data-br-lang="kk"] #salon-desktop-v1 .dct-services-main-title,
+body[data-br-lang="kk"] #salon-desktop-v1 #stdAboutTitle,
+body[data-br-lang="kk"] #salon-desktop-v1 .std-reviews-title,
+body[data-br-lang="kk"] #salon-desktop-v1 .std-contact-title{overflow-wrap:anywhere}
+body[data-br-lang="kk"] #salon-desktop-v1 .mct-tab{white-space:nowrap}
+body[data-br-lang="kk"] #salon-desktop-v1 .dct-service-card{grid-template-columns:minmax(0,1fr) minmax(108px,auto)}
+body[data-br-lang="kk"] #salon-desktop-v1 .dct-service-title{min-width:0;overflow-wrap:anywhere}
+body[data-br-lang="kk"] #salon-desktop-v1 .std-contact-card-title,
+body[data-br-lang="kk"] #salon-desktop-v1 .std-contact-card-sub{overflow-wrap:anywhere}
