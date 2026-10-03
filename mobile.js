@@ -235,36 +235,47 @@ function serviceLine(s){
 }
 function serviceWord(n){const n10=n%10,n100=n%100;if(n10===1&&n100!==11)return 'услугу';if(n10>=2&&n10<=4&&(n100<12||n100>14))return 'услуги';return 'услуг'}
 /* Category selection must not auto-scroll the viewport or horizontal rail. */
-function renderServices(){
- const railLeft=scats.scrollLeft;
- scats.innerHTML=SERVICE_CATS.map(c=>'<button class="tn31-cat'+(c===serviceCat?' active':'')+'" type="button" data-scat="'+c+'">'+c+'</button>').join('');
- scats.querySelectorAll('[data-scat]').forEach(btn=>btn.onclick=()=>{
-  const oldScroll=scats.scrollLeft;
-  serviceCat=btn.dataset.scat;
-  servicesExpanded=false;
-  renderServices();
-  scats.scrollLeft=oldScroll;
- });
- scats.scrollLeft=railLeft;
- const arr=SERVICES.filter(s=>s.cat===serviceCat);
- const shown=servicesExpanded?arr:arr.slice(0,8);
- const remaining=Math.max(0,arr.length-8);
- slist.innerHTML=shown.map(serviceLine).join('');
- slist.querySelectorAll('.tn31-service-price').forEach(price=>{if(price.textContent.trim()==='—')price.hidden=true});
- slist.querySelectorAll('[data-book-service]').forEach(btn=>btn.onclick=book);
- slist.querySelectorAll('[data-service-details]').forEach(btn=>btn.onclick=()=>{
+const MOBILE_SERVICE_PREVIEW_LIMIT=8;
+let mobileMoreWrap=null,mobileSavedScrollAnchor=null,mobileMoreAnchorRun=0;
+function bindMobileServiceControls(scope){
+ scope.querySelectorAll('.tn31-service-price').forEach(price=>{if(price.textContent.trim()==='—')price.hidden=true});
+ scope.querySelectorAll('[data-book-service]').forEach(btn=>btn.onclick=book);
+ scope.querySelectorAll('[data-service-details]').forEach(btn=>btn.onclick=()=>{
   const row=btn.closest('.tn31-service-demo');
-  if(!row.classList.contains('is-expanded'))
-   row.style.setProperty('--service-side-center',(row.offsetHeight/2)+'px');
+  if(!row.classList.contains('is-expanded'))row.style.setProperty('--service-side-center',(row.offsetHeight/2)+'px');
   const expanded=row.classList.toggle('is-expanded');
   btn.setAttribute('aria-expanded',String(expanded));
   btn.textContent=expanded?'Свернуть':'Подробнее…';
   if(btn.firstChild)btn.firstChild.__brI18nCanonical=expanded?'Свернуть':'Подробнее…';
   if(!expanded)requestAnimationFrame(syncDemoSidePositions);
  });
- sMore.hidden=arr.length<=8;
- sMore.querySelector('.tn31-more-text').textContent=servicesExpanded?'Свернуть':'Показать ещё '+remaining+' '+serviceWord(remaining);
- sMore.querySelector('span:last-child').textContent=servicesExpanded?'↑':'↓';
+}
+function resetMobileMore(){
+ mobileMoreAnchorRun++;
+ if(mobileMoreWrap){mobileMoreWrap.remove();mobileMoreWrap=null}
+ servicesExpanded=false;
+}
+function renderServices(){
+ resetMobileMore();
+ const railLeft=scats.scrollLeft;
+ scats.classList.toggle('is-two',SERVICE_CATS.length===2);
+ scats.innerHTML=SERVICE_CATS.map(c=>'<button class="tn31-cat'+(c===serviceCat?' active':'')+'" type="button" data-scat="'+c+'">'+c+'</button>').join('');
+ scats.querySelectorAll('[data-scat]').forEach(btn=>btn.onclick=()=>{
+  const oldScroll=scats.scrollLeft;
+  serviceCat=btn.dataset.scat;
+  renderServices();
+  scats.scrollLeft=oldScroll;
+ });
+ scats.scrollLeft=railLeft;
+ const arr=SERVICES.filter(s=>s.cat===serviceCat);
+ const shown=arr.slice(0,MOBILE_SERVICE_PREVIEW_LIMIT);
+ const remaining=Math.max(0,arr.length-MOBILE_SERVICE_PREVIEW_LIMIT);
+ slist.innerHTML=shown.map(serviceLine).join('');
+ bindMobileServiceControls(slist);
+ sMore.hidden=arr.length<=MOBILE_SERVICE_PREVIEW_LIMIT;
+ sMore.setAttribute('aria-expanded','false');
+ sMore.querySelector('.tn31-more-text').textContent='Показать ещё '+remaining+' '+serviceWord(remaining);
+ sMore.querySelector('span:last-child').textContent='↓';
  updateServiceDurationLabels();
  requestAnimationFrame(syncDemoSidePositions);
 }
@@ -276,7 +287,73 @@ function syncDemoSidePositions(){
   if(expanded)row.classList.add('is-expanded');
  });
 }
-sMore.onclick=()=>{servicesExpanded=!servicesExpanded;renderServices()};
+function stabilizeMobileMoreButton(anchorTop){
+ const delta=sMore.getBoundingClientRect().top-anchorTop;
+ if(Number.isFinite(delta)&&Math.abs(delta)>.5)window.scrollTo({top:Math.max(0,window.scrollY+delta),behavior:'instant'});
+}
+function followMobileMoreButton(anchorTop,token){
+ if(token!==mobileMoreAnchorRun)return;
+ stabilizeMobileMoreButton(anchorTop);
+ if(!servicesExpanded&&mobileMoreWrap)requestAnimationFrame(()=>followMobileMoreButton(anchorTop,token));
+}
+function lockMobileServiceAnchor(){
+ if(mobileSavedScrollAnchor!==null)return;
+ mobileSavedScrollAnchor=document.documentElement.style.overflowAnchor||'';
+ document.documentElement.style.overflowAnchor='none';
+}
+function unlockMobileServiceAnchor(){
+ if(mobileSavedScrollAnchor===null)return;
+ document.documentElement.style.overflowAnchor=mobileSavedScrollAnchor;
+ mobileSavedScrollAnchor=null;
+}
+function makeMobileExtraServices(){
+ return SERVICES.filter(s=>s.cat===serviceCat).slice(MOBILE_SERVICE_PREVIEW_LIMIT).map(serviceLine).join('');
+}
+function paintMobileMoreButton(){
+ const arr=SERVICES.filter(s=>s.cat===serviceCat);
+ const remaining=Math.max(0,arr.length-MOBILE_SERVICE_PREVIEW_LIMIT);
+ sMore.setAttribute('aria-expanded',String(servicesExpanded));
+ sMore.querySelector('.tn31-more-text').textContent=servicesExpanded?'Свернуть':'Показать ещё '+remaining+' '+serviceWord(remaining);
+ sMore.querySelector('span:last-child').textContent=servicesExpanded?'↑':'↓';
+}
+sMore.onclick=()=>{
+ const anchorTop=sMore.getBoundingClientRect().top;
+ const token=++mobileMoreAnchorRun;
+ lockMobileServiceAnchor();
+ const duration=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:400;
+ servicesExpanded=!servicesExpanded;
+ paintMobileMoreButton();
+ if(servicesExpanded){
+  if(!mobileMoreWrap){
+   mobileMoreWrap=document.createElement('div');
+   mobileMoreWrap.className='tn31-service-more-wrap';
+   mobileMoreWrap.innerHTML=makeMobileExtraServices();
+   slist.appendChild(mobileMoreWrap);
+   bindMobileServiceControls(mobileMoreWrap);
+  }
+  const wrap=mobileMoreWrap;
+  wrap.ontransitionend=null;
+  wrap.style.transitionDuration=duration+'ms';
+  const expandedHeight=wrap.scrollHeight;
+  if(!duration){wrap.style.height='auto';unlockMobileServiceAnchor()}
+  else{
+   wrap.style.height='0px';wrap.offsetHeight;
+   requestAnimationFrame(()=>{if(servicesExpanded&&mobileMoreWrap===wrap)wrap.style.height=expandedHeight+'px'});
+   wrap.ontransitionend=e=>{if(e.target===wrap&&e.propertyName==='height'&&servicesExpanded){wrap.style.height='auto';wrap.ontransitionend=null;unlockMobileServiceAnchor()}};
+  }
+  requestAnimationFrame(syncDemoSidePositions);
+ }else if(mobileMoreWrap){
+  const wrap=mobileMoreWrap;
+  wrap.ontransitionend=null;
+  wrap.style.transitionDuration=duration+'ms';
+  if(!duration){wrap.remove();mobileMoreWrap=null;stabilizeMobileMoreButton(anchorTop);unlockMobileServiceAnchor()}
+  else{
+   wrap.style.height=wrap.getBoundingClientRect().height+'px';wrap.offsetHeight;
+   requestAnimationFrame(()=>{if(!servicesExpanded&&mobileMoreWrap===wrap){followMobileMoreButton(anchorTop,token);wrap.style.height='0px'}});
+   wrap.ontransitionend=e=>{if(e.target===wrap&&e.propertyName==='height'&&!servicesExpanded){wrap.remove();mobileMoreWrap=null;stabilizeMobileMoreButton(anchorTop);unlockMobileServiceAnchor()}};
+  }
+ }
+};
 window.addEventListener('salon-template:languagechange',e=>{
  updateServiceDurationLabels(e.detail&&e.detail.lang);
  requestAnimationFrame(syncDemoSidePositions);
