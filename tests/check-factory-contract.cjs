@@ -111,7 +111,13 @@ for(const [country,locales] of Object.entries({RU:['ru','en'],AM:['ru','en','hy'
     const invalid=structuredClone(sample);invalid.locales=['ru','en','hy'];
     assert(validateSiteData(invalid,{rootDir:root,allowTestDomains:true}).some(e=>e.includes('exactly ru, en')),'Russia must not expose HY');
   }
-  if(country==='KZ'||country==='UZ'||country==='TJ'){
+  if(country==='KZ'){
+    const protectedBrand=structuredClone(sample);delete protectedBrand.salon.name.kk;
+    assert.deepEqual(validateSiteData(protectedBrand,{rootDir:root,allowTestDomains:true}),[],'KZ salon name must not require translation');
+    const invalid=structuredClone(sample);invalid.salon.kind.kk='';
+    assert(validateSiteData(invalid,{rootDir:root,allowTestDomains:true}).some(e=>e.includes('salon.kind.kk')),'KZ translated interface/client copy must require KK');
+  }
+  if(country==='UZ'||country==='TJ'){
     const invalid=structuredClone(sample);invalid.salon.name[locales[2]]='';
     assert(validateSiteData(invalid,{rootDir:root,allowTestDomains:true}).some(e=>e.includes(`salon.name.${locales[2]}`)),'Missing regional salon name must fail release');
   }
@@ -148,7 +154,7 @@ assert(!runtime.includes("desktopBrand.classList.add('has-logo')"),'desktop head
 assert(runtime.includes('Открыть в Яндекс Картах')&&runtime.includes('Открыть в Google Maps'),'runtime must select the map action label by country');
 assert(mobile.includes('const loop=[...groups,...groups,...groups]'),'mobile reviews must use a circular triple-buffer loop');
 assert(mobile.includes("currentLang==='hy'||currentLang==='kk'"),'KK team must use the same English-protected behavior as HY');
-assert(mobile.includes(".tn30-review-card p,.br-review-card p,.tn22-master-review p"),'real review text must stay outside the translation walker');
+assert(mobile.includes('.tn30-review-name,.br-review-name,.tn30-review-meta,.br-review-meta'),'real review author/text/source must stay outside the translation walker');
 assert(mediaRules.includes('Контракт локализации Казахстана (KK)'),'RULES.md must lock the Kazakhstan translation contract');
 assert(factoryGuide.includes("country: 'KZ'")&&factoryGuide.includes("locales: ['ru', 'en', 'kk']"),'factory guide must document KZ RU/EN/KK');
 
