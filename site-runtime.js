@@ -202,13 +202,18 @@
     const phoneCard=root.querySelector('#salonDesktopContacts [data-contact-type="phone"]');
     const messengerCard=root.querySelector('#salonDesktopContacts [data-contact-type="messenger"]');
     if(addressCard){setText('.std-contact-card-title',text(salon.city,lang)+', '+text(salon.address,lang),addressCard);setText('.std-contact-card-sub',mapActionLabel(lang),addressCard);setLink(addressCard,contacts.mapUrl,'#salonDesktopContacts')}
-    if(phoneCard){setText('.std-contact-card-title',contacts.phone||text(contacts.phoneLabel,lang),phoneCard);setText('.std-contact-card-sub',callActionLabel(lang),phoneCard);setLink(phoneCard,phoneHref(),'#salonDesktopContacts')}
+    setCardVisible(phoneCard,!!contacts.phone);
+    if(phoneCard&&contacts.phone){setText('.std-contact-card-title',contacts.phone,phoneCard);setText('.std-contact-card-sub',callActionLabel(lang),phoneCard);setLink(phoneCard,phoneHref(),'#salonDesktopContacts')}
     setCardVisible(messengerCard,!!contacts.messengerUrl);
     if(messengerCard&&contacts.messengerUrl){setText('.std-contact-card-title',text(contacts.messengerLabel,lang),messengerCard);setText('.std-contact-card-sub',messageActionLabel(lang,text(salon.name,lang)),messengerCard);setLink(messengerCard,contacts.messengerUrl,'#salonDesktopContacts')}
-    setLink(root.querySelector('.std-phone'),phoneHref(),'#salonDesktopContacts');
-    setText('.std-phone span',contacts.phone||text(contacts.phoneLabel,lang),root);
+    const headerPhone=root.querySelector('.std-phone');
+    const contactCall=root.querySelector('.std-contact-call');
+    setCardVisible(headerPhone,!!contacts.phone);
+    setCardVisible(contactCall,!!contacts.phone);
+    root.querySelector('#salonDesktopContacts .std-contact-actions')?.classList.toggle('is-single',!contacts.phone);
+    if(headerPhone&&contacts.phone){setLink(headerPhone,phoneHref(),'#salonDesktopContacts');setText('span',contacts.phone,headerPhone)}
     setLink(root.querySelector('.std-meta .std-meta-item[href]'),contacts.mapUrl,'#salonDesktopContacts');
-    setLink(root.querySelector('.std-contact-call'),phoneHref(),'#salonDesktopContacts');
+    if(contactCall&&contacts.phone)setLink(contactCall,phoneHref(),'#salonDesktopContacts');
     setLink(root.querySelector('.std-contact-route'),contacts.mapUrl,'#salonDesktopContacts');
     const mapFrame=root.querySelector('.std-contact-map iframe');
     if(mapFrame)mapFrame.src=contacts.mapEmbedUrl||'about:blank';
@@ -264,10 +269,14 @@
     const phoneCard=root.querySelector('#tn13Visit [data-contact-type="phone"]');
     const messengerCard=root.querySelector('#tn13Visit [data-contact-type="messenger"]');
     if(addressCard){setText('strong',text(salon.city,lang)+', '+text(salon.address,lang),addressCard);const sub=addressCard.querySelector('strong+span');if(sub)sub.textContent=mapActionLabel(lang);setLink(addressCard,contacts.mapUrl,'#tn13Visit')}
-    if(phoneCard){setText('strong',contacts.phone||text(contacts.phoneLabel,lang),phoneCard);const sub=phoneCard.querySelector('strong+span');if(sub)sub.textContent=callActionLabel(lang);setLink(phoneCard,phoneHref(),'#tn13Visit')}
+    setCardVisible(phoneCard,!!contacts.phone);
+    if(phoneCard&&contacts.phone){setText('strong',contacts.phone,phoneCard);const sub=phoneCard.querySelector('strong+span');if(sub)sub.textContent=callActionLabel(lang);setLink(phoneCard,phoneHref(),'#tn13Visit')}
     setCardVisible(messengerCard,!!contacts.messengerUrl);
     if(messengerCard&&contacts.messengerUrl){setText('strong',text(contacts.messengerLabel,lang),messengerCard);const sub=messengerCard.querySelector('strong+span');if(sub)sub.textContent=messageActionLabel(lang,text(salon.name,lang));setLink(messengerCard,contacts.messengerUrl,'#tn13Visit')}
-    setLink(root.querySelector('.tn22-call'),phoneHref(),'#tn13Visit');
+    const mobileCall=root.querySelector('.tn22-call');
+    setCardVisible(mobileCall,!!contacts.phone);
+    root.querySelector('.tn22-visit-actions')?.classList.toggle('is-single',!contacts.phone);
+    if(mobileCall&&contacts.phone)setLink(mobileCall,phoneHref(),'#tn13Visit');
     setLink(root.querySelector('.tn22-route'),contacts.mapUrl,'#tn13Visit');
     const mapFrame=root.querySelector('.tn22-mapwrap iframe');
     if(mapFrame)mapFrame.src=contacts.mapEmbedUrl||'about:blank';
