@@ -110,7 +110,14 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   if(!requiredLocales.includes(data.defaultLocale))add('defaultLocale',`must be one of ${requiredLocales.join(', ')}`);
 
   if(object(data.salon,'salon')){
-    ['name','kind','city','address','heroDescription','about'].forEach(key=>local(data.salon[key],`salon.${key}`,{required:production}));
+    ['name','kind','city','address','fullAddress','heroDescription','about'].forEach(key=>local(data.salon[key],`salon.${key}`,{required:production}));
+    if(production){
+      for(const locale of requiredLocales){
+        const display=typeof data.salon.address==='object'?String(data.salon.address?.[locale]||'').trim():String(data.salon.address||'').trim();
+        const full=typeof data.salon.fullAddress==='object'?String(data.salon.fullAddress?.[locale]||'').trim():String(data.salon.fullAddress||'').trim();
+        if(display&&full&&display===full&&full.length>35)add(`salon.address.${locale}`,'must be a shortened UI address; keep the complete value in salon.fullAddress');
+      }
+    }
   }
 
   if(object(data.schedule,'schedule')){
@@ -132,6 +139,22 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
     local(data.contacts.phoneLabel,'contacts.phoneLabel',{required:production&&!!data.contacts.phone});
     local(data.contacts.messengerLabel,'contacts.messengerLabel',{required:production&&!!data.contacts.messengerUrl});
     for(const key of ['messengerUrl','mapUrl','mapEmbedUrl','reviewsUrl'])if(data.contacts[key])url(data.contacts[key],`contacts.${key}`,{allowTel:key==='messengerUrl'});
+    if(production){
+      url(data.contacts.mapUrl||'','contacts.mapUrl',{required:true});
+      url(data.contacts.mapEmbedUrl||'','contacts.mapEmbedUrl',{required:true});
+      const providerHost=value=>{try{return new URL(value).hostname.toLowerCase()}catch{return ''}};
+      const providerOk=(value,wanted)=>{
+        const host=providerHost(value);
+        return wanted==='yandex'?/(^|\.)yandex\./.test(host):(/(^|\.)google\./.test(host)||host==='maps.app.goo.gl'||host.endsWith('.goo.gl'));
+      };
+      const wanted=country==='RU'?'yandex':'google';
+      if(data.contacts.mapUrl&&!providerOk(data.contacts.mapUrl,wanted))add('contacts.mapUrl',`country ${country} must use ${wanted==='yandex'?'Yandex Maps':'Google Maps'}`);
+      if(data.contacts.mapEmbedUrl&&!providerOk(data.contacts.mapEmbedUrl,wanted))add('contacts.mapEmbedUrl',`country ${country} must embed ${wanted==='yandex'?'Yandex Maps':'Google Maps'}`);
+      if(data.contacts.messengerUrl){
+        const label=typeof data.contacts.messengerLabel==='object'?String(data.contacts.messengerLabel.ru||'').trim():String(data.contacts.messengerLabel||'').trim();
+        if(!label||/^(?:Написать|Мессенджер|Message|Write)$/iu.test(label))add('contacts.messengerLabel','must name the actual messenger platform, for example Telegram, WhatsApp, MAX or Viber');
+      }
+    }
     if(data.contacts.phone&&!/^\+?[\d ()-]{7,}$/.test(data.contacts.phone))add('contacts.phone','has an invalid phone format');
     if(array(data.contacts.booking,'contacts.booking'))data.contacts.booking.forEach((item,index)=>{
       const field=`contacts.booking[${index}]`;
