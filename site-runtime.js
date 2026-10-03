@@ -325,7 +325,7 @@
     setCardVisible(phoneCard,!!contacts.phone);
     if(phoneCard&&contacts.phone){setText('strong',contacts.phone,phoneCard);const sub=phoneCard.querySelector('strong+span');if(sub)sub.textContent=callActionLabel(lang);setLink(phoneCard,phoneHref(),'#tn13Visit')}
     setCardVisible(messengerCard,!!contacts.messengerUrl);
-    if(messengerCard&&contacts.messengerUrl){setText('strong',text(contacts.messengerLabel,lang),messengerCard);const sub=messengerCard.querySelector('strong+span');if(sub)sub.textContent=messageActionLabel(lang,text(salon.name,lang));setLink(messengerCard,contacts.messengerUrl,'#tn13Visit')}
+    if(messengerCard&&contacts.messengerUrl){setText('strong',text(contacts.messengerLabel,lang),messengerCard);const sub=messengerCard.querySelector('strong+span');if(sub)sub.textContent=messageActionLabel(lang,brandText(lang));setLink(messengerCard,contacts.messengerUrl,'#tn13Visit')}
     const mobileCall=root.querySelector('.tn22-call');
     setCardVisible(mobileCall,!!contacts.phone);
     root.querySelector('.tn22-visit-actions')?.classList.toggle('is-single',!contacts.phone);
