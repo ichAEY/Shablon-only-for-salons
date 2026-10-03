@@ -48,6 +48,7 @@ jobs:
             node tests/validate-site-data.cjs --production
           fi
           node tests/validate-site-data.cjs tests/fixtures/site-data.production.js --production
+          node tests/validate-site-data.cjs tests/fixtures/site-data.kz.production.js --production
           node tests/check-factory-contract.cjs
 
   visual-regression:
