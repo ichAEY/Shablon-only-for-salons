@@ -62,7 +62,7 @@ if(!SITE)throw new Error('TANEM_SITE_DATA must load before mobile.js');
 const localized=(value,lang='ru')=>{
   if(value==null)return '';
   if(typeof value==='string')return value;
-  return value[lang]??value.ru??value.en??value.hy??'';
+  return value[lang]??value.ru??value.en??value.hy??value.kk??value.uz??value.tg??'';
 };
 const russian=value=>localized(value,'ru');
 const mediaItem=item=>({src:item.src,alt:russian(item.alt)});
@@ -178,8 +178,8 @@ serv.innerHTML=`<div class="tn31-services"><p class="tn22-kicker">Услуги</
 const scats=serv.querySelector('.tn31-cats'),slist=serv.querySelector('.tn31-service-list'),sMore=serv.querySelector('.tn31-service-more');
 function splitServiceTitle(raw){const parts=String(raw).split(' — ');const main=parts.shift()||raw;let detail=parts.join(' — ');if(!detail&&main.length>48){const m=main.match(/^(.*?)(\s\([^)]{5,}\)|\sBrazilian Blowout)$/i);if(m)return {main:m[1],detail:m[2].trim()}}return {main,detail}}
 function serviceDurationValue(raw){const m=String(raw||'').match(/\d+(?:[.,]\d+)?/);return m?m[0]:''}
-function mobileServiceLang(){const raw=(document.body.dataset.brLang||document.documentElement.lang||(navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase();return raw.startsWith('ru')?'ru':raw.startsWith('hy')?'hy':'en'}
-function mobileDurationLabel(raw,lang=mobileServiceLang()){let v=serviceDurationValue(raw);if(!v)return '';v=lang==='ru'?v.replace('.',','):v.replace(',','.');return v+(lang==='hy'?' ժ.':lang==='en'?' h':' ч')}
+function mobileServiceLang(){const raw=(document.body.dataset.brLang||document.documentElement.lang||(navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase();return raw.startsWith('ru')?'ru':raw.startsWith('hy')?'hy':raw.startsWith('kk')?'kk':'en'}
+function mobileDurationLabel(raw,lang=mobileServiceLang()){let v=serviceDurationValue(raw);if(!v)return '';v=lang==='ru'?v.replace('.',','):v.replace(',','.');return v+(lang==='hy'?' ժ.':lang==='kk'?' сағ':lang==='en'?' h':' ч')}
 function updateServiceDurationLabels(lang=mobileServiceLang()){slist?.querySelectorAll('.tn31-service-time[data-duration]').forEach(el=>{el.textContent=mobileDurationLabel(el.dataset.duration,lang)})}
 function servicePriceMarkup(price){
  const range=String(price||'').trim().match(/^([\d ]+)[–-]([\d ]+)\s*([֏₽€$£])$/u);
@@ -1000,7 +1000,7 @@ services.insertAdjacentElement('afterend',about);
   var direct={};
   rows.forEach(function(row){ direct[row[0]]=row; });
 
-  var langIndex={ru:0,hy:1,en:2,uz:2,tg:2};
+  var langIndex={ru:0,hy:1,en:2,kk:2,uz:2,tg:2};
 
   function getSaved(){
     try{
@@ -1013,7 +1013,7 @@ services.insertAdjacentElement('afterend',about);
     var saved=getSaved();
     if(saved) return saved;
     var langs=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en']).map(function(x){return String(x||'').toLowerCase()});
-    for(var lang of ['hy','uz','tg','ru','en'])if(REGION.locales.includes(lang)&&langs.some(function(x){return x.indexOf(lang)===0}))return lang;
+    for(var lang of ['hy','kk','uz','tg','ru','en'])if(REGION.locales.includes(lang)&&langs.some(function(x){return x.indexOf(lang)===0}))return lang;
     return REGION.locales.includes('en')?'en':REGION.fallback;
   }
 
@@ -1023,25 +1023,25 @@ services.insertAdjacentElement('afterend',about);
 
   function dynamicValue(source,lang){
     var serviceMatch=source.match(/^Услуга (\d+)$/);
-    if(serviceMatch) return lang==='hy'?'Ծառայություն '+serviceMatch[1]:lang==='en'?'Service '+serviceMatch[1]:source;
+    if(serviceMatch) return lang==='hy'?'Ծառայություն '+serviceMatch[1]:lang==='kk'?'Қызмет '+serviceMatch[1]:lang==='en'?'Service '+serviceMatch[1]:source;
     var masterMatch=source.match(/^Мастер (\d+)$/);
-    if(masterMatch) return lang==='hy'?'Մասնագետ '+masterMatch[1]:lang==='en'?'Specialist '+masterMatch[1]:source;
+    if(masterMatch) return lang==='hy'?'Մասնագետ '+masterMatch[1]:lang==='kk'?'Specialist '+masterMatch[1]:lang==='en'?'Specialist '+masterMatch[1]:source;
     var m;
     m=source.match(/^Показать ещё (\d+) (?:услугу|услуги|услуг)$/);
-    if(m) return lang==='hy'?'Ցույց տալ ևս '+m[1]+' ծառայություն':lang==='en'?'Show '+m[1]+' more services':source;
+    if(m) return lang==='hy'?'Ցույց տալ ևս '+m[1]+' ծառայություն':lang==='kk'?'Тағы '+m[1]+' қызмет көрсету':lang==='en'?'Show '+m[1]+' more services':source;
     m=source.match(/^Доступно (\d+) (?:услуг|услуги|услугу)$/);
-    if(m) return lang==='hy'?'Հասանելի է '+m[1]+' ծառայություն':lang==='en'?m[1]+' services available':source;
+    if(m) return lang==='hy'?'Հասանելի է '+m[1]+' ծառայություն':lang==='kk'?m[1]+' қызмет қолжетімді':lang==='en'?m[1]+' services available':source;
     if(source==='Сведения уточняются') return lang==='hy'?'Տվյալները շուտով':lang==='en'?'Details coming soon':source;
     if(source==='Информация о мастере появится после подтверждения салоном.') return lang==='hy'?'Մասնագետի տվյալները կհրապարակվեն հաստատումից հետո։':lang==='en'?'The master profile will be published after confirmation.':source;
     m=source.match(/^(\d+) отзыв(?:ов|а)?(?: на сайте)? · Источник отзывов$/);
-    if(m) return lang==='hy'?'Կարծիքները կավելացվեն':lang==='en'?'Reviews will be added':'Отзывы будут добавлены';
+    if(m) return lang==='hy'?'Կարծիքները կավելացվեն':lang==='kk'?'Пікірлер кейін қосылады':lang==='en'?'Reviews will be added':'Отзывы будут добавлены';
     m=source.match(/^(\d{1,2}) из (\d{1,2})$/);
-    if(m) return lang==='hy'?m[1]+' / '+m[2]:lang==='en'?m[1]+' of '+m[2]:source;
+    if(m) return lang==='hy'?m[1]+' / '+m[2]:lang==='kk'?m[1]+' / '+m[2]:lang==='en'?m[1]+' of '+m[2]:source;
     return null;
   }
 
   function canTranslate(source){
-    return !!direct[source] || dynamicValue(source,'ru')!==null || !!REGION.ui(source,'uz') || !!REGION.ui(source,'tg');
+    return !!direct[source] || dynamicValue(source,'ru')!==null || !!REGION.ui(source,'kk') || !!REGION.ui(source,'uz') || !!REGION.ui(source,'tg');
   }
 
   function outputFor(source,lang){
@@ -1123,6 +1123,15 @@ services.insertAdjacentElement('afterend',about);
       'body[data-br-lang="hy"] #tn13Visit .tn22-contact:last-child strong{font-size:13.2px!important;white-space:nowrap!important}',
       'body[data-br-lang="hy"] #tn13Visit .tn22-contact:last-child>span:last-child>span{font-size:8.8px!important;white-space:nowrap!important}',
       'body[data-br-lang="hy"] #tn13Visit .tn22-route{font-size:11.5px!important;white-space:nowrap!important}',
+      'body[data-br-lang="kk"] #tn13Portfolio .tn22-port h2{font-size:39px!important;line-height:1.02!important;letter-spacing:-.035em!important;max-width:100%!important;overflow-wrap:anywhere!important}',
+      'body[data-br-lang="kk"] #tn13Services .tn31-services h2{font-size:38px!important;line-height:1.02!important;letter-spacing:-.035em!important;white-space:normal!important;max-width:100%!important;overflow-wrap:anywhere!important}',
+      'body[data-br-lang="kk"] #tn13Services .tn31-service-row{grid-template-columns:minmax(0,1fr) 98px!important;gap:10px!important}',
+      'body[data-br-lang="kk"] #tn13Services .tn31-service-copy{min-width:0!important}',
+      'body[data-br-lang="kk"] #tn13Services .tn31-service-name{font-weight:500!important;line-height:1.2!important;max-width:100%!important;overflow-wrap:anywhere!important;word-break:normal!important;-webkit-line-clamp:3!important}',
+      'body[data-br-lang="kk"] #tn13Services .tn31-service-detail{white-space:normal!important;overflow-wrap:anywhere!important}',
+      'body[data-br-lang="kk"] #tn13Visit h2{font-size:37px!important;line-height:1.02!important;white-space:normal!important;letter-spacing:-.035em!important}',
+      'body[data-br-lang="kk"] #tn13Visit .tn22-contact strong{font-size:13px!important;overflow-wrap:anywhere!important}',
+      'body[data-br-lang="kk"] #tn13Visit .tn22-route{font-size:11.5px!important;white-space:normal!important}',
       '#salon-mobile .tn22-master-top{display:grid!important;grid-template-columns:40px minmax(0,1fr) 40px!important;align-items:center!important}',
       '#salon-mobile .tn22-master-brand{text-align:center!important;justify-self:center!important;max-width:100%!important;font-size:14px!important;letter-spacing:.12em!important;white-space:nowrap!important}',
       '}'
@@ -1138,7 +1147,7 @@ services.insertAdjacentElement('afterend',about);
     sw.className='br-lang-switch';
     sw.setAttribute('role','group');
     sw.setAttribute('aria-label','Language');
-    var order=REGION.locales.includes('hy')?['hy','ru','en']:REGION.locales;
+    var order=REGION.locales.includes('hy')?['hy','ru','en']:REGION.locales.includes('kk')?['kk','ru','en']:REGION.locales;
     sw.innerHTML=order.map(function(lang,index){return (index?'<span class="sep">/</span>':'')+'<button type="button" data-lang="'+lang+'">'+REGION.labels[lang]+'</button>'}).join('');
     sw.addEventListener('pointerdown',function(e){e.stopPropagation();});
     sw.addEventListener('click',function(e){
@@ -1166,16 +1175,17 @@ services.insertAdjacentElement('afterend',about);
     var credit=root.querySelector('.br-tanem-copy');
     if(credit){
       if(currentLang==='hy') credit.innerHTML='Ստեղծված է <strong>TANEM.ru</strong>-ում';
+      else if(currentLang==='kk') credit.innerHTML='<strong>TANEM.ru</strong> платформасында жасалды';
       else if(currentLang==='en') credit.innerHTML='Created with <strong>TANEM.ru</strong>';
       else credit.innerHTML='Создано в <strong>TANEM.ru</strong>';
     }
 
     var galleryHeading=root.querySelector('#tn13Gallery .tn22-gallery-title strong');
-    if(galleryHeading) galleryHeading.textContent=currentLang==='ru'?'Галерея':'Gallery';
+    if(galleryHeading) galleryHeading.textContent=currentLang==='ru'?'Галерея':currentLang==='kk'?'Галерея':'Gallery';
     var masterBrand=root.querySelector('.tn22-master-brand');
     if(masterBrand) masterBrand.textContent='SALON NAME';
 
-    if(currentLang==='hy'){
+    if(currentLang==='hy'||currentLang==='kk'){
       var team=root.querySelector('#tn13Team');
       var masterPage=root.querySelector('.tn22-master-page');
       if(team){
