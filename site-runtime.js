@@ -247,7 +247,21 @@
       const cleanName=text(salon.name,lang).trim();
       const single=cleanName.length>0&&!/\s/u.test(cleanName);
       mobileTitle.classList.toggle('is-single-line',single);
-      mobileTitle.style.setProperty('--hero-single-max',(cleanName.length<=5?68:cleanName.length<=8?60:cleanName.length<=10?54:49)+'px');
+      const baseMax=cleanName.length<=5?68:cleanName.length<=8?60:cleanName.length<=10?54:49;
+      mobileTitle.style.setProperty('--hero-single-max',baseMax+'px');
+      if(single){
+        const fitSingleTitle=()=>{
+          if(mobileTitle.textContent.trim()!==cleanName)return;
+          mobileTitle.style.setProperty('--hero-single-max',baseMax+'px');
+          const available=mobileTitle.clientWidth,rendered=mobileTitle.scrollWidth;
+          if(available>0&&rendered>available+1){
+            const fitted=Math.max(34,Math.floor(baseMax*(available/rendered)*.96));
+            mobileTitle.style.setProperty('--hero-single-max',fitted+'px');
+          }
+        };
+        requestAnimationFrame(fitSingleTitle);
+        if(document.fonts?.ready)document.fonts.ready.then(()=>requestAnimationFrame(fitSingleTitle)).catch(()=>{});
+      }
     }
     setText('.tn22-sub,.br-about-kind',text(salon.kind,lang),root);
     setText('#tn38About .tn42-copy',text(salon.about,lang),root);
