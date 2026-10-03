@@ -41,12 +41,9 @@ def check(browser, width, height, mobile, language):
     page.locator(switch).first.click(timeout=9000)
     page.wait_for_timeout(250)
     brand = ".std-header-brand-main" if desktop else ".tn22-title"
-    if desktop and data.get("media", {}).get("logo"):
-        brand_logo = page.locator(brand + " img")
-        assert brand_logo.count() == 1, "Desktop header logo is missing"
-        assert (brand_logo.first.get_attribute("alt") or "").strip() == data["salon"]["name"][language], "Desktop header logo alt is incorrect"
-    else:
-        must_equal(page.locator(brand), data["salon"]["name"][language], "brand")
+    must_equal(page.locator(brand), data["salon"]["name"][language], "brand")
+    if desktop:
+        assert page.locator(".std-header-brand-main img").count() == 0, "Desktop header must always use one-line text branding"
     if desktop and data.get("media", {}).get("hero"):
         hero = data["media"]["hero"][0]
         expected_hero = hero if isinstance(hero, str) else hero.get("src")
@@ -60,14 +57,24 @@ def check(browser, width, height, mobile, language):
     assert not team_section.is_hidden(), "Team is a permanent structural section"
     assert not reviews_section.is_hidden(), "Reviews are a permanent structural section"
     if not data["team"]:
-        team_cards = page.locator("#salonDesktopTeam [data-desktop-master]" if desktop else "#tn13Team .tn22-master-card")
-        assert team_cards.count() == 0, "Empty team state must not invent specialists"
+        placeholder_cards = page.locator("#salonDesktopTeam .std-master.is-placeholder" if desktop else "#tn13Team .tn22-master-card.is-placeholder")
+        assert placeholder_cards.count() == 4, "Empty team must preserve four neutral visual master cards"
+        real_team_cards = page.locator("#salonDesktopTeam [data-desktop-master]" if desktop else "#tn13Team [data-mid]")
+        assert real_team_cards.count() == 0, "Neutral team cards must not become invented specialists"
     if not data["reviews"]:
         review_cards = page.locator("#salonDesktopReviews .std-review-card" if desktop else "#tn13Reviews .br-review-card")
         assert review_cards.count() == 0, "Empty reviews state must not invent reviews"
     if not data["media"]["portfolio"]:
         portfolio_section = page.locator("#salonDesktopPortfolio" if desktop else "#tn13Portfolio")
         assert portfolio_section.is_hidden(), "Empty portfolio should remain optional"
+    messenger_card = page.locator('#salonDesktopContacts [data-contact-type="messenger"]' if desktop else '#tn13Visit [data-contact-type="messenger"]')
+    if not data.get("contacts", {}).get("messengerUrl"):
+        assert messenger_card.count() == 1 and messenger_card.is_hidden(), "Missing messenger must not leave a visible contact card"
+    address_sub = page.locator('#salonDesktopContacts [data-contact-type="address"] .std-contact-card-sub' if desktop else '#tn13Visit [data-contact-type="address"] strong+span')
+    expected_map_copy = ("Открыть в Яндекс Картах" if data.get("country") == "RU" else "Открыть в Google Maps") if language == "ru" else ("Open in Yandex Maps" if data.get("country") == "RU" else "Open in Google Maps")
+    if language in ("ru", "en"):
+        must_equal(address_sub, expected_map_copy, "map provider action")
+
     sample = page.locator("#stdHeaderBookBtn" if desktop else ".tn22-cta")
     sample.click(timeout=9000)
     links = page.locator("#stdBookOverlay .std-book-options a" if desktop
