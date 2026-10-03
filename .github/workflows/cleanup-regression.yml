@@ -48,6 +48,7 @@ jobs:
             node tests/validate-site-data.cjs --production
           fi
           node tests/validate-site-data.cjs tests/fixtures/site-data.production.js --production
+          node tests/validate-site-data.cjs tests/fixtures/site-data.kz.production.js --production
           node tests/check-factory-contract.cjs
 
   visual-regression:
@@ -90,6 +91,8 @@ jobs:
           sleep 2
           python tests/factory_browser.py
           CLIENT_SITE_URL=http://127.0.0.1:4175 python tests/client_smoke.py --engine chromium
+          cp tests/fixtures/site-data.kz.production.js /tmp/salon-production/site-data.js
+          KZ_SITE_URL=http://127.0.0.1:4175 python tests/kz_locale_browser.py --engine chromium
       - name: Smoke test the actual populated client site
         if: needs.compare-to-approved-template.outputs.production == 'true'
         run: |
@@ -150,6 +153,8 @@ jobs:
           python -m http.server 4175 --bind 127.0.0.1 --directory /tmp/salon-production-webkit > /tmp/salon-production-webkit.log 2>&1 &
           sleep 2
           CLIENT_SITE_URL=http://127.0.0.1:4175 python tests/client_smoke.py --engine webkit
+          cp tests/fixtures/site-data.kz.production.js /tmp/salon-production-webkit/site-data.js
+          KZ_SITE_URL=http://127.0.0.1:4175 python tests/kz_locale_browser.py --engine webkit
       - name: Attach WebKit comparison snapshots
         if: always()
         uses: actions/upload-artifact@v4

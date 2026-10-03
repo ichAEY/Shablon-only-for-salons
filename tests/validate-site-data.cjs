@@ -6,7 +6,7 @@ const path=require('node:path');
 const vm=require('node:vm');
 
 const REQUIRED_LOCALES=['ru','en','hy'];
-const COUNTRY_LOCALES=Object.freeze({RU:['ru','en'],AM:['ru','en','hy'],UZ:['ru','en','uz'],TJ:['ru','en','tg']});
+const COUNTRY_LOCALES=Object.freeze({RU:['ru','en'],AM:['ru','en','hy'],KZ:['ru','en','kk'],UZ:['ru','en','uz'],TJ:['ru','en','tg']});
 const PLACEHOLDER_MEDIA=new Set(['media-placeholder.svg','logo-placeholder.svg']);
 const PLACEHOLDER_RULES=[
   {test:value=>/SALON NAME/i.test(value),label:'SALON NAME'},
@@ -64,6 +64,16 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
       else if(required&&!value[locale].trim())add(`${field}.${locale}`,'must not be empty');
     }
   }
+  function protectedContent(value,field,{required=false,english=false}={}){
+    if(typeof value==='string'){
+      if(required&&!value.trim())add(field,'must not be empty');
+      return;
+    }
+    if(!object(value,field))return;
+    const candidates=Object.values(value).filter(item=>typeof item==='string'&&item.trim());
+    if(required&&!candidates.length)add(field,'must contain original content');
+    if(english&&required&&(typeof value.en!=='string'||!value.en.trim()))add(field+'.en','must contain English copy for the protected team block');
+  }
   function url(value,field,{required=false,allowTel=false}={}){
     if(!string(value,field,{required})||!value)return;
     const allowed=allowTel?/^(?:https?:\/\/|tel:|tg:|viber:|whatsapp:)/i:/^https?:\/\//i;
@@ -102,7 +112,7 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   if(data.schemaVersion!==1)add('schemaVersion','must equal 1');
   if(!['template','production'].includes(data.mode))add('mode','must be template or production');
   if(production&&!country)add('country','must not be empty in production');
-  if(country&&!COUNTRY_LOCALES[country])add('country','unsupported country; use RU, AM, UZ or TJ');
+  if(country&&!COUNTRY_LOCALES[country])add('country','unsupported country; use RU, AM, KZ, UZ or TJ');
   if(array(data.locales,'locales')){
     for(const locale of requiredLocales)if(!data.locales.includes(locale))add('locales',`must include ${locale} for ${country||'legacy configuration'}`);
     if(country&&(data.locales.length!==requiredLocales.length||data.locales.some(locale=>!requiredLocales.includes(locale))))
@@ -111,7 +121,9 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   if(!requiredLocales.includes(data.defaultLocale))add('defaultLocale',`must be one of ${requiredLocales.join(', ')}`);
 
   if(object(data.salon,'salon')){
-    ['name','kind','city','address','fullAddress','heroDescription','about'].forEach(key=>local(data.salon[key],`salon.${key}`,{required:production}));
+    if(country==='KZ')protectedContent(data.salon.name,'salon.name',{required:production});
+    else local(data.salon.name,'salon.name',{required:production});
+    ['kind','city','address','fullAddress','heroDescription','about'].forEach(key=>local(data.salon[key],`salon.${key}`,{required:production}));
     if(production){
       for(const locale of requiredLocales){
         const city=typeof data.salon.city==='object'?String(data.salon.city?.[locale]||'').trim():String(data.salon.city||'').trim();
@@ -242,9 +254,15 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
     string(review.id,`${field}.id`,{required:true});
     if(reviewIds.has(review.id))add(`${field}.id`,'must be unique');
     reviewIds.add(review.id);
-    local(review.author,`${field}.author`,{required:production});
-    local(review.text,`${field}.text`,{required:production});
-    local(review.source,`${field}.source`,{required:production});
+    if(country==='KZ'){
+      protectedContent(review.author,`${field}.author`,{required:production});
+      protectedContent(review.text,`${field}.text`,{required:production});
+      protectedContent(review.source,`${field}.source`,{required:production});
+    }else{
+      local(review.author,`${field}.author`,{required:production});
+      local(review.text,`${field}.text`,{required:production});
+      local(review.source,`${field}.source`,{required:production});
+    }
     if(review.rating!==5)add(`${field}.rating`,'must equal 5; only five-star reviews are allowed');
     if(review.url)url(review.url,`${field}.url`);
   });
@@ -256,9 +274,15 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
     string(member.id,`${field}.id`,{required:true});
     if(teamIds.has(member.id))add(`${field}.id`,'must be unique');
     teamIds.add(member.id);
-    local(member.name,`${field}.name`,{required:production});
-    local(member.role,`${field}.role`,{required:production});
-    local(member.about,`${field}.about`,{required:production});
+    if(country==='KZ'){
+      protectedContent(member.name,`${field}.name`,{required:production});
+      protectedContent(member.role,`${field}.role`,{required:production,english:true});
+      protectedContent(member.about,`${field}.about`,{required:production,english:true});
+    }else{
+      local(member.name,`${field}.name`,{required:production});
+      local(member.role,`${field}.role`,{required:production});
+      local(member.about,`${field}.about`,{required:production});
+    }
     if(production||member.photo)media(member.photo,`${field}.photo`,{required:production});
     if(array(member.categories,`${field}.categories`))member.categories.forEach((category,categoryIndex)=>{if(!categories.has(category))add(`${field}.categories[${categoryIndex}]`,'must exist in categoryLabels')});
     if(array(member.work,`${field}.work`))member.work.forEach((item,workIndex)=>media(item,`${field}.work[${workIndex}]`,{required:true}));

@@ -2,29 +2,35 @@
   'use strict';
   // Fill client information in this file, then rename it to site-data.js.
   // Never publish a client site while mode is 'template'.
-  const t=(ru='',en='',hy='',uz='',tg='')=>({ru,en,hy,uz,tg});
+  const t=(ru='',en='',hy='',uz='',tg='',kk='')=>({ru,en,hy,uz,tg,kk});
   // Approved universal copy. Keep it unchanged for every salon.
   const heroDescription=t(
     'Ваша красота. Ваша уверенность.',
     'Your beauty. Your confidence.',
-    'Ձեր գեղեցկությունը։ Ձեր վստահությունը։'
+    'Ձեր գեղեցկությունը։ Ձեր վստահությունը։',
+    '',
+    '',
+    'Сіздің сұлулығыңыз. Сіздің сенімділігіңіз.'
   );
   const about=t(
     'В основе нашей работы — профессиональный подход, внимание к деталям и уважение к индивидуальности каждого гостя. Мы создаём комфортное пространство, где качество и забота остаются главным приоритетом.',
     'Our work is built on professionalism, attention to detail, and respect for every guest’s individuality. We create a comfortable space where quality and care remain our highest priorities.',
-    'Մեր աշխատանքի հիմքում մասնագիտական մոտեցումն է, ուշադրությունը մանրուքներին և հարգանքը յուրաքանչյուր հյուրի անհատականության նկատմամբ։ Մենք ստեղծում ենք հարմարավետ միջավայր, որտեղ որակն ու հոգատարությունը մնում են գլխավոր առաջնահերթությունները։'
+    'Մեր աշխատանքի հիմքում մասնագիտական մոտեցումն է, ուշադրությունը մանրուքներին և հարգանքը յուրաքանչյուր հյուրի անհատականության նկատմամբ։ Մենք ստեղծում ենք հարմարավետ միջավայր, որտեղ որակն ու հոգատարությունը մնում են գլխավոր առաջնահերթությունները։',
+    '',
+    '',
+    'Біздің жұмысымыздың негізі — кәсіби көзқарас, егжей-тегжейге мұқият болу және әр қонақтың даралығын құрметтеу. Біз сапа мен қамқорлық басты орында тұратын жайлы кеңістік жасаймыз.'
   );
   const data={
     schemaVersion:1,
     mode:'template',
-    country:'RU', // RU: ru/en; AM: ru/en/hy; UZ: ru/en/uz; TJ: ru/en/tg
+    country:'RU', // RU: ru/en; AM: ru/en/hy; KZ: ru/en/kk; UZ: ru/en/uz; TJ: ru/en/tg
     locales:['ru','en'],
     defaultLocale:'ru',
     // city/address are short UI strings; fullAddress keeps the verified full postal/admin address for maps and metadata.
-    salon:{name:t(),kind:t('Салон красоты','Beauty salon','Գեղեցկության սրահ'),city:t(),address:t(),fullAddress:t(),heroDescription,about},
+    salon:{name:t(),kind:t('Салон красоты','Beauty salon','Գեղեցկության սրահ','','','Сұлулық салоны'),city:t(),address:t(),fullAddress:t(),heroDescription,about},
     schedule:{timezone:'Europe/Moscow',periods:[],fallback:t()},
-    contacts:{phone:'',phoneLabel:t('Позвонить','Call','Զանգահարել'),
-      messengerUrl:'',messengerLabel:t('Написать','Message','Գրել'),messengerHandle:'',
+    contacts:{phone:'',phoneLabel:t('Позвонить','Call','Զանգահարել','','','Қоңырау шалу'),
+      messengerUrl:'',messengerLabel:t('Написать','Message','Գրել','','','Жазу'),messengerHandle:'',
       mapUrl:'',mapEmbedUrl:'',reviewsUrl:'',booking:[]},
     rating:{value:null,count:0},
     // Media contract: hero.webp -> hero[0], profile.webp -> about, gallery-01.webp...gallery-25.webp -> portfolio/gallery, optional transparent logo.*.
