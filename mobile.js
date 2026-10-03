@@ -1057,7 +1057,7 @@ services.insertAdjacentElement('afterend',about);
   function skipText(node){
     var el=node.parentElement;
     if(!el) return true;
-    if(el.closest('.br-lang-switch')) return true;
+    if(el.closest('.br-lang-switch,.tn22-brand,.tn22-title,.br-about-brand,.tn22-gallery-title span,.tn22-master-brand')) return true;
     if(el.closest('.tn30-review-card p,.br-review-card p,.tn22-master-review p')) return true;
     return /^(SCRIPT|STYLE|NOSCRIPT)$/.test(el.tagName);
   }
