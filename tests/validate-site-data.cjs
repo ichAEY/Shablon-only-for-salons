@@ -16,7 +16,7 @@ const PLACEHOLDER_RULES=[
   {test:value=>/^(?:Клиент|Client|Հաճախորդ)\s+\d+$/iu.test(value),label:'numbered client'},
   {test:value=>/(?:будет добавлен|будет добавлено|will be added|կավելացվի)/iu.test(value),label:'future placeholder copy'},
   {test:value=>/^(?:Уточняется|To be added|Կավելացվի)$/iu.test(value),label:'unspecified value'},
-  {test:value=>/^(?:Город|City|Քաղաք|Адрес салона|Salon address|Սրահի հասցե)$/iu.test(value),label:'generic location'},
+  {test:value=>/^(?:Город|City|Քաղաք|Адрес салона|Salon address|Սրահի հասցե|Полный адрес салона|Full salon address|Սրահի ամբողջական հասցե)$/iu.test(value),label:'generic location'},
   {test:value=>/^(?:Описание салона\.?|Salon description\.?|Սրահի նկարագրություն։?)$/iu.test(value),label:'generic salon description'},
   {test:value=>/^(?:Источник отзыва|Review source|Կարծիքի աղբյուր)$/iu.test(value),label:'generic review source'}
 ];
@@ -101,6 +101,7 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   if(!object(data,'TANEM_SITE_DATA'))return errors;
   if(data.schemaVersion!==1)add('schemaVersion','must equal 1');
   if(!['template','production'].includes(data.mode))add('mode','must be template or production');
+  if(production&&!country)add('country','must not be empty in production');
   if(country&&!COUNTRY_LOCALES[country])add('country','unsupported country; use RU, AM, UZ or TJ');
   if(array(data.locales,'locales')){
     for(const locale of requiredLocales)if(!data.locales.includes(locale))add('locales',`must include ${locale} for ${country||'legacy configuration'}`);
