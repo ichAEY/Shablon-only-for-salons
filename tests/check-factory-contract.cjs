@@ -27,6 +27,7 @@ for(const token of ['RULES.md','docs/INPUT_CHECKLIST.md','docs/FACTORY_GUIDE.md'
 assert(projectPrompt.includes('START_HERE.md'),'the ordinary Chat project prompt must direct ChatGPT to START_HERE.md');
 assert(projectPrompt.includes('одним сообщением'),'the ordinary Chat project prompt must request missing data in one consolidated message');
 assert(inputChecklist.includes('Явный список услуг из чата является окончательным источником правды'),'the input contract must keep the explicit service list authoritative');
+assert(inputChecklist.includes('salon.fullAddress')&&inputChecklist.includes('mapEmbedUrl'),'the input contract must collect full address and embedded map data');
 assert(factoryGuide.includes("country: 'RU'")&&factoryGuide.includes("locales: ['ru', 'en']"),'the factory guide must document the Russian RU/EN contract');
 for(const token of ['hero.webp','profile.webp','gallery-01.webp','team-01.webp','logo.webp','favicon-source.png']){
   assert(mediaRules.includes(token),`RULES.md must preserve canonical media token: ${token}`);
@@ -35,6 +36,7 @@ assert(!Object.prototype.hasOwnProperty.call(starter.media,'heroDesktop'),'start
 assert.equal(starter.media.hero.length,0,'blank starter keeps hero empty until real hero.webp is connected');
 assert.equal(starter.media.about,'','blank starter keeps profile empty until real profile.webp is connected');
 assert.equal(starter.mode,'template','blank starter cannot be published by accident');
+assert.equal(starter.salon.fullAddress.ru,'','blank starter keeps the verified full address empty until a client is researched');
 assert.deepEqual([...starter.services],[],'new customer sites must start without example services');
 assert.equal(starter.salon.heroDescription.ru,'Ваша красота. Ваша уверенность.','blank starter must preserve the approved desktop slogan');
 assert(starter.salon.about.ru.startsWith('В основе нашей работы — профессиональный подход'),'blank starter must preserve the approved universal About copy');
@@ -106,10 +108,11 @@ assert(index.includes('(hover:hover) and (pointer:fine), (min-width:1024px)'),'w
 assert(desktop.includes('SITE.services.filter'),'desktop services must come from the unified source');
 assert(desktop.includes('DESKTOP_SERVICE_TABS.length<=5'),'desktop must stretch All plus up to four real categories');
 assert(mobile.includes('SITE.services.map'),'mobile services must come from the unified source');
-assert(!mobile.includes('SERVICE_CATS.length>0&&SERVICE_CATS.length<=4'),'mobile must not force 1-4 categories into equal-width compact cells');
+assert(mobile.includes("SERVICE_CATS.length===2"),'mobile must stretch exactly two service categories');
+assert(!mobile.includes('SERVICE_CATS.length>0&&SERVICE_CATS.length<=4'),'mobile must not use the old 1-4 compact-grid rule');
 const mobileCategoryCSS=fs.readFileSync(path.join(root,'mobile-overrides.css'),'utf8');
-assert(mobileCategoryCSS.includes('grid-template-columns:none!important')&&mobileCategoryCSS.includes('flex:0 0 auto!important')&&mobileCategoryCSS.includes('overflow-x:auto!important'),
-  'mobile service categories must use natural Esmeralda pill widths with horizontal scrolling at any count');
+assert(mobileCategoryCSS.includes('font-size:13.98px!important')&&mobileCategoryCSS.includes('.tn31-cats.is-two')&&mobileCategoryCSS.includes('flex:0 0 auto!important')&&mobileCategoryCSS.includes('overflow-x:auto!important'),
+  'mobile service categories must use the 13.98px rule, stretch exactly two, and otherwise keep natural scrolling widths');
 assert(desktop.includes('В основе нашей работы — профессиональный подход'),'desktop About must contain the approved universal copy');
 assert(!desktop.includes("locales:['ru','en','hy']"),'desktop fallback must not expose Armenian for the default template');
 assert(!mobile.includes("locales:['ru','en','hy']"),'mobile fallback must not expose Armenian for the default template');
@@ -117,5 +120,9 @@ assert(index.includes('favicon-source.png'),'salon template must use the TANEM s
 assert(!runtime.includes("node.hidden=!hasReviews"),'reviews must remain a permanent structural section');
 assert(!runtime.includes("node.hidden=!hasTeam"),'team must remain a permanent structural section');
 assert(!mobile.includes("team.hidden=!MASTERS.length"),'mobile team must stay visible without real team data');
+assert(mobile.includes('DISPLAY_MASTERS=MASTERS.length?MASTERS:Array.from({length:4}'),'mobile empty team must render four neutral system cards');
+assert(desktop.includes('DISPLAY_TEAM_MASTERS=TEAM_MASTERS.length?TEAM_MASTERS:Array.from({length:4}'),'desktop empty team must render four neutral system cards');
+assert(!runtime.includes("desktopBrand.classList.add('has-logo')"),'desktop header must remain text even when a client logo exists');
+assert(runtime.includes('Открыть в Яндекс Картах')&&runtime.includes('Открыть в Google Maps'),'runtime must select the map action label by country');
 
 console.log('PASS: schema, release blockers, unified services, and wide-touch routing are enforced');
