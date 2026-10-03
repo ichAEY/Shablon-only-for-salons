@@ -106,7 +106,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
  script.src=desktop?'desktop.js?v=salon-20261003-v1':'mobile.js?v=salon-20261003-v1';
  script.async=false;script.onload=()=>{
    const runtime=document.createElement('script');
-   runtime.src='site-runtime.js?v=salon-20261003-v2';
+   runtime.src='site-runtime.js?v=salon-20261003-v3';
    runtime.async=false;runtime.onload=loaded;
    runtime.onerror=()=>{if(closed)error.classList.add('is-visible')};
    document.body.appendChild(runtime);
