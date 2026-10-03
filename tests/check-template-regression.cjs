@@ -86,7 +86,7 @@ function verifyTemplate(){
       if(name==="mobile.js"){
         const approvedMobile=[
           /^#salon-mobile #tn13Top \.tn22-(?:top|brand|brand img|title|title\.is-single-line|sub)$/,
-          /^#salon-mobile #tn13Gallery(?:$| \.tn22-gallery-(?:tabs-wrap|tabs|tab|tabs::-[\w-]+|rail-hint|rail-hint\.visible|rail-hint\.left|rail-hint\.right))/,
+          /^#salon-mobile #tn13Gallery(?:\.(?:open|closing))?(?:$| \.tn22-gallery-(?:tabs-wrap|tabs|tab|tabs::-[\w-]+|rail-hint|rail-hint\.visible|rail-hint\.left|rail-hint\.right))/,
           /^#salon-mobile \.tn22-(?:view-gallery|view-gallery:active|viewer-count|navbtn)$/,
           /^#salon-mobile #tn13Services(?:$| \.tn31-(?:cats|cat|cats\.is-two|cats\.is-two \.tn31-cat|service-row|service-row\.tn31-service-demo|service-side|service-more-wrap))/,
           /^#salon-mobile #tn13Team \.tn22-master-card\.is-placeholder$/
