@@ -72,7 +72,7 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
     if(!object(value,field))return;
     const candidates=Object.values(value).filter(item=>typeof item==='string'&&item.trim());
     if(required&&!candidates.length)add(field,'must contain original content');
-    if(english&&required&&typeof value.en==='string'&&!value.en.trim())add(field+'.en','must contain English copy for the protected team block');
+    if(english&&required&&(typeof value.en!=='string'||!value.en.trim()))add(field+'.en','must contain English copy for the protected team block');
   }
   function url(value,field,{required=false,allowTel=false}={}){
     if(!string(value,field,{required})||!value)return;
