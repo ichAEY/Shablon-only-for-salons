@@ -63,6 +63,21 @@ def check_desktop(browser):
     page.close()
 
 
+def check_desktop_long_brand(browser):
+    context = browser.new_context(viewport={"width": 1024, "height": 768})
+    page = context.new_page()
+    wait_for_app(page, "#salon-desktop-v1")
+    metrics = page.locator(".std-header").evaluate("""header => {
+        const brand=header.querySelector('.std-header-brand-main');
+        const nav=header.querySelector('.std-nav');
+        brand.textContent='BAGDASARYAN STUDIO';
+        const b=brand.getBoundingClientRect(), n=nav.getBoundingClientRect();
+        return {brandRight:b.right,navLeft:n.left,gap:n.left-b.right,scroll:brand.scrollWidth,client:brand.clientWidth};
+    }""")
+    assert metrics["gap"] >= 12, f"long desktop salon name collides with centered navigation: {metrics}"
+    context.close()
+
+
 def check_mobile(browser):
     context = browser.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True, locale="ru-RU")
     page = context.new_page()
@@ -135,6 +150,7 @@ def main():
         browser = playwright.chromium.launch()
         try:
             check_desktop(browser)
+            check_desktop_long_brand(browser)
             check_mobile(browser)
             check_wide_touch(browser)
         finally:
