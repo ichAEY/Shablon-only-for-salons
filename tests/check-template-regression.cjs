@@ -95,7 +95,7 @@ function verifyTemplate(){
       }
       if(name==="desktop.js"){
         const approvedDesktop=[
-          /^#salon-desktop-v1 \.std-(?:view-gallery|gallery-count)$/,
+          /^#salon-desktop-v1 \.std-(?:header-brand-main|view-gallery|gallery-count)$/,
           /^#salonDesktopServices \.mct-tab$/,
           /^#salonDesktopServices \.dct-service-card:not\(\.has-variants\) \.dct-service-card-title$/,
           /^#salonDesktopServices \.dct-service-card:not\(\.has-variants\) \.dct-service-side-rail$/,
