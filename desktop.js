@@ -1412,6 +1412,7 @@
       const localized=(value)=>typeof value==='string'?value:(value?.[currentDesktopLang]||value?.ru||value?.en||'');
       const original=(value)=>typeof value==='string'?value:(value?.[productionSite.defaultLocale||'ru']||value?.ru||value?.en||'');
       const name=productionSite.country==='KZ'?original(productionSite.salon?.name):localized(productionSite.salon?.name),city=localized(productionSite.salon?.city);
+      root.querySelectorAll('.std-header-brand-main,.std-logo,.dct-about-brand').forEach(node=>{node.textContent=name});
       document.title=name+(city?' — '+city:'');
     }else document.title=titles[currentDesktopLang]||titles.hy;
   }
