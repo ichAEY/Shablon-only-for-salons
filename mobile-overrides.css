@@ -397,6 +397,8 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
 }
 
 
+#salon-mobile #tn13Visit .tn22-visit-actions.is-single{grid-template-columns:1fr!important}
+
 /* 2026-10-03 — approved mobile hero, gallery and services refinements. */
 @media(max-width:1023px){
   #salon-mobile #tn13Top .tn22-top{
