@@ -394,6 +394,11 @@ html[data-br-device="mobile"] #salon-mobile .tn22-viewer .tn22-view-gallery{
 html[data-br-device="mobile"] #salon-mobile .tn22-viewer:not([data-source="portfolio"]) .tn22-view-gallery,html[data-br-device="mobile"] #salon-mobile .tn22-viewer .tn22-view-gallery[hidden]{
   display:none!important;
 }
+html[data-br-device="mobile"] #salon-mobile .tn22-viewer .tn22-view-gallery:active{
+  transform:translate(-50%,-50%) scale(.96)!important;
+  background:rgba(35,29,26,.9)!important;
+}
+
 html[data-br-device="mobile"] #salon-mobile .tn22-viewer .tn22-viewer-count{
   position:absolute!important;right:8px!important;top:50%!important;
   transform:translateY(-50%)!important;
