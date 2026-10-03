@@ -59,6 +59,10 @@
   font.rel='stylesheet';
   font.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap';
   document.head.appendChild(font);
+  const kkStyle=document.createElement('style');
+  kkStyle.id='salon-desktop-kk-i18n-style';
+  kkStyle.textContent='body[data-br-lang="kk"] #salon-desktop-v1 .dct-services-main-title,body[data-br-lang="kk"] #salon-desktop-v1 #stdAboutTitle,body[data-br-lang="kk"] #salon-desktop-v1 .std-reviews-title,body[data-br-lang="kk"] #salon-desktop-v1 .std-contact-title{overflow-wrap:anywhere}body[data-br-lang="kk"] #salon-desktop-v1 .mct-tab{white-space:nowrap}body[data-br-lang="kk"] #salon-desktop-v1 .dct-service-card{grid-template-columns:minmax(0,1fr) minmax(108px,auto)}body[data-br-lang="kk"] #salon-desktop-v1 .dct-service-title{min-width:0;overflow-wrap:anywhere}body[data-br-lang="kk"] #salon-desktop-v1 .std-contact-card-title,body[data-br-lang="kk"] #salon-desktop-v1 .std-contact-card-sub{overflow-wrap:anywhere}';
+  document.head.appendChild(kkStyle);
   const root=document.createElement('div');
   root.id='salon-desktop-v1';
   root.dataset.emptyTeam='0'; // Team is permanent: an empty team uses the neutral visible state.
