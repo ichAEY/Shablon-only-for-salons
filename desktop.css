@@ -5166,8 +5166,7 @@ body[data-br-lang="en"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!importa
     right:28px!important;
     max-width:calc(100% - 56px)!important;
   }
-  #salonDesktopServices .dct-service-card-meta>b.is-price,
-  #salonDesktopServices .dct-service-card-variant-meta>b.is-price{
+  #salonDesktopServices .dct-service-card-meta>b.is-price,#salonDesktopServices .dct-service-card-variant-meta>b.is-price{
     border:0!important;
     background:transparent!important;
     box-shadow:none!important;
