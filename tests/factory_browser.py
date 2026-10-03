@@ -66,6 +66,19 @@ def check_mobile(browser):
     assert "is-single-line" in (page.locator(".tn22-title").get_attribute("class") or ""), "one-word mobile name must reserve the two-line hero zone"
     top_logo = page.locator(".tn22-brand img")
     assert top_logo.count() == 1 and top_logo.first.get_attribute("src") == "tests/fixtures/logo.svg", "mobile top brand should use a real client logo"
+    header_geometry = page.locator("#tn13Top .tn22-top").evaluate("""top => {
+        const logo=top.querySelector('.tn22-brand img').getBoundingClientRect();
+        const menu=top.querySelector('.tn22-menu').getBoundingClientRect();
+        const topRect=top.getBoundingClientRect();
+        return {
+            logoLeft:logo.left-topRect.left,
+            menuRight:topRect.right-menu.right,
+            transform:getComputedStyle(top.querySelector('.tn22-brand img')).transform
+        };
+    }""")
+    assert abs(header_geometry["logoLeft"]-20) <= 1.25, f"mobile logo left inset is wrong: {header_geometry}"
+    assert abs(header_geometry["menuRight"]-20) <= 1.25, f"mobile menu right inset is wrong: {header_geometry}"
+    assert header_geometry["transform"] == "none", f"mobile logo must not keep a legacy translate: {header_geometry}"
     assert page.locator("#tn13Services .tn31-service-row").count() == 3
     assert not page.locator("#tn13Team").is_hidden()
     assert page.locator("#tn13Team .tn22-master-card.is-placeholder").count() == 4, "mobile empty team must keep four visual master cards"
