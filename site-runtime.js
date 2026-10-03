@@ -359,7 +359,10 @@
     if(description)description.setAttribute('content',text(data.salon.heroDescription,lang)||text(data.salon.about,lang));
   }
 
-  window.addEventListener('salon-template:languagechange',apply);
+  window.addEventListener('salon-template:languagechange',()=>{
+    apply();
+    [0,80,260].forEach(delay=>window.setTimeout(apply,delay));
+  });
   apply();
   [80,260,700].forEach(delay=>window.setTimeout(apply,delay));
   window.setInterval(()=>applySchedule(currentLang()),60000);
