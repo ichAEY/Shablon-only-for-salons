@@ -64,6 +64,10 @@ assert(unsafeErrors.some(error=>error.includes('booking method')),'production mo
 const ready=loadSiteData(path.join(root,'tests/fixtures/site-data.production.js'));
 assert.deepEqual(validateSiteData(ready,{rootDir:root,allowTestDomains:true}),[],'a complete production fixture must pass');
 assert(validateSiteData(ready,{rootDir:root}).some(error=>error.includes('test domain')),'test domains must never pass a real client release');
+const duplicatedAddress=structuredClone(ready);
+duplicatedAddress.salon.address.ru='Ереван, ул. Абовяна, 12';
+assert(validateSiteData(duplicatedAddress,{rootDir:root,allowTestDomains:true}).some(error=>error.includes('must not repeat salon.city')),
+  'short UI address must reject a repeated city name');
 // A Russian salon must not need Armenian; Uzbek and Tajik salons must supply their own third language.
 for(const [country,locales] of Object.entries({RU:['ru','en'],AM:['ru','en','hy'],UZ:['ru','en','uz'],TJ:['ru','en','tg']})){
   const sample=structuredClone(ready);

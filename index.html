@@ -27,7 +27,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
 #brLoadError a{display:inline-block;margin-top:22px;color:#181818}
 @media(prefers-reduced-motion:reduce){#brBootIntro{transition:none!important}}
 </style>
-<link rel="stylesheet" href="desktop.css?v=salon-20261003-v1" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
+<link rel="stylesheet" href="desktop.css?v=salon-20261003-v2" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
 <link rel="stylesheet" href="salon-palette.css?v=salon-20261003-v2" media="(hover:hover) and (pointer:fine), (min-width:1024px)">
 <script src="site-data.js?v=salon-20261003-v1"></script>
 <script src="site-regions.js?v=salon-final-20260928-v2"></script>
@@ -44,7 +44,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
   const preload=document.createElement('link');
   preload.rel='preload';
   preload.as='style';
-  preload.href='mobile-overrides.css?v=salon-20261003-v1';
+  preload.href='mobile-overrides.css?v=salon-20261003-v4';
   const palettePreload=document.createElement('link');
   palettePreload.rel='preload';
   palettePreload.as='style';
@@ -106,7 +106,7 @@ html.br-booting #salon-mobile,html.br-booting #salon-desktop-v1{visibility:hidde
  script.src=desktop?'desktop.js?v=salon-20261003-v1':'mobile.js?v=salon-20261003-v1';
  script.async=false;script.onload=()=>{
    const runtime=document.createElement('script');
-   runtime.src='site-runtime.js?v=salon-20261003-v1';
+   runtime.src='site-runtime.js?v=salon-20261003-v5';
    runtime.async=false;runtime.onload=loaded;
    runtime.onerror=()=>{if(closed)error.classList.add('is-visible')};
    document.body.appendChild(runtime);

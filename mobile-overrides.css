@@ -397,6 +397,8 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
 }
 
 
+#salon-mobile #tn13Visit .tn22-visit-actions.is-single{grid-template-columns:1fr!important}
+
 /* 2026-10-03 — approved mobile hero, gallery and services refinements. */
 @media(max-width:1023px){
   #salon-mobile #tn13Top .tn22-top{
@@ -417,6 +419,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
     height:auto!important;
     object-fit:contain!important;
     object-position:left center!important;
+    transform:none!important;
   }
   #salon-mobile #tn13Top .tn22-title{
     box-sizing:border-box!important;
@@ -428,7 +431,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
     text-align:center!important;
   }
   #salon-mobile #tn13Top .tn22-title.is-single-line{
-    font-size:clamp(49px,16vw,var(--hero-single-max,68px))!important;
+    font-size:clamp(34px,16vw,var(--hero-single-max,68px))!important;
     line-height:.92!important;
     letter-spacing:.16em!important;
     text-indent:.16em!important;

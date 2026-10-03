@@ -5131,6 +5131,8 @@ body[data-br-lang="en"] #salon-desktop-v1 .std-nav{width:min(46vw,690px)!importa
 }
 
 
+#salonDesktopContacts .std-contact-actions.is-single{grid-template-columns:1fr!important}
+
 /* 2026-10-03 — approved portfolio viewer and services refinements. */
 @media(min-width:1024px){
   #salon-desktop-v1 .std-header-brand-main{
