@@ -53,6 +53,13 @@ def check_desktop(browser):
     page.wait_for_timeout(150)
     assert page.locator(".std-address").inner_text().strip().startswith("Yerevan")
     expect_text(page.locator("#stdServiceList .dct-service-card-title").first, "Haircut", "desktop service in English")
+    page.evaluate("window.TANEM_SITE_DATA.contacts.phone=''")
+    page.locator('[data-desktop-lang="ru"]').first.click()
+    page.wait_for_timeout(150)
+    assert page.locator('#salonDesktopContacts [data-contact-type="phone"]').is_hidden(), "desktop phone card must disappear without a phone"
+    assert page.locator(".std-phone").is_hidden(), "desktop header phone must disappear without a phone"
+    assert page.locator(".std-contact-call").is_hidden(), "desktop call action must disappear without a phone"
+    assert "is-single" in (page.locator("#salonDesktopContacts .std-contact-actions").get_attribute("class") or ""), "desktop route must expand when phone is absent"
     page.close()
 
 
@@ -94,6 +101,12 @@ def check_mobile(browser):
     expect_text(page.locator('#tn13Visit [data-contact-type="address"] strong'), "Yerevan, 12 Abovyan St", "mobile short address")
     expect_text(page.locator('#tn13Visit [data-contact-type="address"] strong+span'), "Open in Google Maps", "mobile map action")
     expect_text(page.locator("#tn13Services .tn31-service-name").first, "Haircut", "mobile service in English")
+    page.evaluate("window.TANEM_SITE_DATA.contacts.phone=''")
+    page.locator('[data-lang="ru"]').click()
+    page.wait_for_timeout(150)
+    assert page.locator('#tn13Visit [data-contact-type="phone"]').is_hidden(), "mobile phone card must disappear without a phone"
+    assert page.locator(".tn22-call").is_hidden(), "mobile call action must disappear without a phone"
+    assert "is-single" in (page.locator(".tn22-visit-actions").get_attribute("class") or ""), "mobile route must expand when phone is absent"
     context.close()
 
 
