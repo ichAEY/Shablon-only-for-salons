@@ -67,14 +67,20 @@ def check_desktop_long_brand(browser):
     context = browser.new_context(viewport={"width": 1024, "height": 768})
     page = context.new_page()
     wait_for_app(page, "#salon-desktop-v1")
+    page.evaluate("window.TANEM_SITE_DATA.salon.name.ru='BAGDASARYAN STUDIO'")
+    page.locator('[data-desktop-lang="en"]').first.click()
+    page.locator('[data-desktop-lang="ru"]').first.click()
+    page.wait_for_timeout(180)
     metrics = page.locator(".std-header").evaluate("""header => {
         const brand=header.querySelector('.std-header-brand-main');
         const nav=header.querySelector('.std-nav');
-        brand.textContent='BAGDASARYAN STUDIO';
         const b=brand.getBoundingClientRect(), n=nav.getBoundingClientRect();
-        return {brandRight:b.right,navLeft:n.left,gap:n.left-b.right,scroll:brand.scrollWidth,client:brand.clientWidth};
+        return {text:brand.textContent.trim(),brandRight:b.right,navLeft:n.left,gap:n.left-b.right,
+            font:parseFloat(getComputedStyle(brand).fontSize),scroll:brand.scrollWidth,client:brand.clientWidth};
     }""")
+    assert metrics["text"] == "BAGDASARYAN STUDIO", f"runtime did not apply long desktop salon name: {metrics}"
     assert metrics["gap"] >= 12, f"long desktop salon name collides with centered navigation: {metrics}"
+    assert metrics["font"] >= 18, f"desktop salon name became unreadably small: {metrics}"
     context.close()
 
 
