@@ -68,6 +68,13 @@ assert(validateSiteData(ready,{rootDir:root}).some(error=>error.includes('test d
 for(const [country,locales] of Object.entries({RU:['ru','en'],AM:['ru','en','hy'],UZ:['ru','en','uz'],TJ:['ru','en','tg']})){
   const sample=structuredClone(ready);
   sample.country=country;sample.locales=locales;
+  if(country==='RU'){
+    sample.contacts.mapUrl='https://yandex.ru/maps/?text=Москва';
+    sample.contacts.mapEmbedUrl='https://yandex.ru/map-widget/v1/?text=Москва';
+  }else{
+    sample.contacts.mapUrl='https://www.google.com/maps/search/?api=1&query=Yerevan';
+    sample.contacts.mapEmbedUrl='https://www.google.com/maps?q=Yerevan&output=embed';
+  }
   const augment=value=>{
     if(!value||typeof value!=='object')return;
     if(typeof value.ru==='string'&&typeof value.en==='string'){
@@ -124,5 +131,6 @@ assert(mobile.includes('DISPLAY_MASTERS=MASTERS.length?MASTERS:Array.from({lengt
 assert(desktop.includes('DISPLAY_TEAM_MASTERS=TEAM_MASTERS.length?TEAM_MASTERS:Array.from({length:4}'),'desktop empty team must render four neutral system cards');
 assert(!runtime.includes("desktopBrand.classList.add('has-logo')"),'desktop header must remain text even when a client logo exists');
 assert(runtime.includes('Открыть в Яндекс Картах')&&runtime.includes('Открыть в Google Maps'),'runtime must select the map action label by country');
+assert(mobile.includes('const loop=[...groups,...groups,...groups]'),'mobile reviews must use a circular triple-buffer loop');
 
 console.log('PASS: schema, release blockers, unified services, and wide-touch routing are enforced');
