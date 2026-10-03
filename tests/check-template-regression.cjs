@@ -89,7 +89,8 @@ function verifyTemplate(){
           /^#salon-mobile #tn13Gallery(?:\.(?:open|closing))?(?:$| \.tn22-gallery-(?:tabs-wrap|tabs|tab|tabs::-[\w-]+|rail-hint|rail-hint\.visible|rail-hint\.left|rail-hint\.right))/,
           /^#salon-mobile \.tn22-(?:view-gallery|view-gallery:active|viewer-count|navbtn)$/,
           /^#salon-mobile #tn13Services(?:$| \.tn31-(?:cats|cat|cats\.is-two|cats\.is-two \.tn31-cat|service-row|service-row\.tn31-service-demo|service-side|service-more-wrap))/,
-          /^#salon-mobile #tn13Team \.tn22-master-card\.is-placeholder$/
+          /^#salon-mobile #tn13Team \.tn22-master-card\.is-placeholder$/,
+          /^#salon-mobile #tn13Visit \.tn22-visit-actions\.is-single$/
         ];
         if(approvedMobile.some(rx=>rx.test(selector)))return false;
       }
@@ -100,7 +101,8 @@ function verifyTemplate(){
           /^#salonDesktopServices \.dct-service-card:not\(\.has-variants\) \.dct-service-card-title$/,
           /^#salonDesktopServices \.dct-service-card:not\(\.has-variants\) \.dct-service-side-rail$/,
           /^#salonDesktopServices \.dct-service-(?:card-meta>b\.is-price|card-variant-meta>b\.is-price)$/,
-          /^#salonDesktopTeam \.std-master\.is-placeholder$/
+          /^#salonDesktopTeam \.std-master\.is-placeholder$/,
+          /^#salonDesktopContacts \.std-contact-actions\.is-single$/
         ];
         if(approvedDesktop.some(rx=>rx.test(selector)))return false;
       }
