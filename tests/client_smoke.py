@@ -87,9 +87,13 @@ def check(browser, width, height, mobile, language):
     visible = page.locator("body").inner_text()
     assert not re.search(r"SALON NAME|(?:Услуга|Service)\s+\d{2}\b", visible), (
         "Demo labels remain visible on a production page")
-    # Google Maps embed can emit this WebKit-only internal module error from its
-    # third-party frame. It is not produced by TANEM code and does not affect the map.
-    app_errors = [error for error in errors if 'Could not load "search_impl".' not in error]
+    # Google Maps embed can emit WebKit-only internal errors from its third-party
+    # frame. Keep the filter narrow so TANEM application errors still fail the run.
+    google_maps_frame_noise = (
+        'Could not load "search_impl".',
+        'maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true due to access control checks.',
+    )
+    app_errors = [error for error in errors if not any(token in error for token in google_maps_frame_noise)]
     assert not app_errors, f"JavaScript errors: {app_errors}"
     assert not failed_assets, f"Missing site assets: {failed_assets}"
     context.close()
