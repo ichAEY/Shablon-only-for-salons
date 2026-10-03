@@ -22,7 +22,12 @@
     :(lang==='en'?'Open in Google Maps':lang==='hy'?'Բացել Google Maps-ում':'Открыть в Google Maps');
   const callActionLabel=lang=>lang==='en'?'Call':lang==='hy'?'Զանգահարել':'Позвонить';
   const messageActionLabel=(lang,name)=>lang==='en'?'Message '+name:lang==='hy'?'Գրել '+name:'Написать в '+name;
-  const setCardVisible=(node,visible)=>{if(!node)return;node.hidden=!visible;node.style.display=visible?'':'none'};
+  const setCardVisible=(node,visible)=>{
+    if(!node)return;
+    node.hidden=!visible;
+    if(visible)node.style.removeProperty('display');
+    else node.style.setProperty('display','none','important');
+  };
 
   function setText(selector,value,scope=document){
     scope.querySelectorAll(selector).forEach(node=>{node.textContent=value});
