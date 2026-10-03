@@ -148,7 +148,7 @@ def compare(a: bytes, b: bytes, filename: str):
         limit = 0.065
     elif filename.endswith("-services"):
         # Approved 03.10 changes: larger tabs, 5% smaller titles, plain prices.
-        limit = 0.055
+        limit = 0.07
     elif filename.startswith("mobile-") and filename.endswith("-gallery-category"):
         limit = 0.035
     elif filename.startswith("mobile-") and filename.endswith("-hero"):
@@ -230,6 +230,7 @@ def verify_palette(browser, candidate: str):
             if mobile:
                 verify_mobile_category_rails(page, width)
             if not mobile:
+                verify_desktop_service_refinements(page)
                 verify_desktop_gallery_viewer(page)
                 # Hover animates over a few hundred milliseconds in the real UI.
                 # Wait for the destination colour, not the initial transition frame.
@@ -416,6 +417,29 @@ def verify_mobile_category_rails(page, width: int):
         raise AssertionError(f"{width}px: master Reviews tab clips too early: {last_tab}")
     print(f"PASS mobile category rails: {width}px full labels, gallery uniformity, master last tab")
 
+
+
+def verify_desktop_service_refinements(page):
+    """Approved 03.10 desktop service deltas are present, not arbitrary pixel drift."""
+    tab_font = page.locator("#salonDesktopServices .mct-tab").first.evaluate(
+        "(el) => parseFloat(getComputedStyle(el).fontSize)"
+    )
+    title_font = page.locator("#salonDesktopServices .dct-service-card-title").first.evaluate(
+        "(el) => parseFloat(getComputedStyle(el).fontSize)"
+    )
+    if tab_font < 15.0:
+        raise AssertionError(f"Desktop service categories are still too small: {tab_font}px")
+    if title_font > 29.0:
+        raise AssertionError(f"Desktop service title did not receive the approved 5% reduction: {title_font}px")
+    price = page.locator("#salonDesktopServices .dct-service-card-meta>b.is-price").first
+    if price.count():
+        price_style = price.evaluate("""el => {
+            const s=getComputedStyle(el);
+            return {background:s.backgroundColor,border:s.borderTopWidth,color:s.color};
+        }""")
+        if price_style["background"] != "rgba(0, 0, 0, 0)" or price_style["border"] != "0px":
+            raise AssertionError(f"Desktop price still has a pill/frame: {price_style}")
+    print("PASS desktop services: larger categories, smaller titles, plain price treatment")
 
 
 def verify_desktop_gallery_viewer(page):
