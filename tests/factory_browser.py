@@ -86,6 +86,18 @@ def check_mobile(browser):
     assert abs(header_geometry["logoLeft"]-20) <= 1.25, f"mobile logo left inset is wrong: {header_geometry}"
     assert abs(header_geometry["menuRight"]-20) <= 1.25, f"mobile menu right inset is wrong: {header_geometry}"
     assert header_geometry["transform"] == "none", f"mobile logo must not keep a legacy translate: {header_geometry}"
+    page.evaluate("document.fonts && document.fonts.ready")
+    long_name_fit = page.locator(".tn22-title").evaluate("""el => {
+        const oldText=el.textContent, oldClass=el.className, oldMax=el.style.getPropertyValue('--hero-single-max');
+        el.textContent='ESMERALDA';
+        el.classList.add('is-single-line');
+        el.style.setProperty('--hero-single-max','54px');
+        const result={client:el.clientWidth,scroll:el.scrollWidth,font:parseFloat(getComputedStyle(el).fontSize)};
+        el.textContent=oldText;el.className=oldClass;
+        if(oldMax)el.style.setProperty('--hero-single-max',oldMax);else el.style.removeProperty('--hero-single-max');
+        return result;
+    }""")
+    assert long_name_fit["scroll"] <= long_name_fit["client"] + 1, f"long one-word mobile salon name overflows hero: {long_name_fit}"
     assert page.locator("#tn13Services .tn31-service-row").count() == 3
     assert not page.locator("#tn13Team").is_hidden()
     assert page.locator("#tn13Team .tn22-master-card.is-placeholder").count() == 4, "mobile empty team must keep four visual master cards"
