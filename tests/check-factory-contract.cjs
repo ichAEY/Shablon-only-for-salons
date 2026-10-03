@@ -68,8 +68,8 @@ const duplicatedAddress=structuredClone(ready);
 duplicatedAddress.salon.address.ru='Ереван, ул. Абовяна, 12';
 assert(validateSiteData(duplicatedAddress,{rootDir:root,allowTestDomains:true}).some(error=>error.includes('must not repeat salon.city')),
   'short UI address must reject a repeated city name');
-// A Russian salon must not need Armenian; Uzbek and Tajik salons must supply their own third language.
-for(const [country,locales] of Object.entries({RU:['ru','en'],AM:['ru','en','hy'],UZ:['ru','en','uz'],TJ:['ru','en','tg']})){
+// Country locale contracts: Kazakhstan adds KK while protected brand/review content stays verbatim.
+for(const [country,locales] of Object.entries({RU:['ru','en'],AM:['ru','en','hy'],KZ:['ru','en','kk'],UZ:['ru','en','uz'],TJ:['ru','en','tg']})){
   const sample=structuredClone(ready);
   sample.country=country;sample.locales=locales;
   if(country==='RU'){
@@ -82,6 +82,7 @@ for(const [country,locales] of Object.entries({RU:['ru','en'],AM:['ru','en','hy'
   const augment=value=>{
     if(!value||typeof value!=='object')return;
     if(typeof value.ru==='string'&&typeof value.en==='string'){
+      if(country==='KZ')value.kk=value.en;
       if(country==='UZ')value.uz=value.en;
       if(country==='TJ')value.tg=value.en;
       return;
@@ -90,17 +91,27 @@ for(const [country,locales] of Object.entries({RU:['ru','en'],AM:['ru','en','hy'
     else Object.values(value).forEach(augment);
   };
   augment(sample);
+  if(country==='KZ'){
+    delete sample.salon.name.kk;
+    delete sample.reviews[0].author.kk;
+    delete sample.reviews[0].text.kk;
+    delete sample.reviews[0].source.kk;
+  }
   assert.deepEqual(validateSiteData(sample,{rootDir:root,allowTestDomains:true}),[],`${country} locale schema should accept its supported languages`);
   const context={window:{TANEM_SITE_DATA:sample}};
   vm.runInNewContext(fs.readFileSync(path.join(root,'site-regions.js'),'utf8'),context);
   assert.deepEqual(Array.from(context.window.TANEM_REGION.locales),locales,`${country} switcher languages`);
   assert.equal(context.window.TANEM_REGION.teamHeading('ru'),'Наша команда');
   assert.equal(context.window.TANEM_REGION.teamHeading(locales.at(-1)),locales.at(-1)==='ru'?'Наша команда':'Our Team');
+  if(country==='KZ'){
+    assert.equal(context.window.TANEM_REGION.ui('Услуги','kk'),'Қызметтер','KK must translate system UI');
+    assert.equal(context.window.TANEM_REGION.ui(sample.reviews[0].text.ru,'kk'),sample.reviews[0].text.ru,'KK must not translate real review text');
+  }
   if(country==='RU'){
     const invalid=structuredClone(sample);invalid.locales=['ru','en','hy'];
     assert(validateSiteData(invalid,{rootDir:root,allowTestDomains:true}).some(e=>e.includes('exactly ru, en')),'Russia must not expose HY');
   }
-  if(country==='UZ'||country==='TJ'){
+  if(country==='KZ'||country==='UZ'||country==='TJ'){
     const invalid=structuredClone(sample);invalid.salon.name[locales[2]]='';
     assert(validateSiteData(invalid,{rootDir:root,allowTestDomains:true}).some(e=>e.includes(`salon.name.${locales[2]}`)),'Missing regional salon name must fail release');
   }
@@ -136,5 +147,9 @@ assert(desktop.includes('DISPLAY_TEAM_MASTERS=TEAM_MASTERS.length?TEAM_MASTERS:A
 assert(!runtime.includes("desktopBrand.classList.add('has-logo')"),'desktop header must remain text even when a client logo exists');
 assert(runtime.includes('Открыть в Яндекс Картах')&&runtime.includes('Открыть в Google Maps'),'runtime must select the map action label by country');
 assert(mobile.includes('const loop=[...groups,...groups,...groups]'),'mobile reviews must use a circular triple-buffer loop');
+assert(mobile.includes("currentLang==='hy'||currentLang==='kk'"),'KK team must use the same English-protected behavior as HY');
+assert(mobile.includes(".tn30-review-card p,.br-review-card p,.tn22-master-review p"),'real review text must stay outside the translation walker');
+assert(mediaRules.includes('Контракт локализации Казахстана (KK)'),'RULES.md must lock the Kazakhstan translation contract');
+assert(factoryGuide.includes("country: 'KZ'")&&factoryGuide.includes("locales: ['ru', 'en', 'kk']"),'factory guide must document KZ RU/EN/KK');
 
 console.log('PASS: schema, release blockers, unified services, and wide-touch routing are enforced');
