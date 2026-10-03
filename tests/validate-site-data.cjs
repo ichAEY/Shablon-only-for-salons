@@ -16,7 +16,7 @@ const PLACEHOLDER_RULES=[
   {test:value=>/^(?:Клиент|Client|Հաճախորդ)\s+\d+$/iu.test(value),label:'numbered client'},
   {test:value=>/(?:будет добавлен|будет добавлено|will be added|կավելացվի)/iu.test(value),label:'future placeholder copy'},
   {test:value=>/^(?:Уточняется|To be added|Կավելացվի)$/iu.test(value),label:'unspecified value'},
-  {test:value=>/^(?:Город|City|Քաղաք|Адрес салона|Salon address|Սրահի հասցե)$/iu.test(value),label:'generic location'},
+  {test:value=>/^(?:Город|City|Քաղաք|Адрес салона|Salon address|Սրահի հասցե|Полный адрес салона|Full salon address|Սրահի ամբողջական հասցե)$/iu.test(value),label:'generic location'},
   {test:value=>/^(?:Описание салона\.?|Salon description\.?|Սրահի նկարագրություն։?)$/iu.test(value),label:'generic salon description'},
   {test:value=>/^(?:Источник отзыва|Review source|Կարծիքի աղբյուր)$/iu.test(value),label:'generic review source'}
 ];
@@ -101,6 +101,7 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   if(!object(data,'TANEM_SITE_DATA'))return errors;
   if(data.schemaVersion!==1)add('schemaVersion','must equal 1');
   if(!['template','production'].includes(data.mode))add('mode','must be template or production');
+  if(production&&!country)add('country','must not be empty in production');
   if(country&&!COUNTRY_LOCALES[country])add('country','unsupported country; use RU, AM, UZ or TJ');
   if(array(data.locales,'locales')){
     for(const locale of requiredLocales)if(!data.locales.includes(locale))add('locales',`must include ${locale} for ${country||'legacy configuration'}`);
@@ -110,7 +111,14 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
   if(!requiredLocales.includes(data.defaultLocale))add('defaultLocale',`must be one of ${requiredLocales.join(', ')}`);
 
   if(object(data.salon,'salon')){
-    ['name','kind','city','address','heroDescription','about'].forEach(key=>local(data.salon[key],`salon.${key}`,{required:production}));
+    ['name','kind','city','address','fullAddress','heroDescription','about'].forEach(key=>local(data.salon[key],`salon.${key}`,{required:production}));
+    if(production){
+      for(const locale of requiredLocales){
+        const display=typeof data.salon.address==='object'?String(data.salon.address?.[locale]||'').trim():String(data.salon.address||'').trim();
+        const full=typeof data.salon.fullAddress==='object'?String(data.salon.fullAddress?.[locale]||'').trim():String(data.salon.fullAddress||'').trim();
+        if(display&&full&&display===full&&full.length>35)add(`salon.address.${locale}`,'must be a shortened UI address; keep the complete value in salon.fullAddress');
+      }
+    }
   }
 
   if(object(data.schedule,'schedule')){
@@ -132,6 +140,22 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
     local(data.contacts.phoneLabel,'contacts.phoneLabel',{required:production&&!!data.contacts.phone});
     local(data.contacts.messengerLabel,'contacts.messengerLabel',{required:production&&!!data.contacts.messengerUrl});
     for(const key of ['messengerUrl','mapUrl','mapEmbedUrl','reviewsUrl'])if(data.contacts[key])url(data.contacts[key],`contacts.${key}`,{allowTel:key==='messengerUrl'});
+    if(production){
+      url(data.contacts.mapUrl||'','contacts.mapUrl',{required:true});
+      url(data.contacts.mapEmbedUrl||'','contacts.mapEmbedUrl',{required:true});
+      const providerHost=value=>{try{return new URL(value).hostname.toLowerCase()}catch{return ''}};
+      const providerOk=(value,wanted)=>{
+        const host=providerHost(value);
+        return wanted==='yandex'?/(^|\.)yandex\./.test(host):(/(^|\.)google\./.test(host)||host==='maps.app.goo.gl'||host.endsWith('.goo.gl'));
+      };
+      const wanted=country==='RU'?'yandex':'google';
+      if(data.contacts.mapUrl&&!providerOk(data.contacts.mapUrl,wanted))add('contacts.mapUrl',`country ${country} must use ${wanted==='yandex'?'Yandex Maps':'Google Maps'}`);
+      if(data.contacts.mapEmbedUrl&&!providerOk(data.contacts.mapEmbedUrl,wanted))add('contacts.mapEmbedUrl',`country ${country} must embed ${wanted==='yandex'?'Yandex Maps':'Google Maps'}`);
+      if(data.contacts.messengerUrl){
+        const label=typeof data.contacts.messengerLabel==='object'?String(data.contacts.messengerLabel.ru||'').trim():String(data.contacts.messengerLabel||'').trim();
+        if(!label||/^(?:Написать|Мессенджер|Message|Write)$/iu.test(label))add('contacts.messengerLabel','must name the actual messenger platform, for example Telegram, WhatsApp, MAX or Viber');
+      }
+    }
     if(data.contacts.phone&&!/^\+?[\d ()-]{7,}$/.test(data.contacts.phone))add('contacts.phone','has an invalid phone format');
     if(array(data.contacts.booking,'contacts.booking'))data.contacts.booking.forEach((item,index)=>{
       const field=`contacts.booking[${index}]`;

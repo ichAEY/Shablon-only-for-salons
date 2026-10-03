@@ -28,13 +28,13 @@ def check_desktop(browser):
     wait_for_app(page, "#salon-desktop-v1")
     page.locator('[data-desktop-lang="ru"]').first.click()
     page.wait_for_timeout(150)
-    logo = page.locator(".std-header-brand-main img")
-    assert logo.count() == 1, "desktop header logo is missing"
-    assert (logo.first.get_attribute("alt") or "").strip() == "Люмен", "desktop header logo alt is incorrect"
+    expect_text(page.locator(".std-header-brand-main"), "Люмен", "desktop header text brand")
+    assert page.locator(".std-header-brand-main img").count() == 0, "desktop header must not inject the client logo"
     assert page.locator("#stdHeroMedia").first.get_attribute("src") == "tests/fixtures/photo.svg", "desktop hero media is not applied"
     assert page.locator("#stdServiceList .dct-service-card").count() == 3
     assert not page.locator("#salonDesktopTeam").is_hidden()
-    expect_text(page.locator("#salonDesktopTeam .std-team-subtitle"), "Информация о мастерах будет добавлена.", "desktop empty team state")
+    expect_text(page.locator("#salonDesktopTeam .std-team-subtitle"), "Команда салона", "desktop empty team state")
+    assert page.locator("#salonDesktopTeam .std-master.is-placeholder").count() == 4, "desktop empty team must keep four visual master cards"
     assert page.locator("#salonDesktopPortfolio").is_hidden()
     expect_text(page.locator(".std-reviews-score strong"), "5", "desktop rating")
     expect_text(page.locator(".std-review-meta").first, "Google", "desktop review source")
@@ -44,6 +44,10 @@ def check_desktop(browser):
     assert page.locator("#stdBookOverlay .std-book-options a").first.get_attribute("href") == "tel:+37410555555"
     page.locator("#stdBookClose").click()
     assert page.locator(".std-address").inner_text().strip().startswith("Ереван")
+    expect_text(page.locator('#salonDesktopContacts [data-contact-type="phone"] .std-contact-card-title'), "+374 10 555 555", "desktop phone title")
+    expect_text(page.locator('#salonDesktopContacts [data-contact-type="phone"] .std-contact-card-sub'), "Позвонить", "desktop phone subtitle")
+    expect_text(page.locator('#salonDesktopContacts [data-contact-type="messenger"] .std-contact-card-title'), "Telegram", "desktop messenger title")
+    expect_text(page.locator('#salonDesktopContacts [data-contact-type="address"] .std-contact-card-sub'), "Открыть в Google Maps", "desktop map action")
     expect_text(page.locator("#stdServiceList .dct-service-card-title").first, "Стрижка", "desktop service in Russian")
     page.locator('[data-desktop-lang="en"]').first.click()
     page.wait_for_timeout(150)
@@ -59,10 +63,12 @@ def check_mobile(browser):
     page.locator('[data-lang="ru"]').click()
     page.wait_for_timeout(150)
     expect_text(page.locator(".tn22-title"), "Люмен", "mobile brand in Russian")
+    assert "is-single-line" in (page.locator(".tn22-title").get_attribute("class") or ""), "one-word mobile name must reserve the two-line hero zone"
+    top_logo = page.locator(".tn22-brand img")
+    assert top_logo.count() == 1 and top_logo.first.get_attribute("src") == "tests/fixtures/logo.svg", "mobile top brand should use a real client logo"
     assert page.locator("#tn13Services .tn31-service-row").count() == 3
     assert not page.locator("#tn13Team").is_hidden()
-    assert page.locator("#tn13Team .tn22-master-card").count() == 0
-    assert "Информация о мастерах будет добавлена." in page.locator("#tn13Team").inner_text()
+    assert page.locator("#tn13Team .tn22-master-card.is-placeholder").count() == 4, "mobile empty team must keep four visual master cards"
     assert page.locator("#tn13Portfolio").is_hidden()
     assert page.locator("#tn13Reviews .br-review-card").count() >= 3
     expect_text(page.locator("#tn13Reviews .br-review-meta span").first, "Google", "mobile review source")
@@ -72,6 +78,8 @@ def check_mobile(browser):
     page.locator('[data-lang="en"]').click()
     page.wait_for_timeout(150)
     assert page.locator(".tn37-location .tn37-info-copy").inner_text().strip().startswith("Yerevan")
+    expect_text(page.locator('#tn13Visit [data-contact-type="address"] strong'), "Yerevan, 12 Abovyan St", "mobile short address")
+    expect_text(page.locator('#tn13Visit [data-contact-type="address"] strong+span'), "Open in Google Maps", "mobile map action")
     expect_text(page.locator("#tn13Services .tn31-service-name").first, "Haircut", "mobile service in English")
     context.close()
 

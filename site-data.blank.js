@@ -20,7 +20,8 @@
     country:'RU', // RU: ru/en; AM: ru/en/hy; UZ: ru/en/uz; TJ: ru/en/tg
     locales:['ru','en'],
     defaultLocale:'ru',
-    salon:{name:t(),kind:t('Салон красоты','Beauty salon','Գեղեցկության սրահ'),city:t(),address:t(),heroDescription,about},
+    // city/address are short UI strings; fullAddress keeps the verified full postal/admin address for maps and metadata.
+    salon:{name:t(),kind:t('Салон красоты','Beauty salon','Գեղեցկության սրահ'),city:t(),address:t(),fullAddress:t(),heroDescription,about},
     schedule:{timezone:'Europe/Moscow',periods:[],fallback:t()},
     contacts:{phone:'',phoneLabel:t('Позвонить','Call','Զանգահարել'),
       messengerUrl:'',messengerLabel:t('Написать','Message','Գրել'),messengerHandle:'',

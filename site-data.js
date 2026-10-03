@@ -59,6 +59,7 @@
       kind:t('Салон красоты','Beauty salon','Գեղեցկության սրահ'),
       city:t('Город','City','Քաղաք'),
       address:t('Адрес салона','Salon address','Սրահի հասցե'),
+      fullAddress:t('Полный адрес салона','Full salon address','Սրահի ամբողջական հասցե'),
       heroDescription:t('Ваша красота. Ваша уверенность.','Your beauty. Your confidence.','Ձեր գեղեցկությունը։ Ձեր վստահությունը։'),
       about:t(
         'В основе нашей работы — профессиональный подход, внимание к деталям и уважение к индивидуальности каждого гостя. Мы создаём комфортное пространство, где качество и забота остаются главным приоритетом.',
@@ -67,7 +68,7 @@
       )
     },
     schedule:{timezone:'Europe/Moscow',periods:[],fallback:t('Уточняется','To be added','Կավելացվի')},
-    contacts:{phone:'',phoneLabel:t('Телефон салона','Salon phone','Սրահի հեռախոս'),messengerUrl:'',messengerLabel:t('Мессенджер','Messenger','Մեսենջեր'),mapUrl:'',reviewsUrl:'',booking:[]},
+    contacts:{phone:'',phoneLabel:t('Телефон салона','Salon phone','Սրահի հեռախոս'),messengerUrl:'',messengerLabel:t('Мессенджер','Messenger','Մեսենջեր'),messengerHandle:'',mapUrl:'',mapEmbedUrl:'',reviewsUrl:'',booking:[]},
     rating:{value:null,count:0},
     media:{
       logo:'logo-placeholder.svg',hero:[placeholderSalon(),placeholderWork()],about:placeholder,

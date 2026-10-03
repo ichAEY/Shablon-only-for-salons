@@ -93,6 +93,9 @@ const MASTERS=SITE.team.map(master=>({
   work:(master.work||[]).map(item=>typeof item==='string'?item:item.src),
   reviewNames:(master.reviewIds||[]).map(id=>russian(SITE.reviews.find(review=>review.id===id)?.author)).filter(Boolean)
 }));
+const DISPLAY_MASTERS=MASTERS.length?MASTERS:Array.from({length:4},(_,index)=>({
+  id:'placeholder-'+(index+1),name:'Мастер',role:'',about:'',photo:'',cats:[],work:[],reviewNames:[],placeholder:true
+}));
 const MASTER_AVATAR='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" fill="currentColor"></circle><path d="M12 56c2.7-11.4 10-17 20-17s17.3 5.6 20 17" fill="currentColor"></path></svg>';
 const masterAvatar=m=>m&&m.photo?'<img src="'+m.photo+'" alt="'+m.name+'" style="display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit">':MASTER_AVATAR;
 
@@ -111,7 +114,7 @@ const heroMedia=hero.querySelector('.tn22-media');let heroStartX=0,heroMoved=fal
 heroMedia.querySelectorAll('img').forEach(img=>img.draggable=false);
 heroMedia.addEventListener('pointerdown',e=>{heroStartX=e.clientX;heroMoved=false;heroPointer=e.pointerId;try{heroMedia.setPointerCapture(e.pointerId)}catch(_){}});
 heroMedia.addEventListener('pointermove',e=>{if(heroPointer!==null&&Math.abs(e.clientX-heroStartX)>12)heroMoved=true});
-const finishHeroGesture=e=>{if(heroPointer===null)return;const dx=e.clientX-heroStartX;try{heroMedia.releasePointerCapture(heroPointer)}catch(_){}heroPointer=null;if(Math.abs(dx)>42){setHeroSlide(slide+(dx<0?1:-1));return}if(!heroMoved)openGallery('Салон')};
+const finishHeroGesture=e=>{if(heroPointer===null)return;const dx=e.clientX-heroStartX;try{heroMedia.releasePointerCapture(heroPointer)}catch(_){}heroPointer=null;if(Math.abs(dx)>42){setHeroSlide(slide+(dx<0?1:-1));return}if(!heroMoved)openGallery('Салон',heroMedia)};
 heroMedia.addEventListener('pointerup',finishHeroGesture);heroMedia.addEventListener('pointercancel',()=>{heroPointer=null;heroMoved=false});
 
 // VIEWER
@@ -125,20 +128,46 @@ function resetViewerTransform(){viewerScale=1;viewerX=0;viewerY=0;pinchStart=0;p
 function paintViewer(){const it=viewerItems[viewerIndex];if(!it)return;vImg.src=it.src;vImg.alt=it.alt||'';vCount.textContent=`${String(viewerIndex+1).padStart(2,'0')} из ${String(viewerItems.length).padStart(2,'0')}`;resetViewerTransform();vPrev.hidden=viewerItems.length<2;vNext.hidden=viewerItems.length<2;}
 function openViewer(items,index=0,source='gallery'){viewerItems=Array.isArray(items)?items:[];if(!viewerItems.length)return;viewer.dataset.source=source;const galleryButton=viewer.querySelector('.tn22-view-gallery');if(galleryButton)galleryButton.hidden=source!=='portfolio';viewerIndex=Math.max(0,Math.min(index,viewerItems.length-1));paintViewer();viewer.classList.add('open');document.body.style.overflow='hidden'}
 function closeViewer(){viewer.classList.remove('open');resetViewerTransform();if(!$('#tn13Gallery').classList.contains('open')&&!masterPage.classList.contains('open'))document.body.style.overflow=''}
-vPrev.onclick=()=>{viewerIndex=(viewerIndex-1+viewerItems.length)%viewerItems.length;paintViewer()};vNext.onclick=()=>{viewerIndex=(viewerIndex+1)%viewerItems.length;paintViewer()};viewer.querySelector('.tn22-view-close').onclick=closeViewer;viewer.querySelector('.tn22-view-gallery').onclick=()=>{closeViewer();openGallery('Салон')};viewer.addEventListener('click',e=>{if(e.target===viewer)closeViewer()});
+vPrev.onclick=()=>{viewerIndex=(viewerIndex-1+viewerItems.length)%viewerItems.length;paintViewer()};vNext.onclick=()=>{viewerIndex=(viewerIndex+1)%viewerItems.length;paintViewer()};viewer.querySelector('.tn22-view-close').onclick=closeViewer;viewer.querySelector('.tn22-view-gallery').onclick=e=>{const origin=e.currentTarget.getBoundingClientRect();closeViewer();openGallery('Салон',origin)};viewer.addEventListener('click',e=>{if(e.target===viewer)closeViewer()});
 vCanvas.addEventListener('touchstart',e=>{if(e.touches.length===2){e.preventDefault();gestureHadPinch=true;pinchStart=pinchDist(e);pinchBaseScale=viewerScale}else if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;panStartX=viewerX;panStartY=viewerY}},{passive:false});
 vCanvas.addEventListener('touchmove',e=>{if(e.touches.length===2&&pinchStart){e.preventDefault();viewerScale=Math.max(1,Math.min(4,pinchBaseScale*(pinchDist(e)/pinchStart)));if(viewerScale<=1.01){viewerScale=1;viewerX=0;viewerY=0}applyViewerTransform()}else if(e.touches.length===1&&viewerScale>1){e.preventDefault();viewerX=panStartX+(e.touches[0].clientX-sx);viewerY=panStartY+(e.touches[0].clientY-sy);applyViewerTransform()}},{passive:false});
 vCanvas.addEventListener('touchend',e=>{if(e.touches.length<2)pinchStart=0;if(e.touches.length===0){if(!gestureHadPinch&&viewerScale===1&&viewerItems.length>1&&e.changedTouches.length){const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.15)(dx<0?vNext:vPrev).click()}gestureHadPinch=false;if(viewerScale<=1.01)resetViewerTransform()}},{passive:false});
 
 // GALLERY
 const gallery=$('#tn13Gallery');let galleryCat='Салон';
-function renderGallery(){const items=GALLERY[galleryCat]||[];gallery.innerHTML=`<div class="tn22-gallery"><div class="tn22-gallery-top"><button class="tn22-gallery-back" type="button">←</button><div class="tn22-gallery-title"><strong>${["en","hy"].includes(document.body.dataset.brLang)?"Gallery":"Галерея"}</strong><span>SALON NAME</span></div><div></div></div><div class="tn22-gallery-tabs-wrap"><div class="tn22-gallery-tabs">${Object.keys(GALLERY).map(c=>`<button class="tn22-gallery-tab${c===galleryCat?' active':''}" type="button" data-gcat="${c}">${c}</button>`).join('')}</div></div><div class="tn22-gallery-grid${galleryCat==='Салон'?' salon':''}">${items.length?items.map((x,i)=>`<button class="tn22-gallery-tile" type="button" data-gi="${i}"><img loading="lazy" decoding="async" src="${x.src}" alt="${x.alt}"></button>`).join(''):'<div class="tn23-gallery-empty">Фото ресниц пока не добавлены</div>'}</div></div>`;gallery.querySelector('.tn22-gallery-back').onclick=closeGallery;gallery.querySelectorAll('[data-gcat]').forEach(b=>b.onclick=()=>{galleryCat=b.dataset.gcat;renderGallery()});gallery.querySelectorAll('[data-gi]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();openViewer(items,+b.dataset.gi,'gallery')});}
+function renderGallery(){
+ const items=GALLERY[galleryCat]||[];
+ const categories=Object.keys(GALLERY);
+ gallery.innerHTML=`<div class="tn22-gallery"><div class="tn22-gallery-top"><button class="tn22-gallery-back" type="button">←</button><div class="tn22-gallery-title"><strong>${["en","hy"].includes(document.body.dataset.brLang)?"Gallery":"Галерея"}</strong><span>SALON NAME</span></div><div></div></div><div class="tn22-gallery-tabs-wrap"><span class="tn22-gallery-rail-hint left" aria-hidden="true">‹</span><div class="tn22-gallery-tabs">${categories.map(c=>`<button class="tn22-gallery-tab${c===galleryCat?' active':''}" type="button" data-gcat="${c}">${c}</button>`).join('')}</div><span class="tn22-gallery-rail-hint right" aria-hidden="true">›</span></div><div class="tn22-gallery-grid${galleryCat==='Салон'?' salon':''}">${items.length?items.map((x,i)=>`<button class="tn22-gallery-tile" type="button" data-gi="${i}"><img loading="lazy" decoding="async" src="${x.src}" alt="${x.alt}"></button>`).join(''):'<div class="tn23-gallery-empty">Фотографии пока не добавлены</div>'}</div></div>`;
+ const tabs=gallery.querySelector('.tn22-gallery-tabs');
+ const leftHint=gallery.querySelector('.tn22-gallery-rail-hint.left');
+ const rightHint=gallery.querySelector('.tn22-gallery-rail-hint.right');
+ const syncHints=()=>{
+  const overflow=tabs&&tabs.scrollWidth>tabs.clientWidth+2;
+  const max=tabs?Math.max(0,tabs.scrollWidth-tabs.clientWidth):0;
+  leftHint?.classList.toggle('visible',!!overflow&&tabs.scrollLeft>4);
+  rightHint?.classList.toggle('visible',!!overflow&&tabs.scrollLeft<max-4);
+ };
+ gallery.querySelector('.tn22-gallery-back').onclick=closeGallery;
+ gallery.querySelectorAll('[data-gcat]').forEach(b=>b.onclick=()=>{galleryCat=b.dataset.gcat;renderGallery()});
+ gallery.querySelectorAll('[data-gi]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();openViewer(items,+b.dataset.gi,'gallery')});
+ tabs?.addEventListener('scroll',syncHints,{passive:true});
+ requestAnimationFrame(syncHints);
+}
 let galleryCloseTimer=0;
-function openGallery(cat='Салон'){clearTimeout(galleryCloseTimer);galleryCat=Object.prototype.hasOwnProperty.call(GALLERY,cat)?cat:'Салон';renderGallery();gallery.classList.remove('closing');gallery.scrollTop=0;requestAnimationFrame(()=>gallery.classList.add('open'))}
+function setGalleryOrigin(origin){
+ const rect=origin&&typeof origin.getBoundingClientRect==='function'?origin.getBoundingClientRect():origin;
+ if(!rect||!Number.isFinite(rect.left)||!Number.isFinite(rect.top)){gallery.style.removeProperty('--gallery-origin-x');gallery.style.removeProperty('--gallery-origin-y');return}
+ const x=Math.max(0,Math.min(100,((rect.left+rect.width/2)/Math.max(1,window.innerWidth))*100));
+ const y=Math.max(0,Math.min(100,((rect.top+rect.height/2)/Math.max(1,window.innerHeight))*100));
+ gallery.style.setProperty('--gallery-origin-x',x+'%');
+ gallery.style.setProperty('--gallery-origin-y',y+'%');
+}
+function openGallery(cat='Салон',origin=null){clearTimeout(galleryCloseTimer);galleryCat=Object.prototype.hasOwnProperty.call(GALLERY,cat)?cat:'Салон';setGalleryOrigin(origin);renderGallery();gallery.classList.remove('closing');gallery.scrollTop=0;requestAnimationFrame(()=>gallery.classList.add('open'))}
 function closeGallery(){if(!gallery.classList.contains('open'))return;clearTimeout(galleryCloseTimer);gallery.classList.remove('open');gallery.classList.add('closing');galleryCloseTimer=setTimeout(()=>gallery.classList.remove('closing'),520)}
-const heroWorksLink=hero.querySelector('.tn22-worklink');if(heroWorksLink)heroWorksLink.onclick=e=>{e.preventDefault();openGallery('Салон')};
+const heroWorksLink=hero.querySelector('.tn22-worklink');if(heroWorksLink)heroWorksLink.onclick=e=>{e.preventDefault();openGallery('Салон',e.currentTarget)};
 
-const sectionItems=[['tn13Portfolio','Портфолио'],['tn13Services','Услуги'],['tn38About','О нас'],...(MASTERS.length?[['tn13Team','Команда']]:[]),['tn13Reviews','Отзывы'],['tn13Visit','Визит']];const sectionIds=sectionItems.map(x=>x[0]);const sectionNav=document.createElement('nav');sectionNav.className='tn23-section-nav';sectionNav.setAttribute('aria-hidden','true');sectionNav.innerHTML=sectionItems.map((x,i)=>`<button type="button" data-section="${x[0]}" class="${i===0?'active':''}">${x[1]}</button>`).join('');sectionNav.classList.add('salon-template-fixed-nav');document.body.appendChild(sectionNav);
+const sectionItems=[['tn13Portfolio','Портфолио'],['tn13Services','Услуги'],['tn38About','О нас'],['tn13Team','Команда'],['tn13Reviews','Отзывы'],['tn13Visit','Визит']];const sectionIds=sectionItems.map(x=>x[0]);const sectionNav=document.createElement('nav');sectionNav.className='tn23-section-nav';sectionNav.setAttribute('aria-hidden','true');sectionNav.innerHTML=sectionItems.map((x,i)=>`<button type="button" data-section="${x[0]}" class="${i===0?'active':''}">${x[1]}</button>`).join('');sectionNav.classList.add('salon-template-fixed-nav');document.body.appendChild(sectionNav);
 let activeSection='tn13Portfolio',navRaf=0,navTargetLock=null,navUnlockTimer=0;
 const mobileThemeMeta=document.querySelector('meta[name="theme-color"]');
 function updateThemeChrome(){const visit=document.getElementById('tn13Visit');const dark=!!visit&&visit.getBoundingClientRect().top<=window.innerHeight-24&&window.scrollY>hero.offsetHeight-48;const desired=dark?'#181818':'#fafaf9';if(mobileThemeMeta&&mobileThemeMeta.getAttribute('content')!==desired)mobileThemeMeta.setAttribute('content',desired)}
@@ -150,7 +179,7 @@ function updateSectionNav(){navRaf=0;const heroPassed=window.scrollY>=Math.max(0
 window.addEventListener('scroll',()=>{if(!navRaf)navRaf=requestAnimationFrame(updateSectionNav)},{passive:true});window.addEventListener('resize',updateSectionNav,{passive:true});requestAnimationFrame(updateSectionNav);
 
 // PORTFOLIO
-const port=$('#tn13Portfolio');port.innerHTML=`<div class="tn22-port"><p class="tn22-kicker">Портфолио</p><h2>Наши работы</h2><div class="tn22-port-grid">${PORTFOLIO.map((x,i)=>`<button class="tn22-photo" type="button" data-pi="${i}"><img loading="lazy" decoding="async" src="${x.src}" alt="${x.alt}"></button>`).join('')}</div><button class="tn22-port-all" type="button">Открыть галерею <span>→</span></button></div>`;port.querySelectorAll('[data-pi]').forEach(b=>b.onclick=()=>openViewer(PORTFOLIO,+b.dataset.pi,'portfolio'));port.querySelector('.tn22-port-all').onclick=()=>openGallery('Салон');
+const port=$('#tn13Portfolio');port.innerHTML=`<div class="tn22-port"><p class="tn22-kicker">Портфолио</p><h2>Наши работы</h2><div class="tn22-port-grid">${PORTFOLIO.map((x,i)=>`<button class="tn22-photo" type="button" data-pi="${i}"><img loading="lazy" decoding="async" src="${x.src}" alt="${x.alt}"></button>`).join('')}</div><button class="tn22-port-all" type="button">Открыть галерею <span>→</span></button></div>`;port.querySelectorAll('[data-pi]').forEach(b=>b.onclick=()=>openViewer(PORTFOLIO,+b.dataset.pi,'portfolio'));port.querySelector('.tn22-port-all').onclick=e=>openGallery('Салон',e.currentTarget);
 
 // SERVICES
 const serv=$('#tn13Services');
@@ -206,36 +235,47 @@ function serviceLine(s){
 }
 function serviceWord(n){const n10=n%10,n100=n%100;if(n10===1&&n100!==11)return 'услугу';if(n10>=2&&n10<=4&&(n100<12||n100>14))return 'услуги';return 'услуг'}
 /* Category selection must not auto-scroll the viewport or horizontal rail. */
-function renderServices(){
- const railLeft=scats.scrollLeft;
- scats.innerHTML=SERVICE_CATS.map(c=>'<button class="tn31-cat'+(c===serviceCat?' active':'')+'" type="button" data-scat="'+c+'">'+c+'</button>').join('');
- scats.querySelectorAll('[data-scat]').forEach(btn=>btn.onclick=()=>{
-  const oldScroll=scats.scrollLeft;
-  serviceCat=btn.dataset.scat;
-  servicesExpanded=false;
-  renderServices();
-  scats.scrollLeft=oldScroll;
- });
- scats.scrollLeft=railLeft;
- const arr=SERVICES.filter(s=>s.cat===serviceCat);
- const shown=servicesExpanded?arr:arr.slice(0,8);
- const remaining=Math.max(0,arr.length-8);
- slist.innerHTML=shown.map(serviceLine).join('');
- slist.querySelectorAll('.tn31-service-price').forEach(price=>{if(price.textContent.trim()==='—')price.hidden=true});
- slist.querySelectorAll('[data-book-service]').forEach(btn=>btn.onclick=book);
- slist.querySelectorAll('[data-service-details]').forEach(btn=>btn.onclick=()=>{
+const MOBILE_SERVICE_PREVIEW_LIMIT=8;
+let mobileMoreWrap=null,mobileSavedScrollAnchor=null,mobileMoreAnchorRun=0;
+function bindMobileServiceControls(scope){
+ scope.querySelectorAll('.tn31-service-price').forEach(price=>{if(price.textContent.trim()==='—')price.hidden=true});
+ scope.querySelectorAll('[data-book-service]').forEach(btn=>btn.onclick=book);
+ scope.querySelectorAll('[data-service-details]').forEach(btn=>btn.onclick=()=>{
   const row=btn.closest('.tn31-service-demo');
-  if(!row.classList.contains('is-expanded'))
-   row.style.setProperty('--service-side-center',(row.offsetHeight/2)+'px');
+  if(!row.classList.contains('is-expanded'))row.style.setProperty('--service-side-center',(row.offsetHeight/2)+'px');
   const expanded=row.classList.toggle('is-expanded');
   btn.setAttribute('aria-expanded',String(expanded));
   btn.textContent=expanded?'Свернуть':'Подробнее…';
   if(btn.firstChild)btn.firstChild.__brI18nCanonical=expanded?'Свернуть':'Подробнее…';
   if(!expanded)requestAnimationFrame(syncDemoSidePositions);
  });
- sMore.hidden=arr.length<=8;
- sMore.querySelector('.tn31-more-text').textContent=servicesExpanded?'Свернуть':'Показать ещё '+remaining+' '+serviceWord(remaining);
- sMore.querySelector('span:last-child').textContent=servicesExpanded?'↑':'↓';
+}
+function resetMobileMore(){
+ mobileMoreAnchorRun++;
+ if(mobileMoreWrap){mobileMoreWrap.remove();mobileMoreWrap=null}
+ servicesExpanded=false;
+}
+function renderServices(){
+ resetMobileMore();
+ const railLeft=scats.scrollLeft;
+ scats.classList.toggle('is-two',SERVICE_CATS.length===2);
+ scats.innerHTML=SERVICE_CATS.map(c=>'<button class="tn31-cat'+(c===serviceCat?' active':'')+'" type="button" data-scat="'+c+'">'+c+'</button>').join('');
+ scats.querySelectorAll('[data-scat]').forEach(btn=>btn.onclick=()=>{
+  const oldScroll=scats.scrollLeft;
+  serviceCat=btn.dataset.scat;
+  renderServices();
+  scats.scrollLeft=oldScroll;
+ });
+ scats.scrollLeft=railLeft;
+ const arr=SERVICES.filter(s=>s.cat===serviceCat);
+ const shown=arr.slice(0,MOBILE_SERVICE_PREVIEW_LIMIT);
+ const remaining=Math.max(0,arr.length-MOBILE_SERVICE_PREVIEW_LIMIT);
+ slist.innerHTML=shown.map(serviceLine).join('');
+ bindMobileServiceControls(slist);
+ sMore.hidden=arr.length<=MOBILE_SERVICE_PREVIEW_LIMIT;
+ sMore.setAttribute('aria-expanded','false');
+ sMore.querySelector('.tn31-more-text').textContent='Показать ещё '+remaining+' '+serviceWord(remaining);
+ sMore.querySelector('span:last-child').textContent='↓';
  updateServiceDurationLabels();
  requestAnimationFrame(syncDemoSidePositions);
 }
@@ -247,7 +287,73 @@ function syncDemoSidePositions(){
   if(expanded)row.classList.add('is-expanded');
  });
 }
-sMore.onclick=()=>{servicesExpanded=!servicesExpanded;renderServices()};
+function stabilizeMobileMoreButton(anchorTop){
+ const delta=sMore.getBoundingClientRect().top-anchorTop;
+ if(Number.isFinite(delta)&&Math.abs(delta)>.5)window.scrollTo({top:Math.max(0,window.scrollY+delta),behavior:'instant'});
+}
+function followMobileMoreButton(anchorTop,token){
+ if(token!==mobileMoreAnchorRun)return;
+ stabilizeMobileMoreButton(anchorTop);
+ if(!servicesExpanded&&mobileMoreWrap)requestAnimationFrame(()=>followMobileMoreButton(anchorTop,token));
+}
+function lockMobileServiceAnchor(){
+ if(mobileSavedScrollAnchor!==null)return;
+ mobileSavedScrollAnchor=document.documentElement.style.overflowAnchor||'';
+ document.documentElement.style.overflowAnchor='none';
+}
+function unlockMobileServiceAnchor(){
+ if(mobileSavedScrollAnchor===null)return;
+ document.documentElement.style.overflowAnchor=mobileSavedScrollAnchor;
+ mobileSavedScrollAnchor=null;
+}
+function makeMobileExtraServices(){
+ return SERVICES.filter(s=>s.cat===serviceCat).slice(MOBILE_SERVICE_PREVIEW_LIMIT).map(serviceLine).join('');
+}
+function paintMobileMoreButton(){
+ const arr=SERVICES.filter(s=>s.cat===serviceCat);
+ const remaining=Math.max(0,arr.length-MOBILE_SERVICE_PREVIEW_LIMIT);
+ sMore.setAttribute('aria-expanded',String(servicesExpanded));
+ sMore.querySelector('.tn31-more-text').textContent=servicesExpanded?'Свернуть':'Показать ещё '+remaining+' '+serviceWord(remaining);
+ sMore.querySelector('span:last-child').textContent=servicesExpanded?'↑':'↓';
+}
+sMore.onclick=()=>{
+ const anchorTop=sMore.getBoundingClientRect().top;
+ const token=++mobileMoreAnchorRun;
+ lockMobileServiceAnchor();
+ const duration=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:400;
+ servicesExpanded=!servicesExpanded;
+ paintMobileMoreButton();
+ if(servicesExpanded){
+  if(!mobileMoreWrap){
+   mobileMoreWrap=document.createElement('div');
+   mobileMoreWrap.className='tn31-service-more-wrap';
+   mobileMoreWrap.innerHTML=makeMobileExtraServices();
+   slist.appendChild(mobileMoreWrap);
+   bindMobileServiceControls(mobileMoreWrap);
+  }
+  const wrap=mobileMoreWrap;
+  wrap.ontransitionend=null;
+  wrap.style.transitionDuration=duration+'ms';
+  const expandedHeight=wrap.scrollHeight;
+  if(!duration){wrap.style.height='auto';unlockMobileServiceAnchor()}
+  else{
+   wrap.style.height='0px';wrap.offsetHeight;
+   requestAnimationFrame(()=>{if(servicesExpanded&&mobileMoreWrap===wrap)wrap.style.height=expandedHeight+'px'});
+   wrap.ontransitionend=e=>{if(e.target===wrap&&e.propertyName==='height'&&servicesExpanded){wrap.style.height='auto';wrap.ontransitionend=null;unlockMobileServiceAnchor()}};
+  }
+  requestAnimationFrame(syncDemoSidePositions);
+ }else if(mobileMoreWrap){
+  const wrap=mobileMoreWrap;
+  wrap.ontransitionend=null;
+  wrap.style.transitionDuration=duration+'ms';
+  if(!duration){wrap.remove();mobileMoreWrap=null;stabilizeMobileMoreButton(anchorTop);unlockMobileServiceAnchor()}
+  else{
+   wrap.style.height=wrap.getBoundingClientRect().height+'px';wrap.offsetHeight;
+   requestAnimationFrame(()=>{if(!servicesExpanded&&mobileMoreWrap===wrap){followMobileMoreButton(anchorTop,token);wrap.style.height='0px'}});
+   wrap.ontransitionend=e=>{if(e.target===wrap&&e.propertyName==='height'&&!servicesExpanded){wrap.remove();mobileMoreWrap=null;stabilizeMobileMoreButton(anchorTop);unlockMobileServiceAnchor()}};
+  }
+ }
+};
 window.addEventListener('salon-template:languagechange',e=>{
  updateServiceDurationLabels(e.detail&&e.detail.lang);
  requestAnimationFrame(syncDemoSidePositions);
@@ -258,7 +364,7 @@ if(document.fonts&&document.fonts.ready)
 renderServices();
 
 // TEAM + TEAM SHEET
-const team=$('#tn13Team');team.hidden=false;team.innerHTML=`<div class="tn22-team"><p class="tn22-kicker">Наша команда</p><h2>Мастера своего дела</h2>${MASTERS.length?`<div class="tn22-team-grid">${MASTERS.map(m=>`<button class="tn22-master-card" type="button" data-mid="${m.id}"><span class="tn22-master-circle">${masterAvatar(m)}</span><strong class="tn22-master-name">${m.name}</strong><span class="tn22-master-role">${m.role}</span></button>`).join('')}</div><div class="tn42-team-hint">Листайте <span>→</span></div>`:'<p class="tn22-master-about" style="text-align:left;margin:18px 0 0">Информация о мастерах будет добавлена.</p>'}</div>`;
+const team=$('#tn13Team');team.hidden=false;team.innerHTML=`<div class="tn22-team"><p class="tn22-kicker">Наша команда</p><h2>Мастера своего дела</h2><div class="tn22-team-grid">${DISPLAY_MASTERS.map(m=>m.placeholder?`<div class="tn22-master-card is-placeholder"><span class="tn22-master-circle">${masterAvatar(m)}</span><strong class="tn22-master-name">Мастер</strong><span class="tn22-master-role"></span></div>`:`<button class="tn22-master-card" type="button" data-mid="${m.id}"><span class="tn22-master-circle">${masterAvatar(m)}</span><strong class="tn22-master-name">${m.name}</strong><span class="tn22-master-role">${m.role}</span></button>`).join('')}</div><div class="tn42-team-hint">Листайте <span>→</span></div></div>`;
 const teamSheet=document.createElement('div');teamSheet.className='tn22-team-sheet';root.appendChild(teamSheet);
 
 // MASTER PAGE
@@ -298,7 +404,7 @@ const iconPhone=`<span class="tn22-contact-icon"><svg viewBox="0 0 24 24" aria-h
 const iconMessage=`<span class="tn22-contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v10H9l-4 3v-13Z"/></svg></span>`;
 const iconClock=`<span class="tn22-contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 1.8"/></svg></span>`;
 const statusClock=`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 1.8"/></svg>`;
-visit.innerHTML=`<div class="tn22-visit"><div class="tn22-visit-head"><p class="tn22-kicker">Контакты</p><span class="tn22-status" id="tn22Status">${statusClock}<span class="tn22-status-text"></span></span></div><h2>Ждём вас</h2><div class="tn22-contact-grid"><a class="tn22-contact" href="#tn13Visit" aria-disabled="true">${iconPin}<span><strong>Город, Адрес салона</strong><span>Адрес салона</span></span></a><a class="tn22-contact" href="#tn13Visit" aria-disabled="true">${iconPhone}<span><strong>Телефон салона</strong><span>Контакт будет добавлен</span></span></a><a class="tn22-contact" href="#tn13Visit" aria-disabled="true">${iconMessage}<span><strong>Мессенджер</strong><span>Контакт будет добавлен</span></span></a><div class="tn22-contact">${iconClock}<span><strong>График работы</strong><span>Уточняется</span></span></div></div><div class="tn22-mapwrap"><div class="tn22-map-skeleton">Загружаем карту…</div><iframe title="Карта SALON NAME" loading="lazy" src="about:blank"></iframe></div><div class="tn22-visit-actions"><a class="tn22-visit-btn tn22-call" href="#tn13Visit" aria-disabled="true">Позвонить</a><a class="tn22-visit-btn tn22-route" href="#tn13Visit" aria-disabled="true">Построить маршрут</a></div><a class="tn22-footer" href="https://tanem.ru/" target="_blank" rel="noopener"><strong>TANEM.ru</strong><span>Цифровой офис для салонов красоты</span></a></div>`;
+visit.innerHTML=`<div class="tn22-visit"><div class="tn22-visit-head"><p class="tn22-kicker">Контакты</p><span class="tn22-status" id="tn22Status">${statusClock}<span class="tn22-status-text"></span></span></div><h2>Ждём вас</h2><div class="tn22-contact-grid"><a class="tn22-contact" data-contact-type="address" href="#tn13Visit" aria-disabled="true">${iconPin}<span><strong>Город, Адрес салона</strong><span>Адрес салона</span></span></a><a class="tn22-contact" data-contact-type="phone" href="#tn13Visit" aria-disabled="true">${iconPhone}<span><strong>Телефон салона</strong><span>Контакт будет добавлен</span></span></a><a class="tn22-contact" data-contact-type="messenger" href="#tn13Visit" aria-disabled="true">${iconMessage}<span><strong>Мессенджер</strong><span>Контакт будет добавлен</span></span></a><div class="tn22-contact" data-contact-type="hours">${iconClock}<span><strong>График работы</strong><span>Уточняется</span></span></div></div><div class="tn22-mapwrap"><div class="tn22-map-skeleton">Загружаем карту…</div><iframe title="Карта SALON NAME" loading="lazy" src="about:blank"></iframe></div><div class="tn22-visit-actions"><a class="tn22-visit-btn tn22-call" href="#tn13Visit" aria-disabled="true">Позвонить</a><a class="tn22-visit-btn tn22-route" href="#tn13Visit" aria-disabled="true">Построить маршрут</a></div><a class="tn22-footer" href="https://tanem.ru/" target="_blank" rel="noopener"><strong>TANEM.ru</strong><span>Цифровой офис для салонов красоты</span></a></div>`;
 const map=visit.querySelector('.tn22-mapwrap'),iframe=map.querySelector('iframe');iframe.addEventListener('load',()=>map.classList.add('loaded'));setTimeout(()=>map.classList.add('loaded'),5000);
 function status(){const el=visit.querySelector('#tn22Status'),txt=el&&el.querySelector('.tn22-status-text');if(txt)txt.textContent='График работы';if(el)el.className='tn22-status';const hs=hero.querySelector('.tn50-hero-status');if(hs){const main=hs.querySelector('.tn50-hero-status-main'),sub=hs.querySelector('.tn50-hero-status-sub');if(main)main.textContent='График';if(sub)sub.textContent='Уточняется';hs.classList.remove('open','closed')}}status();
 
@@ -366,13 +472,13 @@ services.insertAdjacentElement('afterend',about);
       const groups=[];
       for(let i=0;i<reviewData.length;i+=3){const group=reviewData.slice(i,i+3);while(group.length<3)group.push(reviewData[(i+group.length)%reviewData.length]);groups.push(group)}
       const page=g=>`<div class="br-review-page">${g.map(card).join('')}</div>`;
-      const loop=[groups[groups.length-1],...groups,groups[0]];
+      const loop=[...groups,...groups,...groups];
       reviewsRoot.innerHTML=`<div class="br-reviews"><p class="tn22-kicker">Отзывы</p><h2>Что говорят о нас</h2><div class="br-score"><strong>—</strong><div class="br-stars">★★★★★</div><div class="br-count">Отзывы будут добавлены</div></div><div class="br-review-viewport"><div class="br-review-track">${loop.map(page).join('')}</div></div><a class="br-review-all" href="${REVIEW_URL}" aria-disabled="true">Смотреть все отзывы →</a></div>`;
 
       const viewport=reviewsRoot.querySelector('.br-review-viewport');
       const track=reviewsRoot.querySelector('.br-review-track');
-      let pageIndex=1,startX=0,startY=0,dx=0,dragging=false,moved=false,autoTimer=0,gestureAxis=null,capturedPointer=null;
       const total=groups.length;
+      let pageIndex=total,startX=0,startY=0,dx=0,dragging=false,moved=false,autoTimer=0,gestureAxis=null,capturedPointer=null;
       const gap=12;
       const metrics=()=>{
         const page=track.querySelector('.br-review-page');
@@ -392,11 +498,12 @@ services.insertAdjacentElement('afterend',about);
         },3200);
       };
       const normalize=()=>{
-        if(pageIndex===0){
-          pageIndex=total;
+        if(!total)return;
+        if(pageIndex>=total*2){
+          pageIndex-=total;
           paint(false);
-        }else if(pageIndex===total+1){
-          pageIndex=1;
+        }else if(pageIndex<total){
+          pageIndex+=total;
           paint(false);
         }
       };
@@ -445,7 +552,7 @@ services.insertAdjacentElement('afterend',about);
         gestureAxis=null;
         const {step}=metrics();
         if(moved&&Math.abs(dx)>Math.min(70,step*.16)) pageIndex+=dx<0?1:-1;
-        pageIndex=Math.max(0,Math.min(total+1,pageIndex));
+        pageIndex=Math.max(0,Math.min(total*3-1,pageIndex));
         dx=0;
         paint(true);
         if(!moved)schedule();
@@ -1158,4 +1265,4 @@ services.insertAdjacentElement('afterend',about);
 })();
 
 /* salon-template-cold-neutral-20260924 */
-(function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const lateCss=document.createElement('link');lateCss.id='salon-template-cold-neutral-20260924';lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=safe-clean-20260929-v1';document.head.appendChild(lateCss);const paletteCss=document.createElement('link');paletteCss.id='tanem-salon-palette-v2';paletteCss.rel='stylesheet';paletteCss.href='salon-palette.css?v=safe-clean-20260929-v1';document.head.appendChild(paletteCss);})();
+(function(){if(document.getElementById('salon-template-cold-neutral-20260924'))return;const lateCss=document.createElement('link');lateCss.id='salon-template-cold-neutral-20260924';lateCss.rel='stylesheet';lateCss.href='mobile-overrides.css?v=salon-20261003-v1';document.head.appendChild(lateCss);const paletteCss=document.createElement('link');paletteCss.id='tanem-salon-palette-v2';paletteCss.rel='stylesheet';paletteCss.href='salon-palette.css?v=salon-20261003-v2';document.head.appendChild(paletteCss);})();
