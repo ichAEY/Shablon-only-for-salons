@@ -552,8 +552,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
     --mobile-service-time-width:42px;
     --mobile-service-side-gap:5px;
   }
-  #salon-mobile #tn13Services .tn31-service-row,
-  #salon-mobile #tn13Services .tn31-service-row.tn31-service-demo{
+  #salon-mobile #tn13Services .tn31-service-row,#salon-mobile #tn13Services .tn31-service-row.tn31-service-demo{
     grid-template-columns:minmax(0,1fr) var(--mobile-service-side-width)!important;
     column-gap:7px!important;
   }
@@ -586,8 +585,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
     --mobile-service-time-width:40px;
     --mobile-service-side-gap:4px;
   }
-  #salon-mobile #tn13Services .tn31-service-row,
-  #salon-mobile #tn13Services .tn31-service-row.tn31-service-demo{
+  #salon-mobile #tn13Services .tn31-service-row,#salon-mobile #tn13Services .tn31-service-row.tn31-service-demo{
     column-gap:5px!important;
   }
 }
