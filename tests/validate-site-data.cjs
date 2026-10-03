@@ -114,9 +114,14 @@ function validateSiteData(data,{rootDir=process.cwd(),allowTestDomains=false}={}
     ['name','kind','city','address','fullAddress','heroDescription','about'].forEach(key=>local(data.salon[key],`salon.${key}`,{required:production}));
     if(production){
       for(const locale of requiredLocales){
+        const city=typeof data.salon.city==='object'?String(data.salon.city?.[locale]||'').trim():String(data.salon.city||'').trim();
         const display=typeof data.salon.address==='object'?String(data.salon.address?.[locale]||'').trim():String(data.salon.address||'').trim();
         const full=typeof data.salon.fullAddress==='object'?String(data.salon.fullAddress?.[locale]||'').trim():String(data.salon.fullAddress||'').trim();
         if(display&&full&&display===full&&full.length>35)add(`salon.address.${locale}`,'must be a shortened UI address; keep the complete value in salon.fullAddress');
+        const locationToken=value=>String(value||'').toLocaleLowerCase().replace(/^(?:г\.?|город|city)\s+/iu,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+        const cityToken=locationToken(city),addressToken=locationToken(display);
+        if(cityToken.length>=3&&addressToken&&(addressToken===cityToken||addressToken.startsWith(cityToken+' ')))
+          add(`salon.address.${locale}`,'must not repeat salon.city; keep only the short street/district part');
       }
     }
   }
