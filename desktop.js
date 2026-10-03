@@ -9,7 +9,7 @@
   const localized=(value,lang='ru')=>{
     if(value==null)return '';
     if(typeof value==='string')return value;
-    return value[lang]??value.ru??value.en??value.hy??'';
+    return value[lang]??value.ru??value.en??value.hy??value.kk??value.uz??value.tg??'';
   };
   const russian=value=>localized(value,'ru');
   const REGION=window.TANEM_REGION||{locales:['ru','en'],fallback:'ru',labels:{ru:'RU',en:'EN'},resolve:v=>['ru','en'].includes(v)?v:'ru',ui:()=>null,teamHeading:l=>l==='ru'?'Наша команда':'Our Team'};
@@ -676,8 +676,8 @@
   }
 
   function desktopDurationValue(raw){const m=String(raw||'').match(/\d+(?:[.,]\d+)?/);return m?m[0]:''}
-  function activeDesktopServiceLang(){const raw=(document.body.dataset.brLang||document.documentElement.lang||'en').toLowerCase();return raw.startsWith('ru')?'ru':raw.startsWith('hy')?'hy':'en'}
-  function desktopDurationLabel(raw,lang=activeDesktopServiceLang()){let v=desktopDurationValue(raw);if(!v)return '';v=lang==='ru'?v.replace('.',','):v.replace(',','.');const minutes=/(?:мин|minutes?|mins?)/i.test(String(raw||''));return v+(minutes?(lang==='hy'?' րոպե':lang==='en'?' min':' мин'):(lang==='hy'?' ժ.':lang==='en'?' h':' ч'))}
+  function activeDesktopServiceLang(){const raw=(document.body.dataset.brLang||document.documentElement.lang||'en').toLowerCase();return raw.startsWith('ru')?'ru':raw.startsWith('hy')?'hy':raw.startsWith('kk')?'kk':'en'}
+  function desktopDurationLabel(raw,lang=activeDesktopServiceLang()){let v=desktopDurationValue(raw);if(!v)return '';v=lang==='ru'?v.replace('.',','):v.replace(',','.');const minutes=/(?:мин|minutes?|mins?)/i.test(String(raw||''));return v+(minutes?(lang==='hy'?' րոպե':lang==='kk'?' мин':lang==='en'?' min':' мин'):(lang==='hy'?' ժ.':lang==='kk'?' сағ':lang==='en'?' h':' ч'))}
   function updateDesktopServiceDurations(lang=activeDesktopServiceLang()){document.querySelectorAll('#salonDesktopServices .dct-service-duration[data-duration]').forEach(el=>{el.textContent=desktopDurationLabel(el.dataset.duration,lang)})}
   window.addEventListener('salon-template:languagechange',e=>updateDesktopServiceDurations(e.detail&&e.detail.lang));
 
@@ -1294,7 +1294,7 @@
     ['Открыто','Բաց է','Open'],['Закрыто','Փակ է','Closed'],['Уточняется','Կավելացվի','To be added'],['Уточняется','Կավելացվի','To be added'],
     ['График работы','Աշխատանքային ժամեր','Opening hours'],['График работы','Աշխատանքային ժամեր','Opening hours']
   ];
-  const desktopLangIndex={ru:0,hy:1,en:2,uz:2,tg:2};
+  const desktopLangIndex={ru:0,hy:1,en:2,kk:2,uz:2,tg:2};
   const desktopDirect={};
   if(window.TANEM_SITE_DATA?.mode==='production')DESKTOP_I18N_ROWS.push(...(window.TANEM_SITE_I18N_ROWS||[]));
   DESKTOP_I18N_ROWS.forEach(row=>desktopDirect[row[0]]=row);
@@ -1310,17 +1310,17 @@
 
   function desktopDynamicTranslation(source,lang){
     const genericService=source.match(/^Услуга (\d+)$/);
-    if(genericService)return lang==='hy'?'Ծառայություն '+genericService[1]:lang==='en'?'Service '+genericService[1]:source;
+    if(genericService)return lang==='hy'?'Ծառայություն '+genericService[1]:lang==='kk'?'Қызмет '+genericService[1]:lang==='en'?'Service '+genericService[1]:source;
     let m=source.match(/^Показать ещё (\d+) (?:услугу|услуги|услуг)$/);
-    if(m)return lang==='hy'?'Ցույց տալ ևս '+m[1]+' ծառայություն':lang==='en'?'Show '+m[1]+' more services':source;
+    if(m)return lang==='hy'?'Ցույց տալ ևս '+m[1]+' ծառայություն':lang==='kk'?'Тағы '+m[1]+' қызмет көрсету':lang==='en'?'Show '+m[1]+' more services':source;
     m=source.match(/^Открыть ещё (\d+) (?:услугу|услуги|услуг)$/);
-    if(m)return lang==='hy'?'Բացել ևս '+m[1]+' ծառայություն':lang==='en'?'Show '+m[1]+' more services':source;
+    if(m)return lang==='hy'?'Բացել ևս '+m[1]+' ծառայություն':lang==='kk'?'Тағы '+m[1]+' қызмет көрсету':lang==='en'?'Show '+m[1]+' more services':source;
     m=source.match(/^Все категории · (\d+) позиций$/);
-    if(m)return lang==='hy'?'Բոլոր բաժինները · '+m[1]+' ծառայություն':lang==='en'?'All categories · '+m[1]+' services':source;
+    if(m)return lang==='hy'?'Բոլոր բաժինները · '+m[1]+' ծառայություն':lang==='kk'?'Барлық санаттар · '+m[1]+' қызмет':lang==='en'?'All categories · '+m[1]+' services':source;
     m=source.match(/^(.+) · (\d+) (?:услугу|услуги|услуг)$/);
     if(m){
       const row=desktopDirect[m[1]],cat=row?row[desktopLangIndex[lang]]:m[1];
-      return lang==='hy'?cat+' · '+m[2]+' ծառայություն':lang==='en'?cat+' · '+m[2]+' services':source;
+      return lang==='hy'?cat+' · '+m[2]+' ծառայություն':lang==='kk'?cat+' · '+m[2]+' қызмет':lang==='en'?cat+' · '+m[2]+' services':source;
     }
     return null;
   }
@@ -1333,11 +1333,11 @@
     const dyn=desktopDynamicTranslation(source,lang);
     return dyn===null?source:dyn;
   }
-  function desktopCanTranslate(source){return !!desktopDirect[source]||desktopDynamicTranslation(source,'ru')!==null||!!REGION.ui(source,'uz')||!!REGION.ui(source,'tg')}
+  function desktopCanTranslate(source){return !!desktopDirect[source]||desktopDynamicTranslation(source,'ru')!==null||!!REGION.ui(source,'kk')||!!REGION.ui(source,'uz')||!!REGION.ui(source,'tg')}
   function desktopSkipText(node){
     const el=node.parentElement;
     if(!el)return true;
-    if(el.closest('.std-lang-switch,.std-review-text'))return true;
+    if(el.closest('.std-lang-switch,.std-review-text,.std-header-brand-main,.std-logo,.dct-about-brand'))return true;
     return /^(SCRIPT|STYLE|NOSCRIPT)$/.test(el.tagName);
   }
   function translateDesktopTree(scope,lang=currentDesktopLang){
@@ -1356,7 +1356,8 @@
       }
       if(!canonical)return;
       const leading=(raw.match(/^\s*/)||[''])[0],trailing=(raw.match(/\s*$/)||[''])[0];
-      node.nodeValue=leading+desktopTrText(canonical,lang)+trailing;
+      const protectedTeam=(lang==='hy'||lang==='kk')&&el.closest('#salonDesktopTeam,.std-master-page');
+      node.nodeValue=leading+desktopTrText(canonical,protectedTeam?'en':lang)+trailing;
     });
   }
   function updateDesktopLangSwitcher(){
@@ -1380,7 +1381,7 @@
     document.body.dataset.brLang=currentDesktopLang;
     window.dispatchEvent(new CustomEvent('salon-template:languagechange',{detail:{lang:currentDesktopLang}}));
 
-    if(currentDesktopLang==='hy'&&SITE.mode==='template'){
+    if((currentDesktopLang==='hy'||currentDesktopLang==='kk')&&SITE.mode==='template'){
       // Headings and explanatory text use their ordinary HY translation; only specialties remain in English.
       const teamEnglish={
         nails:{name:'Nail Master',role:'Manicure · Pedicure',cat:'Nails'},
@@ -1403,8 +1404,9 @@
     const titles={ru:'SALON NAME — Город',hy:'SALON NAME — Քաղաք',en:'SALON NAME — City'};
     const productionSite=window.TANEM_SITE_DATA?.mode==='production'?window.TANEM_SITE_DATA:null;
     if(productionSite){
-      const localized=(value)=>typeof value==='string'?value:(value?.[currentDesktopLang]||value?.ru||'');
-      const name=localized(productionSite.salon?.name),city=localized(productionSite.salon?.city);
+      const localized=(value)=>typeof value==='string'?value:(value?.[currentDesktopLang]||value?.ru||value?.en||'');
+      const original=(value)=>typeof value==='string'?value:(value?.[productionSite.defaultLocale||'ru']||value?.ru||value?.en||'');
+      const name=productionSite.country==='KZ'?original(productionSite.salon?.name):localized(productionSite.salon?.name),city=localized(productionSite.salon?.city);
       document.title=name+(city?' — '+city:'');
     }else document.title=titles[currentDesktopLang]||titles.hy;
   }
