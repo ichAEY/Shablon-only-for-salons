@@ -87,7 +87,10 @@ def check(browser, width, height, mobile, language):
     visible = page.locator("body").inner_text()
     assert not re.search(r"SALON NAME|(?:Услуга|Service)\s+\d{2}\b", visible), (
         "Demo labels remain visible on a production page")
-    assert not errors, f"JavaScript errors: {errors}"
+    # Google Maps embed can emit this WebKit-only internal module error from its
+    # third-party frame. It is not produced by TANEM code and does not affect the map.
+    app_errors = [error for error in errors if 'Could not load "search_impl".' not in error]
+    assert not app_errors, f"JavaScript errors: {app_errors}"
     assert not failed_assets, f"Missing site assets: {failed_assets}"
     context.close()
     print(f"PASS {width}x{height}, {'touch' if mobile else 'desktop'}, {language}: customer data, cards and booking")
