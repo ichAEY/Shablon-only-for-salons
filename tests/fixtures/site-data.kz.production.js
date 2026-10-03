@@ -35,8 +35,8 @@
       messengerHandle:'@monroe_kz',
       mapUrl:'https://www.google.com/maps/search/?api=1&query=Almaty+Abay+150',
       mapEmbedUrl:'https://www.google.com/maps?q=Almaty+Abay+150&output=embed',
-      reviewsUrl:'https://example.com/reviews/monroe',
-      booking:[{type:'online',label:t('Онлайн-запись','Book online','Онлайн жазылу'),url:'https://example.com/book/monroe'}]
+      reviewsUrl:'https://2gis.kz/almaty',
+      booking:[{type:'online',label:t('Онлайн-запись','Book online','Онлайн жазылу'),url:'https://dikidi.net'}]
     },
     rating:{value:5,count:128},
     media:{
@@ -80,7 +80,7 @@
       text:{ru:'Керемет қызмет! Шебер өте мұқият жұмыс істеді.'},
       rating:5,
       source:{ru:'2GIS'},
-      url:'https://example.com/reviews/monroe/aigerim'
+      url:'https://2gis.kz/almaty'
     }]
   };
   const rows=[];
