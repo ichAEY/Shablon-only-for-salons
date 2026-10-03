@@ -309,11 +309,13 @@ def verify_mobile_category_rails(page, width: int):
         rail.classList.add('is-two');
         rail.innerHTML='<button class="tn31-cat">Ногти</button><button class="tn31-cat">Волосы</button>';
         const widths=[...rail.querySelectorAll('.tn31-cat')].map(b=>b.getBoundingClientRect().width);
+        const cs=getComputedStyle(rail);
         return {widths,overflow:rail.scrollWidth>rail.clientWidth+1,
-            available:rail.clientWidth,gap:parseFloat(getComputedStyle(rail).columnGap)};
+            available:rail.clientWidth,gap:parseFloat(cs.columnGap),
+            left:parseFloat(cs.paddingLeft),right:parseFloat(cs.paddingRight)};
     }""")
     if (two["overflow"] or abs(two["widths"][0]-two["widths"][1]) > 1.25
-        or abs(sum(two["widths"])+two["gap"]-two["available"]) > 2):
+        or abs(sum(two["widths"])+two["gap"]+two["left"]+two["right"]-two["available"]) > 2):
         raise AssertionError(f"{width}px: exactly two categories do not fill the rail evenly: {two}")
     service_rail.evaluate("rail => rail.classList.remove('is-two')")
 
