@@ -196,6 +196,26 @@
     if(!root)return;
     const salon=data.salon,contacts=data.contacts;
     setText('.std-header-brand-main,.std-logo,.dct-about-brand',text(salon.name,lang),root);
+    const desktopBrand=root.querySelector('.std-header-brand-main');
+    if(desktopBrand){
+      const cleanName=text(salon.name,lang).trim();
+      const fitDesktopBrand=()=>{
+        if(desktopBrand.textContent.trim()!==cleanName)return;
+        desktopBrand.style.removeProperty('font-size');
+        const nav=root.querySelector('.std-nav');
+        if(!nav)return;
+        const brandRect=desktopBrand.getBoundingClientRect(),navRect=nav.getBoundingClientRect();
+        const available=Math.max(0,navRect.left-brandRect.left-12);
+        const rendered=desktopBrand.scrollWidth;
+        const base=parseFloat(getComputedStyle(desktopBrand).fontSize)||31;
+        if(available>0&&rendered>available+1){
+          const fitted=Math.max(18,Math.floor(base*(available/rendered)*.96));
+          desktopBrand.style.setProperty('font-size',fitted+'px','important');
+        }
+      };
+      requestAnimationFrame(fitDesktopBrand);
+      if(document.fonts?.ready)document.fonts.ready.then(()=>requestAnimationFrame(fitDesktopBrand)).catch(()=>{});
+    }
     setText('.std-tagline',text(salon.heroDescription,lang),root);
     setText('.dct-about-kind',text(salon.kind,lang),root);
     setText('.dct-about-copy',text(salon.about,lang),root);
