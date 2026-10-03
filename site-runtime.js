@@ -12,16 +12,27 @@
   const text=(value,lang=currentLang())=>{
     if(value==null)return '';
     if(typeof value==='string')return value;
-    return value[lang]??value[data.defaultLocale||'ru']??value.ru??value.en??value.hy??'';
+    return value[lang]??value[data.defaultLocale||'ru']??value.ru??value.en??value.hy??value.kk??value.uz??value.tg??'';
   };
+  const protectedText=value=>{
+    if(value==null)return '';
+    if(typeof value==='string')return value;
+    return value[data.defaultLocale||'ru']??value.ru??value.en??value.hy??value.kk??value.uz??value.tg??'';
+  };
+  const brandText=(lang=currentLang())=>data.country==='KZ'?protectedText(data.salon?.name):text(data.salon?.name,lang);
+  const ui=(source,lang=currentLang(),english=source)=>REGION.ui?.(source,lang,english)??(lang==='en'?english:source);
   const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const isExternal=url=>/^(?:https?:|tg:|viber:|whatsapp:)/i.test(String(url||''));
   const phoneHref=()=>data.contacts.phone?'tel:'+String(data.contacts.phone).replace(/[^+\d]/g,''):'';
   const mapActionLabel=lang=>data.country==='RU'
-    ?(lang==='en'?'Open in Yandex Maps':lang==='hy'?'Բացել Yandex Maps-ում':'Открыть в Яндекс Картах')
-    :(lang==='en'?'Open in Google Maps':lang==='hy'?'Բացել Google Maps-ում':'Открыть в Google Maps');
-  const callActionLabel=lang=>lang==='en'?'Call':lang==='hy'?'Զանգահարել':'Позвонить';
-  const messageActionLabel=(lang,name)=>lang==='en'?'Message '+name:lang==='hy'?'Գրել '+name:'Написать в '+name;
+    ?(lang==='hy'?'Բացել Yandex Maps-ում':ui('Открыть в Яндекс Картах',lang,'Open in Yandex Maps'))
+    :(lang==='hy'?'Բացել Google Maps-ում':ui('Открыть в Google Maps',lang,'Open in Google Maps'));
+  const callActionLabel=lang=>lang==='hy'?'Զանգահարել':ui('Позвонить',lang,'Call');
+  const messageActionLabel=(lang,name)=>{
+    if(lang==='hy')return 'Գրել '+name;
+    if(lang==='kk')return name+' салонына жазу';
+    return lang==='en'?'Message '+name:'Написать в '+name;
+  };
   const setCardVisible=(node,visible)=>{
     if(!node)return;
     node.hidden=!visible;
@@ -63,13 +74,13 @@
   function bookingItems(lang){
     const items=(data.contacts.booking||[]).map(item=>({...item}));
     if(data.contacts.phone&&!items.some(item=>item.type==='phone')){
-      items.unshift({type:'phone',label:{ru:'Телефон',en:'Phone',hy:'Հեռախոս'},url:phoneHref()});
+      items.unshift({type:'phone',label:{ru:'Телефон',en:'Phone',hy:'Հեռախոս',kk:'Телефон'},url:phoneHref()});
     }
     if(data.contacts.messengerUrl&&!items.some(item=>item.type==='messenger')){
       items.push({type:'messenger',label:data.contacts.messengerLabel,url:data.contacts.messengerUrl});
     }
     if(data.contacts.mapUrl&&!items.some(item=>item.type==='map')){
-      items.push({type:'map',label:{ru:'Карты',en:'Map',hy:'Քարտեզ'},url:data.contacts.mapUrl});
+      items.push({type:'map',label:{ru:'Карты',en:'Map',hy:'Քարտեզ',kk:'Карта'},url:data.contacts.mapUrl});
     }
     const seen=new Set();
     return items.filter(item=>{
@@ -84,7 +95,7 @@
   function renderDesktopBooking(lang){
     const box=document.querySelector('#stdBookOverlay .std-book-options');
     if(!box)return;
-    const action=lang==='hy'?'Բացել →':lang==='en'?'Open →':'Открыть →';
+    const action=lang==='hy'?'Բացել →':lang==='kk'?'Ашу →':lang==='en'?'Open →':'Открыть →';
     box.innerHTML=bookingItems(lang).map(item=>
       `<a href="${esc(item.url)}"><span>${esc(item.localizedLabel)}</span><span>${action}</span></a>`
     ).join('');
@@ -127,8 +138,10 @@
     return {open:false,time:next?.open||''};
   }
   function statusCopy(state,lang){
-    if(!state)return {main:lang==='hy'?'Աշխատանքային ժամեր':lang==='en'?'Opening hours':'График',sub:text(data.schedule.fallback,lang),full:text(data.schedule.fallback,lang)};
-    const main=state.open?(lang==='hy'?'Բաց է մինչև':lang==='en'?'Open until':'Открыто до'):(lang==='hy'?'Փակ է մինչև':lang==='en'?'Closed until':'Закрыто до');
+    if(!state)return {main:lang==='hy'?'Աշխատանքային ժամեր':ui('График',lang,'Opening hours'),sub:text(data.schedule.fallback,lang),full:text(data.schedule.fallback,lang)};
+    const main=state.open
+      ?(lang==='hy'?'Բաց է մինչև':ui('Открыто до',lang,'Open until'))
+      :(lang==='hy'?'Փակ է մինչև':ui('Закрыто до',lang,'Closed until'));
     return {main,sub:state.time,full:(main+' '+state.time).trim()};
   }
   function applySchedule(lang){
@@ -164,8 +177,8 @@
     const value=Number(data.rating?.value);
     const count=Number(data.rating?.count)||0;
     const hasRating=Number.isFinite(value)&&value>0;
-    const countCopy=lang==='hy'?`${count} գնահատական`:lang==='en'?`${count} rating${count===1?'':'s'}`:`${count} оцен${count%10===1&&count%100!==11?'ка':count%10>=2&&count%10<=4&&(count%100<12||count%100>14)?'ки':'ок'}`;
-    const missing=lang==='hy'?'վարկանիշը նշված չէ':lang==='en'?'rating not specified':'рейтинг не указан';
+    const countCopy=lang==='hy'?`${count} գնահատական`:lang==='kk'?`${count} баға`:lang==='en'?`${count} rating${count===1?'':'s'}`:`${count} оцен${count%10===1&&count%100!==11?'ка':count%10>=2&&count%10<=4&&(count%100<12||count%100>14)?'ки':'ок'}`;
+    const missing=lang==='hy'?'վարկանիշը նշված չէ':lang==='kk'?'рейтинг көрсетілмеген':lang==='en'?'rating not specified':'рейтинг не указан';
     document.querySelectorAll('.dct-about-rating,.tn42-rating').forEach(node=>{
       const strong=node.querySelector('strong'),label=node.querySelector('span:last-child');
       if(strong)strong.textContent=hasRating?String(value).replace('.',','):'—';
@@ -182,9 +195,10 @@
     const reviews=data.reviews||[];
     if(reviews.length)document.querySelectorAll('#salonDesktopReviews .std-review-card').forEach((card,index)=>{
       const review=reviews[index%reviews.length];
-      setText('.std-review-name',text(review.author,lang),card);
-      setText('.std-review-text',text(review.text,lang),card);
-      setText('.std-review-meta',text(review.source,lang),card);
+      const preserve=data.country==='KZ';
+      setText('.std-review-name',preserve?protectedText(review.author):text(review.author,lang),card);
+      setText('.std-review-text',preserve?protectedText(review.text):text(review.text,lang),card);
+      setText('.std-review-meta',preserve?protectedText(review.source):text(review.source,lang),card);
       setLink(card,review.url||data.contacts.reviewsUrl,'#salonDesktopReviews');
     });
     const reviewsAll=document.querySelector('.std-reviews-all');
@@ -195,10 +209,10 @@
     const root=document.getElementById('salon-desktop-v1');
     if(!root)return;
     const salon=data.salon,contacts=data.contacts;
-    setText('.std-header-brand-main,.std-logo,.dct-about-brand',text(salon.name,lang),root);
+    setText('.std-header-brand-main,.std-logo,.dct-about-brand',brandText(lang),root);
     const desktopBrand=root.querySelector('.std-header-brand-main');
     if(desktopBrand){
-      const cleanName=text(salon.name,lang).trim();
+      const cleanName=brandText(lang).trim();
       const fitDesktopBrand=()=>{
         if(desktopBrand.textContent.trim()!==cleanName)return;
         desktopBrand.style.removeProperty('font-size');
@@ -230,7 +244,7 @@
     setCardVisible(phoneCard,!!contacts.phone);
     if(phoneCard&&contacts.phone){setText('.std-contact-card-title',contacts.phone,phoneCard);setText('.std-contact-card-sub',callActionLabel(lang),phoneCard);setLink(phoneCard,phoneHref(),'#salonDesktopContacts')}
     setCardVisible(messengerCard,!!contacts.messengerUrl);
-    if(messengerCard&&contacts.messengerUrl){setText('.std-contact-card-title',text(contacts.messengerLabel,lang),messengerCard);setText('.std-contact-card-sub',messageActionLabel(lang,text(salon.name,lang)),messengerCard);setLink(messengerCard,contacts.messengerUrl,'#salonDesktopContacts')}
+    if(messengerCard&&contacts.messengerUrl){setText('.std-contact-card-title',text(contacts.messengerLabel,lang),messengerCard);setText('.std-contact-card-sub',messageActionLabel(lang,brandText(lang)),messengerCard);setLink(messengerCard,contacts.messengerUrl,'#salonDesktopContacts')}
     const headerPhone=root.querySelector('.std-phone');
     const contactCall=root.querySelector('.std-contact-call');
     setCardVisible(headerPhone,!!contacts.phone);
@@ -246,14 +260,14 @@
     const heroImage=root.querySelector('#stdHeroMedia');
     if(heroImage&&hero){
       const src=typeof hero==='string'?hero:hero.src;
-      const alt=typeof hero==='string'?text(salon.name,lang):text(hero.alt,lang);
+      const alt=typeof hero==='string'?brandText(lang):text(hero.alt,lang);
       if(src)heroImage.src=src;
-      heroImage.alt=alt||text(salon.name,lang);
+      heroImage.alt=alt||brandText(lang);
     }
     const aboutImage=root.querySelector('.mct-about-portrait img');
     if(aboutImage&&data.media.about)aboutImage.src=data.media.about;
     const bookingAmenity=root.querySelector('.dct-about-amenities-grid article:last-child span');
-    if(bookingAmenity)bookingAmenity.textContent=lang==='hy'?'Գրանցումը հասանելի է հեռախոսով, մեսենջերով կամ առցանց։':lang==='en'?'Book by phone, messenger, or online.':'Запись доступна по телефону, в мессенджере или онлайн.';
+    if(bookingAmenity)bookingAmenity.textContent=lang==='hy'?'Գրանցումը հասանելի է հեռախոսով, մեսենջերով կամ առցանց։':lang==='kk'?'Телефон, мессенджер немесе онлайн арқылы жазылуға болады.':lang==='en'?'Book by phone, messenger, or online.':'Запись доступна по телефону, в мессенджере или онлайн.';
     renderDesktopBooking(lang);
   }
 
@@ -261,10 +275,10 @@
     const root=document.getElementById('salon-mobile');
     if(!root)return;
     const salon=data.salon,contacts=data.contacts;
-    setText('.tn22-title,.br-about-brand',text(salon.name,lang),root);
+    setText('.tn22-title,.br-about-brand',brandText(lang),root);
     const mobileTitle=root.querySelector('.tn22-title');
     if(mobileTitle){
-      const cleanName=text(salon.name,lang).trim();
+      const cleanName=brandText(lang).trim();
       const single=cleanName.length>0&&!/\s/u.test(cleanName);
       mobileTitle.classList.toggle('is-single-line',single);
       const baseMax=cleanName.length<=5?68:cleanName.length<=8?60:cleanName.length<=10?54:49;
@@ -288,22 +302,22 @@
     const location=root.querySelector('.tn37-location .tn37-info-copy');
     if(location)location.innerHTML='<strong>'+esc(text(salon.city,lang))+',</strong>'+esc(text(salon.address,lang));
     const galleryBrand=root.querySelector('.tn22-gallery-title span');
-    if(galleryBrand)galleryBrand.textContent=text(salon.name,lang);
-    setText('.tn22-master-brand',text(salon.name,lang),root);
+    if(galleryBrand)galleryBrand.textContent=brandText(lang);
+    setText('.tn22-master-brand',brandText(lang),root);
     const topBrand=root.querySelector('.tn22-brand');
     if(topBrand){
       const realLogo=data.mode==='production'&&data.media.logo&&!/logo-placeholder\.svg$/i.test(String(data.media.logo));
       if(realLogo){
         let brandImage=topBrand.querySelector('img');
         if(!brandImage){brandImage=document.createElement('img');topBrand.replaceChildren(brandImage)}
-        brandImage.src=data.media.logo;brandImage.alt=text(salon.name,lang);
-      }else topBrand.textContent=text(salon.name,lang);
+        brandImage.src=data.media.logo;brandImage.alt=brandText(lang);
+      }else topBrand.textContent=brandText(lang);
     }
     const heroImage=root.querySelector('.br-hero-video');
     const hero=data.media.hero?.[0];
     if(heroImage&&hero&&heroImage.tagName==='IMG'){heroImage.src=hero.src;heroImage.alt=text(hero.alt,lang)}
     const aboutImage=root.querySelector('#tn38About .tn42-photo img');
-    if(aboutImage&&data.media.about){aboutImage.src=data.media.about;aboutImage.alt=text(salon.name,lang)}
+    if(aboutImage&&data.media.about){aboutImage.src=data.media.about;aboutImage.alt=brandText(lang)}
     const addressCard=root.querySelector('#tn13Visit [data-contact-type="address"]');
     const phoneCard=root.querySelector('#tn13Visit [data-contact-type="phone"]');
     const messengerCard=root.querySelector('#tn13Visit [data-contact-type="messenger"]');
@@ -333,7 +347,7 @@
 
   function apply(){
     const lang=currentLang();
-    const name=text(data.salon.name,lang),city=text(data.salon.city,lang);
+    const name=brandText(lang),city=text(data.salon.city,lang);
     applyDesktop(lang);
     applyMobile(lang);
     applySchedule(lang);
