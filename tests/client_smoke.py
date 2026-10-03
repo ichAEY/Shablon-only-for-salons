@@ -91,6 +91,7 @@ def check(browser, width, height, mobile, language):
     # frame. Keep the filter narrow so TANEM application errors still fail the run.
     google_maps_frame_noise = (
         'Could not load "search_impl".',
+        'Could not load "util".',
         'maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true due to access control checks.',
     )
     app_errors = [error for error in errors if not any(token in error for token in google_maps_frame_noise)]
