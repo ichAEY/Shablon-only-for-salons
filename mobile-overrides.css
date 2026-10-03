@@ -417,6 +417,7 @@ html{background:linear-gradient(to bottom,#fafaf9 0%,#fafaf9 58%,#181818 100%)!i
     height:auto!important;
     object-fit:contain!important;
     object-position:left center!important;
+    transform:none!important;
   }
   #salon-mobile #tn13Top .tn22-title{
     box-sizing:border-box!important;
