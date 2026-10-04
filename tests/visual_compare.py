@@ -340,22 +340,19 @@ def verify_mobile_category_rails(page, width: int):
         or appearance["border"] != "1px" or appearance["radius"] != "14px"
         or appearance["borderColor"] != "rgb(198, 190, 181)"):
         raise AssertionError(f"{width}px: Esmeralda gallery capsule missing: {appearance}")
-    hints = page.locator("#tn13Gallery .tn22-gallery-tabs-wrap").evaluate("""wrap => {
-        const rail=wrap.querySelector('.tn22-gallery-tabs');
+    # Gallery category arrows/hints are intentionally absent in the approved UI.
+    # Keep horizontal scrolling functional without re-introducing visual controls.
+    if page.locator("#tn13Gallery .tn22-gallery-rail-hint").count() != 0:
+        raise AssertionError(f"{width}px: gallery category arrows/hints must remain absent")
+    overflow = gallery_tabs.evaluate("""rail => {
         const extra=document.createElement('button');
         extra.className='tn22-gallery-tab';
         extra.textContent='Очень длинная дополнительная категория';
         rail.appendChild(extra);
-        rail.scrollLeft=0;
-        rail.dispatchEvent(new Event('scroll'));
-        const right=wrap.querySelector('.tn22-gallery-rail-hint.right');
-        const left=wrap.querySelector('.tn22-gallery-rail-hint.left');
-        return {rightVisible:right.classList.contains('visible'),
-            leftVisible:left.classList.contains('visible'),
-            overflow:rail.scrollWidth>rail.clientWidth+1};
+        return {scrollWidth:rail.scrollWidth,clientWidth:rail.clientWidth};
     }""")
-    if not hints["overflow"] or not hints["rightVisible"] or hints["leftVisible"]:
-        raise AssertionError(f"{width}px: gallery overflow direction hints are not synchronized: {hints}")
+    if overflow["scrollWidth"] <= overflow["clientWidth"] + 1:
+        raise AssertionError(f"{width}px: gallery category rail cannot overflow horizontally: {overflow}")
 
     gallery_last = gallery_tabs.evaluate("""rail => {
         rail.scrollLeft=rail.scrollWidth;
