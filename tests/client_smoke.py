@@ -57,7 +57,7 @@ def check(browser, width, height, mobile, language):
     assert not team_section.is_hidden(), "Team is a permanent structural section"
     assert not reviews_section.is_hidden(), "Reviews are a permanent structural section"
     if not data["team"]:
-        placeholder_cards = page.locator("#salonDesktopTeam .std-master.is-placeholder" if desktop else "#tn13Team .tn22-master-card.is-placeholder")
+        placeholder_cards = page.locator("#salonDesktopTeam [data-placeholder-master]" if desktop else "#tn13Team [data-placeholder-mid]")
         assert placeholder_cards.count() == 4, "Empty team must preserve four neutral visual master cards"
         real_team_cards = page.locator("#salonDesktopTeam [data-desktop-master]" if desktop else "#tn13Team [data-mid]")
         assert real_team_cards.count() == 0, "Neutral team cards must not become invented specialists"

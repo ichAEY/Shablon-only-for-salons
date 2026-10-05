@@ -237,12 +237,12 @@
           <p class="std-team-subtitle">${TEAM_MASTERS.length?'Нажмите на мастера, чтобы открыть страницу специалиста.':'Команда салона'}</p>
           <div class="std-team-track" id="stdTeamTrack">
             ${DISPLAY_TEAM_MASTERS.map(master=>master.placeholder?`
-              <div class="std-master is-placeholder">
+              <button class="std-master" type="button" data-placeholder-master="${master.id}">
                 <div class="std-master-avatar">${teamAvatar(master)}</div>
                 <strong class="std-master-name">Мастер</strong>
                 <span class="std-master-role"></span>
                 <span class="std-master-cats"></span>
-              </div>
+              </button>
             `:`
               <button class="std-master" type="button" data-desktop-master="${master.id}">
                 <div class="std-master-avatar">${teamAvatar(master)}</div>
@@ -1155,13 +1155,8 @@
     return (master.cats||[]).flatMap(cat=>(SERVICE_DATA[cat]||[]).map(item=>({cat,item})));
   }
   function desktopMasterAbout(master){
-    const map={
-      nails:'Маникюр и педикюр. Аккуратная работа и внимание к деталям.',
-      hair:'Стрижки, окрашивание, укладки и уход за волосами.',
-      cosmetology:'Косметология и профессиональный уход за кожей.',
-      brows:'Брови и ресницы — форма, ламинирование и уход.'
-    };
-    return map[master.id]||'Описание специалиста.';
+    const copy=String(master.about||'').trim();
+    return copy||'Информация о мастере появится после подтверждения салоном.';
   }
   function paintDesktopMasterTab(){
     const target=masterPageContent.querySelector('.std-master-tab-content');
@@ -1184,7 +1179,7 @@
     }
   }
   function paintDesktopMaster(master){
-    masterPageContent.innerHTML='<div class="std-master-profile"><div class="std-master-avatar">'+TEAM_AVATAR+'</div><h2>'+master.name+'</h2><p>'+master.role+'</p><div class="std-master-profile-rating"><b>—</b> · Рейтинг не указан</div><div class="std-master-profile-cats">'+(master.cats||[]).map(cat=>'<span>'+cat+'</span>').join('')+'</div></div><div class="std-master-tabs">'+['Профиль','Услуги','Портфолио','Отзывы'].map(tab=>'<button type="button" data-master-tab="'+tab+'" class="'+(tab===activeDesktopMasterTab?'active':'')+'">'+tab+'</button>').join('')+'</div><div class="std-master-tab-content"></div>';
+    masterPageContent.innerHTML='<div class="std-master-profile"><div class="std-master-avatar">'+teamAvatar(master)+'</div><h2>'+master.name+'</h2><p>'+master.role+'</p><div class="std-master-profile-rating"><b>—</b> · Рейтинг не указан</div><div class="std-master-profile-cats">'+(master.cats||[]).map(cat=>'<span>'+cat+'</span>').join('')+'</div></div><div class="std-master-tabs">'+['Профиль','Услуги','Портфолио','Отзывы'].map(tab=>'<button type="button" data-master-tab="'+tab+'" class="'+(tab===activeDesktopMasterTab?'active':'')+'">'+tab+'</button>').join('')+'</div><div class="std-master-tab-content"></div>';
     masterPageContent.querySelectorAll('[data-master-tab]').forEach(btn=>btn.onclick=()=>{
       activeDesktopMasterTab=btn.dataset.masterTab;
       masterPageContent.querySelectorAll('[data-master-tab]').forEach(x=>x.classList.toggle('active',x===btn));
@@ -1205,8 +1200,9 @@
     activeDesktopMaster=null;
     if(!bookOverlay.classList.contains('open')&&!gallery.classList.contains('open')&&!galleryBrowser.classList.contains('open'))document.body.style.overflow='';
   }
-  document.querySelectorAll('[data-desktop-master]').forEach(btn=>btn.addEventListener('click',()=>{
-    const master=TEAM_MASTERS.find(item=>item.id===btn.dataset.desktopMaster);
+  document.querySelectorAll('[data-desktop-master],[data-placeholder-master]').forEach(btn=>btn.addEventListener('click',()=>{
+    const id=btn.dataset.desktopMaster||btn.dataset.placeholderMaster;
+    const master=DISPLAY_TEAM_MASTERS.find(item=>item.id===id);
     if(master)openDesktopMaster(master);
   }));
   masterPageClose.addEventListener('click',closeDesktopMaster);

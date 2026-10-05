@@ -34,7 +34,7 @@ def check_desktop(browser):
     assert page.locator("#stdServiceList .dct-service-card").count() == 3
     assert not page.locator("#salonDesktopTeam").is_hidden()
     expect_text(page.locator("#salonDesktopTeam .std-team-subtitle"), "Команда салона", "desktop empty team state")
-    assert page.locator("#salonDesktopTeam .std-master.is-placeholder").count() == 4, "desktop empty team must keep four visual master cards"
+    assert page.locator("#salonDesktopTeam [data-placeholder-master]").count() == 4, "desktop empty team must keep four visual master cards"
     assert page.locator("#salonDesktopPortfolio").is_hidden()
     expect_text(page.locator(".std-reviews-score strong"), "5", "desktop rating")
     expect_text(page.locator(".std-review-meta").first, "Google", "desktop review source")
@@ -123,7 +123,7 @@ def check_mobile(browser):
     page.wait_for_timeout(120)
     assert page.locator("#tn13Services .tn31-service-row").count() == 3
     assert not page.locator("#tn13Team").is_hidden()
-    assert page.locator("#tn13Team .tn22-master-card.is-placeholder").count() == 4, "mobile empty team must keep four visual master cards"
+    assert page.locator("#tn13Team [data-placeholder-mid]").count() == 4, "mobile empty team must keep four visual master cards"
     assert page.locator("#tn13Portfolio").is_hidden()
     assert page.locator("#tn13Reviews .br-review-card").count() >= 3
     expect_text(page.locator("#tn13Reviews .br-review-meta span").first, "Google", "mobile review source")
