@@ -133,6 +133,10 @@ assert(!runtime.includes("node.hidden=!hasTeam"),'team must remain a permanent s
 assert(!mobile.includes("team.hidden=!MASTERS.length"),'mobile team must stay visible without real team data');
 assert(mobile.includes('DISPLAY_MASTERS=MASTERS.length?MASTERS:Array.from({length:4}'),'mobile empty team must render four neutral system cards');
 assert(desktop.includes('DISPLAY_TEAM_MASTERS=TEAM_MASTERS.length?TEAM_MASTERS:Array.from({length:4}'),'desktop empty team must render four neutral system cards');
+assert(mediaRules.includes('Если отдельный hero-файл не передан'),'salon rules must require automatic hero selection from real gallery/source photos');
+assert(mediaRules.includes('Если отдельный profile-файл не передан'),'salon rules must require automatic About-photo selection from real gallery/source photos');
+assert(mobile.includes('data-placeholder-mid')&&mobile.includes('DISPLAY_MASTERS.find'),'mobile neutral master cards must remain clickable and open the detail shell');
+assert(desktop.includes('data-placeholder-master')&&desktop.includes('DISPLAY_TEAM_MASTERS.find'),'desktop neutral master cards must remain clickable and open the detail shell');
 assert(!runtime.includes("desktopBrand.classList.add('has-logo')"),'desktop header must remain text even when a client logo exists');
 assert(runtime.includes('Открыть в Яндекс Картах')&&runtime.includes('Открыть в Google Maps'),'runtime must select the map action label by country');
 assert(mobile.includes('const loop=[...groups,...groups,...groups]'),'mobile reviews must use a circular triple-buffer loop');
