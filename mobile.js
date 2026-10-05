@@ -353,7 +353,7 @@ if(document.fonts&&document.fonts.ready)
 renderServices();
 
 // TEAM + TEAM SHEET
-const team=$('#tn13Team');team.hidden=false;team.innerHTML=`<div class="tn22-team"><p class="tn22-kicker">Наша команда</p><h2>Мастера своего дела</h2><div class="tn22-team-grid">${DISPLAY_MASTERS.map(m=>m.placeholder?`<button class="tn22-master-card is-placeholder" type="button" data-placeholder-mid="${m.id}"><span class="tn22-master-circle">${masterAvatar(m)}</span><strong class="tn22-master-name">Мастер</strong><span class="tn22-master-role"></span></button>`:`<button class="tn22-master-card" type="button" data-mid="${m.id}"><span class="tn22-master-circle">${masterAvatar(m)}</span><strong class="tn22-master-name">${m.name}</strong><span class="tn22-master-role">${m.role}</span></button>`).join('')}</div><div class="tn42-team-hint">Листайте <span>→</span></div></div>`;
+const team=$('#tn13Team');team.hidden=false;team.innerHTML=`<div class="tn22-team"><p class="tn22-kicker">Наша команда</p><h2>Мастера своего дела</h2><div class="tn22-team-grid">${DISPLAY_MASTERS.map(m=>m.placeholder?`<button class="tn22-master-card" type="button" data-placeholder-mid="${m.id}"><span class="tn22-master-circle">${masterAvatar(m)}</span><strong class="tn22-master-name">Мастер</strong><span class="tn22-master-role"></span></button>`:`<button class="tn22-master-card" type="button" data-mid="${m.id}"><span class="tn22-master-circle">${masterAvatar(m)}</span><strong class="tn22-master-name">${m.name}</strong><span class="tn22-master-role">${m.role}</span></button>`).join('')}</div><div class="tn42-team-hint">Листайте <span>→</span></div></div>`;
 const teamSheet=document.createElement('div');teamSheet.className='tn22-team-sheet';root.appendChild(teamSheet);
 
 // MASTER PAGE
