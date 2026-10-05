@@ -438,10 +438,3 @@ html[data-br-device="mobile"] #salon-mobile .tn22-viewer .tn22-viewer-count{
     line-height:1.1!important;
   }
 }
-
-/* Empty-team cards remain neutral but always open the specialist detail shell. */
-#salonDesktopTeam .std-master.is-placeholder,
-#salon-mobile #tn13Team .tn22-master-card.is-placeholder{
-  cursor:pointer!important;
-  pointer-events:auto!important;
-}
