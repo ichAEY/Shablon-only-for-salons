@@ -237,7 +237,7 @@
           <p class="std-team-subtitle">${TEAM_MASTERS.length?'Нажмите на мастера, чтобы открыть страницу специалиста.':'Команда салона'}</p>
           <div class="std-team-track" id="stdTeamTrack">
             ${DISPLAY_TEAM_MASTERS.map(master=>master.placeholder?`
-              <button class="std-master is-placeholder" type="button" data-placeholder-master="${master.id}">
+              <button class="std-master" type="button" data-placeholder-master="${master.id}">
                 <div class="std-master-avatar">${teamAvatar(master)}</div>
                 <strong class="std-master-name">Мастер</strong>
                 <span class="std-master-role"></span>
