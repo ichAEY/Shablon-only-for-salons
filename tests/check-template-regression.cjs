@@ -84,6 +84,9 @@ function verifyTemplate(){
       // 03.10.2026 owner-approved deltas. Keep the exception surface limited
       // to the exact UI families changed in the new salon contract.
       if(name==="mobile.js"){
+        // Approved 08.10.2026: the floating nav no longer animates vertically.
+        // Protect it with the positive/negative invariants in check-factory-contract.cjs.
+        if(/^\.tn23-section-nav(?:\.visible)?$/.test(selector))return false;
         const approvedMobile=[
           /^#salon-mobile #tn13Top \.tn22-(?:top|brand|brand img|title|title\.is-single-line|sub)$/,
           /^#salon-mobile #tn13Gallery(?:\.(?:open|closing))?(?:$| \.tn22-gallery-(?:tabs-wrap|tabs|tab|tabs::-[\w-]+|rail-hint|rail-hint\.visible|rail-hint\.left|rail-hint\.right))/,

@@ -141,4 +141,20 @@ assert(!runtime.includes("desktopBrand.classList.add('has-logo')"),'desktop head
 assert(runtime.includes('Открыть в Яндекс Картах')&&runtime.includes('Открыть в Google Maps'),'runtime must select the map action label by country');
 assert(mobile.includes('const loop=[...groups,...groups,...groups]'),'mobile reviews must use a circular triple-buffer loop');
 
+// Floating navigation after Hero — mobile must never animate or scroll vertically.
+const mobileNavCss=fs.readFileSync(path.join(root,'mobile.css'),'utf8');
+const navCss=mobileNavCss.match(/\.tn23-section-nav\{([^}]+)\}\.tn23-section-nav\.visible\{([^}]+)\}/);
+assert(navCss,'fixed mobile section navigation and its visible state must exist');
+const hiddenNav=navCss[1],shownNav=navCss[2];
+assert(/position:fixed/.test(hiddenNav)&&/top:0/.test(hiddenNav),'mobile floating navigation must be fixed at viewport top');
+assert(/overflow-x:auto/.test(hiddenNav)&&/overflow-y:hidden/.test(hiddenNav),'mobile floating navigation must scroll horizontally only');
+assert(/opacity:0/.test(hiddenNav)&&/visibility:hidden/.test(hiddenNav),'hidden floating nav must be opacity/visibility controlled');
+assert(/opacity:1/.test(shownNav)&&/visibility:visible/.test(shownNav),'shown floating nav must be opacity/visibility controlled');
+assert(!/transform|translateY|top\s*:/.test(shownNav),'visible nav must not change vertical position');
+assert(!/transform|translateY/.test(hiddenNav),'legacy vertical nav transition must be removed from base CSS');
+assert(!/scrollIntoView\s*\(/.test(mobile),'mobile must not use scrollIntoView on any nav buttons');
+assert(mobile.includes("sectionNav.scrollBy({left:delta,top:0,behavior:'smooth'})"),'active section must move the menu horizontally only');
+assert(mobile.includes('heroEdge-32')&&mobile.includes('heroEdge+8'),'Hero threshold hysteresis must prevent flicker');
+assert(mediaRules.includes('Обязательное поведение верхнего плавающего меню после Hero'),'RULES.md must retain the approved nav behavior');
+
 console.log('PASS: schema, release blockers, unified services, and wide-touch routing are enforced');

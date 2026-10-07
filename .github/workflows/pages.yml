@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Configure Node.js
         uses: actions/setup-node@v4
@@ -40,12 +42,15 @@ jobs:
             echo "Template mode: Pages deployment is intentionally skipped."
           fi
 
+      - name: Validate factory and approved UI behavior
+        run: |
+          node tests/check-factory-contract.cjs
+          node tests/check-template-regression.cjs
+
       - name: Validate production contract
         if: steps.site_mode.outputs.production == 'true'
         run: |
           node tests/validate-site-data.cjs --production
-          node tests/check-factory-contract.cjs
-          node tests/check-template-regression.cjs
 
       - name: Build safe Pages artifact
         if: steps.site_mode.outputs.production == 'true'
