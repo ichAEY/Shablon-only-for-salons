@@ -1138,7 +1138,7 @@ services.insertAdjacentElement('afterend',about);
     sw.className='br-lang-switch';
     sw.setAttribute('role','group');
     sw.setAttribute('aria-label','Language');
-    var order=REGION.locales.includes('hy')?['hy','ru','en']:REGION.locales;
+    var order=REGION.locales.includes('hy')?['ru','hy','en']:REGION.locales;
     sw.innerHTML=order.map(function(lang,index){return (index?'<span class="sep">/</span>':'')+'<button type="button" data-lang="'+lang+'">'+REGION.labels[lang]+'</button>'}).join('');
     sw.addEventListener('pointerdown',function(e){e.stopPropagation();});
     sw.addEventListener('click',function(e){
